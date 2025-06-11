@@ -1,76 +1,48 @@
-// Tailwind + ShadCN React Landing Page for Pal
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My View of World</title>
+    
+</head>
+<body>
+    <header>
+        <div>
+            <a href="./about.html">About Me</a>
+            <a href="./Contact.html">Let's Get in Touch</a>
+        </div>
+    </header>
 
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+    <main>
+        <h2>Resume</h2>
+        <hr/>
 
-export default function LandingPage() {
-  return (
-    <div className="min-h-screen bg-gray-100 text-gray-800">
-      {/* Header */}
-      <header className="bg-gray-900 text-white px-6 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-semibold">Pal</h1>
-        <nav className="space-x-4">
-          <a href="/about" className="text-yellow-400 hover:underline">
-            About Me
-          </a>
-          <a href="/contact" className="text-yellow-400 hover:underline">
-            Let's Get in Touch
-          </a>
-        </nav>
-      </header>
+        <h2>My Big Ideas</h2>
+        <ul>
+            <li>
+                <h3>Privacy on the Internet Must Be a Right of Every Human</h3>
+                <p>
+                    Big corporations store and analyze our data, then target us with ads or content that benefits their profits instead of our well-being.
+                    This imbalance in power and transparency needs to be addressed by policy, awareness, and product design.
+                </p>
+            </li>
+        </ul>
+        <hr/>
 
-      {/* Main Content */}
-      <main className="max-w-4xl mx-auto py-12 px-6">
-        <section className="mb-12">
-          <h2 className="text-3xl font-bold text-blue-700 mb-4">Resume</h2>
-          <hr className="mb-4 border-blue-300" />
-        </section>
+        <h3>Credit Card and Debt Cycle</h3>
+        <p>
+            We are encouraged to use credit cards for convenience. But over time, that ease turns into habit—and soon, a cycle of overspending and debt begins. Even when we pay our bills, the loop continues.
+        </p>
+        <p>
+            There's no doubt technology has improved our lives, but society hasn't done enough to teach people how to use these tools responsibly. Some learn the hard way and grow wiser; others fall too deep and lose hope, stuck in debt.
+        </p>
+        <p>
+            Unfortunately, for corporations, profit is often the only goal.
+        </p>
+    </main>
 
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-blue-700 mb-6">My Big Ideas</h2>
-          <Card className="mb-6">
-            <CardContent className="p-6">
-              <h3 className="text-xl font-semibold text-green-700 mb-2">
-                Privacy on the Internet Must Be a Right of Every Human
-              </h3>
-              <p>
-                Big corporations store and analyze our data, then target us with ads
-                or content that benefits their profits instead of our well-being. This
-                imbalance in power and transparency needs to be addressed by policy,
-                awareness, and product design.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <h3 className="text-xl font-semibold text-green-700 mb-2">
-                Credit Card and Debt Cycle
-              </h3>
-              <p className="mb-3">
-                We are encouraged to use credit cards for convenience. But over time,
-                that ease turns into habit—and soon, a cycle of overspending and debt
-                begins. Even when we pay our bills, the loop continues.
-              </p>
-              <p className="mb-3">
-                There's no doubt technology has improved our lives, but society hasn't
-                done enough to teach people how to use these tools responsibly. Some
-                learn the hard way and grow wiser; others fall too deep and lose hope,
-                stuck in debt.
-              </p>
-              <p>
-                Unfortunately, for corporations, profit is often the only goal.
-              </p>
-            </CardContent>
-          </Card>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white text-center py-6">
-        <h3 className="text-lg">Thank you for taking the time to read</h3>
-      </footer>
-    </div>
-  );
-}
+    <footer>
+        <h3>Thank you for taking the time to read</h3>
+    </footer>
+</body>
+</html>
