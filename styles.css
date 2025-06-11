@@ -11,12 +11,23 @@ body {
 header {
     background-color: #589fe6;
     color: white;
-    padding: 20px 40px;
+    padding: 20px;
+    margin-top: 40px;
     display: flex;
     text-align: center;
     justify-content: space-between;
     align-items: center;
 }
+
+/* Footer */
+footer {
+    background-color: #589fe6;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
 /* 
 .nav-links a {
     color: #ffc107;
@@ -54,11 +65,3 @@ p {
     line-height: 1.6;
 }
 
-/* Footer */
-footer {
-    background-color: #589fe6;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-}
