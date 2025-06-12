@@ -1,65 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>My View of World</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <link href="/src/styles.css" rel="stylesheet">
-    <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My View of the World</title>
 
-    </style>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+  <!-- Custom Styles -->
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa;
+      color: #212529;
+    }
+
+    footer h5 {
+      font-weight: 600;
+    }
+
+    .navbar-brand {
+      font-weight: 600;
+    }
+
+    main h2, main h3 {
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="alert alert-info" role="alert">
-        A simple primary alert—check it out!
-    </div>
 
-    <nav class="nav nav-pills nav-fill">
-        
-    </nav>
-    <nav class="navbar bg-body-tertiary">
-       <div class="container-fluid">
-         <a class="navbar-brand" href="#">
-           <alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-             My World View
-             </a>
-             <a class="nav-link " aria-current="page" href="./about.html">About Me</a>
-        <a class="nav-link " aria-current="page" href="./contact.html">Let's get in touch</a>
-      </div>
-</nav>
+  <!-- Top Alert -->
+  <div class="alert alert-info text-center rounded-0 mb-0" role="alert">
+    A simple alert — check it out!
+  </div>
 
-    <main class="py-4">
-        <h2>Resume</h2>
-        <hr/>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="./index.html">My View of the World</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <h2>My Big Ideas</h2>
-        <ul>
-            <li>
-                <h3>Privacy on the Internet Must Be a Right of Every Human</h3>
-                <p>
-                    Big corporations store and analyze our data, then target us with ads or content that benefits their profits instead of our well-being.
-                    This imbalance in power and transparency needs to be addressed by policy, awareness, and product design.
-                </p>
-            </li>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="./about.html">About Me</a></li>
+          <li class="nav-item"><a class="nav-link" href="./Contact.html">Let's Get in Touch</a></li>
         </ul>
-        <hr/>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+          <button class="btn btn-light" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
 
-        <h3>Credit Card and Debt Cycle</h3>
+  <!-- Main Content -->
+  <main class="container py-5">
+    <h2 class="mb-4">My Big Ideas</h2>
+    <ul class="list-unstyled">
+      <li>
+        <h3>Privacy on the Internet Must Be a Right of Every Human</h3>
         <p>
-            We are encouraged to use credit cards for convenience. But over time, that ease turns into habit—and soon, a cycle of overspending and debt begins. Even when we pay our bills, the loop continues.
+          Big corporations store and analyze our data, then target us with ads or content that benefits their profits
+          instead of our well-being. This imbalance in power and transparency needs to be addressed by policy, awareness,
+          and product design.
         </p>
-        <p>
-            There's no doubt technology has improved our lives, but society hasn't done enough to teach people how to use these tools responsibly. Some learn the hard way and grow wiser; others fall too deep and lose hope, stuck in debt.
-        </p>
-        <p>
-            Unfortunately, for corporations, profit is often the only goal.
-        </p>
-    </main>
+      </li>
+    </ul>
 
-    <footer class="py-4">
-        <h3>Thank you for taking the time to read</h3>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+    <hr class="my-4" />
+
+    <h3>Credit Card and Debt Cycle</h3>
+    <p>
+      We are encouraged to use credit cards for convenience. But over time, that ease turns into habit—and soon, a cycle of
+      overspending and debt begins. Even when we pay our bills, the loop continues.
+    </p>
+    <p>
+      There's no doubt technology has improved our lives, but society hasn't done enough to teach people how to use these
+      tools responsibly. Some learn the hard way and grow wiser; others fall too deep and lose hope, stuck in debt.
+    </p>
+    <p>Unfortunately, for corporations, profit is often the only goal.</p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white pt-5 pb-4">
+    <div class="container">
+      <div class="row">
+
+        <!-- About -->
+        <div class="col-md-4 mb-4">
+          <h5>About This Site</h5>
+          <p>
+            Sharing perspectives on technology, privacy, finance, and the future. Built for curious minds and conscious readers.
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div class="col-md-4 mb-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white text-decoration-none">Home</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Articles</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+            <li><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <!-- Social -->
+        <div class="col-md-4 mb-4">
+          <h5>Follow Me</h5>
+          <a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="text-white me-3"><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="text-white me-3"><i class="bi bi-github"></i></a>
+          <a href="#" class="text-white"><i class="bi bi-envelope"></i></a>
+        </div>
+      </div>
+
+      <hr class="bg-secondary" />
+      <div class="text-center">
+        &copy; 2025 My View of the World. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+    crossorigin="anonymous"></script>
+
 </body>
 </html>
