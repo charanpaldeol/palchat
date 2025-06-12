@@ -30,12 +30,17 @@
       font-weight: 600;
     }
 
-    main h2, main h3 {
+    main h2,
+    main h3 {
       font-weight: 600;
     }
 
     footer a:hover {
       text-decoration: underline;
+    }
+
+    .hero {
+      background-color: #e9ecef;
     }
   </style>
 </head>
@@ -71,31 +76,40 @@
   </nav>
 
   <!-- Main Content -->
-  <main class="container py-5">
-    <h2 class="mb-4">My Big Ideas</h2>
-    <ul class="list-unstyled">
-      <li>
-        <h3>Privacy on the Internet Must Be a Right of Every Human</h3>
-        <p>
-          Big corporations store and analyze our data, then target us with ads or content that benefits their profits
-          instead of our well-being. This imbalance in power and transparency needs to be addressed by policy, awareness,
-          and product design.
-        </p>
-      </li>
-    </ul>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero text-center py-5 mb-5">
+      <div class="container">
+        <h1 class="display-4 fw-bold mb-3">Welcome to My View of the World</h1>
+        <p class="lead mb-4">Thoughts on technology, privacy and finance from a personal perspective.</p>
+        <a href="./about.html" class="btn btn-primary btn-lg">Learn More</a>
+      </div>
+    </section>
 
-    <hr class="my-4" />
+    <!-- Ideas Section -->
+    <section class="container pb-5">
+      <h2 class="mb-4">My Big Ideas</h2>
 
-    <h3>Credit Card and Debt Cycle</h3>
-    <p>
-      We are encouraged to use credit cards for convenience. But over time, that ease turns into habit—and soon, a cycle of
-      overspending and debt begins. Even when we pay our bills, the loop continues.
-    </p>
-    <p>
-      There's no doubt technology has improved our lives, but society hasn't done enough to teach people how to use these
-      tools responsibly. Some learn the hard way and grow wiser; others fall too deep and lose hope, stuck in debt.
-    </p>
-    <p>Unfortunately, for corporations, profit is often the only goal.</p>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h3 class="card-title">Privacy on the Internet Must Be a Right of Every Human</h3>
+              <p class="card-text">Big corporations store and analyze our data, then target us with ads or content that benefits their profits
+                instead of our well-being. This imbalance in power and transparency needs to be addressed by policy, awareness, and product design.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h3 class="card-title">Credit Card and Debt Cycle</h3>
+              <p class="card-text">We are encouraged to use credit cards for convenience. But over time, that ease turns into habit—and soon, a cycle of overspending and debt begins. Even when we pay our bills, the loop continues. There's no doubt technology has improved our lives, but society hasn't done enough to teach people how to use these tools responsibly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Footer -->
