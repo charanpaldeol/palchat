@@ -1,5 +1,6 @@
 :root {
   --primary-color: #0d6efd;
+  --primary-rgb: 13, 110, 253;
   --accent-color: #b81c1c;
   --background-color: #f8f9fa;
   --text-color: #212529;
@@ -18,7 +19,7 @@ body {
 /* Header */
 header {
   background-color: var(--primary-color);
-  color: white;
+  color: #fff;
   padding: 20px;
   margin-top: 40px;
   display: flex;
@@ -30,7 +31,7 @@ header {
 /* Footer */
 footer {
   background-color: var(--primary-color);
-  color: white;
+  color: #fff;
   text-align: center;
   padding: 20px;
   margin-top: 40px;
@@ -83,7 +84,7 @@ p {
 
 /* Hero section enhancements */
 .hero-section {
-  background-image: linear-gradient(rgba(2, 21, 194, 0.623), rgba(13, 110, 253, 0.8)), url('#');
+  background-image: linear-gradient(rgba(var(--primary-rgb), 0.623), rgba(var(--primary-rgb), 0.8)), url('#');
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -133,20 +134,20 @@ p {
 
 /* Glass-style Footer */
 .glass-footer {
-  background: rgba(2, 21, 194, 0.623);
+  background: rgba(var(--primary-rgb), 0.623);
   /* semi-transparent dark */
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   /* Safari support */
-  color: white;
-  border-top: 1px solid rgba(2, 21, 194, 0.623);
+  color: #fff;
+  border-top: 1px solid rgba(var(--primary-rgb), 0.623);
   border-radius: 0 0 20px 20px;
   /* optional rounded bottom */
-  box-shadow: #0d6efd 0px 0px 10px 0px;
+  box-shadow: var(--primary-color) 0px 0px 10px 0px;
 }
 
 .glass-footer a {
-  color: white;
+  color: #fff;
   text-decoration: none;
   transition: color 0.2s ease;
 }
