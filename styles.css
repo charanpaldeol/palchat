@@ -137,3 +137,9 @@ p {
 .glass-footer hr {
   border-color: rgba(32, 30, 30, 0.15);
 }
+
+img {
+  max-height: 100%;
+  object-fit: cover;
+}
+
