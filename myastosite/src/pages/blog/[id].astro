@@ -509,20 +509,19 @@ if (!post) {
       
       const commentElement = document.createElement('div');
       commentElement.className = 'p-4 bg-gray-50 rounded-lg';
-      commentElement.innerHTML = `
-        <div class="flex items-start gap-3">
-          <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-            <span class="text-sm font-medium text-gray-600">A</span>
-          </div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 mb-1">
-              <span class="font-medium text-gray-900">Anonymous</span>
-              <span class="text-sm text-gray-500">${new Date().toLocaleDateString()}</span>
-            </div>
-            <p class="text-gray-700">${commentText}</p>
-          </div>
-        </div>
-      `;
+      commentElement.innerHTML = 
+        '<div class="flex items-start gap-3">' +
+          '<div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">' +
+            '<span class="text-sm font-medium text-gray-600">A</span>' +
+          '</div>' +
+          '<div class="flex-1">' +
+            '<div class="flex items-center gap-2 mb-1">' +
+              '<span class="font-medium text-gray-900">Anonymous</span>' +
+              '<span class="text-sm text-gray-500">' + new Date().toLocaleDateString() + '</span>' +
+            '</div>' +
+            '<p class="text-gray-700">' + commentText + '</p>' +
+          '</div>' +
+        '</div>';
       
       commentsList.insertBefore(commentElement, commentsList.firstChild);
       commentTextEl.value = '';
@@ -533,43 +532,42 @@ if (!post) {
       const commentsList = document.getElementById('comments-list');
       if (!commentsList) return;
       
-      commentsList.innerHTML = `
-        <div class="p-4 bg-gray-50 rounded-lg">
-          <div class="flex items-start gap-3">
-            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-              <span class="text-sm font-medium text-gray-600">A</span>
-            </div>
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-1">
-                <span class="font-medium text-gray-900">Anonymous</span>
-                <span class="text-sm text-gray-500">2025-01-19</span>
-              </div>
-              <p class="text-gray-700">Great post! I completely agree with the privacy-first approach.</p>
-            </div>
-          </div>
-        </div>
-        <div class="p-4 bg-gray-50 rounded-lg">
-          <div class="flex items-start gap-3">
-            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-              <span class="text-sm font-medium text-gray-600">A</span>
-            </div>
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-1">
-                <span class="font-medium text-gray-900">Anonymous</span>
-                <span class="text-sm text-gray-500">2025-01-18</span>
-              </div>
-              <p class="text-gray-700">This is exactly what I've been looking for. No accounts, no tracking!</p>
-            </div>
-          </div>
-        </div>
-      `;
+      commentsList.innerHTML = 
+        '<div class="p-4 bg-gray-50 rounded-lg">' +
+          '<div class="flex items-start gap-3">' +
+            '<div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">' +
+              '<span class="text-sm font-medium text-gray-600">A</span>' +
+            '</div>' +
+            '<div class="flex-1">' +
+              '<div class="flex items-center gap-2 mb-1">' +
+                '<span class="font-medium text-gray-900">Anonymous</span>' +
+                '<span class="text-sm text-gray-500">2025-01-19</span>' +
+              '</div>' +
+              '<p class="text-gray-700">Great post! I completely agree with the privacy-first approach.</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="p-4 bg-gray-50 rounded-lg">' +
+          '<div class="flex items-start gap-3">' +
+            '<div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">' +
+              '<span class="text-sm font-medium text-gray-600">A</span>' +
+            '</div>' +
+            '<div class="flex-1">' +
+              '<div class="flex items-center gap-2 mb-1">' +
+                '<span class="font-medium text-gray-900">Anonymous</span>' +
+                '<span class="text-sm text-gray-500">2025-01-18</span>' +
+              '</div>' +
+              '<p class="text-gray-700">This is exactly what I\'ve been looking for. No accounts, no tracking!</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
     }
 
     // Share functions
     function shareViaLink() {
       if (!currentPostId) return;
       
-      const url = `${window.location.origin}/blog/${currentPostId}`;
+      const url = window.location.origin + '/blog/' + currentPostId;
       if (navigator.clipboard) {
         navigator.clipboard.writeText(url).then(() => {
           alert('Link copied to clipboard!');
@@ -601,10 +599,10 @@ if (!post) {
     function shareViaEmail() {
       if (!currentPostId) return;
       
-      const url = `${window.location.origin}/blog/${currentPostId}`;
+      const url = window.location.origin + '/blog/' + currentPostId;
       const subject = 'Check out this privacy-first blog post';
-      const body = `I found this interesting post on PalChat: ${url}`;
-      window.open(`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+      const body = 'I found this interesting post on PalChat: ' + url;
+      window.open('mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body));
       closeShareModal();
     }
 
