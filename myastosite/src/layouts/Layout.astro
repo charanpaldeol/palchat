@@ -44,28 +44,39 @@ const { title, description = "Personal blog exploring technology, privacy and fi
       </div>
     </div>
 
-    <!-- Navbar -->
-    <nav class="sticky top-0 bg-white bg-opacity-80 backdrop-blur-sm shadow-sm">
-      <div class="container mx-auto px-4 py-2">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center">
-            <img src="/assets/palchatlogo.png" alt="Site Logo" class="w-12 h-12 mr-2" />
-            <a href="/" class="text-xl font-semibold text-gray-800">My View of the World</a>
-          </div>
-          
-          <div class="hidden md:flex items-center space-x-6">
-            <a href="/about" class="text-gray-600 hover:text-gray-900">About Me</a>
-            <a href="/contact" class="text-gray-600 hover:text-gray-900">Let's Get in Touch</a>
-            <div class="relative">
-              <input type="search" placeholder="Search" class="pl-3 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    <!-- Cursor-style Navbar -->
+    <nav class="sticky top-0 z-30 w-full bg-white/90 backdrop-blur shadow-sm rounded-b-xl">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <!-- Left: Logo and Links -->
+          <div class="flex items-center gap-8">
+            <a href="/" class="flex items-center gap-2">
+              <img src="/assets/palchatlogo.png" alt="Site Logo" class="w-10 h-10 rounded" />
+              <span class="text-xl font-bold text-gray-900 tracking-tight">My View of the World</span>
+            </a>
+            <div class="hidden md:flex gap-6 ml-4">
+              <a href="/about" class="text-gray-700 hover:text-blue-600 font-medium transition">About</a>
+              <a href="/contact" class="text-gray-700 hover:text-blue-600 font-medium transition">Contact</a>
             </div>
           </div>
-          
-          <button class="md:hidden p-2" aria-label="Menu">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
+          <!-- Right: Actions -->
+          <div class="flex items-center gap-2">
+            <a href="#" class="hidden md:inline-block px-4 py-2 rounded-lg text-gray-700 font-medium hover:bg-gray-100 transition">Sign in</a>
+            <a href="#" class="inline-block px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 transition">Download</a>
+            <!-- Hamburger -->
+            <button id="navbar-toggle" class="md:hidden ml-2 p-2 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Open menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden mt-2 rounded-lg bg-white shadow-lg border border-gray-100">
+          <a href="/about" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">About</a>
+          <a href="/contact" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">Contact</a>
+          <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">Sign in</a>
+          <a href="#" class="block px-4 py-2 text-blue-600 font-semibold hover:bg-blue-50">Download</a>
         </div>
       </div>
     </nav>
