@@ -429,8 +429,8 @@ if (!post) {
     </div>
   </div>
 
-  <script>
-    let currentPostId = {post.id};
+  <script define:vars={{ postId: post.id }}>
+    let currentPostId = postId;
     let bookmarkedPosts = JSON.parse(localStorage.getItem('bookmarkedPosts') || '[]');
 
     // Update bookmark button state
