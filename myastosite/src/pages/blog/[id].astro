@@ -1,11 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-// Get the blog post ID from the URL
-const { id } = Astro.params;
-
-// In a real implementation, this would come from a database
-// For now, we'll use static data to demonstrate the features
+// Define the blog posts data
 const blogPosts = [
   {
     id: 1,
@@ -192,13 +188,16 @@ const blogPosts = [
   }
 ];
 
-// Find the blog post by ID
-const post = blogPosts.find(p => p.id === parseInt(id));
-
-// If post doesn't exist, redirect to blog listing
-if (!post) {
-  return Astro.redirect('/blog');
+// Generate static paths for each blog post
+export async function getStaticPaths() {
+  return blogPosts.map((post) => ({
+    params: { id: post.id.toString() },
+    props: { post }
+  }));
 }
+
+// Get the blog post from props
+const { post } = Astro.props;
 ---
 
 <Layout title={`${post.title} - PalChat Blog`}>
