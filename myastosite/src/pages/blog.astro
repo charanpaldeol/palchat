@@ -255,7 +255,7 @@ const categories = [
 
         <!-- Load More Button -->
         <div class="text-center mt-12">
-          <button class="px-8 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-colors">
+          <button id="load-more-btn" class="px-8 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-colors">
             Load More Posts
           </button>
         </div>
@@ -443,12 +443,12 @@ const categories = [
     // Update bookmark buttons
     function updateBookmarkButtons() {
       document.querySelectorAll('.bookmark-btn').forEach(btn => {
-        const postId = btn.dataset.postId;
+        const postId = parseInt(btn.dataset.postId);
         const svg = btn.querySelector('svg');
-        if (bookmarkedPosts.includes(parseInt(postId))) {
+        if (svg && bookmarkedPosts.includes(postId)) {
           svg.classList.add('text-blue-600');
           svg.classList.remove('text-gray-400');
-        } else {
+        } else if (svg) {
           svg.classList.remove('text-blue-600');
           svg.classList.add('text-gray-400');
         }
@@ -456,50 +456,151 @@ const categories = [
     }
 
     // New Post Modal
-    document.getElementById('new-post-btn').addEventListener('click', () => {
-      document.getElementById('new-post-modal').classList.remove('hidden');
+    document.addEventListener('DOMContentLoaded', function() {
+      const newPostBtn = document.getElementById('new-post-btn');
+      if (newPostBtn) {
+        newPostBtn.addEventListener('click', () => {
+          const modal = document.getElementById('new-post-modal');
+          if (modal) modal.classList.remove('hidden');
+        });
+      }
+
+      // Bookmarks Modal
+      const bookmarksBtn = document.getElementById('bookmarks-btn');
+      if (bookmarksBtn) {
+        bookmarksBtn.addEventListener('click', () => {
+          const modal = document.getElementById('bookmarks-modal');
+          if (modal) {
+            modal.classList.remove('hidden');
+            loadBookmarks();
+          }
+        });
+      }
+
+      // Word count and reading time
+      const postContent = document.getElementById('post-content');
+      if (postContent) {
+        postContent.addEventListener('input', function() {
+          const text = this.value.trim();
+          const words = text === '' ? 0 : text.split(/\s+/).length;
+          const readingTime = Math.max(1, Math.ceil(words / 200)); // Minimum 1 min read
+          
+          const wordCountEl = document.getElementById('word-count');
+          const readTimeEl = document.getElementById('read-time');
+          
+          if (wordCountEl) wordCountEl.textContent = `${words} words`;
+          if (readTimeEl) readTimeEl.textContent = `${readingTime} min read`;
+        });
+      }
+
+      // Category filtering
+      document.querySelectorAll('.category-filter').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const category = this.dataset.category;
+          
+          // Update active button
+          document.querySelectorAll('.category-filter').forEach(b => {
+            b.classList.remove('bg-blue-100', 'text-blue-800');
+            b.classList.add('bg-gray-100', 'text-gray-700');
+          });
+          this.classList.remove('bg-gray-100', 'text-gray-700');
+          this.classList.add('bg-blue-100', 'text-blue-800');
+          
+          // Filter posts
+          document.querySelectorAll('.post-card').forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Search functionality
+      const searchInput = document.getElementById('search-posts');
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          const searchTerm = this.value.toLowerCase();
+          
+          document.querySelectorAll('.post-card').forEach(card => {
+            const titleEl = card.querySelector('h2');
+            const excerptEl = card.querySelector('p');
+            const tagEls = card.querySelectorAll('.text-xs');
+            
+            const title = titleEl ? titleEl.textContent.toLowerCase() : '';
+            const excerpt = excerptEl ? excerptEl.textContent.toLowerCase() : '';
+            const tags = Array.from(tagEls).map(tag => tag.textContent.toLowerCase());
+            
+            const matches = title.includes(searchTerm) || 
+                           excerpt.includes(searchTerm) || 
+                           tags.some(tag => tag.includes(searchTerm));
+            
+            card.style.display = matches ? 'block' : 'none';
+          });
+        });
+      }
+
+      // Load more button
+      const loadMoreBtn = document.getElementById('load-more-btn');
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', loadMorePosts);
+      }
+
+      // Initialize
+      updateBookmarkButtons();
     });
 
     function closeNewPostModal() {
-      document.getElementById('new-post-modal').classList.add('hidden');
+      const modal = document.getElementById('new-post-modal');
+      if (modal) modal.classList.add('hidden');
     }
 
-    // Bookmarks Modal
-    document.getElementById('bookmarks-btn').addEventListener('click', () => {
-      document.getElementById('bookmarks-modal').classList.remove('hidden');
-      loadBookmarks();
-    });
-
     function closeBookmarksModal() {
-      document.getElementById('bookmarks-modal').classList.add('hidden');
+      const modal = document.getElementById('bookmarks-modal');
+      if (modal) modal.classList.add('hidden');
     }
 
     // Comments Modal
     function showComments(postId) {
       currentPostId = postId;
-      document.getElementById('comments-modal').classList.remove('hidden');
-      loadComments(postId);
+      const modal = document.getElementById('comments-modal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        loadComments(postId);
+      }
     }
 
     function closeCommentsModal() {
-      document.getElementById('comments-modal').classList.add('hidden');
+      const modal = document.getElementById('comments-modal');
+      if (modal) modal.classList.add('hidden');
     }
 
     // Share Modal
     function sharePost(postId) {
       currentPostId = postId;
-      document.getElementById('share-modal').classList.remove('hidden');
+      const modal = document.getElementById('share-modal');
+      if (modal) modal.classList.remove('hidden');
     }
 
     function closeShareModal() {
-      document.getElementById('share-modal').classList.add('hidden');
+      const modal = document.getElementById('share-modal');
+      if (modal) modal.classList.add('hidden');
     }
 
     // Like Post
     function likePost(postId) {
       const likesElement = document.getElementById(`likes-${postId}`);
-      const currentLikes = parseInt(likesElement.textContent);
+      if (!likesElement) return;
+      
+      const currentLikes = parseInt(likesElement.textContent) || 0;
       likesElement.textContent = currentLikes + 1;
+      
+      // Add visual feedback
+      likesElement.classList.add('text-red-500');
+      setTimeout(() => {
+        likesElement.classList.remove('text-red-500');
+      }, 500);
       
       const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '[]');
       if (!likedPosts.includes(postId)) {
@@ -510,27 +611,49 @@ const categories = [
 
     // Bookmark Post
     document.addEventListener('click', (e) => {
-      if (e.target.closest('.bookmark-btn')) {
-        const btn = e.target.closest('.bookmark-btn');
-        const postId = parseInt(btn.dataset.postId);
+      const bookmarkBtn = e.target.closest('.bookmark-btn');
+      if (bookmarkBtn) {
+        const postId = parseInt(bookmarkBtn.dataset.postId);
+        if (isNaN(postId)) return;
         
-        if (bookmarkedPosts.includes(postId)) {
+        const svg = bookmarkBtn.querySelector('svg');
+        const wasBookmarked = bookmarkedPosts.includes(postId);
+        
+        if (wasBookmarked) {
           bookmarkedPosts = bookmarkedPosts.filter(id => id !== postId);
+          if (svg) {
+            svg.classList.remove('text-blue-600');
+            svg.classList.add('text-gray-400');
+          }
+          // Show unbookmarked feedback
+          bookmarkBtn.classList.add('scale-95');
+          setTimeout(() => bookmarkBtn.classList.remove('scale-95'), 200);
         } else {
           bookmarkedPosts.push(postId);
+          if (svg) {
+            svg.classList.add('text-blue-600');
+            svg.classList.remove('text-gray-400');
+          }
+          // Show bookmarked feedback
+          bookmarkBtn.classList.add('scale-110');
+          setTimeout(() => bookmarkBtn.classList.remove('scale-110'), 200);
         }
         
         localStorage.setItem('bookmarkedPosts', JSON.stringify(bookmarkedPosts));
-        updateBookmarkButtons();
       }
     });
 
     // Add Comment
     function addComment() {
-      const commentText = document.getElementById('comment-text').value;
-      if (!commentText.trim()) return;
+      const commentTextEl = document.getElementById('comment-text');
+      if (!commentTextEl) return;
+      
+      const commentText = commentTextEl.value.trim();
+      if (!commentText) return;
 
       const commentsList = document.getElementById('comments-list');
+      if (!commentsList) return;
+      
       const commentElement = document.createElement('div');
       commentElement.className = 'p-4 bg-gray-50 rounded-lg';
       commentElement.innerHTML = `
@@ -549,12 +672,14 @@ const categories = [
       `;
       
       commentsList.insertBefore(commentElement, commentsList.firstChild);
-      document.getElementById('comment-text').value = '';
+      commentTextEl.value = '';
     }
 
     // Load Comments (mock data)
     function loadComments(postId) {
       const commentsList = document.getElementById('comments-list');
+      if (!commentsList) return;
+      
       commentsList.innerHTML = `
         <div class="p-4 bg-gray-50 rounded-lg">
           <div class="flex items-start gap-3">
@@ -590,6 +715,8 @@ const categories = [
     // Load Bookmarks
     function loadBookmarks() {
       const bookmarksList = document.getElementById('bookmarks-list');
+      if (!bookmarksList) return;
+      
       if (bookmarkedPosts.length === 0) {
         bookmarksList.innerHTML = `
           <div class="text-center py-8">
@@ -602,24 +729,128 @@ const categories = [
         return;
       }
 
-      // In a real app, you'd fetch the actual post data
-      bookmarksList.innerHTML = `
-        <div class="p-4 bg-gray-50 rounded-lg">
-          <p class="text-gray-600">Bookmarked posts will appear here. Currently showing ${bookmarkedPosts.length} bookmarked posts.</p>
+      // Show actual bookmarked posts
+      const bookmarkedPostsData = [
+        {
+          id: 1,
+          title: "Why Privacy-First Communication Matters",
+          excerpt: "In a world where every app wants your data, we're building something different...",
+          date: "2025-01-19",
+          readTime: "3 min read"
+        },
+        {
+          id: 2,
+          title: "The Problem with Account-Based Platforms",
+          excerpt: "Why requiring accounts creates barriers to genuine communication...",
+          date: "2025-01-18",
+          readTime: "5 min read"
+        },
+        {
+          id: 3,
+          title: "Built for Moments, Not Memories",
+          excerpt: "Some conversations are meant to be temporary, and that's perfectly okay...",
+          date: "2025-01-17",
+          readTime: "4 min read"
+        }
+      ];
+
+      const filteredPosts = bookmarkedPostsData.filter(post => bookmarkedPosts.includes(post.id));
+      
+      if (filteredPosts.length === 0) {
+        bookmarksList.innerHTML = `
+          <div class="text-center py-8">
+            <p class="text-gray-500">No bookmarked posts found.</p>
+          </div>
+        `;
+        return;
+      }
+
+      bookmarksList.innerHTML = filteredPosts.map(post => `
+        <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <h3 class="font-semibold text-gray-900 mb-2">${post.title}</h3>
+              <p class="text-gray-600 text-sm mb-2">${post.excerpt}</p>
+              <div class="flex items-center gap-4 text-xs text-gray-500">
+                <span>${post.date}</span>
+                <span>•</span>
+                <span>${post.readTime}</span>
+              </div>
+            </div>
+            <button onclick="removeBookmark(${post.id})" class="ml-4 p-1 text-gray-400 hover:text-red-500 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
         </div>
-      `;
+      `).join('');
+    }
+
+    // Remove bookmark
+    function removeBookmark(postId) {
+      bookmarkedPosts = bookmarkedPosts.filter(id => id !== postId);
+      localStorage.setItem('bookmarkedPosts', JSON.stringify(bookmarkedPosts));
+      updateBookmarkButtons();
+      loadBookmarks();
+    }
+
+    // Load more posts functionality
+    function loadMorePosts() {
+      const loadMoreBtn = document.getElementById('load-more-btn');
+      if (loadMoreBtn) {
+        loadMoreBtn.textContent = 'Loading...';
+        loadMoreBtn.disabled = true;
+      }
+
+      // Simulate loading delay
+      setTimeout(() => {
+        // In a real app, this would fetch more posts from the server
+        alert('Load more functionality would fetch additional posts from the server in a real implementation.');
+        
+        if (loadMoreBtn) {
+          loadMoreBtn.textContent = 'Load More Posts';
+          loadMoreBtn.disabled = false;
+        }
+      }, 1000);
     }
 
     // Share functions
     function shareViaLink() {
+      if (!currentPostId) return;
+      
       const url = `${window.location.origin}/blog/${currentPostId}`;
-      navigator.clipboard.writeText(url).then(() => {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => {
+          alert('Link copied to clipboard!');
+          closeShareModal();
+        }).catch(() => {
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = url;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          alert('Link copied to clipboard!');
+          closeShareModal();
+        });
+      } else {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = url;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
         alert('Link copied to clipboard!');
         closeShareModal();
-      });
+      }
     }
 
     function shareViaEmail() {
+      if (!currentPostId) return;
+      
       const url = `${window.location.origin}/blog/${currentPostId}`;
       const subject = 'Check out this privacy-first blog post';
       const body = `I found this interesting post on PalChat: ${url}`;
@@ -637,11 +868,24 @@ const categories = [
     function submitPost(event) {
       event.preventDefault();
       
-      const title = document.getElementById('post-title').value;
-      const content = document.getElementById('post-content').value;
-      const category = document.getElementById('post-category').value;
-      const tags = document.getElementById('post-tags').value;
-      const expiration = document.getElementById('post-expiration').value;
+      const titleEl = document.getElementById('post-title');
+      const contentEl = document.getElementById('post-content');
+      const categoryEl = document.getElementById('post-category');
+      const tagsEl = document.getElementById('post-tags');
+      const expirationEl = document.getElementById('post-expiration');
+      
+      if (!titleEl || !contentEl || !categoryEl || !tagsEl || !expirationEl) return;
+      
+      const title = titleEl.value.trim();
+      const content = contentEl.value.trim();
+      const category = categoryEl.value;
+      const tags = tagsEl.value.trim();
+      const expiration = expirationEl.value;
+
+      if (!title || !content) {
+        alert('Please fill in both title and content');
+        return;
+      }
 
       // In a real app, this would be sent to a server
       console.log('New post submitted:', { title, content, category, tags, expiration });
@@ -651,59 +895,11 @@ const categories = [
       
       // Reset form
       event.target.reset();
-      document.getElementById('word-count').textContent = '0 words';
-      document.getElementById('read-time').textContent = '0 min read';
+      const wordCountEl = document.getElementById('word-count');
+      const readTimeEl = document.getElementById('read-time');
+      if (wordCountEl) wordCountEl.textContent = '0 words';
+      if (readTimeEl) readTimeEl.textContent = '0 min read';
     }
-
-    // Word count and reading time
-    document.getElementById('post-content').addEventListener('input', function() {
-      const words = this.value.trim().split(/\s+/).length;
-      const readingTime = Math.ceil(words / 200); // Average reading speed
-      
-      document.getElementById('word-count').textContent = `${words} words`;
-      document.getElementById('read-time').textContent = `${readingTime} min read`;
-    });
-
-    // Category filtering
-    document.querySelectorAll('.category-filter').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const category = this.dataset.category;
-        
-        // Update active button
-        document.querySelectorAll('.category-filter').forEach(b => {
-          b.classList.remove('bg-blue-100', 'text-blue-800');
-          b.classList.add('bg-gray-100', 'text-gray-700');
-        });
-        this.classList.remove('bg-gray-100', 'text-gray-700');
-        this.classList.add('bg-blue-100', 'text-blue-800');
-        
-        // Filter posts
-        document.querySelectorAll('.post-card').forEach(card => {
-          if (category === 'all' || card.dataset.category === category) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-    });
-
-    // Search functionality
-    document.getElementById('search-posts').addEventListener('input', function() {
-      const searchTerm = this.value.toLowerCase();
-      
-      document.querySelectorAll('.post-card').forEach(card => {
-        const title = card.querySelector('h2').textContent.toLowerCase();
-        const excerpt = card.querySelector('p').textContent.toLowerCase();
-        const tags = Array.from(card.querySelectorAll('.text-xs')).map(tag => tag.textContent.toLowerCase());
-        
-        const matches = title.includes(searchTerm) || 
-                       excerpt.includes(searchTerm) || 
-                       tags.some(tag => tag.includes(searchTerm));
-        
-        card.style.display = matches ? 'block' : 'none';
-      });
-    });
 
     // Close modals when clicking outside
     document.addEventListener('click', (e) => {
@@ -721,7 +917,15 @@ const categories = [
       }
     });
 
-    // Initialize
-    updateBookmarkButtons();
+    // Handle keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      // Escape key closes modals
+      if (e.key === 'Escape') {
+        closeNewPostModal();
+        closeCommentsModal();
+        closeShareModal();
+        closeBookmarksModal();
+      }
+    });
   </script>
 </Layout> 
