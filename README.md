@@ -1,9 +1,35 @@
-# PalChat Website
+# My View of the World
 
-This repository contains a simple static website sharing perspectives on technology, privacy and finance. The pages are written in plain HTML with a small amount of CSS for styling.
+A personal blog exploring technology, privacy, and finance from an independent perspective.
 
-## Running Locally
-Open `index.html` in your browser to view the site. No build step is required.
+## Tech Stack
 
-## SEO Notes
-The project now includes `robots.txt` and `sitemap.xml` to help search engines index the site correctly. Update the URLs in those files if you deploy the site under a different domain.
+- [Astro](https://astro.build) - Static Site Generator
+- [Tailwind CSS](https://tailwindcss.com) - Utility-first CSS framework
+- [TypeScript](https://www.typescriptlang.org) - Type-safe JavaScript
+
+## Development
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   cd myastosite
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:4321](http://localhost:4321) in your browser
+
+## Building for Production
+
+```bash
+npm run build
+```
+
+The built files will be in the `dist` directory.
+
+## License
+
+See [LICENSE](LICENSE) file for details.

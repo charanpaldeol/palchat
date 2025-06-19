@@ -1,19 +1,75 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-                <meta name="viewport" content="width=device-width" />
-                <meta name="description" content="Personal blog exploring technology, privacy and finance from an independent perspective." />
-                <meta name="keywords" content="technology, privacy, finance, personal blog, digital economy" />
-                <meta name="author" content="PalChat" />
-                <meta name="generator" content={Astro.generator} />
-                <title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="My View of the World">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-blue-50 to-indigo-50 py-16 mb-12">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Welcome to My View of the World</h1>
+      <p class="text-xl text-gray-700 mb-8">
+        Thoughts on technology, privacy and finance from a personal perspective.
+      </p>
+      <a href="/about" class="inline-block bg-white px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 text-gray-900 font-semibold">
+        About
+      </a>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container mx-auto px-4">
+    <section class="bg-white rounded-2xl shadow-lg p-8 mb-12">
+      <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Signals from the Mind</h2>
+
+      <!-- First Article -->
+      <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-md overflow-hidden mb-12">
+        <div class="md:flex">
+          <div class="md:flex-shrink-0 md:w-1/2">
+            <img src="https://placehold.co/800x600?text=Your+Data" class="h-full w-full object-cover" alt="Illustration of targeted ads built from your profile data" />
+          </div>
+          <div class="p-8">
+            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Your Data, Their Profit</h3>
+            <div class="prose prose-lg text-gray-600">
+              <p>
+                Big tech companies track and exploit your personal data to boost their profits—not your well-being.
+                That's not an exaggeration—it's how the system is designed.
+              </p>
+              <p>
+                Still not clear what that means? Imagine this: a massive company that millions use every day can read
+                your emails, access your personal habits, and use that information to tailor ads that hit you when
+                you're most vulnerable.
+              </p>
+              <p>
+                Let's say you just slammed the brakes hard in your car. Moments later, you see an insurance ad pop up
+                on your phone. Coincidence? Not likely. They know you're shaken—and that's a perfect time to sell.
+                Your real-life stress becomes a profit opportunity.
+              </p>
+            </div>
+            <a href="#" class="inline-block mt-6 text-blue-600 hover:text-blue-800 font-medium">Read More →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Article -->
+      <div class="bg-gradient-to-br from-gray-50 to-white rounded-xl shadow-md overflow-hidden">
+        <div class="md:flex">
+          <div class="md:flex-shrink-0 md:w-1/2">
+            <img src="https://placehold.co/800x600?text=Credit+Card" class="h-full w-full object-cover" alt="Credit card debt concept" />
+          </div>
+          <div class="p-8">
+            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Credit Card and Debt Cycle</h3>
+            <div class="prose prose-lg text-gray-600">
+              <p>
+                We are encouraged to use credit cards for convenience. But over time, that ease turns into habit—and
+                soon, a cycle of overspending and debt begins. Even when we pay our bills, the loop continues. There's no
+                doubt technology has improved our lives, but society hasn't done enough to teach people how to use these
+                tools responsibly.
+              </p>
+            </div>
+            <a href="#" class="inline-block mt-6 text-blue-600 hover:text-blue-800 font-medium">Read More →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
