@@ -1,83 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { blogPosts } from '../data/blogPosts.js';
 
 // In a real implementation, this would come from a database
 // For now, we'll use static data to demonstrate the features
-const blogPosts = [
-  {
-    id: 1,
-    title: "Why Privacy-First Communication Matters",
-    excerpt: "In a world where every app wants your data, we're building something different...",
-    content: "Privacy isn't just a feature—it's the foundation of trust. When we built PalChat, we started with a simple question: what if you could communicate freely without the burden of profiles, passwords, or personal data collection?",
-    author: "Anonymous",
-    authorId: "anon_1",
-    date: "2025-01-19",
-    likes: 42,
-    comments: 8,
-    tags: ["privacy", "communication", "technology"],
-    category: "privacy",
-    readTime: "3 min read",
-    wordCount: 450,
-    expiresAt: null, // null means permanent
-    isAnonymous: true,
-    shareCount: 15
-  },
-  {
-    id: 2,
-    title: "The Problem with Account-Based Platforms",
-    excerpt: "Why requiring accounts creates barriers to genuine communication...",
-    content: "Every time you're asked to create an account, you're being asked to give up something: your time, your data, your privacy. But what if the best conversations happen when there are no barriers?",
-    author: "Anonymous",
-    authorId: "anon_2",
-    date: "2025-01-18",
-    likes: 28,
-    comments: 12,
-    tags: ["accounts", "barriers", "communication"],
-    category: "technology",
-    readTime: "5 min read",
-    wordCount: 750,
-    expiresAt: "2025-02-18", // expires in 30 days
-    isAnonymous: true,
-    shareCount: 8
-  },
-  {
-    id: 3,
-    title: "Built for Moments, Not Memories",
-    excerpt: "Some conversations are meant to be temporary, and that's perfectly okay...",
-    content: "Not every conversation needs to be saved forever. Some of the most meaningful exchanges happen in the moment, without the pressure of creating a permanent digital footprint.",
-    author: "Anonymous",
-    authorId: "anon_3",
-    date: "2025-01-17",
-    likes: 35,
-    comments: 6,
-    tags: ["moments", "temporary", "conversations"],
-    category: "communication",
-    readTime: "4 min read",
-    wordCount: 600,
-    expiresAt: "2025-01-24", // expires in 7 days
-    isAnonymous: true,
-    shareCount: 22
-  },
-  {
-    id: 4,
-    title: "The Art of Anonymous Expression",
-    excerpt: "How anonymity can lead to more authentic and honest communication...",
-    content: "When we remove the pressure of identity, something remarkable happens. People feel free to express their true thoughts, share honest opinions, and engage in genuine dialogue without fear of judgment or consequences.",
-    author: "Anonymous",
-    authorId: "anon_1",
-    date: "2025-01-16",
-    likes: 51,
-    comments: 14,
-    tags: ["anonymity", "expression", "authenticity"],
-    category: "privacy",
-    readTime: "6 min read",
-    wordCount: 900,
-    expiresAt: null,
-    isAnonymous: true,
-    shareCount: 31
-  }
-];
-
 const categories = [
   { id: "all", name: "All Posts", count: blogPosts.length },
   { id: "privacy", name: "Privacy", count: blogPosts.filter(p => p.category === "privacy").length },
