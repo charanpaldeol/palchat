@@ -13,428 +13,98 @@ const categories = [
 ---
 
 <Layout title="Blog - PalChat">
-  <!-- Enhanced Hero Section -->
-  <section class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-16 relative overflow-hidden">
-    <!-- Background decoration -->
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
-    
-    <div class="container mx-auto px-4 relative z-10">
+  <!-- Simple Hero Section -->
+  <section class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-16">
+    <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 animate-fade-in-up">
-          Privacy-First Blogging
+        <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+          Privacy-First Blog
         </h1>
-        <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.1s;">
-          Share thoughts, ideas, and perspectives without the burden of accounts or data collection. 
+        <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          Share thoughts and ideas without the burden of accounts or data collection. 
           Every post is anonymous by design.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style="animation-delay: 0.2s;">
-          <button id="new-post-btn" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-gray-900 to-black text-white font-semibold rounded-xl hover:from-gray-800 hover:to-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-            </svg>
-            Write a Post
-          </button>
-          <button id="bookmarks-btn" class="inline-flex items-center gap-2 px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:border-gray-400 hover:bg-white/50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 glass">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-            </svg>
-            Bookmarks
-          </button>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- Enhanced Privacy Features Banner -->
-  <section class="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-blue-100 py-4 relative overflow-hidden">
-    <!-- Background decoration -->
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.03"%3E%3Cpath d="M20 20c0 11.046-8.954 20-20 20s-20-8.954-20-20 8.954-20 20-20 20 8.954 20 20zm0 0c0-11.046 8.954-20 20-20s20 8.954 20 20-8.954 20-20 20-20-8.954-20-20z"/%3E%3C/g%3E%3C/svg%3E')]"></div>
-    
-    <div class="container mx-auto px-4 relative z-10">
-      <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-blue-800">
-        <div class="flex items-center gap-2 group">
-          <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <span class="font-medium">No Accounts Required</span>
-        </div>
-        <div class="flex items-center gap-2 group">
-          <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <span class="font-medium">Anonymous by Default</span>
-        </div>
-        <div class="flex items-center gap-2 group">
-          <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <span class="font-medium">Zero Data Collection</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Enhanced Blog Posts Grid -->
-  <section class="py-16 bg-white relative overflow-hidden">
-    <!-- Background decoration -->
-    <div class="absolute inset-0 bg-gradient-to-br from-indigo-50/30 to-purple-50/30"></div>
-    
-    <div class="container mx-auto px-4 relative z-10">
+  <!-- Simple Blog Posts Section -->
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
       <div class="max-w-6xl mx-auto">
-        <!-- Enhanced Filters and Search -->
+        <!-- Simple Filters and Search -->
         <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 gap-6">
           <div class="flex flex-wrap gap-2">
-            {categories.map((category, index) => (
+            {categories.map((category) => (
               <button 
-                class="px-4 py-2 rounded-lg font-medium transition-all duration-300 category-filter hover:scale-105" 
+                class="px-4 py-2 rounded-lg font-medium transition-all duration-300 category-filter" 
                 data-category={category.id}
                 class:list={[
-                  category.id === "all" ? "bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 shadow-lg" : "bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 hover:from-gray-200 hover:to-gray-300"
+                  category.id === "all" ? "bg-blue-100 text-blue-800" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 ]}
-                style={`animation-delay: ${index * 0.1}s`}
               >
                 {category.name} ({category.count})
               </button>
             ))}
           </div>
-          <div class="flex gap-4 w-full lg:w-auto">
-            <div class="relative flex-1 lg:flex-none group">
-              <input type="text" id="search-posts" placeholder="Search posts..." class="w-full lg:w-80 pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/80">
-              <svg class="w-5 h-5 text-gray-400 absolute left-3 top-3 group-focus-within:text-blue-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-              </svg>
-            </div>
-            <button id="sort-btn" class="px-4 py-3 border border-gray-300 rounded-xl hover:bg-white/50 transition-all duration-200 glass hover:scale-105">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path>
-              </svg>
-            </button>
+          <div class="relative w-full lg:w-80">
+            <input type="text" id="search-posts" placeholder="Search posts..." class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+            <svg class="w-5 h-5 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
           </div>
         </div>
 
-        <!-- Enhanced Blog Posts -->
+        <!-- Simple Blog Posts Grid -->
         <div id="posts-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post, index) => (
-            <article class="glass rounded-2xl shadow-lg border border-white/20 overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-105 post-card animate-fade-in-up" data-category={post.category} style={`animation-delay: ${index * 0.1}s`}>
+          {blogPosts.map((post) => (
+            <article class="bg-white rounded-xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 post-card" data-category={post.category}>
               <div class="p-6">
-                <!-- Enhanced Post Header -->
+                <!-- Post Header -->
                 <div class="flex items-center justify-between mb-4">
                   <div class="flex items-center gap-2">
-                    <span class="text-sm text-gray-500 font-medium">{post.readTime}</span>
+                    <span class="text-sm text-gray-500">{post.readTime}</span>
                     <span class="text-gray-300">•</span>
-                    <span class="text-sm text-gray-500 font-medium">{new Date(post.date).toLocaleDateString()}</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    {post.expiresAt && (
-                      <span class="px-2 py-1 bg-gradient-to-r from-orange-100 to-red-100 text-orange-700 text-xs rounded-full font-medium">
-                        Expires {new Date(post.expiresAt).toLocaleDateString()}
-                      </span>
-                    )}
-                    <button class="bookmark-btn p-2 hover:bg-white/50 rounded-lg transition-all duration-200 group" data-post-id={post.id}>
-                      <svg class="w-4 h-4 text-gray-400 group-hover:text-blue-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-                      </svg>
-                    </button>
+                    <span class="text-sm text-gray-500">{new Date(post.date).toLocaleDateString()}</span>
                   </div>
                 </div>
                 
-                <!-- Enhanced Post Title and Content -->
-                <h2 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2 group">
-                  <a href={`/blog/${post.id}`} class="hover:text-blue-600 transition-colors duration-200 group-hover:underline">
+                <!-- Post Title and Content -->
+                <h2 class="text-xl font-bold text-gray-900 mb-3">
+                  <a href={`/blog/${post.id}`} class="hover:text-blue-600 transition-colors duration-200">
                     {post.title}
                   </a>
                 </h2>
                 
-                <p class="text-gray-600 mb-4 line-clamp-3 leading-relaxed">
+                <p class="text-gray-600 mb-4 leading-relaxed">
                   {post.excerpt}
                 </p>
                 
-                <!-- Enhanced Post Stats -->
+                <!-- Post Meta -->
                 <div class="flex items-center justify-between mb-4">
                   <div class="flex items-center gap-4 text-sm text-gray-500">
                     <span class="font-medium">By {post.author}</span>
                     <span>•</span>
                     <span>{post.wordCount} words</span>
                   </div>
-                  <div class="flex items-center gap-4">
-                    <button class="flex items-center gap-1 text-gray-500 hover:text-red-500 transition-all duration-200 group" onclick="likePost(${post.id})">
-                      <svg class="w-4 h-4 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-                      </svg>
-                      <span id="likes-${post.id}" class="font-medium">{post.likes}</span>
-                    </button>
-                    <button class="flex items-center gap-1 text-gray-500 hover:text-blue-500 transition-all duration-200 group" onclick="showComments(${post.id})">
-                      <svg class="w-4 h-4 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                      </svg>
-                      <span class="font-medium">{post.comments}</span>
-                    </button>
-                    <button class="flex items-center gap-1 text-gray-500 hover:text-green-500 transition-all duration-200 group" onclick="sharePost(${post.id})">
-                      <svg class="w-4 h-4 group-hover:scale-110 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
-                      </svg>
-                      <span class="font-medium">{post.shareCount}</span>
-                    </button>
-                  </div>
                 </div>
                 
-                <!-- Enhanced Tags -->
+                <!-- Tags -->
                 <div class="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
-                    <span class="px-3 py-1 bg-gradient-to-r from-gray-100 to-gray-200 text-gray-600 text-xs rounded-full font-medium hover:from-gray-200 hover:to-gray-300 transition-all duration-200">{tag}</span>
+                    <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full font-medium">{tag}</span>
                   ))}
                 </div>
               </div>
             </article>
           ))}
         </div>
-
-        <!-- Enhanced Load More Button -->
-        <div class="text-center mt-12 animate-fade-in-up" style="animation-delay: 0.5s;">
-          <button id="load-more-btn" class="px-8 py-4 border-2 border-gray-300 text-gray-700 font-semibold rounded-xl hover:border-gray-400 hover:bg-white/50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 glass">
-            Load More Posts
-          </button>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- Enhanced New Post Modal -->
-  <div id="new-post-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 backdrop-blur-sm">
-    <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="glass rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-white/20 shadow-2xl">
-        <div class="p-6 border-b border-white/20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-          <div class="flex items-center justify-between">
-            <h2 class="text-2xl font-bold">Write a New Post</h2>
-            <button onclick="closeNewPostModal()" class="text-white/80 hover:text-white transition-colors duration-200">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-        
-        <form class="p-6 space-y-6" onsubmit="submitPost(event)">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
-            <input type="text" id="post-title" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/80" placeholder="Enter your post title..." required>
-          </div>
-          
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
-            <textarea id="post-content" rows="8" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/80 resize-none" placeholder="Write your post content..." required></textarea>
-            <div class="flex justify-between items-center mt-2 text-sm text-gray-500">
-              <span id="word-count">0 words</span>
-              <span id="read-time">0 min read</span>
-            </div>
-          </div>
-          
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
-              <select id="post-category" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/80">
-                <option value="privacy">Privacy</option>
-                <option value="technology">Technology</option>
-                <option value="communication">Communication</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Expiration (Optional)</label>
-              <select id="post-expiration" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/80">
-                <option value="">Permanent</option>
-                <option value="7">7 days</option>
-                <option value="30">30 days</option>
-                <option value="90">90 days</option>
-              </select>
-            </div>
-          </div>
-          
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Tags (comma separated)</label>
-            <input type="text" id="post-tags" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white/50 backdrop-blur-sm hover:bg-white/80" placeholder="privacy, technology, communication">
-          </div>
-          
-          <div class="flex items-center gap-4 pt-4">
-            <button type="submit" class="px-6 py-3 bg-gradient-to-r from-gray-900 to-black text-white font-semibold rounded-xl hover:from-gray-800 hover:to-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-              Publish Post
-            </button>
-            <button type="button" onclick="closeNewPostModal()" class="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-white/50 transition-all duration-300 glass">
-              Cancel
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Comments Modal -->
-  <div id="comments-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
-    <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div class="p-6 border-b border-gray-200">
-          <div class="flex items-center justify-between">
-            <h2 class="text-2xl font-bold text-gray-900">Comments</h2>
-            <button onclick="closeCommentsModal()" class="text-gray-400 hover:text-gray-600">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-        
-        <div class="p-6">
-          <!-- Add Comment Form -->
-          <div class="mb-6 p-4 bg-gray-50 rounded-lg">
-            <textarea id="comment-text" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Add a comment..."></textarea>
-            <div class="flex justify-end mt-3">
-              <button onclick="addComment()" class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
-                Post Comment
-              </button>
-            </div>
-          </div>
-          
-          <!-- Comments List -->
-          <div id="comments-list" class="space-y-4">
-            <!-- Comments will be dynamically loaded here -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Share Modal -->
-  <div id="share-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
-    <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white rounded-2xl max-w-md w-full">
-        <div class="p-6 border-b border-gray-200">
-          <div class="flex items-center justify-between">
-            <h2 class="text-2xl font-bold text-gray-900">Share Post</h2>
-            <button onclick="closeShareModal()" class="text-gray-400 hover:text-gray-600">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-        
-        <div class="p-6">
-          <div class="space-y-4">
-            <button onclick="shareViaLink()" class="w-full flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
-                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
-              </svg>
-              <span class="font-medium">Copy Link</span>
-            </button>
-            
-            <button onclick="shareViaEmail()" class="w-full flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-              </svg>
-              <span class="font-medium">Share via Email</span>
-            </button>
-            
-            <button onclick="exportPost()" class="w-full flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-              </svg>
-              <span class="font-medium">Export as PDF</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bookmarks Modal -->
-  <div id="bookmarks-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
-    <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-        <div class="p-6 border-b border-gray-200">
-          <div class="flex items-center justify-between">
-            <h2 class="text-2xl font-bold text-gray-900">Your Bookmarks</h2>
-            <button onclick="closeBookmarksModal()" class="text-gray-400 hover:text-gray-600">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-        
-        <div class="p-6">
-          <div id="bookmarks-list" class="space-y-4">
-            <!-- Bookmarks will be loaded here -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
-    // Initialize bookmarks
-    let bookmarkedPosts = JSON.parse(localStorage.getItem('bookmarkedPosts') || '[]');
-    let currentPostId = null;
-
-    // Update bookmark buttons
-    function updateBookmarkButtons() {
-      document.querySelectorAll('.bookmark-btn').forEach(btn => {
-        const postId = parseInt(btn.dataset.postId);
-        const svg = btn.querySelector('svg');
-        if (svg && bookmarkedPosts.includes(postId)) {
-          svg.classList.add('text-blue-600');
-          svg.classList.remove('text-gray-400');
-        } else if (svg) {
-          svg.classList.remove('text-blue-600');
-          svg.classList.add('text-gray-400');
-        }
-      });
-    }
-
-    // New Post Modal
     document.addEventListener('DOMContentLoaded', function() {
-      const newPostBtn = document.getElementById('new-post-btn');
-      if (newPostBtn) {
-        newPostBtn.addEventListener('click', () => {
-          const modal = document.getElementById('new-post-modal');
-          if (modal) modal.classList.remove('hidden');
-        });
-      }
-
-      // Bookmarks Modal
-      const bookmarksBtn = document.getElementById('bookmarks-btn');
-      if (bookmarksBtn) {
-        bookmarksBtn.addEventListener('click', () => {
-          const modal = document.getElementById('bookmarks-modal');
-          if (modal) {
-            modal.classList.remove('hidden');
-            loadBookmarks();
-          }
-        });
-      }
-
-      // Word count and reading time
-      const postContent = document.getElementById('post-content');
-      if (postContent) {
-        postContent.addEventListener('input', function() {
-          const text = this.value.trim();
-          const words = text === '' ? 0 : text.split(/\s+/).length;
-          const readingTime = Math.max(1, Math.ceil(words / 200)); // Minimum 1 min read
-          
-          const wordCountEl = document.getElementById('word-count');
-          const readTimeEl = document.getElementById('read-time');
-          
-          if (wordCountEl) wordCountEl.textContent = `${words} words`;
-          if (readTimeEl) readTimeEl.textContent = `${readingTime} min read`;
-        });
-      }
-
       // Category filtering
       document.querySelectorAll('.category-filter').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -442,11 +112,11 @@ const categories = [
           
           // Update active button
           document.querySelectorAll('.category-filter').forEach(b => {
-            b.classList.remove('bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 shadow-lg');
-            b.classList.add('bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 hover:from-gray-200 hover:to-gray-300');
+            b.classList.remove('bg-blue-100', 'text-blue-800');
+            b.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
           });
-          this.classList.remove('bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 hover:from-gray-200 hover:to-gray-300');
-          this.classList.add('bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 shadow-lg');
+          this.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+          this.classList.add('bg-blue-100', 'text-blue-800');
           
           // Filter posts
           document.querySelectorAll('.post-card').forEach(card => {
@@ -481,392 +151,6 @@ const categories = [
             card.style.display = matches ? 'block' : 'none';
           });
         });
-      }
-
-      // Load more button
-      const loadMoreBtn = document.getElementById('load-more-btn');
-      if (loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', loadMorePosts);
-      }
-
-      // Initialize
-      updateBookmarkButtons();
-    });
-
-    function closeNewPostModal() {
-      const modal = document.getElementById('new-post-modal');
-      if (modal) modal.classList.add('hidden');
-    }
-
-    function closeBookmarksModal() {
-      const modal = document.getElementById('bookmarks-modal');
-      if (modal) modal.classList.add('hidden');
-    }
-
-    // Comments Modal
-    function showComments(postId) {
-      currentPostId = postId;
-      const modal = document.getElementById('comments-modal');
-      if (modal) {
-        modal.classList.remove('hidden');
-        loadComments(postId);
-      }
-    }
-
-    function closeCommentsModal() {
-      const modal = document.getElementById('comments-modal');
-      if (modal) modal.classList.add('hidden');
-    }
-
-    // Share Modal
-    function sharePost(postId) {
-      currentPostId = postId;
-      const modal = document.getElementById('share-modal');
-      if (modal) modal.classList.remove('hidden');
-    }
-
-    function closeShareModal() {
-      const modal = document.getElementById('share-modal');
-      if (modal) modal.classList.add('hidden');
-    }
-
-    // Like Post
-    function likePost(postId) {
-      const likesElement = document.getElementById(`likes-${postId}`);
-      if (!likesElement) return;
-      
-      const currentLikes = parseInt(likesElement.textContent) || 0;
-      likesElement.textContent = currentLikes + 1;
-      
-      // Add visual feedback
-      likesElement.classList.add('text-red-500');
-      setTimeout(() => {
-        likesElement.classList.remove('text-red-500');
-      }, 500);
-      
-      const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '[]');
-      if (!likedPosts.includes(postId)) {
-        likedPosts.push(postId);
-        localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
-      }
-    }
-
-    // Bookmark Post
-    document.addEventListener('click', (e) => {
-      const bookmarkBtn = e.target.closest('.bookmark-btn');
-      if (bookmarkBtn) {
-        const postId = parseInt(bookmarkBtn.dataset.postId);
-        if (isNaN(postId)) return;
-        
-        const svg = bookmarkBtn.querySelector('svg');
-        const wasBookmarked = bookmarkedPosts.includes(postId);
-        
-        if (wasBookmarked) {
-          bookmarkedPosts = bookmarkedPosts.filter(id => id !== postId);
-          if (svg) {
-            svg.classList.remove('text-blue-600');
-            svg.classList.add('text-gray-400');
-          }
-          // Show unbookmarked feedback
-          bookmarkBtn.classList.add('scale-95');
-          setTimeout(() => bookmarkBtn.classList.remove('scale-95'), 200);
-        } else {
-          bookmarkedPosts.push(postId);
-          if (svg) {
-            svg.classList.add('text-blue-600');
-            svg.classList.remove('text-gray-400');
-          }
-          // Show bookmarked feedback
-          bookmarkBtn.classList.add('scale-110');
-          setTimeout(() => bookmarkBtn.classList.remove('scale-110'), 200);
-        }
-        
-        localStorage.setItem('bookmarkedPosts', JSON.stringify(bookmarkedPosts));
-      }
-    });
-
-    // Add Comment
-    function addComment() {
-      const commentTextEl = document.getElementById('comment-text');
-      if (!commentTextEl) return;
-      
-      const commentText = commentTextEl.value.trim();
-      if (!commentText) return;
-
-      const commentsList = document.getElementById('comments-list');
-      if (!commentsList) return;
-      
-      const commentElement = document.createElement('div');
-      commentElement.className = 'p-4 bg-gray-50 rounded-lg';
-      commentElement.innerHTML = `
-        <div class="flex items-start gap-3">
-          <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-            <span class="text-sm font-medium text-gray-600">A</span>
-          </div>
-          <div class="flex-1">
-            <div class="flex items-center gap-2 mb-1">
-              <span class="font-medium text-gray-900">Anonymous</span>
-              <span class="text-sm text-gray-500">${new Date().toLocaleDateString()}</span>
-            </div>
-            <p class="text-gray-700">${commentText}</p>
-          </div>
-        </div>
-      `;
-      
-      commentsList.insertBefore(commentElement, commentsList.firstChild);
-      commentTextEl.value = '';
-    }
-
-    // Load Comments (mock data)
-    function loadComments(postId) {
-      const commentsList = document.getElementById('comments-list');
-      if (!commentsList) return;
-      
-      commentsList.innerHTML = `
-        <div class="p-4 bg-gray-50 rounded-lg">
-          <div class="flex items-start gap-3">
-            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-              <span class="text-sm font-medium text-gray-600">A</span>
-            </div>
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-1">
-                <span class="font-medium text-gray-900">Anonymous</span>
-                <span class="text-sm text-gray-500">2025-01-19</span>
-              </div>
-              <p class="text-gray-700">Great post! I completely agree with the privacy-first approach.</p>
-            </div>
-          </div>
-        </div>
-        <div class="p-4 bg-gray-50 rounded-lg">
-          <div class="flex items-start gap-3">
-            <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-              <span class="text-sm font-medium text-gray-600">A</span>
-            </div>
-            <div class="flex-1">
-              <div class="flex items-center gap-2 mb-1">
-                <span class="font-medium text-gray-900">Anonymous</span>
-                <span class="text-sm text-gray-500">2025-01-18</span>
-              </div>
-              <p class="text-gray-700">This is exactly what I've been looking for. No accounts, no tracking!</p>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    // Load Bookmarks
-    function loadBookmarks() {
-      const bookmarksList = document.getElementById('bookmarks-list');
-      if (!bookmarksList) return;
-      
-      if (bookmarkedPosts.length === 0) {
-        bookmarksList.innerHTML = `
-          <div class="text-center py-8">
-            <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
-            </svg>
-            <p class="text-gray-500">No bookmarks yet. Click the bookmark icon on any post to save it here.</p>
-          </div>
-        `;
-        return;
-      }
-
-      // Show actual bookmarked posts
-      const bookmarkedPostsData = [
-        {
-          id: 1,
-          title: "Why Privacy-First Communication Matters",
-          excerpt: "In a world where every app wants your data, we're building something different...",
-          date: "2025-01-19",
-          readTime: "3 min read"
-        },
-        {
-          id: 2,
-          title: "The Problem with Account-Based Platforms",
-          excerpt: "Why requiring accounts creates barriers to genuine communication...",
-          date: "2025-01-18",
-          readTime: "5 min read"
-        },
-        {
-          id: 3,
-          title: "Built for Moments, Not Memories",
-          excerpt: "Some conversations are meant to be temporary, and that's perfectly okay...",
-          date: "2025-01-17",
-          readTime: "4 min read"
-        }
-      ];
-
-      const filteredPosts = bookmarkedPostsData.filter(post => bookmarkedPosts.includes(post.id));
-      
-      if (filteredPosts.length === 0) {
-        bookmarksList.innerHTML = `
-          <div class="text-center py-8">
-            <p class="text-gray-500">No bookmarked posts found.</p>
-          </div>
-        `;
-        return;
-      }
-
-      bookmarksList.innerHTML = filteredPosts.map(post => `
-        <div class="p-4 bg-gray-50 rounded-lg border border-gray-200">
-          <div class="flex items-start justify-between">
-            <div class="flex-1">
-              <h3 class="font-semibold text-gray-900 mb-2">${post.title}</h3>
-              <p class="text-gray-600 text-sm mb-2">${post.excerpt}</p>
-              <div class="flex items-center gap-4 text-xs text-gray-500">
-                <span>${post.date}</span>
-                <span>•</span>
-                <span>${post.readTime}</span>
-              </div>
-            </div>
-            <button onclick="removeBookmark(${post.id})" class="ml-4 p-1 text-gray-400 hover:text-red-500 transition-colors">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // Remove bookmark
-    function removeBookmark(postId) {
-      bookmarkedPosts = bookmarkedPosts.filter(id => id !== postId);
-      localStorage.setItem('bookmarkedPosts', JSON.stringify(bookmarkedPosts));
-      updateBookmarkButtons();
-      loadBookmarks();
-    }
-
-    // Load more posts functionality
-    function loadMorePosts() {
-      const loadMoreBtn = document.getElementById('load-more-btn');
-      if (loadMoreBtn) {
-        loadMoreBtn.textContent = 'Loading...';
-        loadMoreBtn.disabled = true;
-      }
-
-      // Simulate loading delay
-      setTimeout(() => {
-        // In a real app, this would fetch more posts from the server
-        alert('Load more functionality would fetch additional posts from the server in a real implementation.');
-        
-        if (loadMoreBtn) {
-          loadMoreBtn.textContent = 'Load More Posts';
-          loadMoreBtn.disabled = false;
-        }
-      }, 1000);
-    }
-
-    // Share functions
-    function shareViaLink() {
-      if (!currentPostId) return;
-      
-      const url = `${window.location.origin}/blog/${currentPostId}`;
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(url).then(() => {
-          alert('Link copied to clipboard!');
-          closeShareModal();
-        }).catch(() => {
-          // Fallback for older browsers
-          const textArea = document.createElement('textarea');
-          textArea.value = url;
-          document.body.appendChild(textArea);
-          textArea.select();
-          document.execCommand('copy');
-          document.body.removeChild(textArea);
-          alert('Link copied to clipboard!');
-          closeShareModal();
-        });
-      } else {
-        // Fallback for older browsers
-        const textArea = document.createElement('textarea');
-        textArea.value = url;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        alert('Link copied to clipboard!');
-        closeShareModal();
-      }
-    }
-
-    function shareViaEmail() {
-      if (!currentPostId) return;
-      
-      const url = `${window.location.origin}/blog/${currentPostId}`;
-      const subject = 'Check out this privacy-first blog post';
-      const body = `I found this interesting post on PalChat: ${url}`;
-      window.open(`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
-      closeShareModal();
-    }
-
-    function exportPost() {
-      // In a real app, this would generate a PDF
-      alert('PDF export feature would be implemented here');
-      closeShareModal();
-    }
-
-    // Submit new post
-    function submitPost(event) {
-      event.preventDefault();
-      
-      const titleEl = document.getElementById('post-title');
-      const contentEl = document.getElementById('post-content');
-      const categoryEl = document.getElementById('post-category');
-      const tagsEl = document.getElementById('post-tags');
-      const expirationEl = document.getElementById('post-expiration');
-      
-      if (!titleEl || !contentEl || !categoryEl || !tagsEl || !expirationEl) return;
-      
-      const title = titleEl.value.trim();
-      const content = contentEl.value.trim();
-      const category = categoryEl.value;
-      const tags = tagsEl.value.trim();
-      const expiration = expirationEl.value;
-
-      if (!title || !content) {
-        alert('Please fill in both title and content');
-        return;
-      }
-
-      // In a real app, this would be sent to a server
-      console.log('New post submitted:', { title, content, category, tags, expiration });
-      
-      alert('Post submitted successfully! (This is a demo - in a real app, it would be published)');
-      closeNewPostModal();
-      
-      // Reset form
-      event.target.reset();
-      const wordCountEl = document.getElementById('word-count');
-      const readTimeEl = document.getElementById('read-time');
-      if (wordCountEl) wordCountEl.textContent = '0 words';
-      if (readTimeEl) readTimeEl.textContent = '0 min read';
-    }
-
-    // Close modals when clicking outside
-    document.addEventListener('click', (e) => {
-      if (e.target.id === 'new-post-modal') {
-        closeNewPostModal();
-      }
-      if (e.target.id === 'comments-modal') {
-        closeCommentsModal();
-      }
-      if (e.target.id === 'share-modal') {
-        closeShareModal();
-      }
-      if (e.target.id === 'bookmarks-modal') {
-        closeBookmarksModal();
-      }
-    });
-
-    // Handle keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      // Escape key closes modals
-      if (e.key === 'Escape') {
-        closeNewPostModal();
-        closeCommentsModal();
-        closeShareModal();
-        closeBookmarksModal();
       }
     });
   </script>
