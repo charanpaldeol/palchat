@@ -12,12 +12,26 @@ export async function POST({ request }) {
       });
     }
 
-    // Create transporter using Gmail SMTP (you can change this to any email service)
+    // Check if environment variables are set
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error('Missing environment variables:', {
+        EMAIL_USER: !!process.env.EMAIL_USER,
+        EMAIL_PASS: !!process.env.EMAIL_PASS
+      });
+      return new Response(JSON.stringify({ 
+        error: 'Email service not configured. Please contact the administrator.' 
+      }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    // Create transporter using Gmail SMTP
     const transporter = nodemailer.createTransporter({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // Your Gmail address
-        pass: process.env.EMAIL_PASS  // Your Gmail app password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
       }
     });
 
@@ -70,8 +84,21 @@ export async function POST({ request }) {
 
   } catch (error) {
     console.error('Email sending error:', error);
+    
+    // Provide more specific error messages
+    let errorMessage = 'Failed to send message. Please try again later.';
+    
+    if (error.code === 'EAUTH') {
+      errorMessage = 'Email authentication failed. Please check credentials.';
+    } else if (error.code === 'ECONNECTION') {
+      errorMessage = 'Email service connection failed. Please try again later.';
+    } else if (error.message) {
+      errorMessage = `Email error: ${error.message}`;
+    }
+    
     return new Response(JSON.stringify({ 
-      error: 'Failed to send message. Please try again later.' 
+      error: errorMessage,
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
     }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
