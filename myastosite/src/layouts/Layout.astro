@@ -154,66 +154,63 @@ const { title, description = "Personal blog exploring technology, privacy and fi
     <!-- Enhanced Cursor-style Navbar -->
     <nav class="sticky top-0 z-30 w-full">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative flex h-[var(--navbar-height)] w-full items-center justify-between rounded-xl border border-transparent px-2 py-1.5 transition-all duration-300 motion-reduce:transition-none lg:grid lg:grid-cols-[1fr_auto_1fr] lg:rounded-2xl lg:py-[0.4375rem] lg:pr-[0.4375rem] glass shadow-[0px_8px_32px_rgba(0,0,0,0.1)] hover:shadow-[0px_12px_40px_rgba(0,0,0,0.15)]">
+        <div class="relative flex h-[var(--navbar-height)] w-full items-center justify-between rounded-xl border border-transparent px-4 py-2 transition-all duration-300 motion-reduce:transition-none lg:grid lg:grid-cols-[1fr_auto_1fr] lg:rounded-2xl lg:py-2 lg:pr-2 glass shadow-[0px_8px_32px_rgba(0,0,0,0.1)] hover:shadow-[0px_12px_40px_rgba(0,0,0,0.15)]">
           <!-- Enhanced Logo -->
-          <a aria-label="Homepage" class="relative flex w-fit items-center gap-2 overflow-hidden lg:px-3 group" href="/">
-            <div class="pointer-events-none relative size-6 mix-blend-multiply lg:-ml-1 lg:mr-px lg:size-8 transition-transform duration-300 group-hover:scale-110">
-              <img alt="Site Logo" width="32" height="32" decoding="async" class="absolute transition-opacity duration-500" src="/assets/palchatlogo.png">
+          <a aria-label="Homepage" class="relative flex w-fit items-center gap-2 overflow-hidden lg:px-2 group" href="/">
+            <div class="pointer-events-none relative w-6 h-6 lg:w-7 lg:h-7 transition-transform duration-300 group-hover:scale-110">
+              <img alt="PalChat Logo" width="28" height="28" decoding="async" class="w-full h-full object-contain transition-opacity duration-500" src="/assets/palchatlogo.png">
             </div>
-            <span class="h-[13px] text-gray-900 font-bold lg:h-[17px] bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">My View of the World</span>
+            <span class="text-sm lg:text-base font-bold text-gray-900 bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">PalChat</span>
           </a>
           
           <!-- Enhanced Navigation Links -->
-          <ul class="col-start-2 gap-5 px-2 font-medium text-gray-700 xl:gap-6 hidden lg:flex">
-            <li><a class="transition-all duration-300 p-2 hover:text-gray-900 hover:bg-white/50 rounded-lg motion-reduce:transition-none relative group" href="/about">
+          <ul class="col-start-2 gap-4 px-2 font-medium text-gray-700 xl:gap-6 hidden lg:flex">
+            <li><a class="transition-all duration-300 px-3 py-2 hover:text-gray-900 hover:bg-white/50 rounded-lg motion-reduce:transition-none relative group" href="/about">
               About
               <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
             </a></li>
-            <li><a class="transition-all duration-300 p-2 hover:text-gray-900 hover:bg-white/50 rounded-lg motion-reduce:transition-none relative group" href="/contact">
+            <li><a class="transition-all duration-300 px-3 py-2 hover:text-gray-900 hover:bg-white/50 rounded-lg motion-reduce:transition-none relative group" href="/contact">
               Contact
               <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
             </a></li>
-            <li><a class="transition-all duration-300 p-2 hover:text-gray-900 hover:bg-white/50 rounded-lg motion-reduce:transition-none relative group" href="/blog">
+            <li><a class="transition-all duration-300 px-3 py-2 hover:text-gray-900 hover:bg-white/50 rounded-lg motion-reduce:transition-none relative group" href="/blog">
               Blog
               <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
             </a></li>
-            <li><a class="transition-all duration-300 p-2 hover:text-gray-900 hover:bg-white/50 rounded-lg motion-reduce:transition-none relative group" href="/privacy">
+            <li><a class="transition-all duration-300 px-3 py-2 hover:text-gray-900 hover:bg-white/50 rounded-lg motion-reduce:transition-none relative group" href="/privacy">
               Privacy
               <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
             </a></li>
           </ul>
           
           <!-- Enhanced Right Actions -->
-          <div class="col-start-3 hidden w-full justify-end gap-2 lg:flex">
-            <div class="hidden w-12 justify-end lg:flex">
-              <button aria-disabled="false" class="relative inline-flex items-center justify-center whitespace-nowrap rounded-lg disabled:pointer-events-none disabled:opacity-50 overflow-hidden transition-all duration-300 before:absolute before:-inset-0 after:absolute after:inset-0 motion-reduce:transition-none glass text-black hover:scale-105 after:transition-colors after:duration-300 md:px-4 md:py-3.5 font-medium text-sm/[1.125rem] tracking-normal aspect-square h-full w-full !p-0" type="button" aria-haspopup="menu" aria-expanded="false" data-state="closed">
-                <span class="relative z-10 flex">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="size-6">
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                </span>
-              </button>
-            </div>
-            <button class="relative inline-flex items-center justify-center whitespace-nowrap rounded-lg disabled:pointer-events-none disabled:opacity-50 overflow-hidden transition-all duration-300 after:absolute after:inset-0 motion-reduce:transition-none bg-gradient-to-r from-gray-900 to-black text-white after:bg-gradient-to-t after:from-gray-800 after:to-gray-600 before:bg-[radial-gradient(circle_100px_at_var(--mask-x)_var(--mask-y),_var(--tw-gradient-stops))] before:from-gray-700 before:via-gray-700 before:to-transparent after:transition-[color,background-color,border-color,opacity] after:duration-300 before:transition-opacity before:duration-1000 hover:before:opacity-100 hover:scale-105 before:opacity-0 before:absolute before:inset-0 md:px-4 md:py-3.5 font-medium text-sm/[1.125rem] tracking-normal shadow-lg hover:shadow-xl" style="--mask-x: 83.44254%; --mask-y: 2.17391%;">
-              <span class="relative z-10 flex">
-                <span class="flex items-center gap-3">
-                  <svg class="w-3 md:w-3.5" fill="none" viewBox="0 0 14 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M13.9984.98236c-2.53.35112-5.06001.71507-7.58521 1.10147a3272.65486 3272.65486 0 0 0 0 5.60513C8.9432 7.68094 11.4716 7.64246 14 7.63284c-.0016-2.21736 0-4.43312-.0016-6.65048ZM5.72073 2.19285C3.8112 2.43174 1.90151 2.68506 0 2.97847v4.75217c1.90792.00481 3.81601-.02405 5.72394-.02244-.00161-1.83899-.00161-3.67637-.00321-5.51535ZM5.71896 8.33028C3.81264 8.33348 1.90648 8.30302 0 8.30943v4.76497c1.90792.2582 3.81601.5049 5.72073.7873.00304-1.8438-.00177-3.6876-.00177-5.53142ZM13.9984 8.38319H6.40197c.00321 1.85501.00802 3.70841.01122 5.56201 2.53001.3429 5.06001.6941 7.58521 1.0724 0-2.2125.0032-4.4235 0-6.63441Z" fill="currentColor"></path>
-                  </svg>
-                  Download
-                </span>
+          <div class="col-start-3 hidden w-full justify-end gap-3 lg:flex">
+            <button class="relative inline-flex items-center justify-center whitespace-nowrap rounded-lg disabled:pointer-events-none disabled:opacity-50 overflow-hidden transition-all duration-300 glass text-gray-700 hover:text-gray-900 hover:bg-white/50 px-3 py-2 font-medium text-sm shadow-sm hover:shadow-md" type="button" aria-haspopup="menu" aria-expanded="false" data-state="closed">
+              <span class="relative z-10 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="hidden sm:inline">Sign In</span>
+              </span>
+            </button>
+            <button class="relative inline-flex items-center justify-center whitespace-nowrap rounded-lg disabled:pointer-events-none disabled:opacity-50 overflow-hidden transition-all duration-300 bg-gradient-to-r from-gray-900 to-black text-white hover:from-gray-800 hover:to-gray-900 px-4 py-2 font-medium text-sm shadow-lg hover:shadow-xl transform hover:scale-105">
+              <span class="relative z-10 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 14 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M13.9984.98236c-2.53.35112-5.06001.71507-7.58521 1.10147a3272.65486 3272.65486 0 0 0 0 5.60513C8.9432 7.68094 11.4716 7.64246 14 7.63284c-.0016-2.21736 0-4.43312-.0016-6.65048ZM5.72073 2.19285C3.8112 2.43174 1.90151 2.68506 0 2.97847v4.75217c1.90792.00481 3.81601-.02405 5.72394-.02244-.00161-1.83899-.00161-3.67637-.00321-5.51535ZM5.71896 8.33028C3.81264 8.33348 1.90648 8.30302 0 8.30943v4.76497c1.90792.2582 3.81601.5049 5.72073.7873.00304-1.8438-.00177-3.6876-.00177-5.53142ZM13.9984 8.38319H6.40197c.00321 1.85501.00802 3.70841.01122 5.56201 2.53001.3429 5.06001.6941 7.58521 1.0724 0-2.2125.0032-4.4235 0-6.63441Z" fill="currentColor"></path>
+                </svg>
+                <span class="hidden sm:inline">Download</span>
               </span>
             </button>
           </div>
           
           <!-- Enhanced Mobile Menu Button -->
-          <div class="contents">
-            <button class="relative size-6 lg:hidden group" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-              <svg class="-ml-2 -mt-2 size-10 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 100 100" width="24" xmlns="http://www.w3.org/2000/svg" stroke-width="5.5" fill="none" stroke="currentColor">
-                <path class="line top" d="m 70,33 h -40 c 0,0 -8.5,-0.149796 -8.5,8.5 0,8.649796 8.5,8.5 8.5,8.5 h 20 v -20"></path>
-                <path class="line" d="m 70,50 h -40"></path>
-                <path class="line bottom" d="m 30,67 h 40 c 0,0 8.5,0.149796 8.5,-8.5 0,-8.649796 -8.5,-8.5 -8.5,-8.5 h -20 v 20"></path>
+          <div class="lg:hidden">
+            <button class="relative p-2 rounded-lg glass hover:bg-white/50 transition-all duration-300 group" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+              <svg class="w-5 h-5 text-gray-700 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
               </svg>
             </button>
           </div>
@@ -221,12 +218,15 @@ const { title, description = "Personal blog exploring technology, privacy and fi
         
         <!-- Enhanced Mobile Menu -->
         <div id="mobile-menu" class="lg:hidden hidden mt-2 rounded-xl glass shadow-xl border border-white/20 animate-fade-in-up">
-          <a href="/about" class="block px-4 py-3 text-gray-700 hover:bg-white/50 transition-colors duration-200">About</a>
-          <a href="/contact" class="block px-4 py-3 text-gray-700 hover:bg-white/50 transition-colors duration-200">Contact</a>
-          <a href="/blog" class="block px-4 py-3 text-gray-700 hover:bg-white/50 transition-colors duration-200">Blog</a>
-          <a href="/privacy" class="block px-4 py-3 text-gray-700 hover:bg-white/50 transition-colors duration-200">Privacy</a>
-          <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-white/50 transition-colors duration-200">Sign in</a>
-          <a href="#" class="block px-4 py-3 text-blue-600 font-semibold hover:bg-blue-50 transition-colors duration-200">Download</a>
+          <div class="py-2">
+            <a href="/about" class="block px-4 py-3 text-gray-700 hover:bg-white/50 transition-colors duration-200">About</a>
+            <a href="/contact" class="block px-4 py-3 text-gray-700 hover:bg-white/50 transition-colors duration-200">Contact</a>
+            <a href="/blog" class="block px-4 py-3 text-gray-700 hover:bg-white/50 transition-colors duration-200">Blog</a>
+            <a href="/privacy" class="block px-4 py-3 text-gray-700 hover:bg-white/50 transition-colors duration-200">Privacy</a>
+            <hr class="my-2 border-gray-200/50" />
+            <a href="#" class="block px-4 py-3 text-gray-700 hover:bg-white/50 transition-colors duration-200">Sign in</a>
+            <a href="#" class="block px-4 py-3 text-blue-600 font-semibold hover:bg-blue-50 transition-colors duration-200">Download</a>
+          </div>
         </div>
       </div>
     </nav>
