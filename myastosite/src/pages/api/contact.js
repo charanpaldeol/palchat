@@ -26,14 +26,33 @@ export async function POST({ request }) {
       });
     }
 
-    // Create transporter using Gmail SMTP
+    // Create transporter with more compatible Gmail configuration
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false, // true for 465, false for other ports
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
+      },
+      tls: {
+        rejectUnauthorized: false
       }
     });
+
+    // Verify connection configuration
+    try {
+      await transporter.verify();
+      console.log('SMTP connection verified successfully');
+    } catch (verifyError) {
+      console.error('SMTP verification failed:', verifyError);
+      return new Response(JSON.stringify({ 
+        error: 'Email service configuration error. Please check credentials and try again.' 
+      }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
 
     // Email content
     const mailOptions = {
@@ -89,9 +108,11 @@ export async function POST({ request }) {
     let errorMessage = 'Failed to send message. Please try again later.';
     
     if (error.code === 'EAUTH') {
-      errorMessage = 'Email authentication failed. Please check credentials.';
+      errorMessage = 'Email authentication failed. Please check your Gmail app password and 2FA settings.';
     } else if (error.code === 'ECONNECTION') {
       errorMessage = 'Email service connection failed. Please try again later.';
+    } else if (error.message && error.message.includes('Invalid login')) {
+      errorMessage = 'Invalid Gmail credentials. Please check your email and app password.';
     } else if (error.message) {
       errorMessage = `Email error: ${error.message}`;
     }
