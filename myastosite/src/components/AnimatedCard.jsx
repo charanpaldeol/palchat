@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 export default function AnimatedCard({ 
-  icon, 
+  iconPath, 
   title, 
   description, 
   gradientFrom, 
@@ -43,7 +43,9 @@ export default function AnimatedCard({
               transition: { duration: 0.2 }
             }}
           >
-            {icon}
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={iconPath}></path>
+            </svg>
           </motion.div>
         </motion.div>
         
