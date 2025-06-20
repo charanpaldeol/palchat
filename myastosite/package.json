@@ -13,6 +13,7 @@
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vercel": "^8.2.0",
     "astro": "^5.9.3",
+    "dotenv": "^16.5.0",
     "framer-motion": "^11.2.12",
     "nodemailer": "^7.0.3",
     "react": "^18.3.1",
