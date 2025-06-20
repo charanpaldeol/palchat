@@ -6,6 +6,6 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.palchat.org',
-  output: 'static',
+  output: 'server',
   integrations: [tailwind(), react()],
 });
