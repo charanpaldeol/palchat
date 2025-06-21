@@ -26,7 +26,7 @@ function validateBlogPost(post) {
   return post;
 }
 
-export const blogPosts = [
+const blogPostsData = [
   {
     id: 1,
     title: "Why Privacy-First Communication Matters",
@@ -212,8 +212,5 @@ export const blogPosts = [
   }
 ];
 
-// Validate all blog posts
-export const validatedBlogPosts = blogPosts.map(post => validateBlogPost(post));
-
-// Export the validated posts as the default
-export { validatedBlogPosts as blogPosts }; 
+// Validate all blog posts and export as blogPosts
+export const blogPosts = blogPostsData.map(post => validateBlogPost(post)); 
