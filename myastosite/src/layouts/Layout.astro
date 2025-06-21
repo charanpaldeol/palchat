@@ -36,7 +36,7 @@ const breadcrumbs = generateBreadcrumbs(currentPath);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="keywords" content="technology, privacy, finance, personal blog, digital economy, digital sovereignty, community-owned platforms, humane technology" />
+    <meta name="keywords" content="digital sovereignty, privacy-first technology, community-owned platforms, humane technology, digital rights, surveillance capitalism, privacy advocates, digital activism, technology ethics, community governance, open source, digital privacy, technology awareness, like-minded community, digital freedom, privacy protection, technology reform, digital democracy, community building, awareness creation" />
     <meta name="author" content="PalChat" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={Astro.url} />
@@ -57,20 +57,43 @@ const breadcrumbs = generateBreadcrumbs(currentPath);
     <meta name="twitter:site" content="@palchat" />
     <meta name="twitter:creator" content="@palchat" />
     
+    <!-- Additional SEO Meta Tags for Community Building -->
+    <meta name="application-name" content="PalChat - Digital Sovereignty Community" />
+    <meta name="apple-mobile-web-app-title" content="PalChat" />
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="msapplication-TileColor" content="#3B82F6" />
+    
+    <!-- Community and Awareness Focused Meta Tags -->
+    <meta name="community" content="digital sovereignty advocates" />
+    <meta name="purpose" content="awareness creation" />
+    <meta name="focus" content="privacy-first technology" />
+    <meta name="mission" content="community building" />
+    
     <title>{title}</title>
     <link rel="icon" type="image/png" href="/assets/palchatlogo.png" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     
     <!-- Structured Data - Organization Schema -->
-    <script type="application/ld+json">
-    {
+    <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "PalChat",
+      "alternateName": "PalChat - Digital Sovereignty Community",
       "url": "https://palchat.com",
       "logo": "https://palchat.com/assets/palchatlogo.png",
-      "description": "Technology that serves humanity, not profit. Building community-owned platforms and promoting digital sovereignty.",
+      "description": "Community of like-minded individuals advocating for digital sovereignty, privacy-first technology, and humane digital platforms. Building awareness and connecting privacy advocates.",
       "foundingDate": "2024",
+      "slogan": "Technology that serves humanity, not profit",
+      "knowsAbout": [
+        "Digital Sovereignty",
+        "Privacy-First Technology",
+        "Community-Owned Platforms",
+        "Digital Rights",
+        "Surveillance Capitalism",
+        "Technology Ethics",
+        "Community Governance",
+        "Digital Activism"
+      ],
       "sameAs": [
         "https://twitter.com/palchat",
         "https://github.com/palchat",
@@ -78,24 +101,48 @@ const breadcrumbs = generateBreadcrumbs(currentPath);
       ],
       "contactPoint": {
         "@type": "ContactPoint",
-        "contactType": "customer service",
+        "contactType": "community support",
         "availableLanguage": "English"
       },
       "address": {
         "@type": "PostalAddress",
         "addressCountry": "US"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "PalChat Community",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Community Building",
+              "description": "Connecting like-minded individuals who advocate for digital sovereignty and privacy-first technology",
+              "serviceType": "Community Service"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Awareness Creation",
+              "description": "Educational content and discussions about digital rights, privacy, and technology ethics",
+              "serviceType": "Educational Service"
+            }
+          }
+        ]
       }
-    }
+    })}>
     </script>
     
     <!-- Structured Data - Website Schema -->
-    <script type="application/ld+json">
-    {
+    <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "PalChat",
+      "name": "PalChat - Digital Sovereignty Community",
+      "alternateName": "PalChat Community",
       "url": "https://palchat.com",
-      "description": "Privacy-first platform promoting digital sovereignty and community-owned technology",
+      "description": "Community website for like-minded individuals advocating for digital sovereignty, privacy-first technology, and humane digital platforms. Building awareness and connecting privacy advocates.",
       "publisher": {
         "@type": "Organization",
         "name": "PalChat"
@@ -105,8 +152,25 @@ const breadcrumbs = generateBreadcrumbs(currentPath);
         "target": "https://palchat.com/blog?search={search_term_string}",
         "query-input": "required name=search_term_string"
       },
-      "inLanguage": "en-US"
-    }
+      "inLanguage": "en-US",
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Digital Sovereignty",
+          "description": "Community ownership and control of digital platforms"
+        },
+        {
+          "@type": "Thing",
+          "name": "Privacy-First Technology",
+          "description": "Technology designed with privacy as a fundamental principle"
+        },
+        {
+          "@type": "Thing",
+          "name": "Community Building",
+          "description": "Connecting like-minded individuals around shared values"
+        }
+      ]
+    })}>
     </script>
     
     <!-- Structured Data - BreadcrumbList Schema -->

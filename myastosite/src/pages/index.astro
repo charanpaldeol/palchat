@@ -7,10 +7,80 @@ import ValuesSection from '../components/ValuesSection.astro';
 import CTASection from '../components/CTASection.astro';
 ---
 
-<Layout title="PalChat - Technology that serves humanity, not profit">
-  <HeroSection />
-  <VisionSection />
-  <MissionSection />
+<Layout 
+  title="PalChat - Digital Sovereignty & Privacy-First Technology Community"
+  description="Join a community of like-minded individuals advocating for digital sovereignty, privacy-first technology, and humane digital platforms. Connect with privacy advocates, activists, and those fighting surveillance capitalism."
+>
+  <HeroSection 
+    title="Building a Better Digital Future Together"
+    subtitle="Join thousands of like-minded individuals who believe technology should serve humanity, not profit. We're creating awareness about digital sovereignty, privacy-first design, and community-owned platforms."
+    primaryButtonText="Join Our Community"
+    primaryButtonLink="#vision"
+    secondaryButtonText="Learn Our Vision"
+    secondaryButtonLink="#mission"
+  />
+  <VisionSection 
+    title="Our Vision for Digital Sovereignty"
+    subtitle="We envision a world where digital platforms are collectively owned by communities, where privacy is a fundamental right, and where technology serves human flourishing instead of corporate profit."
+    visionItems={[
+      {
+        title: "Community Ownership",
+        description: "Digital platforms owned and governed by the communities that use them, not corporations.",
+        icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
+        iconColor: "vision-icon-blue",
+        bgColor: "vision-icon-bg-blue"
+      },
+      {
+        title: "Privacy by Design",
+        description: "Technology built with privacy as a fundamental principle, not an afterthought.",
+        icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+        iconColor: "vision-icon-green",
+        bgColor: "vision-icon-bg-green"
+      },
+      {
+        title: "Digital Sovereignty",
+        description: "Complete control over your digital life, data, and online presence.",
+        icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
+        iconColor: "vision-icon-purple",
+        bgColor: "vision-icon-bg-purple"
+      }
+    ]}
+  />
+  <MissionSection 
+    title="Join the Movement for Digital Rights"
+    subtitle="Connect with privacy advocates, digital rights activists, journalists, and concerned citizens who are working to create a more humane digital future."
+    missionItems={[
+      {
+        title: "For Privacy Advocates",
+        description: "If you care about digital privacy and are concerned about surveillance capitalism, join our community of like-minded individuals.",
+        bulletPoints: [
+          "Share knowledge about privacy protection",
+          "Discuss alternatives to corporate platforms",
+          "Learn about digital rights and sovereignty",
+          "Connect with other privacy advocates"
+        ],
+        accentColor: "mission-accent-blue"
+      },
+      {
+        title: "For Digital Rights Activists",
+        description: "Join a community of activists fighting for digital sovereignty and against surveillance capitalism.",
+        bulletPoints: [
+          "Share strategies for digital activism",
+          "Discuss community governance models",
+          "Learn about open source alternatives",
+          "Build networks with other activists"
+        ],
+        accentColor: "mission-accent-green"
+      }
+    ]}
+  />
   <ValuesSection />
-  <CTASection />
+  <CTASection 
+    title="Join Our Community"
+    subtitle="Connect with thousands of like-minded individuals who share your vision for a better digital future. Share ideas, learn from others, and be part of the movement for digital sovereignty."
+    primaryButtonText="Join Community"
+    primaryButtonLink="/contact"
+    secondaryButtonText="Learn More"
+    secondaryButtonLink="/about"
+  />
 </Layout> 
