@@ -320,6 +320,7 @@ import Layout from '../layouts/Layout.astro';
           privacyConsent: formData.get('privacy-consent')
         };
 
+        // Client-side validation
         if (!data.subject || !data.message) {
           showMessage('error', 'Please provide a subject and message.');
           return;
@@ -327,6 +328,29 @@ import Layout from '../layouts/Layout.astro';
 
         if (!data.privacyConsent) {
           showMessage('error', 'Please confirm that you understand our privacy approach.');
+          return;
+        }
+
+        // Input length validation
+        if (data.subject.length > 200) {
+          showMessage('error', 'Subject is too long. Please keep it under 200 characters.');
+          return;
+        }
+
+        if (data.message.length > 2000) {
+          showMessage('error', 'Message is too long. Please keep it under 2000 characters.');
+          return;
+        }
+
+        if (data.pseudonym && data.pseudonym.length > 100) {
+          showMessage('error', 'Pseudonym is too long. Please keep it under 100 characters.');
+          return;
+        }
+
+        // Basic XSS prevention (additional client-side check)
+        const dangerousPatterns = /<script|<iframe|<object|<embed|javascript:|on\w+\s*=/i;
+        if (dangerousPatterns.test(data.subject) || dangerousPatterns.test(data.message) || dangerousPatterns.test(data.pseudonym)) {
+          showMessage('error', 'Invalid characters detected. Please remove any script tags or special characters.');
           return;
         }
 
@@ -356,6 +380,8 @@ import Layout from '../layouts/Layout.astro';
               errorMsg = 'Email service authentication failed. Please try again later or contact us through alternative methods.';
             } else if (result.error && result.error.includes('connection failed')) {
               errorMsg = 'Email service is temporarily unavailable. Please try again in a few minutes or use alternative contact methods.';
+            } else if (result.error && result.error.includes('Too many requests')) {
+              errorMsg = 'Too many requests. Please wait a minute before trying again.';
             }
             
             showMessage('error', errorMsg);

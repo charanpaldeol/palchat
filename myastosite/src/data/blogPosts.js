@@ -1,3 +1,31 @@
+// Validation function to ensure blog post content is safe
+function validateBlogPost(post) {
+  // Check for dangerous HTML patterns
+  const dangerousPatterns = /<script|<iframe|<object|<embed|javascript:|on\w+\s*=/i;
+  
+  if (dangerousPatterns.test(post.content) || 
+      dangerousPatterns.test(post.title) || 
+      dangerousPatterns.test(post.excerpt)) {
+    throw new Error('Blog post contains potentially dangerous content');
+  }
+  
+  // Validate required fields
+  if (!post.id || !post.title || !post.content) {
+    throw new Error('Blog post missing required fields');
+  }
+  
+  // Validate content length
+  if (post.title.length > 200) {
+    throw new Error('Blog post title too long');
+  }
+  
+  if (post.content.length > 50000) {
+    throw new Error('Blog post content too long');
+  }
+  
+  return post;
+}
+
 export const blogPosts = [
   {
     id: 1,
@@ -182,4 +210,10 @@ export const blogPosts = [
     isAnonymous: true,
     shareCount: 31
   }
-]; 
+];
+
+// Validate all blog posts
+export const validatedBlogPosts = blogPosts.map(post => validateBlogPost(post));
+
+// Export the validated posts as the default
+export { validatedBlogPosts as blogPosts }; 

@@ -622,17 +622,29 @@ import Layout from '../layouts/Layout.astro';
         return examples[dataType.toLowerCase()] || 'Used for user profiling and targeted advertising';
       }
 
+      // HTML escape function to prevent XSS
+      escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
       createDataCard(title, value, description = '') {
         const usageExample = this.getUsageExample(title, value);
+        const escapedTitle = this.escapeHtml(title);
+        const escapedValue = this.escapeHtml(value);
+        const escapedUsageExample = this.escapeHtml(usageExample);
+        const escapedDescription = description ? this.escapeHtml(description) : '';
+        
         return `
           <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
-            <h3 class="font-bold text-gray-900 text-lg mb-3">${title}</h3>
-            <p class="text-gray-700 text-base font-mono break-all mb-4 bg-gray-100 rounded-lg p-3 border border-gray-200">${value}</p>
+            <h3 class="font-bold text-gray-900 text-lg mb-3">${escapedTitle}</h3>
+            <p class="text-gray-700 text-base font-mono break-all mb-4 bg-gray-100 rounded-lg p-3 border border-gray-200">${escapedValue}</p>
             <div class="bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-400 p-4 rounded-r-lg">
               <p class="text-red-800 text-sm font-bold mb-2">🎯 How it's used:</p>
-              <p class="text-red-700 text-sm leading-relaxed">${usageExample}</p>
+              <p class="text-red-700 text-sm leading-relaxed">${escapedUsageExample}</p>
             </div>
-            ${description ? `<p class="text-gray-500 text-sm mt-4 leading-relaxed">${description}</p>` : ''}
+            ${escapedDescription ? `<p class="text-gray-500 text-sm mt-4 leading-relaxed">${escapedDescription}</p>` : ''}
           </div>
         `;
       }
@@ -693,11 +705,12 @@ import Layout from '../layouts/Layout.astro';
         const profileContainer = document.getElementById('interest-profile');
         if (profileContainer) {
           const interests = this.generateInterestProfile();
+          const escapedInterests = interests.map(interest => this.escapeHtml(interest));
           profileContainer.innerHTML = `
             <div class="space-y-6">
               <h3 class="font-bold text-gray-900 text-xl mb-4">Inferred Interests:</h3>
               <div class="flex flex-wrap gap-3">
-                ${interests.map(interest => 
+                ${escapedInterests.map(interest => 
                   `<span class="px-4 py-2 bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 rounded-full text-base font-semibold shadow-md hover:shadow-lg transition-shadow duration-300">${interest}</span>`
                 ).join('')}
               </div>
