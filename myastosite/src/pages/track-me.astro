@@ -377,12 +377,67 @@ import Layout from '../layouts/Layout.astro';
         return interests.length > 0 ? interests : ['General Internet User'];
       }
 
+      getUsageExample(dataType, value) {
+        const examples = {
+          // Passive Data Examples
+          'ip': 'Used for geo-targeting ads, price discrimination, and content blocking based on location',
+          'location': 'Shows local ads, adjusts prices (flights/hotels), and restricts content by region',
+          'userAgent': 'Identifies device type for targeted ads (mobile vs desktop), browser-specific tracking',
+          'language': 'Serves ads in your language, cultural targeting, and localized content manipulation',
+          'timezone': 'Time-based ad targeting, showing ads at optimal hours, and behavioral analysis',
+          'screenWidth': 'Device targeting (mobile vs desktop), responsive ad placement, and user experience manipulation',
+          'referrer': 'Tracks where you came from, builds browsing history, and creates user journey profiles',
+          'platform': 'OS-specific targeting (iOS vs Android), platform-based price discrimination',
+          'cookieEnabled': 'Determines tracking capabilities, serves different experiences based on privacy settings',
+          'onLine': 'Online/offline behavior tracking, connectivity-based ad targeting',
+          'colorDepth': 'Device capability assessment, high-end vs budget user targeting',
+          'pixelDepth': 'Display quality targeting, premium user identification',
+          'url': 'Page-specific tracking, content interest analysis, and cross-site behavior correlation',
+          'timestamp': 'Time-based targeting, behavioral pattern analysis, and real-time ad serving',
+          'languages': 'Multi-language user identification, cultural background targeting',
+          'screenHeight': 'Device form factor targeting, mobile vs tablet vs desktop optimization',
+          'isp': 'Internet service provider targeting, bandwidth-based content delivery, and ISP-specific ads',
+
+          // Storage Examples
+          'visitorId': 'Cross-site tracking, persistent user identification, and long-term behavior analysis',
+          'visitCount': 'User engagement scoring, retargeting frequency, and loyalty program targeting',
+          'lastVisit': 'Recency targeting, re-engagement campaigns, and abandoned cart recovery',
+          'sessionStart': 'Session-based targeting, real-time behavior analysis, and immediate ad serving',
+          'pageUrl': 'Content interest tracking, page-specific retargeting, and user journey mapping',
+          'timeOnPage': 'Engagement scoring, content effectiveness measurement, and user attention targeting',
+
+          // Fingerprint Examples
+          'canvas': 'Unique browser identification, cross-site tracking even with cookies disabled',
+          'webglVendor': 'Hardware-based targeting, gaming vs professional user identification',
+          'webglRenderer': 'GPU capability assessment, high-performance user targeting',
+          'fonts': 'System configuration fingerprinting, unique device identification',
+          'plugins': 'Browser capability assessment, security vulnerability targeting',
+          'uniqueness': 'Cross-site user identification, persistent tracking without consent',
+          'screenRes': 'Device type identification, display quality targeting, and user experience manipulation',
+          'pixelRatio': 'High-DPI display targeting, premium device user identification',
+
+          // Behavioral Examples
+          'scrollDepth': 'Content engagement scoring, attention span analysis, and ad placement optimization',
+          'clickCount': 'User activity level assessment, interactive vs passive user targeting',
+          'currentSection': 'Content interest tracking, real-time behavior analysis, and dynamic ad serving',
+          'mousePosition': 'Attention tracking, heat map generation, and optimal ad placement',
+          'pageInteractions': 'User engagement scoring, content effectiveness measurement, and behavioral profiling'
+        };
+
+        return examples[dataType.toLowerCase()] || 'Used for user profiling and targeted advertising';
+      }
+
       createDataCard(title, value, description = '') {
+        const usageExample = this.getUsageExample(title, value);
         return `
           <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
             <h3 class="font-semibold text-gray-900 text-sm mb-1">${title}</h3>
-            <p class="text-gray-700 text-sm font-mono break-all">${value}</p>
-            ${description ? `<p class="text-gray-500 text-xs mt-1">${description}</p>` : ''}
+            <p class="text-gray-700 text-sm font-mono break-all mb-2">${value}</p>
+            <div class="bg-red-50 border-l-4 border-red-400 p-3">
+              <p class="text-red-800 text-xs font-medium mb-1">🎯 How it's used:</p>
+              <p class="text-red-700 text-xs">${usageExample}</p>
+            </div>
+            ${description ? `<p class="text-gray-500 text-xs mt-2">${description}</p>` : ''}
           </div>
         `;
       }
@@ -451,9 +506,16 @@ import Layout from '../layouts/Layout.astro';
                   `<span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">${interest}</span>`
                 ).join('')}
               </div>
+              <div class="bg-red-50 border-l-4 border-red-400 p-3 mt-4">
+                <p class="text-red-800 text-xs font-medium mb-1">🎯 How this profile is used:</p>
+                <p class="text-red-700 text-xs">
+                  Advertisers use this profile to serve personalized ads, manipulate prices, and create targeted content. 
+                  Your interests determine which products you see, how much you pay, and what content is shown to you.
+                </p>
+              </div>
               <p class="text-gray-600 text-sm mt-4">
                 This profile is generated based on your browsing behavior and device characteristics. 
-                Real advertisers use similar data to target ads.
+                Real advertisers use similar data to target ads and manipulate user behavior.
               </p>
             </div>
           `;
