@@ -344,7 +344,7 @@ import Layout from '../layouts/Layout.astro';
           const result = await response.json();
 
           if (response.ok) {
-            showMessage('success', 'Message sent successfully! We\'ll respond while respecting your privacy.');
+            showMessage('success', result.message || 'Message sent successfully! We\'ll respond while respecting your privacy.');
             form.reset();
           } else {
             let errorMsg = result.error || 'Failed to send message. Please try again.';

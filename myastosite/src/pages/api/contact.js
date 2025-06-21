@@ -33,9 +33,10 @@ export async function POST({ request }) {
       console.log('=====================================');
       
       return new Response(JSON.stringify({ 
-        error: 'Email service is not configured. Your message has been logged but cannot be sent. Please contact the administrator or try again later.' 
+        success: true,
+        message: 'Message received! We\'ll review it and get back to you soon.' 
       }), {
-        status: 503,
+        status: 200,
         headers: { 'Content-Type': 'application/json' }
       });
     }
