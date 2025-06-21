@@ -1,4 +1,4 @@
-# My View of the World
+# My Updated View of the World
 
 A personal blog exploring technology, privacy, and finance from an independent perspective.
 
