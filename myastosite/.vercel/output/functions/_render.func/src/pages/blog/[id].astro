@@ -1,0 +1,480 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { blogPosts } from '../../data/blogPosts.js';
+
+// Generate static paths for each blog post
+export async function getStaticPaths() {
+  return blogPosts.map((post) => ({
+    params: { id: post.id.toString() },
+    props: { post }
+  }));
+}
+
+// Get the blog post from props
+const { post } = Astro.props;
+---
+
+<Layout title={`${post.title} - PalChat Blog`}>
+  <!-- Back to Blog Button -->
+  <div class="bg-white border-b border-gray-200">
+    <div class="container mx-auto px-4 py-4">
+      <a href="/blog" class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Back to Blog
+      </a>
+    </div>
+  </div>
+
+  <!-- Blog Post Content -->
+  <article class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <!-- Post Header -->
+        <header class="mb-12">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-sm text-gray-500">{post.readTime}</span>
+            <span class="text-gray-300">•</span>
+            <span class="text-sm text-gray-500">{new Date(post.date).toLocaleDateString()}</span>
+            {post.expiresAt && (
+              <>
+                <span class="text-gray-300">•</span>
+                <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded-full">
+                  Expires {new Date(post.expiresAt).toLocaleDateString()}
+                </span>
+              </>
+            )}
+          </div>
+          
+          <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+            {post.title}
+          </h1>
+          
+          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+            {post.excerpt}
+          </p>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4 text-sm text-gray-500">
+              <span>By {post.author}</span>
+              <span>•</span>
+              <span>{post.wordCount} words</span>
+            </div>
+            
+            <div class="flex items-center gap-4">
+              <button class="flex items-center gap-1 text-gray-500 hover:text-red-500 transition-colors" onclick="likePost(${post.id})">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+                <span id="likes-{post.id}">{post.likes}</span>
+              </button>
+              <button class="flex items-center gap-1 text-gray-500 hover:text-blue-500 transition-colors" onclick="showComments(${post.id})">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                </svg>
+                <span>{post.comments}</span>
+              </button>
+              <button class="flex items-center gap-1 text-gray-500 hover:text-green-500 transition-colors" onclick="sharePost(${post.id})">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                </svg>
+                <span>{post.shareCount}</span>
+              </button>
+              <button class="bookmark-btn p-1 hover:bg-gray-100 rounded transition-colors" data-post-id={post.id}>
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <!-- Post Content -->
+        <div class="prose prose-lg max-w-none mb-12">
+          <div set:html={post.content}></div>
+        </div>
+
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-2 mb-8">
+          {post.tags.map((tag) => (
+            <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full">{tag}</span>
+          ))}
+        </div>
+
+        <!-- Call to Action -->
+        <div class="bg-gray-50 rounded-2xl p-8 text-center">
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Join the Conversation</h3>
+          <p class="text-gray-600 mb-6">
+            Share your thoughts on this post. Remember, all comments are anonymous and privacy-focused.
+          </p>
+          <button onclick="showComments(${post.id})" class="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+            </svg>
+            Add a Comment
+          </button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Related Posts -->
+  <section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Related Posts</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          {blogPosts
+            .filter(p => p.id !== post.id && p.category === post.category)
+            .slice(0, 2)
+            .map((relatedPost) => (
+              <article class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-shadow">
+                <div class="p-6">
+                  <div class="flex items-center gap-2 mb-4">
+                    <span class="text-sm text-gray-500">{relatedPost.readTime}</span>
+                    <span class="text-gray-300">•</span>
+                    <span class="text-sm text-gray-500">{new Date(relatedPost.date).toLocaleDateString()}</span>
+                  </div>
+                  
+                  <h3 class="text-xl font-bold text-gray-900 mb-3">
+                    <a href={`/blog/${relatedPost.id}`} class="hover:text-blue-600 transition-colors">
+                      {relatedPost.title}
+                    </a>
+                  </h3>
+                  
+                  <p class="text-gray-600 mb-4 line-clamp-3">
+                    {relatedPost.excerpt}
+                  </p>
+                  
+                  <div class="flex items-center gap-4 text-sm text-gray-500">
+                    <span>By {relatedPost.author}</span>
+                    <span>•</span>
+                    <span>{relatedPost.likes} likes</span>
+                    <span>•</span>
+                    <span>{relatedPost.comments} comments</span>
+                  </div>
+                </div>
+              </article>
+            ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comments Modal -->
+  <div id="comments-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-6 border-b border-gray-200">
+          <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-bold text-gray-900">Comments</h2>
+            <button onclick="closeCommentsModal()" class="text-gray-400 hover:text-gray-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="p-6">
+          <!-- Add Comment Form -->
+          <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+            <textarea id="comment-text" rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Add a comment..."></textarea>
+            <div class="flex justify-end mt-3">
+              <button onclick="addComment()" class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                Post Comment
+              </button>
+            </div>
+          </div>
+          
+          <!-- Comments List -->
+          <div id="comments-list" class="space-y-4">
+            <!-- Comments will be dynamically loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Share Modal -->
+  <div id="share-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl max-w-md w-full">
+        <div class="p-6 border-b border-gray-200">
+          <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-bold text-gray-900">Share Post</h2>
+            <button onclick="closeShareModal()" class="text-gray-400 hover:text-gray-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="p-6">
+          <div class="space-y-4">
+            <button onclick="shareViaLink()" class="w-full flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+              <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
+                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
+              </svg>
+              <span class="font-medium">Copy Link</span>
+            </button>
+            
+            <button onclick="shareViaEmail()" class="w-full flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+              <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+              </svg>
+              <span class="font-medium">Share via Email</span>
+            </button>
+            
+            <button onclick="exportPost()" class="w-full flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+              <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+              <span class="font-medium">Export as PDF</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ postId: post.id }}>
+    let currentPostId = postId;
+    let bookmarkedPosts = JSON.parse(localStorage.getItem('bookmarkedPosts') || '[]');
+
+    // Update bookmark button state
+    function updateBookmarkButton() {
+      const bookmarkBtn = document.querySelector('.bookmark-btn');
+      if (bookmarkBtn) {
+        const svg = bookmarkBtn.querySelector('svg');
+        if (svg && bookmarkedPosts.includes(currentPostId)) {
+          svg.classList.add('text-blue-600');
+          svg.classList.remove('text-gray-400');
+        } else if (svg) {
+          svg.classList.remove('text-blue-600');
+          svg.classList.add('text-gray-400');
+        }
+      }
+    }
+
+    // Like Post
+    function likePost(postId) {
+      const likesElement = document.getElementById(`likes-${postId}`);
+      if (!likesElement) return;
+      
+      const currentLikes = parseInt(likesElement.textContent) || 0;
+      likesElement.textContent = currentLikes + 1;
+      
+      // Add visual feedback
+      likesElement.classList.add('text-red-500');
+      setTimeout(() => {
+        likesElement.classList.remove('text-red-500');
+      }, 500);
+      
+      const likedPosts = JSON.parse(localStorage.getItem('likedPosts') || '[]');
+      if (!likedPosts.includes(postId)) {
+        likedPosts.push(postId);
+        localStorage.setItem('likedPosts', JSON.stringify(likedPosts));
+      }
+    }
+
+    // Comments Modal
+    function showComments(postId) {
+      currentPostId = postId;
+      const modal = document.getElementById('comments-modal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        loadComments(postId);
+      }
+    }
+
+    function closeCommentsModal() {
+      const modal = document.getElementById('comments-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // Share Modal
+    function sharePost(postId) {
+      currentPostId = postId;
+      const modal = document.getElementById('share-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeShareModal() {
+      const modal = document.getElementById('share-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // Add Comment
+    function addComment() {
+      const commentTextEl = document.getElementById('comment-text');
+      if (!commentTextEl) return;
+      
+      const commentText = commentTextEl.value.trim();
+      if (!commentText) return;
+
+      const commentsList = document.getElementById('comments-list');
+      if (!commentsList) return;
+      
+      const commentElement = document.createElement('div');
+      commentElement.className = 'p-4 bg-gray-50 rounded-lg';
+      commentElement.innerHTML = 
+        '<div class="flex items-start gap-3">' +
+          '<div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">' +
+            '<span class="text-sm font-medium text-gray-600">A</span>' +
+          '</div>' +
+          '<div class="flex-1">' +
+            '<div class="flex items-center gap-2 mb-1">' +
+              '<span class="font-medium text-gray-900">Anonymous</span>' +
+              '<span class="text-sm text-gray-500">' + new Date().toLocaleDateString() + '</span>' +
+            '</div>' +
+            '<p class="text-gray-700">' + commentText + '</p>' +
+          '</div>' +
+        '</div>';
+      
+      commentsList.insertBefore(commentElement, commentsList.firstChild);
+      commentTextEl.value = '';
+    }
+
+    // Load Comments
+    function loadComments(postId) {
+      const commentsList = document.getElementById('comments-list');
+      if (!commentsList) return;
+      
+      commentsList.innerHTML = 
+        '<div class="p-4 bg-gray-50 rounded-lg">' +
+          '<div class="flex items-start gap-3">' +
+            '<div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">' +
+              '<span class="text-sm font-medium text-gray-600">A</span>' +
+            '</div>' +
+            '<div class="flex-1">' +
+              '<div class="flex items-center gap-2 mb-1">' +
+                '<span class="font-medium text-gray-900">Anonymous</span>' +
+                '<span class="text-sm text-gray-500">2025-01-19</span>' +
+              '</div>' +
+              '<p class="text-gray-700">Great post! I completely agree with the privacy-first approach.</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="p-4 bg-gray-50 rounded-lg">' +
+          '<div class="flex items-start gap-3">' +
+            '<div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">' +
+              '<span class="text-sm font-medium text-gray-600">A</span>' +
+            '</div>' +
+            '<div class="flex-1">' +
+              '<div class="flex items-center gap-2 mb-1">' +
+                '<span class="font-medium text-gray-900">Anonymous</span>' +
+                '<span class="text-sm text-gray-500">2025-01-18</span>' +
+              '</div>' +
+              '<p class="text-gray-700">This is exactly what I\'ve been looking for. No accounts, no tracking!</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+    }
+
+    // Share functions
+    function shareViaLink() {
+      if (!currentPostId) return;
+      
+      const url = window.location.origin + '/blog/' + currentPostId;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => {
+          alert('Link copied to clipboard!');
+          closeShareModal();
+        }).catch(() => {
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = url;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          alert('Link copied to clipboard!');
+          closeShareModal();
+        });
+      } else {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = url;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('Link copied to clipboard!');
+        closeShareModal();
+      }
+    }
+
+    function shareViaEmail() {
+      if (!currentPostId) return;
+      
+      const url = window.location.origin + '/blog/' + currentPostId;
+      const subject = 'Check out this privacy-first blog post';
+      const body = 'I found this interesting post on PalChat: ' + url;
+      window.open('mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body));
+      closeShareModal();
+    }
+
+    function exportPost() {
+      alert('PDF export feature would be implemented here');
+      closeShareModal();
+    }
+
+    // Bookmark functionality
+    document.addEventListener('click', (e) => {
+      const bookmarkBtn = e.target.closest('.bookmark-btn');
+      if (bookmarkBtn) {
+        const postId = parseInt(bookmarkBtn.dataset.postId);
+        if (isNaN(postId)) return;
+        
+        const svg = bookmarkBtn.querySelector('svg');
+        const wasBookmarked = bookmarkedPosts.includes(postId);
+        
+        if (wasBookmarked) {
+          bookmarkedPosts = bookmarkedPosts.filter(id => id !== postId);
+          if (svg) {
+            svg.classList.remove('text-blue-600');
+            svg.classList.add('text-gray-400');
+          }
+          bookmarkBtn.classList.add('scale-95');
+          setTimeout(() => bookmarkBtn.classList.remove('scale-95'), 200);
+        } else {
+          bookmarkedPosts.push(postId);
+          if (svg) {
+            svg.classList.add('text-blue-600');
+            svg.classList.remove('text-gray-400');
+          }
+          bookmarkBtn.classList.add('scale-110');
+          setTimeout(() => bookmarkBtn.classList.remove('scale-110'), 200);
+        }
+        
+        localStorage.setItem('bookmarkedPosts', JSON.stringify(bookmarkedPosts));
+      }
+    });
+
+    // Close modals when clicking outside
+    document.addEventListener('click', (e) => {
+      if (e.target.id === 'comments-modal') {
+        closeCommentsModal();
+      }
+      if (e.target.id === 'share-modal') {
+        closeShareModal();
+      }
+    });
+
+    // Handle keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeCommentsModal();
+        closeShareModal();
+      }
+    });
+
+    // Initialize
+    updateBookmarkButton();
+  </script>
+</Layout> 

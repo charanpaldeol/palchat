@@ -47,6 +47,31 @@
   }
 }
 
+/* Navbar specific styles */
+#navbar {
+  transition: transform 0.3s ease-in-out;
+}
+
+#navbar nav {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Mobile menu styles */
+#mobile-menu {
+  transition: all 0.3s ease-in-out;
+}
+
+#mobile-menu.hidden {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+#mobile-menu:not(.hidden) {
+  opacity: 1;
+  max-height: 500px;
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
