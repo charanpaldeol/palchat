@@ -16,25 +16,25 @@ const {
   primaryButtonLink = "/contact",
   secondaryButtonText = "Learn More",
   secondaryButtonLink = "/about",
-  backgroundColor = "bg-gradient-to-br from-gray-900 to-black dark:from-gray-800 dark:to-gray-900"
+  backgroundColor = "cta-section"
 } = Astro.props;
 ---
 
-<section class={`py-20 ${backgroundColor} text-white`}>
-  <div class="container mx-auto px-4">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+<section class={backgroundColor}>
+  <div class="component-container">
+    <div class="cta-container">
+      <h2 class="cta-title">
         {title}
       </h2>
-      <p class="text-xl text-gray-300 mb-12">
+      <p class="cta-subtitle">
         {subtitle}
       </p>
       
-      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <a href={primaryButtonLink} class="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-900 font-semibold rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+      <div class="cta-buttons">
+        <a href={primaryButtonLink} class="cta-primary-button">
           {primaryButtonText}
         </a>
-        <a href={secondaryButtonLink} class="inline-flex items-center gap-2 px-8 py-4 border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-gray-900 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+        <a href={secondaryButtonLink} class="cta-secondary-button">
           {secondaryButtonText}
         </a>
       </div>

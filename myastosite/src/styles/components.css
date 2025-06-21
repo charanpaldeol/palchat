@@ -1,0 +1,58 @@
+/* Component Styles Import */
+
+/* Import all component styles */
+@import './components/hero-section.css';
+@import './components/vision-section.css';
+@import './components/mission-section.css';
+@import './components/values-section.css';
+@import './components/cta-section.css';
+
+/* Global component utilities */
+.component-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.component-section {
+  padding: 5rem 0;
+}
+
+.component-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.component-subtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+}
+
+/* Dark mode support for all components */
+.dark .component-title {
+  color: #ffffff;
+}
+
+.dark .component-subtitle {
+  color: #d1d5db;
+}
+
+/* Responsive utilities */
+@media (min-width: 768px) {
+  .component-title {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .component-title {
+    font-size: 3.5rem;
+  }
+  
+  .component-container {
+    padding: 0 2rem;
+  }
+} 

@@ -15,8 +15,8 @@ interface Props {
 const {
   title = "Our Values",
   subtitle = "These core values guide everything we do.",
-  backgroundColor = "bg-white dark:bg-gray-900",
-  cardBackgroundColor = "bg-gray-50 dark:bg-gray-800",
+  backgroundColor = "values-section",
+  cardBackgroundColor = "values-card",
   values = [
     {
       title: "Digital Sovereignty",
@@ -46,23 +46,23 @@ const {
 } = Astro.props;
 ---
 
-<section class={`py-20 ${backgroundColor}`}>
-  <div class="container mx-auto px-4">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+<section class={backgroundColor}>
+  <div class="component-container">
+    <div class="values-container">
+      <div class="values-header">
+        <h2 class="values-title">
           {title}
         </h2>
-        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        <p class="values-subtitle">
           {subtitle}
         </p>
       </div>
       
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="values-grid">
         {values.map((value) => (
-          <div class={`${cardBackgroundColor} rounded-xl p-6 border border-gray-100 dark:border-gray-700`}>
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{value.title}</h3>
-            <p class="text-gray-600 dark:text-gray-300 text-sm">{value.description}</p>
+          <div class={cardBackgroundColor}>
+            <h3 class="values-card-title">{value.title}</h3>
+            <p class="values-card-description">{value.description}</p>
           </div>
         ))}
       </div>

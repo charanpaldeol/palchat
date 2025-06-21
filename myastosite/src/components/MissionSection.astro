@@ -16,7 +16,7 @@ interface Props {
 const {
   title = "Our Mission",
   subtitle = "To educate, inspire, and empower communities to take control of their digital lives and create technology that truly serves human flourishing.",
-  backgroundColor = "bg-gradient-to-br from-gray-50 to-slate-50 dark:from-gray-800 dark:to-slate-800",
+  backgroundColor = "mission-section",
   missionItems = [
     {
       title: "Educate",
@@ -26,7 +26,7 @@ const {
         "Digital privacy and data rights",
         "Alternative ownership models"
       ],
-      accentColor: "bg-blue-500"
+      accentColor: "mission-accent-blue"
     },
     {
       title: "Empower",
@@ -36,36 +36,36 @@ const {
         "Community governance models",
         "Digital sovereignty practices"
       ],
-      accentColor: "bg-green-500"
+      accentColor: "mission-accent-green"
     }
   ]
 } = Astro.props;
 ---
 
-<section id="mission" class={`py-20 ${backgroundColor}`}>
-  <div class="container mx-auto px-4">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+<section id="mission" class={backgroundColor}>
+  <div class="component-container">
+    <div class="mission-container">
+      <div class="mission-header">
+        <h2 class="mission-title">
           {title}
         </h2>
-        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+        <p class="mission-subtitle">
           {subtitle}
         </p>
       </div>
       
-      <div class="grid md:grid-cols-2 gap-12">
+      <div class="mission-grid">
         {missionItems.map((item) => (
-          <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700">
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{item.title}</h3>
-            <p class="text-gray-600 dark:text-gray-300 mb-6">
+          <div class="mission-card">
+            <h3 class="mission-card-title">{item.title}</h3>
+            <p class="mission-card-description">
               {item.description}
             </p>
-            <div class="space-y-3">
+            <div class="mission-bullet-list">
               {item.bulletPoints.map((point) => (
-                <div class="flex items-center gap-3">
-                  <div class={`w-2 h-2 ${item.accentColor} rounded-full`}></div>
-                  <span class="text-gray-700 dark:text-gray-300">{point}</span>
+                <div class="mission-bullet-item">
+                  <div class={`mission-bullet-dot ${item.accentColor}`}></div>
+                  <span class="mission-bullet-text">{point}</span>
                 </div>
               ))}
             </div>

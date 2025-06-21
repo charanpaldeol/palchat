@@ -1,0 +1,153 @@
+/* VisionSection Component Styles */
+
+.vision-section {
+  padding: 5rem 0;
+  background-color: #ffffff;
+}
+
+.dark .vision-section {
+  background-color: #111827;
+}
+
+.vision-container {
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.vision-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.vision-title {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1.5rem;
+}
+
+.dark .vision-title {
+  color: #ffffff;
+}
+
+.vision-subtitle {
+  font-size: 1.25rem;
+  color: #4b5563;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.dark .vision-subtitle {
+  color: #d1d5db;
+}
+
+.vision-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.vision-item {
+  text-align: center;
+}
+
+.vision-icon-container {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem auto;
+}
+
+.vision-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.vision-item-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.75rem;
+}
+
+.dark .vision-item-title {
+  color: #ffffff;
+}
+
+.vision-item-description {
+  color: #4b5563;
+}
+
+.dark .vision-item-description {
+  color: #d1d5db;
+}
+
+/* Icon Colors */
+.vision-icon-blue {
+  color: #2563eb;
+}
+
+.dark .vision-icon-blue {
+  color: #60a5fa;
+}
+
+.vision-icon-green {
+  color: #059669;
+}
+
+.dark .vision-icon-green {
+  color: #34d399;
+}
+
+.vision-icon-purple {
+  color: #7c3aed;
+}
+
+.dark .vision-icon-purple {
+  color: #a78bfa;
+}
+
+/* Icon Backgrounds */
+.vision-icon-bg-blue {
+  background-color: #dbeafe;
+}
+
+.dark .vision-icon-bg-blue {
+  background-color: rgba(59, 130, 246, 0.2);
+}
+
+.vision-icon-bg-green {
+  background-color: #d1fae5;
+}
+
+.dark .vision-icon-bg-green {
+  background-color: rgba(52, 211, 153, 0.2);
+}
+
+.vision-icon-bg-purple {
+  background-color: #e9d5ff;
+}
+
+.dark .vision-icon-bg-purple {
+  background-color: rgba(167, 139, 250, 0.2);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .vision-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .vision-title {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .vision-title {
+    font-size: 3.5rem;
+  }
+} 

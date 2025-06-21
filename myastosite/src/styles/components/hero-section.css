@@ -1,0 +1,151 @@
+/* HeroSection Component Styles */
+
+.hero-section {
+  background: linear-gradient(135deg, #f8fafc 0%, #dbeafe 50%, #e0e7ff 100%);
+  padding: 5rem 0 8rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.dark .hero-section {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #3730a3 100%);
+}
+
+.hero-container {
+  max-width: 64rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 2rem;
+}
+
+.dark .hero-title {
+  color: #ffffff;
+}
+
+.hero-title-gradient {
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #4f46e5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .hero-title-gradient {
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  line-height: 1.75;
+  color: #4b5563;
+  margin-bottom: 3rem;
+  max-width: 48rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dark .hero-subtitle {
+  color: #d1d5db;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-primary-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #111827 0%, #000000 100%);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.dark .hero-primary-button {
+  background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+  color: #000000;
+}
+
+.hero-primary-button:hover {
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.dark .hero-primary-button:hover {
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+.hero-secondary-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border: 2px solid #d1d5db;
+  color: #374151;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.dark .hero-secondary-button {
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+.hero-secondary-button:hover {
+  border-color: #9ca3af;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.dark .hero-secondary-button:hover {
+  border-color: #6b7280;
+  background-color: rgba(31, 41, 55, 0.5);
+}
+
+/* Responsive Design */
+@media (min-width: 640px) {
+  .hero-buttons {
+    flex-direction: row;
+  }
+  
+  .hero-title {
+    font-size: 4.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-section {
+    padding: 8rem 0 12rem 0;
+  }
+  
+  .hero-title {
+    font-size: 6rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+  }
+} 

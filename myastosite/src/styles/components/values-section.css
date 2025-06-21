@@ -1,0 +1,173 @@
+/* ValuesSection Component Styles */
+
+.values-section {
+  padding: 5rem 0;
+  background-color: #ffffff;
+}
+
+.dark .values-section {
+  background-color: #111827;
+}
+
+.values-container {
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.values-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.values-title {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1.5rem;
+}
+
+.dark .values-title {
+  color: #ffffff;
+}
+
+.values-subtitle {
+  font-size: 1.25rem;
+  color: #4b5563;
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.dark .values-subtitle {
+  color: #d1d5db;
+}
+
+.values-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.values-card {
+  background-color: #f9fafb;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  border: 1px solid #f3f4f6;
+  transition: all 0.3s ease;
+}
+
+.dark .values-card {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+.values-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.dark .values-card:hover {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+.values-card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.dark .values-card-title {
+  color: #ffffff;
+}
+
+.values-card-description {
+  color: #4b5563;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.dark .values-card-description {
+  color: #d1d5db;
+}
+
+/* Card Color Variants */
+.values-card-blue {
+  background-color: #eff6ff;
+  border-color: #dbeafe;
+}
+
+.dark .values-card-blue {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.values-card-green {
+  background-color: #f0fdf4;
+  border-color: #d1fae5;
+}
+
+.dark .values-card-green {
+  background-color: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.2);
+}
+
+.values-card-purple {
+  background-color: #faf5ff;
+  border-color: #e9d5ff;
+}
+
+.dark .values-card-purple {
+  background-color: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.2);
+}
+
+.values-card-red {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+}
+
+.dark .values-card-red {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.values-card-yellow {
+  background-color: #fffbeb;
+  border-color: #fed7aa;
+}
+
+.dark .values-card-yellow {
+  background-color: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.values-card-pink {
+  background-color: #fdf2f8;
+  border-color: #fbcfe8;
+}
+
+.dark .values-card-pink {
+  background-color: rgba(236, 72, 153, 0.1);
+  border-color: rgba(236, 72, 153, 0.2);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .values-title {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .values-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .values-title {
+    font-size: 3.5rem;
+  }
+} 
