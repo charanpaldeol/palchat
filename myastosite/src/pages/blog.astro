@@ -19,13 +19,13 @@ const categories = [
     "@type": "Blog",
     "name": "PalChat Blog",
     "description": "Privacy-first blog sharing thoughts on technology, privacy, and finance from an independent perspective",
-    "url": "https://palchat.com/blog",
+    "url": "https://palchat.org/blog",
     "publisher": {
       "@type": "Organization",
       "name": "PalChat",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://palchat.com/assets/palchatlogo.png"
+        "url": "https://palchat.org/assets/palchatlogo.png"
       }
     },
     "blogPost": blogPosts.map(post => ({
@@ -38,7 +38,7 @@ const categories = [
       },
       "datePublished": post.date,
       "dateModified": post.date,
-      "url": `https://palchat.com/blog/${post.id}`,
+      "url": `https://palchat.org/blog/${post.id}`,
       "articleSection": post.category,
       "keywords": post.tags.join(", "),
       "wordCount": post.wordCount

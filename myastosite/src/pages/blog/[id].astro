@@ -21,7 +21,7 @@ const { post } = Astro.props;
     "@type": "BlogPosting",
     "headline": post.title,
     "description": post.excerpt,
-    "image": post.image || "https://palchat.com/assets/palchatlogo.png",
+    "image": post.image || "https://palchat.org/assets/palchatlogo.png",
     "author": {
       "@type": "Person",
       "name": post.author
@@ -31,14 +31,14 @@ const { post } = Astro.props;
       "name": "PalChat",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://palchat.com/assets/palchatlogo.png"
+        "url": "https://palchat.org/assets/palchatlogo.png"
       }
     },
     "datePublished": post.date,
     "dateModified": post.date,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://palchat.com/blog/${post.id}`
+      "@id": `https://palchat.org/blog/${post.id}`
     },
     "wordCount": post.wordCount,
     "articleSection": post.category,
@@ -47,7 +47,7 @@ const { post } = Astro.props;
     "isPartOf": {
       "@type": "Blog",
       "name": "PalChat Blog",
-      "url": "https://palchat.com/blog"
+      "url": "https://palchat.org/blog"
     }
   })}>
   </script>

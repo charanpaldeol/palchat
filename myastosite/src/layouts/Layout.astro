@@ -14,14 +14,14 @@ const currentPath = Astro.url.pathname;
 const generateBreadcrumbs = (pathname: string) => {
   const segments = pathname.split('/').filter(segment => segment);
   const breadcrumbs = [
-    { name: 'Home', url: 'https://palchat.com/' }
+    { name: 'Home', url: 'https://palchat.org/' }
   ];
   
   let currentPath = '';
   segments.forEach(segment => {
     currentPath += `/${segment}`;
     const name = segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' ');
-    breadcrumbs.push({ name, url: `https://palchat.com${currentPath}` });
+    breadcrumbs.push({ name, url: `https://palchat.org${currentPath}` });
   });
   
   return breadcrumbs;
@@ -79,8 +79,8 @@ const breadcrumbs = generateBreadcrumbs(currentPath);
       "@type": "Organization",
       "name": "PalChat",
       "alternateName": "PalChat - Digital Sovereignty Community",
-      "url": "https://palchat.com",
-      "logo": "https://palchat.com/assets/palchatlogo.png",
+      "url": "https://palchat.org",
+      "logo": "https://palchat.org/assets/palchatlogo.png",
       "description": "Community of like-minded individuals advocating for digital sovereignty, privacy-first technology, and humane digital platforms. Building awareness and connecting privacy advocates.",
       "foundingDate": "2024",
       "slogan": "Technology that serves humanity, not profit",
@@ -141,7 +141,7 @@ const breadcrumbs = generateBreadcrumbs(currentPath);
       "@type": "WebSite",
       "name": "PalChat - Digital Sovereignty Community",
       "alternateName": "PalChat Community",
-      "url": "https://palchat.com",
+      "url": "https://palchat.org",
       "description": "Community website for like-minded individuals advocating for digital sovereignty, privacy-first technology, and humane digital platforms. Building awareness and connecting privacy advocates.",
       "publisher": {
         "@type": "Organization",
@@ -149,7 +149,7 @@ const breadcrumbs = generateBreadcrumbs(currentPath);
       },
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://palchat.com/blog?search={search_term_string}",
+        "target": "https://palchat.org/blog?search={search_term_string}",
         "query-input": "required name=search_term_string"
       },
       "inLanguage": "en-US",
@@ -192,11 +192,11 @@ const breadcrumbs = generateBreadcrumbs(currentPath);
       "@type": "WebPage",
       "name": title,
       "description": description,
-      "url": Astro.url.toString(),
+      "url": Astro.url.toString().replace('palchat.com', 'palchat.org'),
       "isPartOf": {
         "@type": "WebSite",
         "name": "PalChat",
-        "url": "https://palchat.com"
+        "url": "https://palchat.org"
       },
       "about": {
         "@type": "Organization",
