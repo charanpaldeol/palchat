@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 
 export async function POST({ request }) {
   try {
-    const { name, subject, message } = await request.json();
+    const { pseudonym, subject, message, privacyConsent } = await request.json();
 
     // Validate required fields
     if (!subject || !message) {
@@ -12,16 +12,31 @@ export async function POST({ request }) {
       });
     }
 
+    // Check privacy consent
+    if (!privacyConsent) {
+      return new Response(JSON.stringify({ error: 'Please confirm that you understand our privacy approach' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
     // Check if environment variables are set
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-      console.error('Missing environment variables:', {
-        EMAIL_USER: !!process.env.EMAIL_USER,
-        EMAIL_PASS: !!process.env.EMAIL_PASS
-      });
+      console.log('Email service not configured - storing message in logs instead');
+      
+      // Log the message for debugging (in production, you might want to store in a database)
+      console.log('=== NEW CONTACT FORM SUBMISSION ===');
+      console.log('From:', pseudonym || 'Anonymous');
+      console.log('Subject:', subject);
+      console.log('Message:', message);
+      console.log('Date:', new Date().toISOString());
+      console.log('=====================================');
+      
       return new Response(JSON.stringify({ 
-        error: 'Email service not configured. Please contact the administrator.' 
+        success: true,
+        message: 'Message received! Email service is not configured, but your message has been logged. We\'ll review it soon.' 
       }), {
-        status: 500,
+        status: 200,
         headers: { 'Content-Type': 'application/json' }
       });
     }
@@ -68,12 +83,10 @@ export async function POST({ request }) {
           <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <h3 style="color: #4F46E5; margin-top: 0;">Message Details:</h3>
             
-            ${name ? `
-            <p><strong>Name:</strong> ${name}</p>
-            ` : '<p><strong>Name:</strong> Anonymous</p>'}
-            
+            <p><strong>From:</strong> ${pseudonym || 'Anonymous'}</p>
             <p><strong>Subject:</strong> ${subject}</p>
             <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+            <p><strong>Privacy Consent:</strong> ${privacyConsent ? 'Yes' : 'No'}</p>
           </div>
           
           <div style="background-color: #ffffff; padding: 20px; border: 1px solid #e1e5e9; border-radius: 8px;">
@@ -95,7 +108,7 @@ export async function POST({ request }) {
     // Return success response
     return new Response(JSON.stringify({ 
       success: true, 
-      message: 'Your message has been sent successfully!' 
+      message: 'Your message has been sent successfully! We\'ll respond while respecting your privacy.' 
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
