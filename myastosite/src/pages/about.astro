@@ -7,52 +7,53 @@ import ValuesSection from '../components/ValuesSection.astro';
 import CTASection from '../components/CTASection.astro';
 ---
 
-<Layout title="About - PalChat: Our Story & Purpose">
+<Layout title="About - Digital Sovereignty & Community Building">
   <!-- About Page Structured Data -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    "name": "About PalChat Community",
-    "description": "Learn about PalChat's mission to build a community of like-minded individuals advocating for digital sovereignty and privacy-first technology. Discover our vision for humane digital platforms.",
+    "name": "About Digital Sovereignty Community",
+    "description": "Learn about our mission to raise awareness about technology, privacy, and power while inspiring alternatives to surveillance capitalism. Discover our vision for collective ownership of digital platforms.",
     "url": "https://palchat.org/about",
     "mainEntity": {
       "@type": "Organization",
-      "name": "PalChat",
+      "name": "Digital Sovereignty Community",
       "alternateName": "PalChat Community",
-      "description": "Community of like-minded individuals advocating for digital sovereignty, privacy-first technology, and humane digital platforms.",
+      "description": "Community advocating for digital sovereignty, collective ownership of digital platforms, and technology that serves humanity rather than profit.",
       "url": "https://palchat.org",
       "logo": "https://palchat.org/assets/palchatlogo.png",
       "foundingDate": "2024",
-      "mission": "To build a community of like-minded individuals who advocate for digital sovereignty and privacy-first technology",
-      "vision": "A world where digital platforms are collectively owned by communities, where privacy is a fundamental right, and where technology serves human flourishing",
+      "mission": "To provide an open, equitable platform that raises awareness about the intersection of technology, privacy, and power while inspiring alternatives to the status quo",
+      "vision": "To create a world where digital giants are collectively owned by the societies that power them, where value flows back to the people who generate it",
       "slogan": "Technology that serves humanity, not profit",
       "knowsAbout": [
         "Digital Sovereignty",
-        "Privacy-First Technology",
-        "Community-Owned Platforms",
+        "Collective Ownership",
+        "Privacy by Design",
+        "Transparency",
+        "Equity & Inclusion",
+        "Community Governance",
         "Digital Rights",
-        "Surveillance Capitalism",
-        "Technology Ethics",
-        "Community Governance"
+        "Surveillance Capitalism"
       ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "PalChat Community Services",
+        "name": "Community Services",
         "itemListElement": [
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Community Building",
-              "description": "Connecting like-minded individuals around shared values"
+              "name": "Awareness Creation",
+              "description": "Educational content about digital rights, privacy, and technology ethics"
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Awareness Creation",
-              "description": "Educational content about digital rights and privacy"
+              "name": "Community Building",
+              "description": "Connecting like-minded individuals around shared values of digital sovereignty"
             }
           }
         ]
@@ -63,82 +64,90 @@ import CTASection from '../components/CTASection.astro';
   </script>
 
   <HeroSection
-    title="Why We Started PalChat"
-    subtitle="PalChat was born from a simple, urgent question: What if technology could truly serve people, not profit? In a world where digital platforms often exploit our attention and data, we set out to build something different—a humane initiative where community, privacy, and dignity come first."
-    primaryButtonText="Our Story"
+    title="Reimagining Our Digital Future"
+    subtitle="In a world where digital giants extract value from our attention, creativity, and participation, we envision something different. We believe technology should serve humanity, not profit. This is a space for those who dream of digital platforms collectively owned by the communities that power them."
+    primaryButtonText="Our Vision"
     primaryButtonLink="#vision"
-    secondaryButtonText="Our Purpose"
+    secondaryButtonText="Our Mission"
     secondaryButtonLink="#mission"
   />
+  
   <VisionSection
-    title="A Vision Rooted in Humanity"
-    subtitle="We imagine a future where technology is a tool for empowerment, not exploitation. Our vision is shaped by the belief that digital spaces should foster trust, belonging, and collective well-being. We want to see a world where communities own their platforms, and every voice matters."
+    title="Our Vision: A World of Digital Sovereignty"
+    subtitle="We envision a future where digital giants are collectively owned by the societies that power them. In this world, value flows back to the people who generate it through their attention, creativity, and participation. Technology serves humanity, not profit."
     visionItems={[
       {
-        title: "A Platform for People",
-        description: "PalChat is designed to put people before algorithms, and relationships before revenue.",
+        title: "Collective Ownership",
+        description: "Digital platforms owned by the communities that sustain them, ensuring value creation benefits everyone.",
         icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
         iconColor: "vision-icon-blue",
         bgColor: "vision-icon-bg-blue"
       },
       {
-        title: "Transparency & Trust",
-        description: "We believe in open algorithms, clear intentions, and honest communication.",
+        title: "No Surveillance Capitalism",
+        description: "No invasive ads, no surveillance-based algorithms, no data exploitation. Just transparency, consent, and collective benefit.",
         icon: "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
         iconColor: "vision-icon-green",
         bgColor: "vision-icon-bg-green"
       },
       {
         title: "Human Flourishing",
-        description: "Our ultimate goal is to create digital spaces that nurture growth, creativity, and connection.",
+        description: "Digital systems built on transparency, consent, and collective benefit — enabling everyone to thrive in an equitable, respectful online environment.",
         icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
         iconColor: "vision-icon-purple",
         bgColor: "vision-icon-bg-purple"
       }
     ]}
   />
+  
   <MissionSection
-    title="Our Mission: A Journey of Change"
-    subtitle="PalChat's mission is to challenge the status quo of digital life. We are here to educate, inspire, and empower people to reclaim their digital agency. Our journey began with frustration at the lack of privacy and community in mainstream platforms—and a hope that together, we can build something better."
+    title="Our Mission: Empowering Digital Sovereignty"
+    subtitle="To provide an open, equitable platform that raises awareness about the intersection of technology, privacy, and power — while inspiring individuals to imagine and build alternatives to the status quo."
     missionItems={[
       {
-        title: "Awaken Awareness",
-        description: "We spark conversations about digital rights, privacy, and the true cost of 'free' platforms.",
+        title: "Raise Awareness",
+        description: "We spark conversations about how digital systems shape our lives and the true cost of surveillance capitalism.",
         bulletPoints: [
-          "Unpacking the impact of surveillance capitalism",
-          "Championing digital dignity and autonomy",
-          "Highlighting alternatives to corporate control"
+          "Exploring the intersection of technology, privacy, and power",
+          "Highlighting alternatives to corporate-controlled platforms",
+          "Educating about digital rights and sovereignty"
         ],
         accentColor: "mission-accent-blue"
       },
       {
-        title: "Empower Action",
-        description: "We provide tools, knowledge, and a supportive community for those ready to make a change.",
+        title: "Inspire Action",
+        description: "We empower people to understand and influence the digital systems that shape their lives, encouraging co-funding, co-creation, and co-ownership.",
         bulletPoints: [
-          "Building privacy-first alternatives",
-          "Supporting community-led governance",
-          "Sharing real stories of digital empowerment"
+          "Building community around shared values",
+          "Supporting collective ownership models",
+          "Fostering digital platforms that serve families and communities"
         ],
         accentColor: "mission-accent-green"
       }
     ]}
   />
+  
   <ValuesSection
-    title="What Guides Us"
-    subtitle="Our values are more than words—they are the foundation of every decision we make."
+    title="Our Values: The Foundation of Change"
+    subtitle="These ten principles guide every conversation, every decision, and every step toward a more humane digital future."
     values={[
-      { title: "Human Dignity", description: "Every person deserves respect, privacy, and agency online." },
-      { title: "Community First", description: "We prioritize collective well-being over profit or growth." },
-      { title: "Transparency", description: "We are open about how PalChat works and why we make the choices we do." },
-      { title: "Digital Sovereignty", description: "You own your data, your voice, and your experience." },
-      { title: "Empathy & Inclusion", description: "We welcome diverse perspectives and strive for a safe, welcoming space." },
-      { title: "Sustainable Impact", description: "We build for the long-term, not for short-term gain." }
+      { title: "Digital Sovereignty", description: "Individuals and communities should have full control over their digital presence, data, and choices — free from manipulation or surveillance." },
+      { title: "Collective Ownership", description: "We advocate for co-ownership of digital platforms and assets by the communities who sustain them — ensuring that value creation benefits everyone." },
+      { title: "Privacy by Design", description: "Our systems and principles start with privacy as a default — not as a feature or afterthought. Your attention and identity are not for sale." },
+      { title: "Transparency", description: "We operate with openness in both technology and intention. No hidden algorithms, no opaque policies — just honest, human-centered design." },
+      { title: "Equity & Inclusion", description: "Technology must serve all people equally, regardless of background, geography, or identity. We build platforms that amplify underrepresented voices." },
+      { title: "Empowerment Through Knowledge", description: "We strive to educate, inspire, and equip people to understand and influence the digital systems that shape their lives." },
+      { title: "Community First", description: "We prioritize the well-being of families, communities, and society above corporate profit. Relationships, not revenue, define our success." },
+      { title: "Human Flourishing", description: "Technology should uplift humanity — supporting creativity, connection, well-being, and dignity — not reduce people to metrics." },
+      { title: "Sustainable Innovation", description: "We innovate not to disrupt for disruption's sake, but to build sustainable, long-term alternatives that support generational progress." },
+      { title: "Responsibility Over Reach", description: "We are not driven by growth-at-any-cost. We are accountable for the impact of what we build — ethically, socially, and ecologically." }
     ]}
   />
+  
   <CTASection
-    title="Be Part of the Story"
-    subtitle="PalChat is more than a platform—it's a movement for a more humane digital future. If you share our vision, join us. Together, we can make technology work for everyone."
-    buttonText="Join the Movement"
+    title="Join the Movement for Digital Sovereignty"
+    subtitle="This is more than a conversation — it's a movement toward a future where technology truly serves humanity. If you believe in collective ownership, privacy by design, and digital platforms that prioritize people over profit, join our community."
+    buttonText="Connect With Us"
     buttonLink="/contact"
   />
 </Layout> 
