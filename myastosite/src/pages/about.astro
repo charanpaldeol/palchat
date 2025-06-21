@@ -8,6 +8,59 @@ import CTASection from '../components/CTASection.astro';
 ---
 
 <Layout title="About - PalChat: Our Story & Purpose">
+  <!-- About Page Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About PalChat",
+    "description": "Learn about PalChat's mission to build technology that serves humanity, not profit. Discover our vision for digital sovereignty and community-owned platforms.",
+    "url": "https://palchat.com/about",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "PalChat",
+      "alternateName": "PalChat Platform",
+      "description": "Technology that serves humanity, not profit. Building community-owned platforms and promoting digital sovereignty.",
+      "url": "https://palchat.com",
+      "logo": "https://palchat.com/assets/palchatlogo.png",
+      "foundingDate": "2024",
+      "mission": "To challenge the status quo of digital life by educating, inspiring, and empowering people to reclaim their digital agency",
+      "vision": "A future where technology is a tool for empowerment, not exploitation, where digital spaces foster trust, belonging, and collective well-being",
+      "slogan": "Technology that serves humanity, not profit",
+      "knowsAbout": [
+        "Digital Sovereignty",
+        "Privacy-First Technology",
+        "Community-Owned Platforms",
+        "Humane Technology",
+        "Digital Rights",
+        "Surveillance Capitalism"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "PalChat Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Privacy-First Communication",
+              "description": "Anonymous, secure communication platform"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Digital Education",
+              "description": "Resources and knowledge about digital rights and privacy"
+            }
+          }
+        ]
+      }
+    },
+    "inLanguage": "en-US"
+  })}>
+  </script>
+
   <HeroSection
     title="Why We Started PalChat"
     subtitle="PalChat was born from a simple, urgent question: What if technology could truly serve people, not profit? In a world where digital platforms often exploit our attention and data, we set out to build something different—a humane initiative where community, privacy, and dignity come first."

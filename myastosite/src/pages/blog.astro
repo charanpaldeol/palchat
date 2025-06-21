@@ -13,6 +13,40 @@ const categories = [
 ---
 
 <Layout title="Blog - PalChat">
+  <!-- Blog Collection Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "PalChat Blog",
+    "description": "Privacy-first blog sharing thoughts on technology, privacy, and finance from an independent perspective",
+    "url": "https://palchat.com/blog",
+    "publisher": {
+      "@type": "Organization",
+      "name": "PalChat",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://palchat.com/assets/palchatlogo.png"
+      }
+    },
+    "blogPost": blogPosts.map(post => ({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.excerpt,
+      "author": {
+        "@type": "Person",
+        "name": post.author
+      },
+      "datePublished": post.date,
+      "dateModified": post.date,
+      "url": `https://palchat.com/blog/${post.id}`,
+      "articleSection": post.category,
+      "keywords": post.tags.join(", "),
+      "wordCount": post.wordCount
+    })),
+    "inLanguage": "en-US"
+  })}>
+  </script>
+
   <!-- Simple Hero Section -->
   <section class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-16">
     <div class="container mx-auto px-4">

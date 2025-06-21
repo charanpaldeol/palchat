@@ -3,6 +3,60 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="See How You're Tracked - Privacy Education">
+  <!-- Track Me Page Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "See How You're Tracked - Privacy Education",
+    "description": "Educational tool demonstrating how websites collect data without consent. Learn about browser tracking, fingerprinting, and privacy protection.",
+    "url": "https://palchat.com/track-me",
+    "mainEntity": {
+      "@type": "EducationalResource",
+      "name": "Privacy Tracking Demonstration",
+      "description": "Interactive educational tool showing how websites collect user data without explicit consent",
+      "educationalLevel": "Beginner",
+      "learningResourceType": "Interactive Demonstration",
+      "teaches": [
+        "Browser Fingerprinting",
+        "Data Collection Methods",
+        "Privacy Protection",
+        "Digital Tracking",
+        "Consent in Digital Age"
+      ],
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Digital Privacy",
+          "description": "Protection of personal information in digital environments"
+        },
+        {
+          "@type": "Thing",
+          "name": "Browser Tracking",
+          "description": "Methods used by websites to collect user data"
+        },
+        {
+          "@type": "Thing",
+          "name": "Data Protection",
+          "description": "Safeguarding personal information from unauthorized access"
+        }
+      ]
+    },
+    "potentialAction": {
+      "@type": "LearnAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://palchat.com/track-me",
+        "inLanguage": "en-US"
+      },
+      "expectsAcceptanceOf": {
+        "@type": "Offer",
+        "category": "Privacy Education"
+      }
+    },
+    "inLanguage": "en-US"
+  })}>
+  </script>
+
   <div class="container mx-auto px-4 py-12">
     <div class="max-w-5xl mx-auto">
       <!-- Hero Section -->

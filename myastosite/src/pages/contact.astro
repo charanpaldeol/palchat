@@ -3,6 +3,50 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Contact - PalChat">
+  <!-- Contact Page Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact PalChat",
+    "description": "Privacy-first contact methods for connecting with PalChat. Anonymous communication options available.",
+    "url": "https://palchat.com/contact",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "PalChat",
+      "description": "Technology that serves humanity, not profit. Building community-owned platforms and promoting digital sovereignty.",
+      "url": "https://palchat.com",
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "availableLanguage": "English",
+          "areaServed": "Worldwide"
+        },
+        {
+          "@type": "ContactPoint",
+          "contactType": "technical support",
+          "availableLanguage": "English",
+          "areaServed": "Worldwide"
+        }
+      ]
+    },
+    "potentialAction": {
+      "@type": "CommunicateAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://palchat.com/contact",
+        "inLanguage": "en-US",
+        "actionPlatform": "http://schema.org/WebSite"
+      },
+      "expectsAcceptanceOf": {
+        "@type": "Offer",
+        "category": "Privacy-focused communication"
+      }
+    },
+    "inLanguage": "en-US"
+  })}>
+  </script>
+
   <div class="container mx-auto px-4 py-12">
     <div class="max-w-3xl mx-auto">
       <!-- Privacy-First Hero -->

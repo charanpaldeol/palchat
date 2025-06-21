@@ -15,6 +15,43 @@ const { post } = Astro.props;
 ---
 
 <Layout title={`${post.title} - PalChat Blog`}>
+  <!-- Blog Post Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": post.image || "https://palchat.com/assets/palchatlogo.png",
+    "author": {
+      "@type": "Person",
+      "name": post.author
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "PalChat",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://palchat.com/assets/palchatlogo.png"
+      }
+    },
+    "datePublished": post.date,
+    "dateModified": post.date,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://palchat.com/blog/${post.id}`
+    },
+    "wordCount": post.wordCount,
+    "articleSection": post.category,
+    "keywords": post.tags.join(", "),
+    "inLanguage": "en-US",
+    "isPartOf": {
+      "@type": "Blog",
+      "name": "PalChat Blog",
+      "url": "https://palchat.com/blog"
+    }
+  })}>
+  </script>
+
   <!-- Back to Blog Button -->
   <div class="bg-white border-b border-gray-200">
     <div class="container mx-auto px-4 py-4">
