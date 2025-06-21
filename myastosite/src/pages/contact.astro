@@ -347,7 +347,14 @@ import Layout from '../layouts/Layout.astro';
             showMessage('success', 'Message sent successfully! We\'ll respond while respecting your privacy.');
             form.reset();
           } else {
-            showMessage('error', result.error || 'Failed to send message. Please try again.');
+            let errorMsg = result.error || 'Failed to send message. Please try again.';
+            
+            // Provide more helpful message for email configuration issues
+            if (result.error && result.error.includes('Email service is not configured')) {
+              errorMsg = 'Contact form is temporarily unavailable. Please try using one of our alternative contact methods below, or try again later.';
+            }
+            
+            showMessage('error', errorMsg);
           }
         } catch (error) {
           console.error('Form submission error:', error);
