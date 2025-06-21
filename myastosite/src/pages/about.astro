@@ -1,116 +1,90 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import VisionSection from '../components/VisionSection.astro';
+import MissionSection from '../components/MissionSection.astro';
+import ValuesSection from '../components/ValuesSection.astro';
+import CTASection from '../components/CTASection.astro';
 ---
 
-<Layout title="About Me - My View of the World">
-  <div class="container mx-auto px-4 py-12 relative">
-    <!-- Background decoration -->
-    <div class="absolute inset-0 bg-gradient-to-br from-blue-50/30 to-purple-50/30"></div>
-    
-    <div class="max-w-4xl mx-auto relative z-10">
-      <!-- Hero Section -->
-      <div class="text-center mb-16 animate-fade-in-up">
-        <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 mb-6 bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent">
-          About Me
-        </h1>
-        <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full"></div>
-      </div>
-      
-      <!-- Main Content -->
-      <div class="glass rounded-2xl p-8 lg:p-12 shadow-xl border border-white/20 animate-fade-in-up" style="animation-delay: 0.1s;">
-        <div class="prose prose-lg max-w-none">
-          <p class="lead text-xl text-gray-700 mb-8 leading-relaxed font-medium">
-            Welcome to my corner of the internet. I'm passionate about exploring the intersections of technology, privacy, and finance—and how they impact our daily lives.
-          </p>
-
-          <!-- Why I Write Section -->
-          <div class="mb-12 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
-              <div class="w-8 h-8 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center">
-                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                </svg>
-              </div>
-              Why I Write
-            </h2>
-            <p class="text-gray-700 leading-relaxed">
-              In a world where technology is increasingly intertwined with every aspect of our lives, I believe it's crucial to maintain a critical and independent perspective. Through this blog, I aim to share insights, raise questions, and foster meaningful discussions about the challenges and opportunities we face in the digital age.
-            </p>
-          </div>
-
-          <!-- My Background Section -->
-          <div class="mb-12 p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border border-green-100">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
-              <div class="w-8 h-8 bg-gradient-to-br from-green-100 to-green-200 rounded-lg flex items-center justify-center">
-                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
-                </svg>
-              </div>
-              My Background
-            </h2>
-            <p class="text-gray-700 leading-relaxed">
-              With years of experience in the tech industry and a deep interest in personal finance, I've witnessed firsthand how these domains shape our society. My writing draws from this experience, combining technical knowledge with practical insights to help readers navigate our complex digital world.
-            </p>
-          </div>
-
-          <!-- What You'll Find Here Section -->
-          <div class="mb-12 p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl border border-purple-100">
-            <h2 class="text-2xl font-semibold text-gray-900 mb-4 flex items-center gap-3">
-              <div class="w-8 h-8 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center">
-                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
-                </svg>
-              </div>
-              What You'll Find Here
-            </h2>
-            <ul class="space-y-4">
-              <li class="flex items-start gap-3">
-                <div class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span class="text-gray-700">In-depth analysis of privacy concerns in modern technology</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <div class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span class="text-gray-700">Practical advice on managing personal finances in the digital age</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <div class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span class="text-gray-700">Critical perspectives on emerging tech trends and their societal impact</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <div class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span class="text-gray-700">Real-world examples and case studies</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Connect Section -->
-          <div class="bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl p-8 text-white relative overflow-hidden">
-            <!-- Background decoration -->
-            <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-            <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
-            
-            <div class="relative z-10">
-              <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3">
-                <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                  </svg>
-                </div>
-                Let's Connect
-              </h2>
-              <p class="mb-6 text-blue-100 leading-relaxed">
-                I'm always eager to engage in meaningful discussions and hear different perspectives. Whether you have questions, suggestions, or just want to share your thoughts, don't hesitate to reach out.
-              </p>
-              <a href="/contact" class="inline-flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-semibold">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-                </svg>
-                Get in Touch
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<Layout title="About - PalChat: Our Story & Purpose">
+  <HeroSection
+    title="Why We Started PalChat"
+    subtitle="PalChat was born from a simple, urgent question: What if technology could truly serve people, not profit? In a world where digital platforms often exploit our attention and data, we set out to build something different—a humane initiative where community, privacy, and dignity come first."
+    primaryButtonText="Our Story"
+    primaryButtonLink="#vision"
+    secondaryButtonText="Our Purpose"
+    secondaryButtonLink="#mission"
+  />
+  <VisionSection
+    title="A Vision Rooted in Humanity"
+    subtitle="We imagine a future where technology is a tool for empowerment, not exploitation. Our vision is shaped by the belief that digital spaces should foster trust, belonging, and collective well-being. We want to see a world where communities own their platforms, and every voice matters."
+    visionItems={[
+      {
+        title: "A Platform for People",
+        description: "PalChat is designed to put people before algorithms, and relationships before revenue.",
+        icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
+        iconColor: "vision-icon-blue",
+        bgColor: "vision-icon-bg-blue"
+      },
+      {
+        title: "Transparency & Trust",
+        description: "We believe in open algorithms, clear intentions, and honest communication.",
+        icon: "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
+        iconColor: "vision-icon-green",
+        bgColor: "vision-icon-bg-green"
+      },
+      {
+        title: "Human Flourishing",
+        description: "Our ultimate goal is to create digital spaces that nurture growth, creativity, and connection.",
+        icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
+        iconColor: "vision-icon-purple",
+        bgColor: "vision-icon-bg-purple"
+      }
+    ]}
+  />
+  <MissionSection
+    title="Our Mission: A Journey of Change"
+    subtitle="PalChat's mission is to challenge the status quo of digital life. We are here to educate, inspire, and empower people to reclaim their digital agency. Our journey began with frustration at the lack of privacy and community in mainstream platforms—and a hope that together, we can build something better."
+    missionItems={[
+      {
+        title: "Awaken Awareness",
+        description: "We spark conversations about digital rights, privacy, and the true cost of 'free' platforms.",
+        bulletPoints: [
+          "Unpacking the impact of surveillance capitalism",
+          "Championing digital dignity and autonomy",
+          "Highlighting alternatives to corporate control"
+        ],
+        accentColor: "mission-accent-blue"
+      },
+      {
+        title: "Empower Action",
+        description: "We provide tools, knowledge, and a supportive community for those ready to make a change.",
+        bulletPoints: [
+          "Building privacy-first alternatives",
+          "Supporting community-led governance",
+          "Sharing real stories of digital empowerment"
+        ],
+        accentColor: "mission-accent-green"
+      }
+    ]}
+  />
+  <ValuesSection
+    title="What Guides Us"
+    subtitle="Our values are more than words—they are the foundation of every decision we make."
+    values={[
+      { title: "Human Dignity", description: "Every person deserves respect, privacy, and agency online." },
+      { title: "Community First", description: "We prioritize collective well-being over profit or growth." },
+      { title: "Transparency", description: "We are open about how PalChat works and why we make the choices we do." },
+      { title: "Digital Sovereignty", description: "You own your data, your voice, and your experience." },
+      { title: "Empathy & Inclusion", description: "We welcome diverse perspectives and strive for a safe, welcoming space." },
+      { title: "Sustainable Impact", description: "We build for the long-term, not for short-term gain." }
+    ]}
+  />
+  <CTASection
+    title="Be Part of the Story"
+    subtitle="PalChat is more than a platform—it's a movement for a more humane digital future. If you share our vision, join us. Together, we can make technology work for everyone."
+    buttonText="Join the Movement"
+    buttonLink="/contact"
+  />
 </Layout> 
