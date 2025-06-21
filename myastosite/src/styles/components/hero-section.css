@@ -42,10 +42,37 @@
   color: #111827;
   margin-bottom: 2.5rem;
   letter-spacing: -0.025em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .dark .hero-title {
   color: #ffffff;
+}
+
+/* Blur Animation Styles */
+.hero-title.blur-animation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-word {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(-30px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, filter, opacity;
+}
+
+.hero-word.animate {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0);
 }
 
 .hero-title-gradient {
