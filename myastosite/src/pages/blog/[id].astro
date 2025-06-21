@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 ---
 
-<Layout title={`${post.title} - PalChat Blog`}>
+<Layout title={`${post.title} - HumaneStack Blog`}>
   <!-- Blog Post Structured Data -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -28,7 +28,7 @@ const { post } = Astro.props;
     },
     "publisher": {
       "@type": "Organization",
-      "name": "PalChat",
+      "name": "HumaneStack",
       "logo": {
         "@type": "ImageObject",
         "url": "https://palchat.org/assets/palchatlogo.png"
@@ -46,7 +46,7 @@ const { post } = Astro.props;
     "inLanguage": "en-US",
     "isPartOf": {
       "@type": "Blog",
-      "name": "PalChat Blog",
+      "name": "HumaneStack Blog",
       "url": "https://palchat.org/blog"
     }
   })}>
@@ -451,7 +451,7 @@ const { post } = Astro.props;
       
       const url = window.location.origin + '/blog/' + currentPostId;
       const subject = 'Check out this privacy-first blog post';
-      const body = 'I found this interesting post on PalChat: ' + url;
+      const body = 'I found this interesting post on HumaneStack: ' + url;
       window.open('mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body));
       closeShareModal();
     }
