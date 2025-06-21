@@ -1,0 +1,71 @@
+---
+interface ValueItem {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  values?: ValueItem[];
+  backgroundColor?: string;
+  cardBackgroundColor?: string;
+}
+
+const {
+  title = "Our Values",
+  subtitle = "These core values guide everything we do.",
+  backgroundColor = "bg-white dark:bg-gray-900",
+  cardBackgroundColor = "bg-gray-50 dark:bg-gray-800",
+  values = [
+    {
+      title: "Digital Sovereignty",
+      description: "Full control over your digital presence and data"
+    },
+    {
+      title: "Collective Ownership",
+      description: "Communities own the platforms they use"
+    },
+    {
+      title: "Privacy by Design",
+      description: "Privacy as a default, not an afterthought"
+    },
+    {
+      title: "Transparency",
+      description: "Openness in technology and intention"
+    },
+    {
+      title: "Community First",
+      description: "Prioritizing people over profit"
+    },
+    {
+      title: "Human Flourishing",
+      description: "Technology that uplifts humanity"
+    }
+  ]
+} = Astro.props;
+---
+
+<section class={`py-20 ${backgroundColor}`}>
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          {title}
+        </h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          {subtitle}
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {values.map((value) => (
+          <div class={`${cardBackgroundColor} rounded-xl p-6 border border-gray-100 dark:border-gray-700`}>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">{value.title}</h3>
+            <p class="text-gray-600 dark:text-gray-300 text-sm">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section> 

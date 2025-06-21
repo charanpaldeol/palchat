@@ -1,0 +1,77 @@
+---
+interface MissionItem {
+  title: string;
+  description: string;
+  bulletPoints: string[];
+  accentColor: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  missionItems?: MissionItem[];
+  backgroundColor?: string;
+}
+
+const {
+  title = "Our Mission",
+  subtitle = "To educate, inspire, and empower communities to take control of their digital lives and create technology that truly serves human flourishing.",
+  backgroundColor = "bg-gradient-to-br from-gray-50 to-slate-50 dark:from-gray-800 dark:to-slate-800",
+  missionItems = [
+    {
+      title: "Educate",
+      description: "Raise awareness about how digital systems shape our lives and the importance of digital sovereignty.",
+      bulletPoints: [
+        "Understanding surveillance capitalism",
+        "Digital privacy and data rights",
+        "Alternative ownership models"
+      ],
+      accentColor: "bg-blue-500"
+    },
+    {
+      title: "Empower",
+      description: "Provide tools, knowledge, and community support to help people take action.",
+      bulletPoints: [
+        "Building alternative platforms",
+        "Community governance models",
+        "Digital sovereignty practices"
+      ],
+      accentColor: "bg-green-500"
+    }
+  ]
+} = Astro.props;
+---
+
+<section id="mission" class={`py-20 ${backgroundColor}`}>
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          {title}
+        </h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          {subtitle}
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-12">
+        {missionItems.map((item) => (
+          <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{item.title}</h3>
+            <p class="text-gray-600 dark:text-gray-300 mb-6">
+              {item.description}
+            </p>
+            <div class="space-y-3">
+              {item.bulletPoints.map((point) => (
+                <div class="flex items-center gap-3">
+                  <div class={`w-2 h-2 ${item.accentColor} rounded-full`}></div>
+                  <span class="text-gray-700 dark:text-gray-300">{point}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section> 
