@@ -350,8 +350,12 @@ import Layout from '../layouts/Layout.astro';
             let errorMsg = result.error || 'Failed to send message. Please try again.';
             
             // Provide more helpful message for email configuration issues
-            if (result.error && result.error.includes('Email service is not configured')) {
-              errorMsg = 'Contact form is temporarily unavailable. Please try using one of our alternative contact methods below, or try again later.';
+            if (result.error && (result.error.includes('Email service is not configured') || result.error.includes('not properly configured'))) {
+              errorMsg = 'Contact form is temporarily unavailable due to email configuration issues. Please try using one of our alternative contact methods below, or try again later.';
+            } else if (result.error && result.error.includes('authentication failed')) {
+              errorMsg = 'Email service authentication failed. Please try again later or contact us through alternative methods.';
+            } else if (result.error && result.error.includes('connection failed')) {
+              errorMsg = 'Email service is temporarily unavailable. Please try again in a few minutes or use alternative contact methods.';
             }
             
             showMessage('error', errorMsg);

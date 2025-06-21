@@ -22,10 +22,14 @@ export async function POST({ request }) {
 
     // Check if environment variables are set
     if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-      console.log('Email service not configured - storing message in logs instead');
+      console.log('Email service not configured - environment variables missing');
+      console.log('EMAIL_USER exists:', !!process.env.EMAIL_USER);
+      console.log('EMAIL_PASS exists:', !!process.env.EMAIL_PASS);
+      console.log('EMAIL_USER length:', process.env.EMAIL_USER ? process.env.EMAIL_USER.length : 0);
+      console.log('EMAIL_PASS length:', process.env.EMAIL_PASS ? process.env.EMAIL_PASS.length : 0);
       
       // Log the message for debugging (in production, you might want to store in a database)
-      console.log('=== NEW CONTACT FORM SUBMISSION ===');
+      console.log('=== NEW CONTACT FORM SUBMISSION (EMAIL NOT CONFIGURED) ===');
       console.log('From:', pseudonym || 'Anonymous');
       console.log('Subject:', subject);
       console.log('Message:', message);
@@ -33,10 +37,9 @@ export async function POST({ request }) {
       console.log('=====================================');
       
       return new Response(JSON.stringify({ 
-        success: true,
-        message: 'Message received! We\'ll review it and get back to you soon.' 
+        error: 'Email service is not configured. Please contact the administrator or try again later.' 
       }), {
-        status: 200,
+        status: 503,
         headers: { 'Content-Type': 'application/json' }
       });
     }
@@ -103,38 +106,54 @@ export async function POST({ request }) {
     };
 
     // Send email
-    await transporter.sendMail(mailOptions);
+    let emailResult;
+    try {
+      emailResult = await transporter.sendMail(mailOptions);
+      console.log('Email sent successfully:', emailResult.messageId);
+    } catch (emailError) {
+      console.error('Email sending failed:', emailError);
+      throw emailError; // Re-throw to be caught by outer catch block
+    }
 
-    // Return success response
+    // Return success response only if email was actually sent
     return new Response(JSON.stringify({ 
       success: true, 
-      message: 'Your message has been sent successfully! We\'ll respond while respecting your privacy.' 
+      message: 'Your message has been sent successfully! We\'ll respond while respecting your privacy.',
+      messageId: emailResult.messageId
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
 
   } catch (error) {
-    console.error('Email sending error:', error);
+    console.error('Contact form error:', error);
     
     // Provide more specific error messages
     let errorMessage = 'Failed to send message. Please try again later.';
+    let statusCode = 500;
     
     if (error.code === 'EAUTH') {
       errorMessage = 'Email authentication failed. Please check your Gmail app password and 2FA settings.';
+      statusCode = 500;
     } else if (error.code === 'ECONNECTION') {
       errorMessage = 'Email service connection failed. Please try again later.';
+      statusCode = 503;
     } else if (error.message && error.message.includes('Invalid login')) {
       errorMessage = 'Invalid Gmail credentials. Please check your email and app password.';
+      statusCode = 500;
+    } else if (error.message && error.message.includes('Missing credentials')) {
+      errorMessage = 'Email service is not properly configured. Please contact the administrator.';
+      statusCode = 503;
     } else if (error.message) {
       errorMessage = `Email error: ${error.message}`;
+      statusCode = 500;
     }
     
     return new Response(JSON.stringify({ 
       error: errorMessage,
       details: process.env.NODE_ENV === 'development' ? error.message : undefined
     }), {
-      status: 500,
+      status: statusCode,
       headers: { 'Content-Type': 'application/json' }
     });
   }
