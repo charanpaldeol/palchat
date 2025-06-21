@@ -11,76 +11,150 @@ import CTASection from '../components/CTASection.astro';
   title="PalChat - Digital Sovereignty & Privacy-First Technology Community"
   description="Join a community of like-minded individuals advocating for digital sovereignty, privacy-first technology, and humane digital platforms. Connect with privacy advocates, activists, and those fighting surveillance capitalism."
 >
+  <!-- Enhanced Structured Data for merged page -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "PalChat - Digital Sovereignty Community",
+    "description": "Community advocating for digital sovereignty, collective ownership of digital platforms, and technology that serves humanity rather than profit.",
+    "url": "https://palchat.org",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "PalChat Community",
+      "alternateName": "Digital Sovereignty Community",
+      "description": "Community advocating for digital sovereignty, collective ownership of digital platforms, and technology that serves humanity rather than profit.",
+      "url": "https://palchat.org",
+      "logo": "https://palchat.org/assets/palchatlogo.png",
+      "foundingDate": "2024",
+      "mission": "To provide an open, equitable platform that raises awareness about the intersection of technology, privacy, and power while inspiring alternatives to the status quo",
+      "vision": "To create a world where digital giants are collectively owned by the societies that power them, where value flows back to the people who generate it",
+      "slogan": "Technology that serves humanity, not profit",
+      "knowsAbout": [
+        "Digital Sovereignty",
+        "Collective Ownership",
+        "Privacy by Design",
+        "Transparency",
+        "Equity & Inclusion",
+        "Community Governance",
+        "Digital Rights",
+        "Surveillance Capitalism"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Community Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Awareness Creation",
+              "description": "Educational content about digital rights, privacy, and technology ethics"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Community Building",
+              "description": "Connecting like-minded individuals around shared values of digital sovereignty"
+            }
+          }
+        ]
+      }
+    },
+    "inLanguage": "en-US"
+  })}>
+  </script>
+
   <HeroSection 
-    title="Building a Better Digital Future Together"
-    subtitle="Join thousands of like-minded individuals who believe technology should serve humanity, not profit. We're creating awareness about digital sovereignty, privacy-first design, and community-owned platforms."
+    title="Reimagining Our Digital Future"
+    subtitle="In a world where digital giants extract value from our attention, creativity, and participation, we envision something different. We believe technology should serve humanity, not profit. This is a space for those who dream of digital platforms collectively owned by the communities that power them."
     primaryButtonText="Join Our Community"
     primaryButtonLink="#vision"
     secondaryButtonText="Learn Our Vision"
     secondaryButtonLink="#mission"
   />
+  
   <VisionSection 
-    title="Our Vision for Digital Sovereignty"
-    subtitle="We envision a world where digital platforms are collectively owned by communities, where privacy is a fundamental right, and where technology serves human flourishing instead of corporate profit."
+    title="Our Vision: A World of Digital Sovereignty"
+    subtitle="We envision a future where digital giants are collectively owned by the societies that power them. In this world, value flows back to the people who generate it through their attention, creativity, and participation. Technology serves humanity, not profit."
     visionItems={[
       {
-        title: "Community Ownership",
-        description: "Digital platforms owned and governed by the communities that use them, not corporations.",
+        title: "Collective Ownership",
+        description: "Digital platforms owned by the communities that sustain them, ensuring value creation benefits everyone.",
         icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
         iconColor: "vision-icon-blue",
         bgColor: "vision-icon-bg-blue"
       },
       {
-        title: "Privacy by Design",
-        description: "Technology built with privacy as a fundamental principle, not an afterthought.",
-        icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+        title: "No Surveillance Capitalism",
+        description: "No invasive ads, no surveillance-based algorithms, no data exploitation. Just transparency, consent, and collective benefit.",
+        icon: "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z",
         iconColor: "vision-icon-green",
         bgColor: "vision-icon-bg-green"
       },
       {
-        title: "Digital Sovereignty",
-        description: "Complete control over your digital life, data, and online presence.",
+        title: "Human Flourishing",
+        description: "Digital systems built on transparency, consent, and collective benefit — enabling everyone to thrive in an equitable, respectful online environment.",
         icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
         iconColor: "vision-icon-purple",
         bgColor: "vision-icon-bg-purple"
       }
     ]}
   />
+  
   <MissionSection 
-    title="Join the Movement for Digital Rights"
-    subtitle="Connect with privacy advocates, digital rights activists, journalists, and concerned citizens who are working to create a more humane digital future."
+    title="Our Mission: Empowering Digital Sovereignty"
+    subtitle="To provide an open, equitable platform that raises awareness about the intersection of technology, privacy, and power — while inspiring individuals to imagine and build alternatives to the status quo."
     missionItems={[
       {
-        title: "For Privacy Advocates",
-        description: "If you care about digital privacy and are concerned about surveillance capitalism, join our community of like-minded individuals.",
+        title: "Raise Awareness",
+        description: "We spark conversations about how digital systems shape our lives and the true cost of surveillance capitalism.",
         bulletPoints: [
-          "Share knowledge about privacy protection",
-          "Discuss alternatives to corporate platforms",
-          "Learn about digital rights and sovereignty",
-          "Connect with other privacy advocates"
+          "Exploring the intersection of technology, privacy, and power",
+          "Highlighting alternatives to corporate-controlled platforms",
+          "Educating about digital rights and sovereignty",
+          "Connecting privacy advocates and digital rights activists"
         ],
         accentColor: "mission-accent-blue"
       },
       {
-        title: "For Digital Rights Activists",
-        description: "Join a community of activists fighting for digital sovereignty and against surveillance capitalism.",
+        title: "Inspire Action",
+        description: "We empower people to understand and influence the digital systems that shape their lives, encouraging co-funding, co-creation, and co-ownership.",
         bulletPoints: [
-          "Share strategies for digital activism",
-          "Discuss community governance models",
-          "Learn about open source alternatives",
-          "Build networks with other activists"
+          "Building community around shared values",
+          "Supporting collective ownership models",
+          "Fostering digital platforms that serve families and communities",
+          "Sharing strategies for digital activism"
         ],
         accentColor: "mission-accent-green"
       }
     ]}
   />
-  <ValuesSection />
+  
+  <ValuesSection 
+    title="Our Values: The Foundation of Change"
+    subtitle="These ten principles guide every conversation, every decision, and every step toward a more humane digital future."
+    values={[
+      { title: "Digital Sovereignty", description: "Individuals and communities should have full control over their digital presence, data, and choices — free from manipulation or surveillance." },
+      { title: "Collective Ownership", description: "We advocate for co-ownership of digital platforms and assets by the communities who sustain them — ensuring that value creation benefits everyone." },
+      { title: "Privacy by Design", description: "Our systems and principles start with privacy as a default — not as a feature or afterthought. Your attention and identity are not for sale." },
+      { title: "Transparency", description: "We operate with openness in both technology and intention. No hidden algorithms, no opaque policies — just honest, human-centered design." },
+      { title: "Equity & Inclusion", description: "Technology must serve all people equally, regardless of background, geography, or identity. We build platforms that amplify underrepresented voices." },
+      { title: "Empowerment Through Knowledge", description: "We strive to educate, inspire, and equip people to understand and influence the digital systems that shape their lives." },
+      { title: "Community First", description: "We prioritize the well-being of families, communities, and society above corporate profit. Relationships, not revenue, define our success." },
+      { title: "Human Flourishing", description: "Technology should uplift humanity — supporting creativity, connection, well-being, and dignity — not reduce people to metrics." },
+      { title: "Sustainable Innovation", description: "We innovate not to disrupt for disruption's sake, but to build sustainable, long-term alternatives that support generational progress." },
+      { title: "Responsibility Over Reach", description: "We are not driven by growth-at-any-cost. We are accountable for the impact of what we build — ethically, socially, and ecologically." }
+    ]}
+  />
+  
   <CTASection 
-    title="Join Our Community"
-    subtitle="Connect with thousands of like-minded individuals who share your vision for a better digital future. Share ideas, learn from others, and be part of the movement for digital sovereignty."
+    title="Join the Movement for Digital Sovereignty"
+    subtitle="This is more than a conversation — it's a movement toward a future where technology truly serves humanity. If you believe in collective ownership, privacy by design, and digital platforms that prioritize people over profit, join our community."
     primaryButtonText="Join Community"
     primaryButtonLink="/contact"
     secondaryButtonText="Learn More"
-    secondaryButtonLink="/about"
+    secondaryButtonLink="/blog"
   />
 </Layout> 

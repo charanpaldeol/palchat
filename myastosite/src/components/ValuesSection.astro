@@ -44,6 +44,20 @@ const {
     }
   ]
 } = Astro.props;
+
+// Color variants for the 10 values
+const colorVariants = [
+  "values-card-blue",
+  "values-card-green", 
+  "values-card-purple",
+  "values-card-red",
+  "values-card-yellow",
+  "values-card-pink",
+  "values-card-cyan",
+  "values-card-indigo",
+  "values-card-emerald",
+  "values-card-orange"
+];
 ---
 
 <section class={backgroundColor}>
@@ -59,8 +73,8 @@ const {
       </div>
       
       <div class="values-grid">
-        {values.map((value) => (
-          <div class={cardBackgroundColor}>
+        {values.map((value, index) => (
+          <div class={`${cardBackgroundColor} ${colorVariants[index % colorVariants.length]}`}>
             <h3 class="values-card-title">{value.title}</h3>
             <p class="values-card-description">{value.description}</p>
           </div>
