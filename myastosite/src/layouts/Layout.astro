@@ -60,6 +60,9 @@ const currentPath = Astro.url.pathname;
               <a href="/about" class={`font-medium transition-colors duration-200 ${currentPath === '/about' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'}`}>
                 About
               </a>
+              <a href="/track-me" class={`font-medium transition-colors duration-200 ${currentPath === '/track-me' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'}`}>
+                Track Me
+              </a>
               <a href="/blog" class={`font-medium transition-colors duration-200 ${currentPath.startsWith('/blog') ? 'text-blue-600 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'}`}>
                 Blog
               </a>
@@ -94,6 +97,9 @@ const currentPath = Astro.url.pathname;
               </a>
               <a href="/about" class={`block py-2 px-4 rounded-lg transition-colors duration-200 ${currentPath === '/about' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
                 About
+              </a>
+              <a href="/track-me" class={`block py-2 px-4 rounded-lg transition-colors duration-200 ${currentPath === '/track-me' ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
+                Track Me
               </a>
               <a href="/blog" class={`block py-2 px-4 rounded-lg transition-colors duration-200 ${currentPath.startsWith('/blog') ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'}`}>
                 Blog
