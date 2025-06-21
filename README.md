@@ -2,6 +2,8 @@
 
 A personal blog exploring technology, privacy, and finance from an independent perspective.
 
+**Test: Vercel git sync verification - $(date)**
+
 ## Tech Stack
 
 - [Astro](https://astro.build) - Static Site Generator
