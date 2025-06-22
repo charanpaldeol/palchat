@@ -185,276 +185,384 @@
 </div>
 
 <script>
-  // Backend API configuration - uses environment variable for production
-  const API_BASE = import.meta.env.PUBLIC_API_BASE || 'http://localhost:8000';
-  const SESSION_ID = 'palchat_' + Math.random().toString(36).substr(2, 9);
-
-  // Widget state
-  let isWidgetOpen = false;
-  let isDragging = false;
-  let dragOffset = { x: 0, y: 0 };
-
-  // DOM elements
-  const widget = document.getElementById('floating-widget');
-  const widgetToggle = document.getElementById('widget-toggle');
-  const widgetPanel = document.getElementById('widget-panel');
-  const closeWidget = document.getElementById('close-widget');
-  const chatModal = document.getElementById('chat-modal');
-  const feedbackModal = document.getElementById('feedback-modal');
-  const closeChat = document.getElementById('close-chat');
-  const closeFeedback = document.getElementById('close-feedback');
-  const quickChat = document.getElementById('quick-chat');
-  const quickFeedback = document.getElementById('quick-feedback');
-  const quickVote = document.getElementById('quick-vote');
-
-  console.log('Floating InteractiveSystem component loaded');
-  console.log('API_BASE:', API_BASE);
-
-  // Widget toggle functionality
-  widgetToggle.addEventListener('click', () => {
-    isWidgetOpen = !isWidgetOpen;
-    if (isWidgetOpen) {
-      widgetPanel.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
-      widgetPanel.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
-      loadSystemStatus();
-    } else {
-      widgetPanel.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
-      widgetPanel.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
-    }
-  });
-
-  // Close widget
-  closeWidget.addEventListener('click', () => {
-    isWidgetOpen = false;
-    widgetPanel.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
-    widgetPanel.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
-  });
-
-  // Dragging functionality
-  widgetToggle.addEventListener('mousedown', (e) => {
-    if (e.target === widgetToggle) {
-      isDragging = true;
-      const rect = widget.getBoundingClientRect();
-      dragOffset.x = e.clientX - rect.left;
-      dragOffset.y = e.clientY - rect.top;
-      widget.style.cursor = 'grabbing';
-    }
-  });
-
-  document.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-      const x = e.clientX - dragOffset.x;
-      const y = e.clientY - dragOffset.y;
-      
-      // Keep widget within viewport bounds
-      const maxX = window.innerWidth - widget.offsetWidth;
-      const maxY = window.innerHeight - widget.offsetHeight;
-      
-      widget.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
-      widget.style.top = Math.max(0, Math.min(y, maxY)) + 'px';
-      widget.style.right = 'auto';
-      widget.style.bottom = 'auto';
-    }
-  });
-
-  document.addEventListener('mouseup', () => {
-    if (isDragging) {
-      isDragging = false;
-      widget.style.cursor = 'pointer';
-    }
-  });
-
-  // Modal functionality
-  function showModal(modalId) {
-    document.getElementById(modalId).classList.remove('hidden');
-    document.getElementById(modalId).classList.add('flex');
-  }
-
-  function hideModal(modalId) {
-    document.getElementById(modalId).classList.add('hidden');
-    document.getElementById(modalId).classList.remove('flex');
-  }
-
-  // Quick action buttons
-  quickChat.addEventListener('click', () => {
-    showModal('chat-modal');
-    hideModal('feedback-modal');
-  });
-
-  quickFeedback.addEventListener('click', () => {
-    showModal('feedback-modal');
-    hideModal('chat-modal');
-  });
-
-  quickVote.addEventListener('click', () => {
-    showResponse('info', 'No pending decisions at the moment. Check back later!');
-  });
-
-  // Close modal buttons
-  closeChat.addEventListener('click', () => hideModal('chat-modal'));
-  closeFeedback.addEventListener('click', () => hideModal('feedback-modal'));
-
-  // Close modals when clicking outside
-  chatModal.addEventListener('click', (e) => {
-    if (e.target === chatModal) hideModal('chat-modal');
-  });
-
-  feedbackModal.addEventListener('click', (e) => {
-    if (e.target === feedbackModal) hideModal('feedback-modal');
-  });
-
-  // Load system status
-  async function loadSystemStatus() {
-    try {
-      const response = await fetch(`${API_BASE}/api/system/status`);
-      const data = await response.json();
-      
-      document.getElementById('community-size').textContent = data.community_size || 0;
-      document.getElementById('mission-alignment').textContent = Math.round((data.mission_alignment_score || 1) * 100) + '%';
-      document.getElementById('pending-decisions').textContent = data.pending_decisions || 0;
-    } catch (error) {
-      console.error('Failed to load system status:', error);
-    }
-  }
-
-  // Show response message
-  function showResponse(type, message) {
-    const container = document.getElementById('response-messages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = `p-3 rounded-lg text-sm ${
-      type === 'success' ? 'bg-green-100 text-green-700 border border-green-200' : 
-      type === 'error' ? 'bg-red-100 text-red-700 border border-red-200' : 
-      type === 'info' ? 'bg-blue-100 text-blue-700 border border-blue-200' :
-      'bg-blue-100 text-blue-700 border border-blue-200'
-    }`;
-    messageDiv.textContent = message;
+  // Wait for DOM to be fully loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing floating widget...');
     
-    container.appendChild(messageDiv);
-    
-    // Remove message after 5 seconds
-    setTimeout(() => {
-      messageDiv.remove();
-    }, 5000);
-  }
+    // Backend API configuration - uses environment variable for production
+    const API_BASE = import.meta.env.PUBLIC_API_BASE || 'http://localhost:8000';
+    const SESSION_ID = 'palchat_' + Math.random().toString(36).substr(2, 9);
 
-  // Chat functionality
-  document.getElementById('chat-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const input = document.getElementById('chat-input');
-    const message = input.value.trim();
-    
-    if (!message) return;
-    
-    // Add user message to chat
-    const chatMessages = document.getElementById('chat-messages');
-    const userMessageDiv = document.createElement('div');
-    userMessageDiv.className = 'flex items-start gap-3 justify-end';
-    userMessageDiv.innerHTML = `
-      <div class="bg-gray-100 rounded-lg p-3 max-w-xs">
-        <p class="text-sm text-gray-900">${message}</p>
-      </div>
-      <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
-        <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-        </svg>
-      </div>
-    `;
-    chatMessages.appendChild(userMessageDiv);
-    
-    // Clear input
-    input.value = '';
-    
-    // Scroll to bottom
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-    
-    try {
-      const response = await fetch(`${API_BASE}/api/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: message,
-          session_id: SESSION_ID,
-          context: { source: 'palchat_website', page: window.location.pathname }
-        })
-      });
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        // Add AI response to chat
-        const aiMessageDiv = document.createElement('div');
-        aiMessageDiv.className = 'flex items-start gap-3';
-        aiMessageDiv.innerHTML = `
-          <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-            <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <div class="bg-blue-50 rounded-lg p-3 max-w-xs">
-            <p class="text-sm text-blue-900">${data.message}</p>
-          </div>
-        `;
-        chatMessages.appendChild(aiMessageDiv);
-        
-        // Scroll to bottom
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-        
-        // Update system status
-        loadSystemStatus();
-      } else {
-        showResponse('error', 'Failed to get response. Please try again.');
+    console.log('API_BASE:', API_BASE);
+    console.log('SESSION_ID:', SESSION_ID);
+
+    // Widget state
+    let isWidgetOpen = false;
+    let isDragging = false;
+    let dragOffset = { x: 0, y: 0 };
+
+    // Get DOM elements with error checking
+    function getElement(id) {
+      const element = document.getElementById(id);
+      if (!element) {
+        console.error(`Element with id '${id}' not found`);
+        return null;
       }
-    } catch (error) {
-      console.error('Chat error:', error);
-      showResponse('error', 'Connection error. Please check if the backend is running.');
+      return element;
     }
-  });
 
-  // Feedback functionality
-  document.getElementById('feedback-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const type = document.getElementById('feedback-type').value;
-    const content = document.getElementById('feedback-content').value.trim();
-    
-    if (!content) {
-      showResponse('error', 'Please provide feedback content.');
+    const widget = getElement('floating-widget');
+    const widgetToggle = getElement('widget-toggle');
+    const widgetPanel = getElement('widget-panel');
+    const closeWidget = getElement('close-widget');
+    const chatModal = getElement('chat-modal');
+    const feedbackModal = getElement('feedback-modal');
+    const closeChat = getElement('close-chat');
+    const closeFeedback = getElement('close-feedback');
+    const quickChat = getElement('quick-chat');
+    const quickFeedback = getElement('quick-feedback');
+    const quickVote = getElement('quick-vote');
+
+    // Check if all required elements exist
+    if (!widget || !widgetToggle || !widgetPanel) {
+      console.error('Required widget elements not found');
       return;
     }
-    
-    try {
-      const response = await fetch(`${API_BASE}/api/feedback`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          feedback_type: type,
-          content: content,
-          session_id: SESSION_ID
-        })
-      });
+
+    console.log('All widget elements found, setting up event listeners...');
+
+    // Widget toggle functionality
+    widgetToggle.addEventListener('click', function(e) {
+      console.log('Widget toggle clicked');
+      e.preventDefault();
+      e.stopPropagation();
       
-      const data = await response.json();
-      
-      if (response.ok) {
-        showResponse('success', 'Thank you for your feedback! It will be analyzed for community consensus.');
-        document.getElementById('feedback-form').reset();
-        hideModal('feedback-modal');
-        
-        // Update system status
+      isWidgetOpen = !isWidgetOpen;
+      if (isWidgetOpen) {
+        widgetPanel.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+        widgetPanel.classList.add('opacity-100', 'pointer-events-auto', 'scale-100');
         loadSystemStatus();
       } else {
-        showResponse('error', data.error || 'Failed to submit feedback. Please try again.');
+        widgetPanel.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+        widgetPanel.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
       }
-    } catch (error) {
-      console.error('Feedback error:', error);
-      showResponse('error', 'Connection error. Please check if the backend is running.');
-    }
-  });
+    });
 
-  // Initialize
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('Floating InteractiveSystem DOM ready');
+    // Close widget
+    if (closeWidget) {
+      closeWidget.addEventListener('click', function(e) {
+        console.log('Close widget clicked');
+        e.preventDefault();
+        e.stopPropagation();
+        
+        isWidgetOpen = false;
+        widgetPanel.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+        widgetPanel.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
+      });
+    }
+
+    // Dragging functionality
+    widgetToggle.addEventListener('mousedown', function(e) {
+      if (e.target === widgetToggle || widgetToggle.contains(e.target)) {
+        console.log('Starting drag');
+        isDragging = true;
+        const rect = widget.getBoundingClientRect();
+        dragOffset.x = e.clientX - rect.left;
+        dragOffset.y = e.clientY - rect.top;
+        widget.style.cursor = 'grabbing';
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (isDragging) {
+        const x = e.clientX - dragOffset.x;
+        const y = e.clientY - dragOffset.y;
+        
+        // Keep widget within viewport bounds
+        const maxX = window.innerWidth - widget.offsetWidth;
+        const maxY = window.innerHeight - widget.offsetHeight;
+        
+        widget.style.left = Math.max(0, Math.min(x, maxX)) + 'px';
+        widget.style.top = Math.max(0, Math.min(y, maxY)) + 'px';
+        widget.style.right = 'auto';
+        widget.style.bottom = 'auto';
+      }
+    });
+
+    document.addEventListener('mouseup', function() {
+      if (isDragging) {
+        console.log('Ending drag');
+        isDragging = false;
+        widget.style.cursor = 'pointer';
+      }
+    });
+
+    // Modal functionality
+    function showModal(modalId) {
+      const modal = getElement(modalId);
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        console.log(`Modal ${modalId} shown`);
+      }
+    }
+
+    function hideModal(modalId) {
+      const modal = getElement(modalId);
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        console.log(`Modal ${modalId} hidden`);
+      }
+    }
+
+    // Quick action buttons
+    if (quickChat) {
+      quickChat.addEventListener('click', function(e) {
+        console.log('Quick chat clicked');
+        e.preventDefault();
+        e.stopPropagation();
+        showModal('chat-modal');
+        hideModal('feedback-modal');
+      });
+    }
+
+    if (quickFeedback) {
+      quickFeedback.addEventListener('click', function(e) {
+        console.log('Quick feedback clicked');
+        e.preventDefault();
+        e.stopPropagation();
+        showModal('feedback-modal');
+        hideModal('chat-modal');
+      });
+    }
+
+    if (quickVote) {
+      quickVote.addEventListener('click', function(e) {
+        console.log('Quick vote clicked');
+        e.preventDefault();
+        e.stopPropagation();
+        showResponse('info', 'No pending decisions at the moment. Check back later!');
+      });
+    }
+
+    // Close modal buttons
+    if (closeChat) {
+      closeChat.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        hideModal('chat-modal');
+      });
+    }
+
+    if (closeFeedback) {
+      closeFeedback.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        hideModal('feedback-modal');
+      });
+    }
+
+    // Close modals when clicking outside
+    if (chatModal) {
+      chatModal.addEventListener('click', function(e) {
+        if (e.target === chatModal) {
+          hideModal('chat-modal');
+        }
+      });
+    }
+
+    if (feedbackModal) {
+      feedbackModal.addEventListener('click', function(e) {
+        if (e.target === feedbackModal) {
+          hideModal('feedback-modal');
+        }
+      });
+    }
+
+    // Load system status
+    async function loadSystemStatus() {
+      try {
+        console.log('Loading system status from:', API_BASE);
+        const response = await fetch(`${API_BASE}/api/system/status`);
+        const data = await response.json();
+        
+        const communitySize = getElement('community-size');
+        const missionAlignment = getElement('mission-alignment');
+        const pendingDecisions = getElement('pending-decisions');
+        
+        if (communitySize) communitySize.textContent = data.community_size || 0;
+        if (missionAlignment) missionAlignment.textContent = Math.round((data.mission_alignment_score || 1) * 100) + '%';
+        if (pendingDecisions) pendingDecisions.textContent = data.pending_decisions || 0;
+        
+        console.log('System status loaded:', data);
+      } catch (error) {
+        console.error('Failed to load system status:', error);
+      }
+    }
+
+    // Show response message
+    function showResponse(type, message) {
+      const container = getElement('response-messages');
+      if (!container) return;
+      
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `p-3 rounded-lg text-sm ${
+        type === 'success' ? 'bg-green-100 text-green-700 border border-green-200' : 
+        type === 'error' ? 'bg-red-100 text-red-700 border border-red-200' : 
+        type === 'info' ? 'bg-blue-100 text-blue-700 border border-blue-200' :
+        'bg-blue-100 text-blue-700 border border-blue-200'
+      }`;
+      messageDiv.textContent = message;
+      
+      container.appendChild(messageDiv);
+      
+      // Remove message after 5 seconds
+      setTimeout(() => {
+        if (messageDiv.parentNode) {
+          messageDiv.remove();
+        }
+      }, 5000);
+    }
+
+    // Chat functionality
+    const chatForm = getElement('chat-form');
+    if (chatForm) {
+      chatForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const input = getElement('chat-input');
+        if (!input) return;
+        
+        const message = input.value.trim();
+        if (!message) return;
+        
+        console.log('Sending chat message:', message);
+        
+        // Add user message to chat
+        const chatMessages = getElement('chat-messages');
+        if (chatMessages) {
+          const userMessageDiv = document.createElement('div');
+          userMessageDiv.className = 'flex items-start gap-3 justify-end';
+          userMessageDiv.innerHTML = `
+            <div class="bg-gray-100 rounded-lg p-3 max-w-xs">
+              <p class="text-sm text-gray-900">${message}</p>
+            </div>
+            <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+          `;
+          chatMessages.appendChild(userMessageDiv);
+          
+          // Clear input
+          input.value = '';
+          
+          // Scroll to bottom
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        try {
+          const response = await fetch(`${API_BASE}/api/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: message,
+              session_id: SESSION_ID,
+              context: { source: 'palchat_website', page: window.location.pathname }
+            })
+          });
+          
+          const data = await response.json();
+          
+          if (response.ok) {
+            // Add AI response to chat
+            if (chatMessages) {
+              const aiMessageDiv = document.createElement('div');
+              aiMessageDiv.className = 'flex items-start gap-3';
+              aiMessageDiv.innerHTML = `
+                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path>
+                  </svg>
+                </div>
+                <div class="bg-blue-50 rounded-lg p-3 max-w-xs">
+                  <p class="text-sm text-blue-900">${data.message}</p>
+                </div>
+              `;
+              chatMessages.appendChild(aiMessageDiv);
+              
+              // Scroll to bottom
+              chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Update system status
+            loadSystemStatus();
+          } else {
+            showResponse('error', 'Failed to get response. Please try again.');
+          }
+        } catch (error) {
+          console.error('Chat error:', error);
+          showResponse('error', 'Connection error. Please check if the backend is running.');
+        }
+      });
+    }
+
+    // Feedback functionality
+    const feedbackForm = getElement('feedback-form');
+    if (feedbackForm) {
+      feedbackForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const typeSelect = getElement('feedback-type');
+        const contentTextarea = getElement('feedback-content');
+        
+        if (!typeSelect || !contentTextarea) return;
+        
+        const type = typeSelect.value;
+        const content = contentTextarea.value.trim();
+        
+        if (!content) {
+          showResponse('error', 'Please provide feedback content.');
+          return;
+        }
+        
+        console.log('Submitting feedback:', { type, content });
+        
+        try {
+          const response = await fetch(`${API_BASE}/api/feedback`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              feedback_type: type,
+              content: content,
+              session_id: SESSION_ID
+            })
+          });
+          
+          const data = await response.json();
+          
+          if (response.ok) {
+            showResponse('success', 'Thank you for your feedback! It will be analyzed for community consensus.');
+            feedbackForm.reset();
+            hideModal('feedback-modal');
+            
+            // Update system status
+            loadSystemStatus();
+          } else {
+            showResponse('error', data.error || 'Failed to submit feedback. Please try again.');
+          }
+        } catch (error) {
+          console.error('Feedback error:', error);
+          showResponse('error', 'Connection error. Please check if the backend is running.');
+        }
+      });
+    }
+
+    // Initialize
+    console.log('Floating InteractiveSystem initialized successfully');
     loadSystemStatus();
   });
 </script> 
