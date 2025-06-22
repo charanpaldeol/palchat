@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer
+from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
 from typing import List
 import uuid
@@ -33,6 +34,51 @@ app.add_middleware(
 mission_guardian = MissionGuardian()
 ai_agent = AIAgent()
 security = HTTPBearer()
+
+# Root endpoint
+@app.get("/")
+async def root():
+    """Welcome page for the HumaneStack Self-Evolving System."""
+    return HTMLResponse(
+        content="""
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>HumaneStack Self-Evolving System</title>
+            <link rel="stylesheet" href="styles.css">
+        </head>
+        <body>
+            <div class="container">
+                <h1>Welcome to HumaneStack Self-Evolving System</h1>
+                <p>A privacy-first, community-driven digital system for digital sovereignty advocacy</p>
+                <p>Version: {settings.app_version}</p>
+                <p>Status: autonomous_evolution_active</p>
+                <p>Endpoints:</p>
+                <ul>
+                    <li><a href="/health">Health Check</a></li>
+                    <li><a href="/docs">API Documentation</a></li>
+                    <li><a href="/api/system/status">System Status</a></li>
+                    <li><a href="/api/chat">Chat</a></li>
+                    <li><a href="/api/feedback">Feedback</a></li>
+                    <li><a href="/api/vote">Vote</a></li>
+                </ul>
+                <p>Mission:</p>
+                <p>Building technology that serves humanity, not profit</p>
+                <p>Values:</p>
+                <ul>
+                    <li>Digital Sovereignty</li>
+                    <li>Privacy-First Design</li>
+                    <li>Community Governance</li>
+                    <li>Transparent Evolution</li>
+                    <li>Human-Centric Technology</li>
+                </ul>
+            </div>
+        </body>
+        </html>
+        """.format(settings=settings)
+    )
 
 # Health check endpoint
 @app.get("/health")
