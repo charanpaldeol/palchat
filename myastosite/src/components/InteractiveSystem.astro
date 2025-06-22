@@ -187,29 +187,21 @@
 <script>
   // Wait for DOM to be fully loaded
   document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing universal floating widget...');
+    console.log('DOM loaded, initializing ephemeral floating widget...');
     
     // Backend API configuration - uses environment variable for production
     const API_BASE = import.meta.env.PUBLIC_API_BASE || 'http://localhost:8000';
-    const SESSION_ID = localStorage.getItem('palchat_session_id') || 'palchat_' + Math.random().toString(36).substr(2, 9);
-
-    // Save session ID for persistence across pages
-    localStorage.setItem('palchat_session_id', SESSION_ID);
+    // Session ID is now ephemeral and will be regenerated on each page load
+    const SESSION_ID = 'palchat_session_' + Math.random().toString(36).substr(2, 9);
 
     console.log('API_BASE:', API_BASE);
-    console.log('SESSION_ID:', SESSION_ID);
+    console.log('SESSION_ID (ephemeral):', SESSION_ID);
 
-    // Widget state with localStorage persistence
-    let isWidgetOpen = localStorage.getItem('palchat_widget_open') === 'true';
+    // Widget state is now ephemeral and resets on page load
+    let isWidgetOpen = false;
     let isDragging = false;
     let dragOffset = { x: 0, y: 0 };
-
-    // Load saved widget position
-    const savedPosition = localStorage.getItem('palchat_widget_position');
-    let widgetPosition = savedPosition ? JSON.parse(savedPosition) : { x: null, y: null };
-
-    // Load chat history
-    let chatHistory = JSON.parse(localStorage.getItem('palchat_chat_history') || '[]');
+    let chatHistory = [];
 
     // Get DOM elements with error checking
     function getElement(id) {
@@ -262,7 +254,6 @@
       e.stopPropagation();
       
       isWidgetOpen = !isWidgetOpen;
-      localStorage.setItem('palchat_widget_open', isWidgetOpen.toString());
       
       if (isWidgetOpen) {
         widgetPanel.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
@@ -282,7 +273,6 @@
         e.stopPropagation();
         
         isWidgetOpen = false;
-        localStorage.setItem('palchat_widget_open', 'false');
         widgetPanel.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
         widgetPanel.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100');
       });
@@ -320,7 +310,6 @@
         
         // Save position
         widgetPosition = { x: finalX, y: finalY };
-        localStorage.setItem('palchat_widget_position', JSON.stringify(widgetPosition));
       }
     });
 
@@ -359,8 +348,8 @@
     // Restore chat history
     function restoreChatHistory() {
       const chatMessages = getElement('chat-messages');
-      if (!chatMessages || chatHistory.length === 0) return;
-      
+      if (!chatMessages) return;
+
       // Clear existing messages except the welcome message
       const welcomeMessage = chatMessages.querySelector('.flex.items-start.gap-3');
       chatMessages.innerHTML = '';
@@ -368,7 +357,7 @@
         chatMessages.appendChild(welcomeMessage);
       }
       
-      // Add saved chat history
+      // Add saved chat history from memory
       chatHistory.forEach(message => {
         const messageDiv = document.createElement('div');
         messageDiv.className = message.isUser ? 'flex items-start gap-3 justify-end' : 'flex items-start gap-3';
@@ -382,14 +371,7 @@
 
     // Save chat message to history
     function saveChatMessage(html, isUser) {
-      chatHistory.push({ html, isUser, timestamp: Date.now() });
-      
-      // Keep only last 50 messages to prevent localStorage from getting too large
-      if (chatHistory.length > 50) {
-        chatHistory = chatHistory.slice(-50);
-      }
-      
-      localStorage.setItem('palchat_chat_history', JSON.stringify(chatHistory));
+      chatHistory.push({ html, isUser });
     }
 
     // Quick action buttons
@@ -532,7 +514,7 @@
           `;
           chatMessages.appendChild(userMessageDiv);
           
-          // Save user message to history
+          // Save user message to in-memory history
           saveChatMessage(userMessageDiv.innerHTML, true);
           
           // Clear input
@@ -572,7 +554,7 @@
               `;
               chatMessages.appendChild(aiMessageDiv);
               
-              // Save AI message to history
+              // Save AI message to in-memory history
               saveChatMessage(aiMessageDiv.innerHTML, false);
               
               // Scroll to bottom
@@ -643,7 +625,7 @@
     }
 
     // Initialize
-    console.log('Universal Floating InteractiveSystem initialized successfully');
+    console.log('Ephemeral Floating InteractiveSystem initialized successfully');
     loadSystemStatus();
   });
 </script> 
