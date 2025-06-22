@@ -22,16 +22,12 @@ app = FastAPI(
 )
 
 # Add CORS middleware
+# Get allowed origins from environment variable, split by comma
+allowed_origins = [origin.strip() for origin in settings.allowed_origins.split(',')]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://palchat.org",  # Production domain
-        "https://www.palchat.org",  # Production domain with www
-        "http://localhost:3000", 
-        "http://localhost:4321", 
-        "http://localhost:4323",
-        "http://localhost:4324"
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

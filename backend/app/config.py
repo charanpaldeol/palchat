@@ -37,6 +37,9 @@ class Settings(BaseSettings):
     vision_alignment_threshold: float = 0.8  # Minimum alignment with vision
     values_compliance_threshold: float = 0.9  # Minimum compliance with values
     
+    # Allowed Origins
+    allowed_origins: str = "http://localhost:4321,https://palchat.org"
+    
     class Config:
         env_file = ".env"
 
