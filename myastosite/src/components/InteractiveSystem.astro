@@ -201,6 +201,7 @@
     let isWidgetOpen = false;
     let isDragging = false;
     let dragOffset = { x: 0, y: 0 };
+    let widgetPosition = { x: null, y: null };
     let chatHistory = [];
 
     // Get DOM elements with error checking
@@ -308,7 +309,7 @@
         widget.style.right = 'auto';
         widget.style.bottom = 'auto';
         
-        // Save position
+        // Save position to in-memory variable
         widgetPosition = { x: finalX, y: finalY };
       }
     });
