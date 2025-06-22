@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import InteractiveSystem from '../components/InteractiveSystem.astro';
 interface Props {
   title: string;
   description?: string;
@@ -417,5 +418,8 @@ const breadcrumbs = generateBreadcrumbs(currentPath);
         });
       });
     </script>
+
+    <!-- Universal Floating Interactive System -->
+    <InteractiveSystem />
   </body>
 </html> 
