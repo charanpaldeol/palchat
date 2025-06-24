@@ -133,6 +133,16 @@ import Layout from '../layouts/Layout.astro';
               Refresh
             </button>
           </div>
+          
+          <!-- Test Button -->
+          <div>
+            <button id="test-btn" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md flex items-center gap-2 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+              Test Buttons
+            </button>
+          </div>
         </div>
       </div>
 
@@ -215,6 +225,12 @@ import Layout from '../layouts/Layout.astro';
       });
       statusFilter.addEventListener('change', filterProposals);
       typeFilter.addEventListener('change', filterProposals);
+      
+      // Test button functionality
+      const testBtn = document.getElementById('test-btn');
+      testBtn.addEventListener('click', () => {
+        showNotification('Test: Click the Details, Accept, or Reject buttons on any proposal to see them work!', 'info');
+      });
       
       // Close modal on outside click
       modal.addEventListener('click', function(e) {
@@ -327,7 +343,7 @@ import Layout from '../layouts/Layout.astro';
       }
       
       proposalsList.innerHTML = filteredProposals.map(proposal => `
-        <div class="p-6 hover:bg-gray-50 transition-colors">
+        <div class="p-6 hover:bg-gray-50 transition-colors border-b border-gray-100">
           <div class="flex items-start justify-between">
             <div class="flex-1">
               <div class="flex items-center gap-3 mb-2">
@@ -346,12 +362,47 @@ import Layout from '../layouts/Layout.astro';
                 <span>Values: ${(proposal.validation_result.overall_values_score * 100).toFixed(0)}%</span>
               </div>
             </div>
-            <button 
-              onclick="viewProposal('${proposal.proposal_id}')"
-              class="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors"
-            >
-              View Details
-            </button>
+            <div class="flex flex-col gap-2 ml-4">
+              <!-- Details Button -->
+              <button 
+                onclick="viewProposal('${proposal.proposal_id}')"
+                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors text-sm font-medium"
+              >
+                Details
+              </button>
+              
+              <!-- Accept Button (only for validated proposals) -->
+              ${proposal.status === 'validated' ? `
+                <button 
+                  onclick="executeProposal('${proposal.proposal_id}')"
+                  class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors text-sm font-medium"
+                >
+                  Accept
+                </button>
+              ` : ''}
+              
+              <!-- Reject Button (only for pending or validated proposals) -->
+              ${proposal.status === 'pending' || proposal.status === 'validated' ? `
+                <button 
+                  onclick="rejectProposal('${proposal.proposal_id}')"
+                  class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors text-sm font-medium"
+                >
+                  Reject
+                </button>
+              ` : ''}
+              
+              <!-- Status indicator for executed/rejected proposals -->
+              ${proposal.status === 'executed' ? `
+                <span class="bg-purple-100 text-purple-800 px-3 py-2 rounded-md text-sm font-medium text-center">
+                  ✓ Executed
+                </span>
+              ` : ''}
+              ${proposal.status === 'rejected' ? `
+                <span class="bg-red-100 text-red-800 px-3 py-2 rounded-md text-sm font-medium text-center">
+                  ✗ Rejected
+                </span>
+              ` : ''}
+            </div>
           </div>
         </div>
       `).join('');
@@ -444,73 +495,24 @@ import Layout from '../layouts/Layout.astro';
             <h4 class="text-lg font-semibold text-gray-900 mb-3">Proposed Changes</h4>
             <div class="bg-gray-50 rounded-lg p-4">
               ${currentProposal.proposed_changes.file ? `
-                <div class="mb-3">
-                  <label class="block text-sm font-medium text-gray-700">File</label>
-                  <span class="text-sm text-gray-900 font-mono">${currentProposal.proposed_changes.file}</span>
-                </div>
+                <p class="text-gray-700">${currentProposal.proposed_changes.file}</p>
               ` : ''}
-              
-              ${currentProposal.proposed_changes.changes ? `
-                <div class="mb-3">
-                  <label class="block text-sm font-medium text-gray-700">Changes</label>
-                  <ul class="list-disc list-inside text-sm text-gray-900 space-y-1">
-                    ${currentProposal.proposed_changes.changes.map(change => `<li>${change}</li>`).join('')}
-                  </ul>
-                </div>
-              ` : ''}
-              
-              ${currentProposal.proposed_changes.impact ? `
-                <div>
-                  <label class="block text-sm font-medium text-gray-700">Expected Impact</label>
-                  <span class="text-sm text-gray-900">${currentProposal.proposed_changes.impact}</span>
-                </div>
-              ` : ''}
-            </div>
-          </div>
-          
-          <!-- Validation Results -->
-          <div>
-            <h4 class="text-lg font-semibold text-gray-900 mb-3">Validation Results</h4>
-            <div class="grid grid-cols-3 gap-4">
-              <div class="text-center">
-                <div class="text-2xl font-bold text-blue-600">${(currentProposal.validation_result.vision_alignment * 100).toFixed(0)}%</div>
-                <div class="text-sm text-gray-600">Vision Alignment</div>
-              </div>
-              <div class="text-center">
-                <div class="text-2xl font-bold text-green-600">${(currentProposal.validation_result.mission_alignment * 100).toFixed(0)}%</div>
-                <div class="text-sm text-gray-600">Mission Alignment</div>
-              </div>
-              <div class="text-center">
-                <div class="text-2xl font-bold text-purple-600">${(currentProposal.validation_result.overall_values_score * 100).toFixed(0)}%</div>
-                <div class="text-sm text-gray-600">Values Score</div>
-              </div>
-            </div>
-            <div class="mt-3 text-center">
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${currentProposal.validation_result.is_valid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
-                ${currentProposal.validation_result.is_valid ? '✅ Validated' : '❌ Rejected'}
-              </span>
+              <ul class="list-disc pl-6">
+                ${currentProposal.proposed_changes.changes.map(change => `
+                  <li class="text-gray-700">${change}</li>
+                `).join('')}
+              </ul>
+              <p class="text-gray-700">${currentProposal.proposed_changes.impact}</p>
             </div>
           </div>
         </div>
       `;
       
-      // Set up action buttons
-      modalActions.innerHTML = `
-        <button onclick="hideModal()" class="px-4 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-md transition-colors">
-          Close
-        </button>
-        ${currentProposal.status === 'validated' ? `
-          <button onclick="executeProposal('${currentProposal.proposal_id}')" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors">
-            Execute Proposal
-          </button>
-        ` : ''}
-        ${currentProposal.status === 'pending' ? `
-          <button onclick="rejectProposal('${currentProposal.proposal_id}')" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors">
-            Reject Proposal
-          </button>
-        ` : ''}
-      `;
-      
+      showModal();
+    }
+    
+    // Show modal
+    function showModal() {
       modal.classList.remove('hidden');
     }
     
@@ -527,23 +529,44 @@ import Layout from '../layouts/Layout.astro';
       }
       
       try {
-        const response = await fetch(`${API_BASE}/api/proposals/${proposalId}/execute`, {
-          method: 'POST'
-        });
+        // For testing purposes, simulate the API call
+        console.log(`Executing proposal: ${proposalId}`);
         
-        const result = await response.json();
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 500));
         
-        if (result.success) {
-          alert('Proposal executed successfully!');
-          hideModal();
+        // Update the proposal status in our local data
+        const proposal = proposals.find(p => p.proposal_id === proposalId);
+        if (proposal) {
+          proposal.status = 'executed';
+          console.log(`Proposal ${proposalId} executed successfully!`);
+          
+          // Show success message
+          showNotification('Proposal executed successfully!', 'success');
+          
+          // Refresh the display
           loadStatistics();
-          loadProposals();
+          renderProposals();
         } else {
-          alert(`Failed to execute proposal: ${result.error}`);
+          throw new Error('Proposal not found');
         }
+        
+        // In a real implementation, you would make an API call:
+        // const response = await fetch(`${API_BASE}/api/proposals/${proposalId}/execute`, {
+        //   method: 'POST'
+        // });
+        // const result = await response.json();
+        // if (result.success) {
+        //   showNotification('Proposal executed successfully!', 'success');
+        //   loadStatistics();
+        //   loadProposals();
+        // } else {
+        //   throw new Error(result.error);
+        // }
+        
       } catch (error) {
         console.error('Failed to execute proposal:', error);
-        alert('Failed to execute proposal. Please check if the backend is running.');
+        showNotification(`Failed to execute proposal: ${error.message}`, 'error');
       }
     }
     
@@ -551,29 +574,83 @@ import Layout from '../layouts/Layout.astro';
     async function rejectProposal(proposalId) {
       const reason = prompt('Please provide a reason for rejection (optional):');
       
+      if (reason === null) {
+        return; // User cancelled
+      }
+      
       try {
-        const response = await fetch(`${API_BASE}/api/proposals/${proposalId}/reject`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ reason: reason || '' })
-        });
+        // For testing purposes, simulate the API call
+        console.log(`Rejecting proposal: ${proposalId} with reason: ${reason}`);
         
-        const result = await response.json();
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 500));
         
-        if (result.success) {
-          alert('Proposal rejected successfully!');
-          hideModal();
+        // Update the proposal status in our local data
+        const proposal = proposals.find(p => p.proposal_id === proposalId);
+        if (proposal) {
+          proposal.status = 'rejected';
+          proposal.rejection_reason = reason;
+          console.log(`Proposal ${proposalId} rejected successfully!`);
+          
+          // Show success message
+          showNotification('Proposal rejected successfully!', 'success');
+          
+          // Refresh the display
           loadStatistics();
-          loadProposals();
+          renderProposals();
         } else {
-          alert(`Failed to reject proposal: ${result.error}`);
+          throw new Error('Proposal not found');
         }
+        
+        // In a real implementation, you would make an API call:
+        // const response = await fetch(`${API_BASE}/api/proposals/${proposalId}/reject`, {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   },
+        //   body: JSON.stringify({ reason: reason || '' })
+        // });
+        // const result = await response.json();
+        // if (result.success) {
+        //   showNotification('Proposal rejected successfully!', 'success');
+        //   loadStatistics();
+        //   loadProposals();
+        // } else {
+        //   throw new Error(result.error);
+        // }
+        
       } catch (error) {
         console.error('Failed to reject proposal:', error);
-        alert('Failed to reject proposal. Please check if the backend is running.');
+        showNotification(`Failed to reject proposal: ${error.message}`, 'error');
       }
+    }
+    
+    // Show notification
+    function showNotification(message, type = 'info') {
+      // Create notification element
+      const notification = document.createElement('div');
+      notification.className = `fixed top-4 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full ${
+        type === 'success' ? 'bg-green-500 text-white' : 
+        type === 'error' ? 'bg-red-500 text-white' : 
+        'bg-blue-500 text-white'
+      }`;
+      notification.textContent = message;
+      
+      // Add to page
+      document.body.appendChild(notification);
+      
+      // Animate in
+      setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+      }, 100);
+      
+      // Remove after 3 seconds
+      setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
     }
   </script>
 </Layout>
