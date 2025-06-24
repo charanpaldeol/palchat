@@ -1078,10 +1078,8 @@ import Layout from '../layouts/Layout.astro';
     
     console.log('🧪 Testing panel added to page');
     console.log('💡 Use the testing panel or run proposalTests.runAllTests() in console');
-  </script>
-  
-  <script>
-    // Global function for system scan
+
+    // Define performSystemScan function in the main scope
     async function performSystemScan() {
       console.log('🤖 Starting AI system scan...');
       
@@ -1185,5 +1183,8 @@ import Layout from '../layouts/Layout.astro';
         scanStatus.classList.add('hidden');
       }
     }
+    
+    // Make performSystemScan globally available
+    window.performSystemScan = performSystemScan;
   </script>
 </Layout>
