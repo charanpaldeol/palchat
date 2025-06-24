@@ -84,5 +84,25 @@ class SystemEvolution(Base):
     implemented = Column(Boolean, default=False)
     success_score = Column(Float)  # Post-implementation success rating
 
+class Proposal(Base):
+    __tablename__ = "proposals"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    proposal_id = Column(String, unique=True, index=True)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+    action_type = Column(String)  # 'code', 'content', 'config', 'social'
+    summary = Column(Text)  # Brief summary of the proposed action
+    intent = Column(Text)  # Detailed intent and reasoning
+    proposed_changes = Column(JSON)  # Specific changes to be made
+    validation_result = Column(JSON)  # MissionGuardian validation result
+    status = Column(String)  # 'pending', 'validated', 'rejected', 'executed'
+    created_by = Column(String)  # 'ai_agent', 'system', 'user'
+    session_id = Column(String, index=True)  # Associated session if user-triggered
+    expires_at = Column(DateTime)  # Auto-delete timestamp
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.expires_at = datetime.utcnow() + timedelta(days=settings.data_retention_days)
+
 # Create tables
 Base.metadata.create_all(bind=engine)

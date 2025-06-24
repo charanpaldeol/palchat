@@ -9,8 +9,8 @@ from datetime import datetime
 
 from app.config import settings
 from app.models.database import get_db, UserInteraction, SystemDecision, CommunityVote, SystemEvolution
-from app.schemas.requests import ChatMessage, FeedbackSubmission, VoteSubmission, SystemOverride, MissionValidation
-from app.schemas.responses import ChatResponse, FeedbackResponse, VoteResponse, SystemStatus, DecisionSummary, OverrideResponse
+from app.schemas.requests import ChatMessage, FeedbackSubmission, VoteSubmission, SystemOverride, MissionValidation, CreateProposalRequest, ExecuteProposalRequest, RejectProposalRequest
+from app.schemas.responses import ChatResponse, FeedbackResponse, VoteResponse, SystemStatus, DecisionSummary, OverrideResponse, ProposalResponse, ProposalStatusResponse, ProposalStatisticsResponse
 from app.services.mission_guardian import MissionGuardian
 from app.services.ai_agent import AIAgent
 
@@ -342,6 +342,184 @@ async def system_override(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error executing override: {str(e)}"
+        )
+
+# Proposal endpoints
+@app.post("/api/proposals", response_model=ProposalResponse)
+async def create_proposal(
+    request: CreateProposalRequest,
+    db: Session = Depends(get_db)
+):
+    """Create a new proposal for an AI action."""
+    try:
+        # Route to appropriate proposal creation method based on action type
+        if request.action_type == "code":
+            result = ai_agent.create_code_proposal(
+                db=db,
+                summary=request.summary,
+                intent=request.intent,
+                proposed_changes=request.proposed_changes,
+                session_id=request.session_id
+            )
+        elif request.action_type == "content":
+            result = ai_agent.create_content_proposal(
+                db=db,
+                summary=request.summary,
+                intent=request.intent,
+                proposed_changes=request.proposed_changes,
+                session_id=request.session_id
+            )
+        elif request.action_type == "config":
+            result = ai_agent.create_config_proposal(
+                db=db,
+                summary=request.summary,
+                intent=request.intent,
+                proposed_changes=request.proposed_changes,
+                session_id=request.session_id
+            )
+        elif request.action_type == "social":
+            result = ai_agent.create_social_proposal(
+                db=db,
+                summary=request.summary,
+                intent=request.intent,
+                proposed_changes=request.proposed_changes,
+                session_id=request.session_id
+            )
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Invalid action type: {request.action_type}"
+            )
+        
+        if result["success"]:
+            return ProposalResponse(
+                success=True,
+                proposal_id=result["proposal_id"],
+                status=result["status"],
+                validation_result=result["validation_result"]
+            )
+        else:
+            return ProposalResponse(
+                success=False,
+                error=result["error"]
+            )
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error creating proposal: {str(e)}"
+        )
+
+@app.get("/api/proposals/{proposal_id}", response_model=ProposalStatusResponse)
+async def get_proposal_status(
+    proposal_id: str,
+    db: Session = Depends(get_db)
+):
+    """Get the status of a specific proposal."""
+    try:
+        result = ai_agent.get_proposal_status(db, proposal_id)
+        
+        if result["success"]:
+            return ProposalStatusResponse(
+                success=True,
+                proposal_id=result["proposal_id"],
+                status=result["status"],
+                action_type=result["action_type"],
+                summary=result["summary"],
+                validation_result=result["validation_result"],
+                timestamp=result["timestamp"]
+            )
+        else:
+            return ProposalStatusResponse(
+                success=False,
+                proposal_id=proposal_id,
+                status="",
+                action_type="",
+                summary="",
+                error=result["error"]
+            )
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error getting proposal status: {str(e)}"
+        )
+
+@app.post("/api/proposals/{proposal_id}/execute", response_model=ProposalResponse)
+async def execute_proposal(
+    proposal_id: str,
+    db: Session = Depends(get_db)
+):
+    """Execute a validated proposal."""
+    try:
+        result = ai_agent.execute_validated_proposal(db, proposal_id)
+        
+        if result["success"]:
+            return ProposalResponse(
+                success=True,
+                proposal_id=result["proposal_id"],
+                status="executed"
+            )
+        else:
+            return ProposalResponse(
+                success=False,
+                error=result["error"]
+            )
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error executing proposal: {str(e)}"
+        )
+
+@app.post("/api/proposals/{proposal_id}/reject", response_model=ProposalResponse)
+async def reject_proposal(
+    proposal_id: str,
+    request: RejectProposalRequest,
+    db: Session = Depends(get_db)
+):
+    """Reject a proposal."""
+    try:
+        result = ai_agent.proposal_service.reject_proposal(db, proposal_id, request.reason or "")
+        
+        if result["success"]:
+            return ProposalResponse(
+                success=True,
+                proposal_id=result["proposal_id"],
+                status="rejected"
+            )
+        else:
+            return ProposalResponse(
+                success=False,
+                error=result["error"]
+            )
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error rejecting proposal: {str(e)}"
+        )
+
+@app.get("/api/proposals/stats", response_model=ProposalStatisticsResponse)
+async def get_proposal_statistics(db: Session = Depends(get_db)):
+    """Get statistics about all proposals."""
+    try:
+        stats = ai_agent.get_proposal_statistics(db)
+        
+        return ProposalStatisticsResponse(
+            total=stats["total"],
+            pending=stats["pending"],
+            validated=stats["validated"],
+            rejected=stats["rejected"],
+            executed=stats["executed"],
+            validation_rate=stats["validation_rate"],
+            execution_rate=stats["execution_rate"]
+        )
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error getting proposal statistics: {str(e)}"
         )
 
 if __name__ == "__main__":

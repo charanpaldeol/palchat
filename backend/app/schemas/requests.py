@@ -9,7 +9,7 @@ class ChatMessage(BaseModel):
 
 class FeedbackSubmission(BaseModel):
     session_id: str = Field(..., description="Anonymous session identifier")
-    feedback_type: str = Field(..., description="Type of feedback: 'suggestion', 'issue', 'praise', 'concern'")
+    feedback_type: str = Field(..., description="Type of feedback")
     content: str = Field(..., min_length=1, max_length=2000, description="Feedback content")
     urgency: Optional[int] = Field(default=1, ge=1, le=5, description="Urgency level 1-5")
     category: Optional[str] = Field(default=None, description="Feedback category")
@@ -31,3 +31,17 @@ class MissionValidation(BaseModel):
     content: str = Field(..., description="Content to validate")
     validation_type: str = Field(..., pattern="^(vision|mission|values|decision)$", description="Type of validation")
     context: Optional[Dict[str, Any]] = Field(default=None, description="Additional context")
+
+class CreateProposalRequest(BaseModel):
+    action_type: str = Field(..., description="Type of action: 'code', 'content', 'config', 'social'")
+    summary: str = Field(..., description="Brief summary of the proposed action")
+    intent: str = Field(..., description="Detailed intent and reasoning")
+    proposed_changes: Dict[str, Any] = Field(..., description="Specific changes to be made")
+    session_id: Optional[str] = Field(default=None, description="Associated session if user-triggered")
+
+class ExecuteProposalRequest(BaseModel):
+    proposal_id: str = Field(..., description="ID of the proposal to execute")
+
+class RejectProposalRequest(BaseModel):
+    proposal_id: str = Field(..., description="ID of the proposal to reject")
+    reason: Optional[str] = Field(default=None, description="Reason for rejection")

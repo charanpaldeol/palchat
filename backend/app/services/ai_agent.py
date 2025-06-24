@@ -2,17 +2,21 @@ import json
 import uuid
 from typing import Dict, List, Optional, Tuple
 from datetime import datetime
+from sqlalchemy.orm import Session
 from app.services.mission_guardian import MissionGuardian
+from app.services.proposal_service import ProposalService
 from app.config import settings
 
 class AIAgent:
     """
     Privacy-first AI agent that educates about digital sovereignty.
     Processes conversations locally and maintains mission alignment.
+    All AI actions are created as proposals and validated before execution.
     """
     
     def __init__(self):
         self.mission_guardian = MissionGuardian()
+        self.proposal_service = ProposalService()
         
         # Knowledge base for digital sovereignty topics
         self.knowledge_base = {
@@ -242,3 +246,170 @@ class AIAgent:
         
         # In a real implementation, this would be stored in the database
         print(f"AI Agent Log: {json.dumps(log_entry, indent=2)}")
+    
+    def create_code_proposal(
+        self,
+        db: Session,
+        summary: str,
+        intent: str,
+        proposed_changes: Dict[str, any],
+        session_id: Optional[str] = None
+    ) -> Dict[str, any]:
+        """
+        Create a proposal for code-related actions.
+        """
+        try:
+            proposal = self.proposal_service.create_proposal(
+                db=db,
+                action_type="code",
+                summary=summary,
+                intent=intent,
+                proposed_changes=proposed_changes,
+                created_by="ai_agent",
+                session_id=session_id
+            )
+            
+            return {
+                "success": True,
+                "proposal_id": proposal.proposal_id,
+                "status": proposal.status,
+                "validation_result": proposal.validation_result
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "error": f"Failed to create code proposal: {str(e)}"
+            }
+    
+    def create_content_proposal(
+        self,
+        db: Session,
+        summary: str,
+        intent: str,
+        proposed_changes: Dict[str, any],
+        session_id: Optional[str] = None
+    ) -> Dict[str, any]:
+        """
+        Create a proposal for content-related actions.
+        """
+        try:
+            proposal = self.proposal_service.create_proposal(
+                db=db,
+                action_type="content",
+                summary=summary,
+                intent=intent,
+                proposed_changes=proposed_changes,
+                created_by="ai_agent",
+                session_id=session_id
+            )
+            
+            return {
+                "success": True,
+                "proposal_id": proposal.proposal_id,
+                "status": proposal.status,
+                "validation_result": proposal.validation_result
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "error": f"Failed to create content proposal: {str(e)}"
+            }
+    
+    def create_config_proposal(
+        self,
+        db: Session,
+        summary: str,
+        intent: str,
+        proposed_changes: Dict[str, any],
+        session_id: Optional[str] = None
+    ) -> Dict[str, any]:
+        """
+        Create a proposal for configuration-related actions.
+        """
+        try:
+            proposal = self.proposal_service.create_proposal(
+                db=db,
+                action_type="config",
+                summary=summary,
+                intent=intent,
+                proposed_changes=proposed_changes,
+                created_by="ai_agent",
+                session_id=session_id
+            )
+            
+            return {
+                "success": True,
+                "proposal_id": proposal.proposal_id,
+                "status": proposal.status,
+                "validation_result": proposal.validation_result
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "error": f"Failed to create config proposal: {str(e)}"
+            }
+    
+    def create_social_proposal(
+        self,
+        db: Session,
+        summary: str,
+        intent: str,
+        proposed_changes: Dict[str, any],
+        session_id: Optional[str] = None
+    ) -> Dict[str, any]:
+        """
+        Create a proposal for social/community-related actions.
+        """
+        try:
+            proposal = self.proposal_service.create_proposal(
+                db=db,
+                action_type="social",
+                summary=summary,
+                intent=intent,
+                proposed_changes=proposed_changes,
+                created_by="ai_agent",
+                session_id=session_id
+            )
+            
+            return {
+                "success": True,
+                "proposal_id": proposal.proposal_id,
+                "status": proposal.status,
+                "validation_result": proposal.validation_result
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "error": f"Failed to create social proposal: {str(e)}"
+            }
+    
+    def execute_validated_proposal(self, db: Session, proposal_id: str) -> Dict[str, any]:
+        """
+        Execute a validated proposal.
+        """
+        return self.proposal_service.execute_proposal(db, proposal_id)
+    
+    def get_proposal_status(self, db: Session, proposal_id: str) -> Dict[str, any]:
+        """
+        Get the status of a specific proposal.
+        """
+        proposal = self.proposal_service.get_proposal(db, proposal_id)
+        
+        if not proposal:
+            return {"success": False, "error": "Proposal not found"}
+        
+        return {
+            "success": True,
+            "proposal_id": proposal_id,
+            "status": proposal.status,
+            "action_type": proposal.action_type,
+            "summary": proposal.summary,
+            "validation_result": proposal.validation_result,
+            "timestamp": proposal.timestamp.isoformat()
+        }
+    
+    def get_proposal_statistics(self, db: Session) -> Dict[str, any]:
+        """
+        Get statistics about all proposals.
+        """
+        return self.proposal_service.get_proposal_stats(db)
