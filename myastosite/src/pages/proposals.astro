@@ -42,17 +42,31 @@ import Layout from '../layouts/Layout.astro';
   <section class="py-12">
     <div class="container mx-auto px-4">
       <!-- Statistics Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
           <div class="flex items-center">
             <div class="p-2 bg-blue-100 rounded-lg">
               <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
               </svg>
             </div>
             <div class="ml-4">
               <p class="text-sm font-medium text-gray-600">Total Proposals</p>
               <p class="text-2xl font-bold text-gray-900" id="total-proposals">-</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-yellow-500">
+          <div class="flex items-center">
+            <div class="p-2 bg-yellow-100 rounded-lg">
+              <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-600">Pending</p>
+              <p class="text-2xl font-bold text-gray-900" id="pending-proposals">-</p>
             </div>
           </div>
         </div>
@@ -84,17 +98,58 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
-          <div class="flex items-center">
-            <div class="p-2 bg-purple-100 rounded-lg">
-              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+      <!-- System Scan Section -->
+      <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">🤖 AI System Scanner</h3>
+            <p class="text-sm text-gray-600">Trigger AI to analyze the system and generate prioritized improvement proposals</p>
+          </div>
+          <button 
+            id="scan-button"
+            class="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all duration-200 flex items-center space-x-2"
+            onclick="performSystemScan()"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </svg>
+            <span>Run AI Scan</span>
+          </button>
+        </div>
+        
+        <div id="scan-status" class="hidden">
+          <div class="flex items-center space-x-3 p-4 bg-blue-50 rounded-lg">
+            <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+            <span class="text-blue-800 font-medium">AI is analyzing the system...</span>
+          </div>
+        </div>
+        
+        <div id="scan-results" class="hidden">
+          <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+            <div class="flex items-center">
+              <svg class="w-5 h-5 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
+              <span class="text-green-800 font-medium" id="scan-message"></span>
             </div>
-            <div class="ml-4">
-              <p class="text-sm font-medium text-gray-600">Executed</p>
-              <p class="text-2xl font-bold text-gray-900" id="executed-proposals">-</p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div class="bg-white border border-gray-200 rounded-lg p-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Priority Breakdown</h4>
+              <div id="priority-breakdown" class="space-y-2"></div>
+            </div>
+            
+            <div class="bg-white border border-gray-200 rounded-lg p-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Value Categories</h4>
+              <div id="value-categories" class="space-y-2"></div>
+            </div>
+            
+            <div class="bg-white border border-gray-200 rounded-lg p-4">
+              <h4 class="font-semibold text-gray-900 mb-2">Scan Summary</h4>
+              <div id="scan-summary" class="space-y-2 text-sm"></div>
             </div>
           </div>
         </div>
@@ -294,26 +349,20 @@ import Layout from '../layouts/Layout.astro';
     
     // Load statistics
     async function loadStatistics() {
+      console.log('📊 Loading statistics...');
       try {
         const response = await fetch(`${API_BASE}/api/proposals/stats`);
-        const stats = await response.json();
-        if (stats && typeof stats.total !== 'undefined') {
-          document.getElementById('total-proposals').textContent = stats.total;
-          document.getElementById('validated-proposals').textContent = stats.validated;
-          document.getElementById('rejected-proposals').textContent = stats.rejected;
-          document.getElementById('executed-proposals').textContent = stats.executed;
-        } else {
-          document.getElementById('total-proposals').textContent = '-';
-          document.getElementById('validated-proposals').textContent = '-';
-          document.getElementById('rejected-proposals').textContent = '-';
-          document.getElementById('executed-proposals').textContent = '-';
-        }
+        const data = await response.json();
+        
+        document.getElementById('total-proposals').textContent = data.total || 0;
+        document.getElementById('pending-proposals').textContent = data.pending || 0;
+        document.getElementById('validated-proposals').textContent = data.validated || 0;
+        document.getElementById('rejected-proposals').textContent = data.rejected || 0;
+        
+        console.log('📊 Statistics loaded:', data);
       } catch (error) {
-        console.error('Failed to load statistics:', error);
-        document.getElementById('total-proposals').textContent = '-';
-        document.getElementById('validated-proposals').textContent = '-';
-        document.getElementById('rejected-proposals').textContent = '-';
-        document.getElementById('executed-proposals').textContent = '-';
+        console.error('❌ Failed to load statistics:', error);
+        showNotification('Failed to load statistics', 'error');
       }
     }
     
@@ -1029,5 +1078,109 @@ import Layout from '../layouts/Layout.astro';
     
     console.log('🧪 Testing panel added to page');
     console.log('💡 Use the testing panel or run proposalTests.runAllTests() in console');
+
+    async function performSystemScan() {
+      console.log('🤖 Starting AI system scan...');
+      
+      const scanButton = document.getElementById('scan-button');
+      const scanStatus = document.getElementById('scan-status');
+      const scanResults = document.getElementById('scan-results');
+      
+      // Show loading state
+      scanButton.disabled = true;
+      scanButton.innerHTML = `
+        <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+        <span>Scanning...</span>
+      `;
+      scanStatus.classList.remove('hidden');
+      scanResults.classList.add('hidden');
+      
+      try {
+        const response = await fetch(`${API_BASE}/api/system/scan`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          // Show results
+          document.getElementById('scan-message').textContent = data.message;
+          
+          // Display priority breakdown
+          const priorityBreakdown = document.getElementById('priority-breakdown');
+          priorityBreakdown.innerHTML = '';
+          Object.entries(data.scan_summary.priority_breakdown).forEach(([level, count]) => {
+            if (count > 0) {
+              const color = level === 'Critical' ? 'text-red-600' : 
+                          level === 'High' ? 'text-orange-600' : 
+                          level === 'Medium' ? 'text-yellow-600' : 'text-gray-600';
+              priorityBreakdown.innerHTML += `
+                <div class="flex justify-between">
+                  <span class="${color} font-medium">${level}</span>
+                  <span class="font-bold">${count}</span>
+                </div>
+              `;
+            }
+          });
+          
+          // Display value categories
+          const valueCategories = document.getElementById('value-categories');
+          valueCategories.innerHTML = '';
+          Object.entries(data.scan_summary.value_categories).forEach(([category, count]) => {
+            const displayName = category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            valueCategories.innerHTML += `
+              <div class="flex justify-between">
+                <span class="text-gray-700">${displayName}</span>
+                <span class="font-bold text-blue-600">${count}</span>
+              </div>
+            `;
+          });
+          
+          // Display scan summary
+          const scanSummary = document.getElementById('scan-summary');
+          scanSummary.innerHTML = `
+            <div class="flex justify-between">
+              <span>Areas Analyzed:</span>
+              <span class="font-bold">${data.scan_summary.areas_analyzed}</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Total Generated:</span>
+              <span class="font-bold">${data.scan_summary.total_proposals_generated}</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Proposals Created:</span>
+              <span class="font-bold text-green-600">${data.scan_summary.proposals_created}</span>
+            </div>
+          `;
+          
+          scanResults.classList.remove('hidden');
+          showNotification(`AI scan completed! ${data.scan_summary.proposals_created} new proposals created.`, 'success');
+          
+          // Refresh proposals and statistics
+          await loadProposals();
+          await loadStatistics();
+          
+        } else {
+          throw new Error(data.error || 'Scan failed');
+        }
+        
+      } catch (error) {
+        console.error('❌ System scan failed:', error);
+        showNotification('AI system scan failed. Please try again.', 'error');
+      } finally {
+        // Reset button state
+        scanButton.disabled = false;
+        scanButton.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+          </svg>
+          <span>Run AI Scan</span>
+        `;
+        scanStatus.classList.add('hidden');
+      }
+    }
   </script>
 </Layout>
