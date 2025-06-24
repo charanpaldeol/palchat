@@ -214,30 +214,82 @@ import Layout from '../layouts/Layout.astro';
     
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
+      console.log('🚀 Proposals page initialized');
+      
+      // Debug: Check if DOM elements exist
+      console.log('🔍 Checking DOM elements:');
+      console.log('- proposalsList:', proposalsList);
+      console.log('- modal:', modal);
+      console.log('- closeModal:', closeModal);
+      console.log('- refreshBtn:', refreshBtn);
+      console.log('- statusFilter:', statusFilter);
+      console.log('- typeFilter:', typeFilter);
+      
       loadStatistics();
       loadProposals();
       
       // Event listeners
-      closeModal.addEventListener('click', hideModal);
-      refreshBtn.addEventListener('click', () => {
-        loadStatistics();
-        loadProposals();
-      });
-      statusFilter.addEventListener('change', filterProposals);
-      typeFilter.addEventListener('change', filterProposals);
+      if (closeModal) {
+        closeModal.addEventListener('click', () => {
+          console.log('🔘 Close modal clicked');
+          hideModal();
+        });
+      } else {
+        console.error('❌ closeModal element not found');
+      }
+      
+      if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+          console.log('🔘 Refresh button clicked');
+          loadStatistics();
+          loadProposals();
+        });
+      } else {
+        console.error('❌ refreshBtn element not found');
+      }
+      
+      if (statusFilter) {
+        statusFilter.addEventListener('change', () => {
+          console.log('🔘 Status filter changed:', statusFilter.value);
+          filterProposals();
+        });
+      } else {
+        console.error('❌ statusFilter element not found');
+      }
+      
+      if (typeFilter) {
+        typeFilter.addEventListener('change', () => {
+          console.log('🔘 Type filter changed:', typeFilter.value);
+          filterProposals();
+        });
+      } else {
+        console.error('❌ typeFilter element not found');
+      }
       
       // Test button functionality
       const testBtn = document.getElementById('test-btn');
-      testBtn.addEventListener('click', () => {
-        showNotification('Test: Click the Details, Accept, or Reject buttons on any proposal to see them work!', 'info');
-      });
+      if (testBtn) {
+        testBtn.addEventListener('click', () => {
+          console.log('🔘 Test button clicked');
+          showNotification('Test: Click the Details, Accept, or Reject buttons on any proposal to see them work!', 'info');
+        });
+      } else {
+        console.error('❌ testBtn element not found');
+      }
       
       // Close modal on outside click
-      modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-          hideModal();
-        }
-      });
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            console.log('🔘 Modal outside click');
+            hideModal();
+          }
+        });
+      } else {
+        console.error('❌ modal element not found');
+      }
+      
+      console.log('✅ Event listeners attached');
     });
     
     // Load statistics
@@ -257,6 +309,7 @@ import Layout from '../layouts/Layout.astro';
     
     // Load proposals
     async function loadProposals() {
+      console.log('📋 Loading proposals...');
       try {
         // TODO: Replace with real API call when available
         // const response = await fetch(`${API_BASE}/api/proposals`);
@@ -312,9 +365,10 @@ import Layout from '../layouts/Layout.astro';
           }
         ];
         
+        console.log('📋 Loaded proposals:', proposals);
         renderProposals();
       } catch (error) {
-        console.error('Failed to load proposals:', error);
+        console.error('❌ Failed to load proposals:', error);
         proposalsList.innerHTML = `
           <div class="p-6 text-center text-red-500">
             <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -328,9 +382,12 @@ import Layout from '../layouts/Layout.astro';
     
     // Render proposals
     function renderProposals() {
+      console.log('🎨 Rendering proposals...');
       const filteredProposals = filterProposals();
+      console.log('🎨 Filtered proposals:', filteredProposals);
       
       if (filteredProposals.length === 0) {
+        console.log('🎨 No proposals to render');
         proposalsList.innerHTML = `
           <div class="p-6 text-center text-gray-500">
             <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -342,6 +399,7 @@ import Layout from '../layouts/Layout.astro';
         return;
       }
       
+      console.log('🎨 Rendering', filteredProposals.length, 'proposals');
       proposalsList.innerHTML = filteredProposals.map(proposal => `
         <div class="p-6 hover:bg-gray-50 transition-colors border-b border-gray-100">
           <div class="flex items-start justify-between">
@@ -406,6 +464,8 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
       `).join('');
+      
+      console.log('🎨 Proposals rendered successfully');
     }
     
     // Filter proposals
@@ -433,6 +493,7 @@ import Layout from '../layouts/Layout.astro';
     
     // View proposal details
     async function viewProposal(proposalId) {
+      console.log('👁️ View proposal clicked:', proposalId);
       try {
         // In a real implementation, you'd fetch the proposal details:
         // const response = await fetch(`${API_BASE}/api/proposals/${proposalId}`);
@@ -440,21 +501,24 @@ import Layout from '../layouts/Layout.astro';
         
         // For now, find the proposal in our sample data
         currentProposal = proposals.find(p => p.proposal_id === proposalId);
+        console.log('👁️ Found proposal:', currentProposal);
         
         if (!currentProposal) {
+          console.error('❌ Proposal not found:', proposalId);
           alert('Proposal not found');
           return;
         }
         
         showProposalModal();
       } catch (error) {
-        console.error('Failed to load proposal details:', error);
+        console.error('❌ Failed to load proposal details:', error);
         alert('Failed to load proposal details');
       }
     }
     
     // Show proposal modal
     function showProposalModal() {
+      console.log('📋 Showing proposal modal');
       modalTitle.textContent = currentProposal.summary;
       
       modalContent.innerHTML = `
@@ -513,24 +577,28 @@ import Layout from '../layouts/Layout.astro';
     
     // Show modal
     function showModal() {
+      console.log('📋 Showing modal');
       modal.classList.remove('hidden');
     }
     
     // Hide modal
     function hideModal() {
+      console.log('📋 Hiding modal');
       modal.classList.add('hidden');
       currentProposal = null;
     }
     
     // Execute proposal
     async function executeProposal(proposalId) {
+      console.log('✅ Execute proposal clicked:', proposalId);
       if (!confirm('Are you sure you want to execute this proposal?')) {
+        console.log('❌ User cancelled execution');
         return;
       }
       
       try {
         // For testing purposes, simulate the API call
-        console.log(`Executing proposal: ${proposalId}`);
+        console.log(`✅ Executing proposal: ${proposalId}`);
         
         // Simulate API delay
         await new Promise(resolve => setTimeout(resolve, 500));
@@ -539,7 +607,7 @@ import Layout from '../layouts/Layout.astro';
         const proposal = proposals.find(p => p.proposal_id === proposalId);
         if (proposal) {
           proposal.status = 'executed';
-          console.log(`Proposal ${proposalId} executed successfully!`);
+          console.log(`✅ Proposal ${proposalId} executed successfully!`);
           
           // Show success message
           showNotification('Proposal executed successfully!', 'success');
@@ -565,22 +633,24 @@ import Layout from '../layouts/Layout.astro';
         // }
         
       } catch (error) {
-        console.error('Failed to execute proposal:', error);
+        console.error('❌ Failed to execute proposal:', error);
         showNotification(`Failed to execute proposal: ${error.message}`, 'error');
       }
     }
     
     // Reject proposal
     async function rejectProposal(proposalId) {
+      console.log('❌ Reject proposal clicked:', proposalId);
       const reason = prompt('Please provide a reason for rejection (optional):');
       
       if (reason === null) {
+        console.log('❌ User cancelled rejection');
         return; // User cancelled
       }
       
       try {
         // For testing purposes, simulate the API call
-        console.log(`Rejecting proposal: ${proposalId} with reason: ${reason}`);
+        console.log(`❌ Rejecting proposal: ${proposalId} with reason: ${reason}`);
         
         // Simulate API delay
         await new Promise(resolve => setTimeout(resolve, 500));
@@ -590,7 +660,7 @@ import Layout from '../layouts/Layout.astro';
         if (proposal) {
           proposal.status = 'rejected';
           proposal.rejection_reason = reason;
-          console.log(`Proposal ${proposalId} rejected successfully!`);
+          console.log(`❌ Proposal ${proposalId} rejected successfully!`);
           
           // Show success message
           showNotification('Proposal rejected successfully!', 'success');
@@ -620,7 +690,7 @@ import Layout from '../layouts/Layout.astro';
         // }
         
       } catch (error) {
-        console.error('Failed to reject proposal:', error);
+        console.error('❌ Failed to reject proposal:', error);
         showNotification(`Failed to reject proposal: ${error.message}`, 'error');
       }
     }

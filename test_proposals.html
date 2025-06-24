@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposals Page Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Proposals Page Testing</h1>
+        
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Test Instructions</h2>
+            <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                <li>Open the browser console (F12)</li>
+                <li>Navigate to the proposals page: <code class="bg-gray-200 px-2 py-1 rounded">http://localhost:4322/proposals</code></li>
+                <li>Copy and paste the test script from <code class="bg-gray-200 px-2 py-1 rounded">test_proposals_page.js</code></li>
+                <li>Run <code class="bg-gray-200 px-2 py-1 rounded">proposalTests.runAllTests()</code></li>
+                <li>Check the console output for test results</li>
+            </ol>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Quick Test Commands</h2>
+            <div class="space-y-2">
+                <p><strong>Run all tests:</strong> <code class="bg-gray-200 px-2 py-1 rounded">proposalTests.runAllTests()</code></p>
+                <p><strong>Test Details button:</strong> <code class="bg-gray-200 px-2 py-1 rounded">proposalTests.manualTestDetails()</code></p>
+                <p><strong>Test Accept button:</strong> <code class="bg-gray-200 px-2 py-1 rounded">proposalTests.manualTestAccept()</code></p>
+                <p><strong>Test Reject button:</strong> <code class="bg-gray-200 px-2 py-1 rounded">proposalTests.manualTestReject()</code></p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Expected Behavior</h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li><strong>Details Button:</strong> Opens modal with proposal details</li>
+                <li><strong>Accept Button:</strong> Shows confirmation, then changes status to "executed"</li>
+                <li><strong>Reject Button:</strong> Prompts for reason, then changes status to "rejected"</li>
+                <li><strong>Test Button:</strong> Shows notification with instructions</li>
+                <li><strong>Filters:</strong> Filter proposals by status and type</li>
+            </ul>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4">Troubleshooting</h2>
+            <div class="space-y-3 text-gray-700">
+                <div>
+                    <h3 class="font-semibold">Buttons not working?</h3>
+                    <p>Check if the functions are defined in the console: <code class="bg-gray-200 px-2 py-1 rounded">typeof viewProposal</code></p>
+                </div>
+                <div>
+                    <h3 class="font-semibold">Modal not showing?</h3>
+                    <p>Check if modal element exists: <code class="bg-gray-200 px-2 py-1 rounded">document.getElementById('proposal-modal')</code></p>
+                </div>
+                <div>
+                    <h3 class="font-semibold">No proposals showing?</h3>
+                    <p>Check if proposals data is loaded: <code class="bg-gray-200 px-2 py-1 rounded">console.log(proposals)</code></p>
+                </div>
+                <div>
+                    <h3 class="font-semibold">Console errors?</h3>
+                    <p>Look for red error messages in the console and check the network tab for failed requests</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
