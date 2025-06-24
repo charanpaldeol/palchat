@@ -1,0 +1,579 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Proposal Management - HumaneStack"
+  description="Review and manage AI action proposals. View proposed changes, accept or reject proposals based on mission alignment."
+>
+  <!-- Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Proposal Management Dashboard",
+    "description": "Review and manage AI action proposals for the HumaneStack system",
+    "url": "https://palchat.org/proposals",
+    "mainEntity": {
+      "@type": "SoftwareApplication",
+      "name": "HumaneStack Proposal System",
+      "description": "AI action proposal management system",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web Browser"
+    }
+  })}>
+  </script>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Proposal Management
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Review and manage AI action proposals. Every change is validated against our mission 
+          to ensure alignment with digital sovereignty and community values.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <!-- Statistics Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+          <div class="flex items-center">
+            <div class="p-2 bg-blue-100 rounded-lg">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-600">Total Proposals</p>
+              <p class="text-2xl font-bold text-gray-900" id="total-proposals">-</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+          <div class="flex items-center">
+            <div class="p-2 bg-green-100 rounded-lg">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-600">Validated</p>
+              <p class="text-2xl font-bold text-gray-900" id="validated-proposals">-</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-red-500">
+          <div class="flex items-center">
+            <div class="p-2 bg-red-100 rounded-lg">
+              <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-600">Rejected</p>
+              <p class="text-2xl font-bold text-gray-900" id="rejected-proposals">-</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+          <div class="flex items-center">
+            <div class="p-2 bg-purple-100 rounded-lg">
+              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <p class="text-sm font-medium text-gray-600">Executed</p>
+              <p class="text-2xl font-bold text-gray-900" id="executed-proposals">-</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div class="flex flex-wrap items-center gap-4">
+          <div>
+            <label for="status-filter" class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+            <select id="status-filter" class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="validated">Validated</option>
+              <option value="rejected">Rejected</option>
+              <option value="executed">Executed</option>
+            </select>
+          </div>
+          
+          <div>
+            <label for="type-filter" class="block text-sm font-medium text-gray-700 mb-2">Action Type</label>
+            <select id="type-filter" class="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="">All Types</option>
+              <option value="code">Code</option>
+              <option value="content">Content</option>
+              <option value="config">Config</option>
+              <option value="social">Social</option>
+            </select>
+          </div>
+
+          <div class="ml-auto">
+            <button id="refresh-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center gap-2 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+              </svg>
+              Refresh
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proposals List -->
+      <div class="bg-white rounded-lg shadow-md">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h2 class="text-xl font-semibold text-gray-900">Proposals</h2>
+        </div>
+        
+        <div id="proposals-list" class="divide-y divide-gray-200">
+          <!-- Proposals will be loaded here -->
+          <div class="p-6 text-center text-gray-500">
+            <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            Loading proposals...
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proposal Detail Modal -->
+  <div id="proposal-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-6 border-b border-gray-200">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xl font-semibold text-gray-900" id="modal-title">Proposal Details</h3>
+            <button id="close-modal" class="text-gray-400 hover:text-gray-600">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="p-6" id="modal-content">
+          <!-- Proposal details will be loaded here -->
+        </div>
+        
+        <div class="p-6 border-t border-gray-200 bg-gray-50">
+          <div class="flex justify-end gap-3" id="modal-actions">
+            <!-- Action buttons will be loaded here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Configuration
+    const API_BASE = 'http://localhost:8000';
+    
+    // State
+    let proposals = [];
+    let currentProposal = null;
+    
+    // DOM Elements
+    const proposalsList = document.getElementById('proposals-list');
+    const modal = document.getElementById('proposal-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalContent = document.getElementById('modal-content');
+    const modalActions = document.getElementById('modal-actions');
+    const closeModal = document.getElementById('close-modal');
+    const refreshBtn = document.getElementById('refresh-btn');
+    const statusFilter = document.getElementById('status-filter');
+    const typeFilter = document.getElementById('type-filter');
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      loadStatistics();
+      loadProposals();
+      
+      // Event listeners
+      closeModal.addEventListener('click', hideModal);
+      refreshBtn.addEventListener('click', () => {
+        loadStatistics();
+        loadProposals();
+      });
+      statusFilter.addEventListener('change', filterProposals);
+      typeFilter.addEventListener('change', filterProposals);
+      
+      // Close modal on outside click
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          hideModal();
+        }
+      });
+    });
+    
+    // Load statistics
+    async function loadStatistics() {
+      try {
+        const response = await fetch(`${API_BASE}/api/proposals/stats`);
+        const stats = await response.json();
+        
+        document.getElementById('total-proposals').textContent = stats.total;
+        document.getElementById('validated-proposals').textContent = stats.validated;
+        document.getElementById('rejected-proposals').textContent = stats.rejected;
+        document.getElementById('executed-proposals').textContent = stats.executed;
+      } catch (error) {
+        console.error('Failed to load statistics:', error);
+      }
+    }
+    
+    // Load proposals
+    async function loadProposals() {
+      try {
+        // TODO: Replace with real API call when available
+        // const response = await fetch(`${API_BASE}/api/proposals`);
+        // proposals = await response.json();
+
+        // For now, use sample proposals for demonstration
+        proposals = [
+          {
+            proposal_id: 'sample-1',
+            action_type: 'code',
+            summary: 'Add privacy-focused data encryption',
+            status: 'validated',
+            timestamp: new Date().toISOString(),
+            intent: 'Implement end-to-end encryption for user data to enhance privacy and align with digital sovereignty mission.',
+            proposed_changes: {
+              file: 'backend/app/models/database.py',
+              changes: [
+                'Add encryption field to UserInteraction model',
+                'Implement automatic encryption/decryption methods',
+                'Add privacy audit logging'
+              ],
+              impact: 'Enhanced user privacy and data protection'
+            },
+            validation_result: {
+              is_valid: true,
+              vision_alignment: 0.85,
+              mission_alignment: 0.90,
+              overall_values_score: 0.88
+            }
+          },
+          {
+            proposal_id: 'sample-2',
+            action_type: 'content',
+            summary: 'Update privacy policy',
+            status: 'pending',
+            timestamp: new Date(Date.now() - 3600000).toISOString(),
+            intent: 'Update the privacy policy to reflect new data protection measures.',
+            proposed_changes: {
+              file: 'privacy-policy.md',
+              changes: [
+                'Add section on end-to-end encryption',
+                'Update data retention policies',
+                'Clarify user consent mechanisms'
+              ],
+              impact: 'Improved transparency and user trust'
+            },
+            validation_result: {
+              is_valid: true,
+              vision_alignment: 0.80,
+              mission_alignment: 0.85,
+              overall_values_score: 0.82
+            }
+          }
+        ];
+        
+        renderProposals();
+      } catch (error) {
+        console.error('Failed to load proposals:', error);
+        proposalsList.innerHTML = `
+          <div class="p-6 text-center text-red-500">
+            <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Failed to load proposals. Please check if the backend is running.
+          </div>
+        `;
+      }
+    }
+    
+    // Render proposals
+    function renderProposals() {
+      const filteredProposals = filterProposals();
+      
+      if (filteredProposals.length === 0) {
+        proposalsList.innerHTML = `
+          <div class="p-6 text-center text-gray-500">
+            <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            No proposals found matching the current filters.
+          </div>
+        `;
+        return;
+      }
+      
+      proposalsList.innerHTML = filteredProposals.map(proposal => `
+        <div class="p-6 hover:bg-gray-50 transition-colors">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(proposal.status)}">
+                  ${proposal.status}
+                </span>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                  ${proposal.action_type}
+                </span>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">${proposal.summary}</h3>
+              <p class="text-gray-600 mb-3">${proposal.intent.substring(0, 150)}${proposal.intent.length > 150 ? '...' : ''}</p>
+              <div class="flex items-center gap-4 text-sm text-gray-500">
+                <span>${new Date(proposal.timestamp).toLocaleDateString()}</span>
+                <span>Vision: ${(proposal.validation_result.vision_alignment * 100).toFixed(0)}%</span>
+                <span>Values: ${(proposal.validation_result.overall_values_score * 100).toFixed(0)}%</span>
+              </div>
+            </div>
+            <button 
+              onclick="viewProposal('${proposal.proposal_id}')"
+              class="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors"
+            >
+              View Details
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    // Filter proposals
+    function filterProposals() {
+      const statusFilterValue = statusFilter.value;
+      const typeFilterValue = typeFilter.value;
+      
+      return proposals.filter(proposal => {
+        const statusMatch = !statusFilterValue || proposal.status === statusFilterValue;
+        const typeMatch = !typeFilterValue || proposal.action_type === typeFilterValue;
+        return statusMatch && typeMatch;
+      });
+    }
+    
+    // Get status color
+    function getStatusColor(status) {
+      switch (status) {
+        case 'validated': return 'bg-green-100 text-green-800';
+        case 'rejected': return 'bg-red-100 text-red-800';
+        case 'executed': return 'bg-purple-100 text-purple-800';
+        case 'pending': return 'bg-yellow-100 text-yellow-800';
+        default: return 'bg-gray-100 text-gray-800';
+      }
+    }
+    
+    // View proposal details
+    async function viewProposal(proposalId) {
+      try {
+        // In a real implementation, you'd fetch the proposal details:
+        // const response = await fetch(`${API_BASE}/api/proposals/${proposalId}`);
+        // currentProposal = await response.json();
+        
+        // For now, find the proposal in our sample data
+        currentProposal = proposals.find(p => p.proposal_id === proposalId);
+        
+        if (!currentProposal) {
+          alert('Proposal not found');
+          return;
+        }
+        
+        showProposalModal();
+      } catch (error) {
+        console.error('Failed to load proposal details:', error);
+        alert('Failed to load proposal details');
+      }
+    }
+    
+    // Show proposal modal
+    function showProposalModal() {
+      modalTitle.textContent = currentProposal.summary;
+      
+      modalContent.innerHTML = `
+        <div class="space-y-6">
+          <!-- Basic Info -->
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-3">Proposal Information</h4>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Status</label>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(currentProposal.status)}">
+                  ${currentProposal.status}
+                </span>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Action Type</label>
+                <span class="text-sm text-gray-900">${currentProposal.action_type}</span>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Created</label>
+                <span class="text-sm text-gray-900">${new Date(currentProposal.timestamp).toLocaleString()}</span>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Proposal ID</label>
+                <span class="text-sm text-gray-900 font-mono">${currentProposal.proposal_id}</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Intent -->
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-3">Intent & Reasoning</h4>
+            <p class="text-gray-700">${currentProposal.intent}</p>
+          </div>
+          
+          <!-- Proposed Changes -->
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-3">Proposed Changes</h4>
+            <div class="bg-gray-50 rounded-lg p-4">
+              ${currentProposal.proposed_changes.file ? `
+                <div class="mb-3">
+                  <label class="block text-sm font-medium text-gray-700">File</label>
+                  <span class="text-sm text-gray-900 font-mono">${currentProposal.proposed_changes.file}</span>
+                </div>
+              ` : ''}
+              
+              ${currentProposal.proposed_changes.changes ? `
+                <div class="mb-3">
+                  <label class="block text-sm font-medium text-gray-700">Changes</label>
+                  <ul class="list-disc list-inside text-sm text-gray-900 space-y-1">
+                    ${currentProposal.proposed_changes.changes.map(change => `<li>${change}</li>`).join('')}
+                  </ul>
+                </div>
+              ` : ''}
+              
+              ${currentProposal.proposed_changes.impact ? `
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Expected Impact</label>
+                  <span class="text-sm text-gray-900">${currentProposal.proposed_changes.impact}</span>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+          
+          <!-- Validation Results -->
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 mb-3">Validation Results</h4>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="text-center">
+                <div class="text-2xl font-bold text-blue-600">${(currentProposal.validation_result.vision_alignment * 100).toFixed(0)}%</div>
+                <div class="text-sm text-gray-600">Vision Alignment</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-green-600">${(currentProposal.validation_result.mission_alignment * 100).toFixed(0)}%</div>
+                <div class="text-sm text-gray-600">Mission Alignment</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-purple-600">${(currentProposal.validation_result.overall_values_score * 100).toFixed(0)}%</div>
+                <div class="text-sm text-gray-600">Values Score</div>
+              </div>
+            </div>
+            <div class="mt-3 text-center">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${currentProposal.validation_result.is_valid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                ${currentProposal.validation_result.is_valid ? '✅ Validated' : '❌ Rejected'}
+              </span>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Set up action buttons
+      modalActions.innerHTML = `
+        <button onclick="hideModal()" class="px-4 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-md transition-colors">
+          Close
+        </button>
+        ${currentProposal.status === 'validated' ? `
+          <button onclick="executeProposal('${currentProposal.proposal_id}')" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors">
+            Execute Proposal
+          </button>
+        ` : ''}
+        ${currentProposal.status === 'pending' ? `
+          <button onclick="rejectProposal('${currentProposal.proposal_id}')" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors">
+            Reject Proposal
+          </button>
+        ` : ''}
+      `;
+      
+      modal.classList.remove('hidden');
+    }
+    
+    // Hide modal
+    function hideModal() {
+      modal.classList.add('hidden');
+      currentProposal = null;
+    }
+    
+    // Execute proposal
+    async function executeProposal(proposalId) {
+      if (!confirm('Are you sure you want to execute this proposal?')) {
+        return;
+      }
+      
+      try {
+        const response = await fetch(`${API_BASE}/api/proposals/${proposalId}/execute`, {
+          method: 'POST'
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          alert('Proposal executed successfully!');
+          hideModal();
+          loadStatistics();
+          loadProposals();
+        } else {
+          alert(`Failed to execute proposal: ${result.error}`);
+        }
+      } catch (error) {
+        console.error('Failed to execute proposal:', error);
+        alert('Failed to execute proposal. Please check if the backend is running.');
+      }
+    }
+    
+    // Reject proposal
+    async function rejectProposal(proposalId) {
+      const reason = prompt('Please provide a reason for rejection (optional):');
+      
+      try {
+        const response = await fetch(`${API_BASE}/api/proposals/${proposalId}/reject`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ reason: reason || '' })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          alert('Proposal rejected successfully!');
+          hideModal();
+          loadStatistics();
+          loadProposals();
+        } else {
+          alert(`Failed to reject proposal: ${result.error}`);
+        }
+      } catch (error) {
+        console.error('Failed to reject proposal:', error);
+        alert('Failed to reject proposal. Please check if the backend is running.');
+      }
+    }
+  </script>
+</Layout>
