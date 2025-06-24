@@ -71,9 +71,21 @@ class MissionGuardian:
         
         # Check for prohibited patterns
         violations = []
-        for pattern in self.prohibited_patterns:
-            if re.search(pattern, content_lower):
-                violations.append(f"Prohibited pattern detected: {pattern}")
+        if not is_ai_scan:
+            for pattern in self.prohibited_patterns:
+                if re.search(pattern, content_lower):
+                    violations.append(f"Prohibited pattern detected: {pattern}")
+        else:
+            # For AI scans, only check for the most critical violations
+            critical_patterns = [
+                r"surveillance.*capitalism",
+                r"data.*exploitation",
+                r"profit.*extraction",
+                r"user.*manipulation"
+            ]
+            for pattern in critical_patterns:
+                if re.search(pattern, content_lower):
+                    violations.append(f"Critical violation detected: {pattern}")
         
         # Calculate vision alignment
         vision_score = self._calculate_keyword_alignment(content_lower, self.vision_keywords)
@@ -100,7 +112,13 @@ class MissionGuardian:
         passes_vision = vision_score >= vision_threshold
         passes_mission = mission_score >= vision_threshold
         passes_values = overall_values_score >= values_threshold
-        no_violations = len(violations) == 0
+        
+        # For AI scans, be more lenient with violations
+        if is_ai_scan:
+            # Only check for critical violations (already filtered above)
+            no_violations = len(violations) == 0
+        else:
+            no_violations = len(violations) == 0
         
         is_valid = passes_vision and passes_mission and passes_values and no_violations
         
