@@ -407,6 +407,28 @@ async def create_proposal(
             detail=f"Error creating proposal: {str(e)}"
         )
 
+@app.get("/api/proposals/stats", response_model=ProposalStatisticsResponse)
+async def get_proposal_statistics(db: Session = Depends(get_db)):
+    """Get statistics about all proposals."""
+    try:
+        stats = ai_agent.get_proposal_statistics(db)
+        
+        return ProposalStatisticsResponse(
+            total=stats["total"],
+            pending=stats["pending"],
+            validated=stats["validated"],
+            rejected=stats["rejected"],
+            executed=stats["executed"],
+            validation_rate=stats["validation_rate"],
+            execution_rate=stats["execution_rate"]
+        )
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error getting proposal statistics: {str(e)}"
+        )
+
 @app.get("/api/proposals/{proposal_id}", response_model=ProposalStatusResponse)
 async def get_proposal_status(
     proposal_id: str,
@@ -441,28 +463,6 @@ async def get_proposal_status(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error getting proposal status: {str(e)}"
-        )
-
-@app.get("/api/proposals/stats", response_model=ProposalStatisticsResponse)
-async def get_proposal_statistics(db: Session = Depends(get_db)):
-    """Get statistics about all proposals."""
-    try:
-        stats = ai_agent.get_proposal_statistics(db)
-        
-        return ProposalStatisticsResponse(
-            total=stats["total"],
-            pending=stats["pending"],
-            validated=stats["validated"],
-            rejected=stats["rejected"],
-            executed=stats["executed"],
-            validation_rate=stats["validation_rate"],
-            execution_rate=stats["execution_rate"]
-        )
-    
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error getting proposal statistics: {str(e)}"
         )
 
 @app.post("/api/proposals/{proposal_id}/execute", response_model=ProposalResponse)
