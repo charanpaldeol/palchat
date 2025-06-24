@@ -413,22 +413,10 @@ import Layout from '../layouts/Layout.astro';
       }
 
       setupStorage() {
-        // Simulate localStorage tracking
-        if (typeof localStorage !== 'undefined') {
-          localStorage.setItem('visitorId', this.visitorId);
-          localStorage.setItem('visitCount', (parseInt(localStorage.getItem('visitCount') || '0') + 1).toString());
-          localStorage.setItem('lastVisit', new Date().toISOString());
-        }
-
-        // Simulate sessionStorage tracking
-        if (typeof sessionStorage !== 'undefined') {
-          sessionStorage.setItem('sessionStart', new Date().toISOString());
-          sessionStorage.setItem('pageUrl', window.location.href);
-        }
-
-        // Simulate cookie tracking
-        document.cookie = `visitorId=${this.visitorId}; max-age=31536000; path=/`;
-        document.cookie = `visitCount=${localStorage.getItem('visitCount')}; max-age=31536000; path=/`;
+        // Do not save any data to localStorage, sessionStorage, or cookies
+        // All tracking is simulated in memory only for this session
+        // this.visitorId, this.startTime, this.scrollDepth, this.clickCount, this.sectionTime, this.currentSection
+        // are all kept in memory and not persisted
       }
 
       async collectPassiveData() {
