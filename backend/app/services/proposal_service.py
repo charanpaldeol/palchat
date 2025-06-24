@@ -92,6 +92,14 @@ class ProposalService:
         # For AI system scan proposals, be more lenient - pass if ANY validation passes
         if proposal.created_by == "ai_system_scan":
             overall_valid = any(v["is_valid"] for v in all_validations)
+            # Debug logging for AI system scan proposals
+            print(f"🔍 AI System Scan Validation Debug for proposal {proposal.proposal_id}:")
+            print(f"   Summary valid: {summary_validation['is_valid']} (vision: {summary_validation['vision_alignment']:.2f}, mission: {summary_validation['mission_alignment']:.2f}, values: {summary_validation['overall_values_score']:.2f})")
+            print(f"   Intent valid: {intent_validation['is_valid']} (vision: {intent_validation['vision_alignment']:.2f}, mission: {intent_validation['mission_alignment']:.2f}, values: {intent_validation['overall_values_score']:.2f})")
+            print(f"   Changes valid: {changes_validation['is_valid']} (vision: {changes_validation['vision_alignment']:.2f}, mission: {changes_validation['mission_alignment']:.2f}, values: {changes_validation['overall_values_score']:.2f})")
+            print(f"   Overall valid: {overall_valid}")
+            if not overall_valid:
+                print(f"   ❌ All validations failed - proposal will be rejected")
         else:
             overall_valid = all(v["is_valid"] for v in all_validations)
         
