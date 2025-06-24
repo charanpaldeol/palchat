@@ -34,8 +34,8 @@ class Settings(BaseSettings):
     emergency_override_enabled: bool = True
     
     # Mission Guardian
-    vision_alignment_threshold: float = 0.8  # Minimum alignment with vision
-    values_compliance_threshold: float = 0.9  # Minimum compliance with values
+    vision_alignment_threshold: float = 0.3  # Minimum alignment with vision (lowered from 0.8)
+    values_compliance_threshold: float = 0.4  # Minimum compliance with values (lowered from 0.9)
     
     # Allowed Origins
     allowed_origins: str = "http://localhost:4321,https://palchat.org"

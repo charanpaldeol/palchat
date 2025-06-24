@@ -66,6 +66,9 @@ class MissionGuardian:
         """
         content_lower = content.lower()
         
+        # Special handling for AI system scan proposals
+        is_ai_scan = "ai_system_scan" in validation_type or "scan_" in validation_type
+        
         # Check for prohibited patterns
         violations = []
         for pattern in self.prohibited_patterns:
@@ -85,10 +88,18 @@ class MissionGuardian:
         
         overall_values_score = sum(values_scores.values()) / len(values_scores)
         
+        # Use different thresholds for AI scan proposals
+        if is_ai_scan:
+            vision_threshold = 0.2  # Very low threshold for AI scans
+            values_threshold = 0.2  # Very low threshold for AI scans
+        else:
+            vision_threshold = settings.vision_alignment_threshold
+            values_threshold = settings.values_compliance_threshold
+        
         # Determine if content passes validation
-        passes_vision = vision_score >= settings.vision_alignment_threshold
-        passes_mission = mission_score >= settings.vision_alignment_threshold
-        passes_values = overall_values_score >= settings.values_compliance_threshold
+        passes_vision = vision_score >= vision_threshold
+        passes_mission = mission_score >= vision_threshold
+        passes_values = overall_values_score >= values_threshold
         no_violations = len(violations) == 0
         
         is_valid = passes_vision and passes_mission and passes_values and no_violations

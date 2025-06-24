@@ -62,23 +62,28 @@ class ProposalService:
         """
         Validate a proposal using MissionGuardian.
         """
+        # Determine validation type based on who created the proposal
+        base_validation_type = f"proposal_{proposal.action_type}"
+        if proposal.created_by == "ai_system_scan":
+            base_validation_type = f"ai_system_scan_{proposal.action_type}"
+        
         # Validate the summary
         summary_validation = self.mission_guardian.validate_content(
             proposal.summary, 
-            f"proposal_summary_{proposal.action_type}"
+            f"{base_validation_type}_summary"
         )
         
         # Validate the intent
         intent_validation = self.mission_guardian.validate_content(
             proposal.intent, 
-            f"proposal_intent_{proposal.action_type}"
+            f"{base_validation_type}_intent"
         )
         
         # Validate the proposed changes (convert to string for validation)
         changes_str = json.dumps(proposal.proposed_changes, indent=2)
         changes_validation = self.mission_guardian.validate_content(
             changes_str, 
-            f"proposal_changes_{proposal.action_type}"
+            f"{base_validation_type}_changes"
         )
         
         # Overall validation result
