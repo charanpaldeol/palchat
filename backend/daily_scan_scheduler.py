@@ -23,9 +23,8 @@ from pathlib import Path
 backend_dir = Path(__file__).parent
 sys.path.insert(0, str(backend_dir))
 
-from app.database import get_db
+from app.models.database import get_db
 from app.services.ai_agent import AIAgent
-from app.config import settings
 
 # Configure logging
 logging.basicConfig(

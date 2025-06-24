@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer
 from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Any
 import uuid
 from datetime import datetime
 
@@ -429,7 +429,7 @@ async def get_proposal_statistics(db: Session = Depends(get_db)):
             detail=f"Error getting proposal statistics: {str(e)}"
         )
 
-@app.post("/api/system/scan", response_model=Dict[str, any])
+@app.post("/api/system/scan", response_model=Dict[str, Any])
 async def perform_system_scan(db: Session = Depends(get_db)):
     """Perform a comprehensive system scan and generate prioritized proposals."""
     try:
