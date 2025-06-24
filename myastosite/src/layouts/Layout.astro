@@ -222,6 +222,12 @@ const breadcrumbs = generateBreadcrumbs(currentPath);
       "dateModified": "2024-01-15"
     })}>
     </script>
+
+    <Astro.set:headers headers={{
+      'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    }} />
   </head>
   <body class="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] font-['Inter']">
     <!-- Enhanced Cursor-style Navbar -->

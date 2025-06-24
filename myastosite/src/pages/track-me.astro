@@ -425,10 +425,6 @@ import Layout from '../layouts/Layout.astro';
           sessionStorage.setItem('sessionStart', new Date().toISOString());
           sessionStorage.setItem('pageUrl', window.location.href);
         }
-
-        // Simulate cookie tracking
-        document.cookie = `visitorId=${this.visitorId}; max-age=31536000; path=/`;
-        document.cookie = `visitCount=${localStorage.getItem('visitCount')}; max-age=31536000; path=/`;
       }
 
       async collectPassiveData() {
