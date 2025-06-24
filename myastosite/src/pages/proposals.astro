@@ -195,7 +195,7 @@ import Layout from '../layouts/Layout.astro';
 
   <script>
     // Configuration
-    const API_BASE = 'http://localhost:8000';
+    const API_BASE = 'https://palchat-03ck.onrender.com';
     
     // State
     let proposals = [];
@@ -297,13 +297,23 @@ import Layout from '../layouts/Layout.astro';
       try {
         const response = await fetch(`${API_BASE}/api/proposals/stats`);
         const stats = await response.json();
-        
-        document.getElementById('total-proposals').textContent = stats.total;
-        document.getElementById('validated-proposals').textContent = stats.validated;
-        document.getElementById('rejected-proposals').textContent = stats.rejected;
-        document.getElementById('executed-proposals').textContent = stats.executed;
+        if (stats && typeof stats.total !== 'undefined') {
+          document.getElementById('total-proposals').textContent = stats.total;
+          document.getElementById('validated-proposals').textContent = stats.validated;
+          document.getElementById('rejected-proposals').textContent = stats.rejected;
+          document.getElementById('executed-proposals').textContent = stats.executed;
+        } else {
+          document.getElementById('total-proposals').textContent = '-';
+          document.getElementById('validated-proposals').textContent = '-';
+          document.getElementById('rejected-proposals').textContent = '-';
+          document.getElementById('executed-proposals').textContent = '-';
+        }
       } catch (error) {
         console.error('Failed to load statistics:', error);
+        document.getElementById('total-proposals').textContent = '-';
+        document.getElementById('validated-proposals').textContent = '-';
+        document.getElementById('rejected-proposals').textContent = '-';
+        document.getElementById('executed-proposals').textContent = '-';
       }
     }
     
@@ -311,60 +321,9 @@ import Layout from '../layouts/Layout.astro';
     async function loadProposals() {
       console.log('📋 Loading proposals...');
       try {
-        // TODO: Replace with real API call when available
-        // const response = await fetch(`${API_BASE}/api/proposals`);
-        // proposals = await response.json();
-
-        // For now, use sample proposals for demonstration
-        proposals = [
-          {
-            proposal_id: 'sample-1',
-            action_type: 'code',
-            summary: 'Add privacy-focused data encryption',
-            status: 'validated',
-            timestamp: new Date().toISOString(),
-            intent: 'Implement end-to-end encryption for user data to enhance privacy and align with digital sovereignty mission.',
-            proposed_changes: {
-              file: 'backend/app/models/database.py',
-              changes: [
-                'Add encryption field to UserInteraction model',
-                'Implement automatic encryption/decryption methods',
-                'Add privacy audit logging'
-              ],
-              impact: 'Enhanced user privacy and data protection'
-            },
-            validation_result: {
-              is_valid: true,
-              vision_alignment: 0.85,
-              mission_alignment: 0.90,
-              overall_values_score: 0.88
-            }
-          },
-          {
-            proposal_id: 'sample-2',
-            action_type: 'content',
-            summary: 'Update privacy policy',
-            status: 'pending',
-            timestamp: new Date(Date.now() - 3600000).toISOString(),
-            intent: 'Update the privacy policy to reflect new data protection measures.',
-            proposed_changes: {
-              file: 'privacy-policy.md',
-              changes: [
-                'Add section on end-to-end encryption',
-                'Update data retention policies',
-                'Clarify user consent mechanisms'
-              ],
-              impact: 'Improved transparency and user trust'
-            },
-            validation_result: {
-              is_valid: true,
-              vision_alignment: 0.80,
-              mission_alignment: 0.85,
-              overall_values_score: 0.82
-            }
-          }
-        ];
-        
+        const response = await fetch(`${API_BASE}/api/proposals`);
+        const data = await response.json();
+        proposals = data.proposals || [];
         console.log('📋 Loaded proposals:', proposals);
         renderProposals();
       } catch (error) {
@@ -1040,32 +999,35 @@ import Layout from '../layouts/Layout.astro';
       testFilters
     };
     
-    // Add test button to the page
-    document.addEventListener('DOMContentLoaded', function() {
-      // Add a test panel to the page
-      const testPanel = document.createElement('div');
-      testPanel.className = 'fixed bottom-4 right-4 bg-white rounded-lg shadow-lg p-4 border border-gray-200 z-50';
-      testPanel.innerHTML = `
-        <div class="text-sm font-semibold text-gray-900 mb-2">🧪 Testing Panel</div>
-        <div class="space-y-1">
-          <button onclick="runAllTests()" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs">
-            Run All Tests
-          </button>
-          <button onclick="manualTestDetails()" class="w-full bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs">
-            Test Details
-          </button>
-          <button onclick="manualTestAccept()" class="w-full bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs">
-            Test Accept
-          </button>
-          <button onclick="manualTestReject()" class="w-full bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs">
-            Test Reject
-          </button>
-        </div>
-      `;
-      document.body.appendChild(testPanel);
-      
-      console.log('🧪 Testing panel added to page');
-      console.log('💡 Use the testing panel or run proposalTests.runAllTests() in console');
-    });
+    // Make test functions globally available
+    window.runAllTests = runAllTests;
+    window.manualTestDetails = manualTestDetails;
+    window.manualTestAccept = manualTestAccept;
+    window.manualTestReject = manualTestReject;
+    
+    // Add test panel to the page
+    const testPanel = document.createElement('div');
+    testPanel.className = 'fixed bottom-4 right-4 bg-white rounded-lg shadow-lg p-4 border border-gray-200 z-50';
+    testPanel.innerHTML = `
+      <div class="text-sm font-semibold text-gray-900 mb-2">🧪 Testing Panel</div>
+      <div class="space-y-1">
+        <button onclick="runAllTests()" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs">
+          Run All Tests
+        </button>
+        <button onclick="manualTestDetails()" class="w-full bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs">
+          Test Details
+        </button>
+        <button onclick="manualTestAccept()" class="w-full bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs">
+          Test Accept
+        </button>
+        <button onclick="manualTestReject()" class="w-full bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs">
+          Test Reject
+        </button>
+      </div>
+    `;
+    document.body.appendChild(testPanel);
+    
+    console.log('🧪 Testing panel added to page');
+    console.log('💡 Use the testing panel or run proposalTests.runAllTests() in console');
   </script>
 </Layout>
