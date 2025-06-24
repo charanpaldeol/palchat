@@ -24,7 +24,7 @@ app = FastAPI(
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://palchat.org", "http://localhost:4322"],
+    allow_origins=["https://palchat.org", "https://www.palchat.org", "http://localhost:4322"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -443,6 +443,28 @@ async def get_proposal_status(
             detail=f"Error getting proposal status: {str(e)}"
         )
 
+@app.get("/api/proposals/stats", response_model=ProposalStatisticsResponse)
+async def get_proposal_statistics(db: Session = Depends(get_db)):
+    """Get statistics about all proposals."""
+    try:
+        stats = ai_agent.get_proposal_statistics(db)
+        
+        return ProposalStatisticsResponse(
+            total=stats["total"],
+            pending=stats["pending"],
+            validated=stats["validated"],
+            rejected=stats["rejected"],
+            executed=stats["executed"],
+            validation_rate=stats["validation_rate"],
+            execution_rate=stats["execution_rate"]
+        )
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error getting proposal statistics: {str(e)}"
+        )
+
 @app.post("/api/proposals/{proposal_id}/execute", response_model=ProposalResponse)
 async def execute_proposal(
     proposal_id: str,
@@ -496,28 +518,6 @@ async def reject_proposal(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error rejecting proposal: {str(e)}"
-        )
-
-@app.get("/api/proposals/stats", response_model=ProposalStatisticsResponse)
-async def get_proposal_statistics(db: Session = Depends(get_db)):
-    """Get statistics about all proposals."""
-    try:
-        stats = ai_agent.get_proposal_statistics(db)
-        
-        return ProposalStatisticsResponse(
-            total=stats["total"],
-            pending=stats["pending"],
-            validated=stats["validated"],
-            rejected=stats["rejected"],
-            executed=stats["executed"],
-            validation_rate=stats["validation_rate"],
-            execution_rate=stats["execution_rate"]
-        )
-    
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error getting proposal statistics: {str(e)}"
         )
 
 @app.get("/api/proposals", response_model=ProposalListResponse)
