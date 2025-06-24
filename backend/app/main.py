@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 from typing import List, Optional, Dict, Any
 import uuid
 from datetime import datetime
+import subprocess
 
 from app.config import settings
 from app.models.database import get_db, UserInteraction, SystemDecision, CommunityVote, SystemEvolution
@@ -567,6 +568,15 @@ async def get_all_proposals(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error getting proposals: {str(e)}"
         )
+
+@app.get("/api/version")
+def get_version():
+    """Get the current code version running in production."""
+    try:
+        commit = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode("utf-8").strip()
+        return {"commit": commit, "version": settings.app_version}
+    except Exception as e:
+        return {"commit": "unknown", "version": settings.app_version, "error": str(e)}
 
 if __name__ == "__main__":
     import uvicorn
