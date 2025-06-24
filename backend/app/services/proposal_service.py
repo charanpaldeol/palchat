@@ -130,6 +130,20 @@ class ProposalService:
         
         return query.order_by(Proposal.timestamp.desc()).all()
     
+    def get_all_proposals(self, db: Session, status: Optional[str] = None, action_type: Optional[str] = None) -> List[Proposal]:
+        """
+        Get all proposals with optional filtering by status and action type.
+        """
+        query = db.query(Proposal)
+        
+        if status:
+            query = query.filter(Proposal.status == status)
+        
+        if action_type:
+            query = query.filter(Proposal.action_type == action_type)
+        
+        return query.order_by(Proposal.timestamp.desc()).all()
+    
     def get_proposal(self, db: Session, proposal_id: str) -> Optional[Proposal]:
         """
         Get a specific proposal by ID.

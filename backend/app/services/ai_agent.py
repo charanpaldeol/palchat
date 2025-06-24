@@ -413,3 +413,25 @@ class AIAgent:
         Get statistics about all proposals.
         """
         return self.proposal_service.get_proposal_stats(db)
+
+    def get_all_proposals(self, db: Session, status: Optional[str] = None, action_type: Optional[str] = None) -> List[Dict[str, any]]:
+        """
+        Get all proposals with optional filtering.
+        """
+        proposals = self.proposal_service.get_all_proposals(db, status=status, action_type=action_type)
+        
+        # Convert to dictionary format for API response
+        result = []
+        for proposal in proposals:
+            result.append({
+                "proposal_id": proposal.proposal_id,
+                "action_type": proposal.action_type,
+                "summary": proposal.summary,
+                "status": proposal.status,
+                "timestamp": proposal.timestamp.isoformat(),
+                "intent": proposal.intent,
+                "proposed_changes": proposal.proposed_changes,
+                "validation_result": proposal.validation_result
+            })
+        
+        return result

@@ -1,16 +1,16 @@
-from fastapi import FastAPI, HTTPException, Depends, status
+from fastapi import FastAPI, HTTPException, Depends, status, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer
 from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 import uuid
 from datetime import datetime
 
 from app.config import settings
 from app.models.database import get_db, UserInteraction, SystemDecision, CommunityVote, SystemEvolution
 from app.schemas.requests import ChatMessage, FeedbackSubmission, VoteSubmission, SystemOverride, MissionValidation, CreateProposalRequest, ExecuteProposalRequest, RejectProposalRequest
-from app.schemas.responses import ChatResponse, FeedbackResponse, VoteResponse, SystemStatus, DecisionSummary, OverrideResponse, ProposalResponse, ProposalStatusResponse, ProposalStatisticsResponse
+from app.schemas.responses import ChatResponse, FeedbackResponse, VoteResponse, SystemStatus, DecisionSummary, OverrideResponse, ProposalResponse, ProposalStatusResponse, ProposalStatisticsResponse, ProposalListResponse
 from app.services.mission_guardian import MissionGuardian
 from app.services.ai_agent import AIAgent
 
@@ -22,12 +22,9 @@ app = FastAPI(
 )
 
 # Add CORS middleware
-# Get allowed origins from environment variable, split by comma
-allowed_origins = [origin.strip() for origin in settings.allowed_origins.split(',')]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origins=["https://palchat.org", "http://localhost:4322"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -436,6 +433,7 @@ async def get_proposal_status(
                 status="",
                 action_type="",
                 summary="",
+                timestamp="",
                 error=result["error"]
             )
     
@@ -520,6 +518,29 @@ async def get_proposal_statistics(db: Session = Depends(get_db)):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error getting proposal statistics: {str(e)}"
+        )
+
+@app.get("/api/proposals", response_model=ProposalListResponse)
+async def get_all_proposals(
+    status: Optional[str] = Query(None, description="Filter by status"),
+    action_type: Optional[str] = Query(None, description="Filter by action type"),
+    db: Session = Depends(get_db)
+):
+    """Get all proposals with optional filtering."""
+    try:
+        proposals = ai_agent.get_all_proposals(db, status=status, action_type=action_type)
+        
+        return ProposalListResponse(
+            proposals=proposals,
+            total=len(proposals),
+            page=1,
+            per_page=len(proposals)
+        )
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error getting proposals: {str(e)}"
         )
 
 if __name__ == "__main__":
