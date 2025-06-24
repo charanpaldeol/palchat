@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer
 from fastapi.responses import HTMLResponse
 from sqlalchemy.orm import Session
-from typing import List, Optional
+from typing import List, Optional, Dict
 import uuid
 from datetime import datetime
 
@@ -427,6 +427,31 @@ async def get_proposal_statistics(db: Session = Depends(get_db)):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error getting proposal statistics: {str(e)}"
+        )
+
+@app.post("/api/system/scan", response_model=Dict[str, any])
+async def perform_system_scan(db: Session = Depends(get_db)):
+    """Perform a comprehensive system scan and generate prioritized proposals."""
+    try:
+        result = ai_agent.perform_system_scan(db)
+        
+        if result["success"]:
+            return {
+                "success": True,
+                "message": f"System scan completed successfully. {result['scan_summary']['proposals_created']} proposals created.",
+                "scan_summary": result["scan_summary"],
+                "proposals": result["proposals"]
+            }
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=result["error"]
+            )
+    
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error performing system scan: {str(e)}"
         )
 
 @app.get("/api/proposals/{proposal_id}", response_model=ProposalStatusResponse)
