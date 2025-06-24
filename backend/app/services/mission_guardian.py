@@ -11,29 +11,33 @@ class MissionGuardian:
     """
     
     def __init__(self):
+        # Synced with core/system_vision_manifest.md (IMMUTABLE)
         self.vision_keywords = [
             "collective ownership", "digital sovereignty", "community-owned",
             "value flows back", "technology serves humanity", "no surveillance capitalism",
-            "human flourishing", "transparency", "consent", "collective benefit"
+            "human flourishing", "transparency", "consent", "collective benefit",
+            "no invasive ads", "no data exploitation", "community benefit"
         ]
         
         self.mission_keywords = [
             "raise awareness", "intersection of technology", "privacy and power",
-            "inspire alternatives", "open platform", "equitable platform",
-            "community building", "digital rights", "surveillance capitalism"
+            "inspire action", "build community", "create alternatives",
+            "open platform", "equitable platform", "community building",
+            "digital rights", "surveillance capitalism", "empower people",
+            "connect like-minded", "foster digital platforms"
         ]
         
         self.values = {
-            "digital_sovereignty": ["control", "autonomy", "freedom", "choice", "manipulation", "surveillance"],
-            "collective_ownership": ["co-ownership", "community", "shared", "collective", "benefit", "value"],
-            "privacy_by_design": ["privacy", "default", "consent", "attention", "identity", "not for sale"],
-            "transparency": ["openness", "honest", "clear", "visible", "accountable", "no hidden"],
-            "equity_inclusion": ["equal", "inclusive", "diverse", "amplify", "underrepresented", "fair"],
-            "empowerment_knowledge": ["educate", "inspire", "equip", "understand", "influence", "knowledge"],
-            "community_first": ["community", "families", "relationships", "well-being", "not profit"],
-            "human_flourishing": ["creativity", "connection", "well-being", "dignity", "uplift", "not metrics"],
-            "sustainable_innovation": ["sustainable", "long-term", "generational", "not disrupt", "progress"],
-            "responsibility_reach": ["accountable", "impact", "ethical", "social", "ecological", "not growth-at-any-cost"]
+            "digital_sovereignty": ["control", "autonomy", "freedom", "choice", "manipulation", "surveillance", "full control over digital presence", "no manipulation", "no surveillance"],
+            "collective_ownership": ["co-ownership", "community", "shared", "collective", "benefit", "value", "community-owned", "value creation benefits everyone"],
+            "privacy_by_design": ["privacy", "default", "consent", "attention", "identity", "not for sale", "privacy as default", "privacy-first"],
+            "transparency": ["openness", "honest", "clear", "visible", "accountable", "no hidden", "no opaque policies", "human-centered design"],
+            "equity_inclusion": ["equal", "inclusive", "diverse", "amplify", "underrepresented", "fair", "serve all people equally", "amplify underrepresented voices"],
+            "empowerment_knowledge": ["educate", "inspire", "equip", "understand", "influence", "knowledge", "empower", "education", "inspire action"],
+            "community_first": ["community", "families", "relationships", "well-being", "not profit", "prioritize well-being", "community benefit"],
+            "human_flourishing": ["creativity", "connection", "well-being", "dignity", "uplift", "not metrics", "supporting creativity", "supporting dignity"],
+            "sustainable_innovation": ["sustainable", "long-term", "generational", "not disrupt", "progress", "build sustainable alternatives"],
+            "responsibility_reach": ["accountable", "impact", "ethical", "social", "ecological", "not growth-at-any-cost", "ethically sound", "socially responsible"]
         }
         
         self.prohibited_patterns = [
@@ -46,7 +50,13 @@ class MissionGuardian:
             r"discrimination",
             r"centralized.*control",
             r"growth.*at.*any.*cost",
-            r"personal.*data.*collection"
+            r"personal.*data.*collection",
+            r"violate.*privacy",
+            r"violate.*autonomy",
+            r"no consent",
+            r"tracking.*users",
+            r"manipulate.*user",
+            r"profit.*from.*user.*data"
         ]
     
     def validate_content(self, content: str, validation_type: str = "general") -> Dict[str, any]:
