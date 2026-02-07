@@ -2,11 +2,6 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 
-class ChatMessage(BaseModel):
-    session_id: str = Field(..., description="Anonymous session identifier")
-    message: str = Field(..., min_length=1, max_length=1000, description="User message")
-    context: Optional[Dict[str, Any]] = Field(default=None, description="Additional context")
-
 class FeedbackSubmission(BaseModel):
     session_id: str = Field(..., description="Anonymous session identifier")
     feedback_type: str = Field(..., description="Type of feedback")

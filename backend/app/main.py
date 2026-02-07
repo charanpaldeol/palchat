@@ -10,8 +10,8 @@ import subprocess
 
 from app.config import settings
 from app.models.database import get_db, UserInteraction, SystemDecision, CommunityVote, SystemEvolution
-from app.schemas.requests import ChatMessage, FeedbackSubmission, VoteSubmission, SystemOverride, MissionValidation, CreateProposalRequest, ExecuteProposalRequest, RejectProposalRequest
-from app.schemas.responses import ChatResponse, FeedbackResponse, VoteResponse, SystemStatus, DecisionSummary, OverrideResponse, ProposalResponse, ProposalStatusResponse, ProposalStatisticsResponse, ProposalListResponse
+from app.schemas.requests import FeedbackSubmission, VoteSubmission, SystemOverride, MissionValidation, CreateProposalRequest, ExecuteProposalRequest, RejectProposalRequest
+from app.schemas.responses import FeedbackResponse, VoteResponse, SystemStatus, DecisionSummary, OverrideResponse, ProposalResponse, ProposalStatusResponse, ProposalStatisticsResponse, ProposalListResponse
 from app.services.mission_guardian import MissionGuardian
 from app.services.ai_agent import AIAgent
 
@@ -61,7 +61,6 @@ async def root():
                     <li><a href="/health">Health Check</a></li>
                     <li><a href="/docs">API Documentation</a></li>
                     <li><a href="/api/system/status">System Status</a></li>
-                    <li><a href="/api/chat">Chat</a></li>
                     <li><a href="/api/feedback">Feedback</a></li>
                     <li><a href="/api/vote">Vote</a></li>
                 </ul>
@@ -91,46 +90,6 @@ async def health_check():
         "system_status": "autonomous_evolution_active"
     }
 
-# AI Chat endpoint
-@app.post("/api/chat", response_model=ChatResponse)
-async def chat_with_ai(
-    message: ChatMessage,
-    db: Session = Depends(get_db)
-):
-    """Chat with the privacy-first AI agent about digital sovereignty."""
-    try:
-        # Process message with AI agent
-        response_data = ai_agent.process_message(
-            message.message,
-            message.session_id,
-            message.context
-        )
-        
-        # Store interaction in database
-        interaction = UserInteraction(
-            session_id=message.session_id,
-            interaction_type="chat",
-            content=message.message,  # In production, this would be encrypted
-            sentiment=0.0,  # Would be calculated by sentiment analysis
-            topics=response_data["topics"],
-            mission_alignment=response_data["mission_alignment"]
-        )
-        db.add(interaction)
-        db.commit()
-        
-        return ChatResponse(
-            message=response_data["message"],
-            mission_alignment=response_data["mission_alignment"],
-            suggested_actions=response_data["suggested_actions"],
-            confidence=response_data["confidence"]
-        )
-    
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error processing chat message: {str(e)}"
-        )
-
 # Feedback submission endpoint
 @app.post("/api/feedback", response_model=FeedbackResponse)
 async def submit_feedback(
@@ -158,10 +117,9 @@ async def submit_feedback(
         feedback_id = str(uuid.uuid4())
         
         return FeedbackResponse(
-            feedback_id=feedback_id,
-            status="received",
-            estimated_impact="Will be analyzed for community consensus",
-            next_steps=["Pattern analysis", "Community consultation", "Decision proposal"]
+            success=True,
+            message="Feedback received. It will be analyzed for community consensus.",
+            feedback_id=feedback_id
         )
     
     except Exception as e:

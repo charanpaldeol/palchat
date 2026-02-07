@@ -62,11 +62,9 @@
    - [ ] Verify no functionality loss
 
 2. **AI Agent API** (Priority: High)
-   - [ ] Implement AI agent in Python
-   - [ ] Create chat endpoint
-   - [ ] Add conversation storage
-   - [ ] Test AI functionality
-   - [ ] Update frontend integration
+   - [x] Implement AI agent in Python (proposals only; website chat removed)
+   - [ ] Test AI proposal functionality
+   - [ ] Update frontend integration for proposals as needed
 
 3. **User Management** (Priority: Medium)
    - [ ] Create user registration/login

@@ -2,14 +2,6 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 
-class ChatResponse(BaseModel):
-    message: str = Field(..., description="AI response message")
-    mission_alignment: float = Field(..., ge=0, le=1, description="Alignment with mission (0-1)")
-    suggested_actions: Optional[List[str]] = Field(default=None, description="Suggested next actions")
-    confidence: float = Field(..., ge=0, le=1, description="AI confidence in response")
-    topics: Optional[List[str]] = Field(default=None, description="Detected topics")
-    intent: Optional[str] = Field(default=None, description="Detected intent")
-
 class FeedbackResponse(BaseModel):
     success: bool = Field(..., description="Whether feedback was submitted successfully")
     message: str = Field(..., description="Response message")
