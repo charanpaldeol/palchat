@@ -9,9 +9,9 @@ from datetime import datetime
 import subprocess
 
 from app.config import settings
-from app.models.database import get_db, UserInteraction, SystemDecision, CommunityVote, SystemEvolution
-from app.schemas.requests import FeedbackSubmission, VoteSubmission, SystemOverride, MissionValidation, CreateProposalRequest, ExecuteProposalRequest, RejectProposalRequest
-from app.schemas.responses import FeedbackResponse, VoteResponse, SystemStatus, DecisionSummary, OverrideResponse, ProposalResponse, ProposalStatusResponse, ProposalStatisticsResponse, ProposalListResponse
+from app.models.database import get_db, UserInteraction, SystemDecision, CommunityVote, SystemEvolution, SavedNote
+from app.schemas.requests import SaveTextRequest, FeedbackSubmission, VoteSubmission, SystemOverride, MissionValidation, CreateProposalRequest, ExecuteProposalRequest, RejectProposalRequest
+from app.schemas.responses import SaveTextResponse, FeedbackResponse, VoteResponse, SystemStatus, DecisionSummary, OverrideResponse, ProposalResponse, ProposalStatusResponse, ProposalStatisticsResponse, ProposalListResponse
 from app.services.mission_guardian import MissionGuardian
 from app.services.ai_agent import AIAgent
 
@@ -79,6 +79,29 @@ async def root():
         </html>
         """.format(settings=settings)
     )
+
+# Save text endpoint (store a few words in database)
+@app.post("/api/saved-text", response_model=SaveTextResponse)
+async def save_text(
+    request: SaveTextRequest,
+    db: Session = Depends(get_db)
+):
+    """Save text from the website to the database."""
+    try:
+        note = SavedNote(content=request.content.strip())
+        db.add(note)
+        db.commit()
+        db.refresh(note)
+        return SaveTextResponse(
+            success=True,
+            message="Saved successfully.",
+            id=note.id
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error saving text: {str(e)}"
+        )
 
 # Health check endpoint
 @app.get("/health")

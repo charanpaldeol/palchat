@@ -2,6 +2,9 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 
+class SaveTextRequest(BaseModel):
+    content: str = Field(..., min_length=1, max_length=5000, description="Text to save")
+
 class FeedbackSubmission(BaseModel):
     session_id: str = Field(..., description="Anonymous session identifier")
     feedback_type: str = Field(..., description="Type of feedback")

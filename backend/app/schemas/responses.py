@@ -2,6 +2,11 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
 
+class SaveTextResponse(BaseModel):
+    success: bool = Field(..., description="Whether save was successful")
+    message: str = Field(..., description="Response message")
+    id: Optional[int] = Field(default=None, description="ID of the saved note")
+
 class FeedbackResponse(BaseModel):
     success: bool = Field(..., description="Whether feedback was submitted successfully")
     message: str = Field(..., description="Response message")

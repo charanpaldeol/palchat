@@ -84,6 +84,14 @@ class SystemEvolution(Base):
     implemented = Column(Boolean, default=False)
     success_score = Column(Float)  # Post-implementation success rating
 
+class SavedNote(Base):
+    __tablename__ = "saved_notes"
+
+    id = Column(Integer, primary_key=True, index=True)
+    content = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
 class Proposal(Base):
     __tablename__ = "proposals"
     

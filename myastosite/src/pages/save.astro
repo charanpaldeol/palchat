@@ -1,0 +1,90 @@
+---
+import Layout from '../layouts/Layout.astro';
+const apiBase = import.meta.env.PUBLIC_API_BASE || 'http://localhost:8000';
+---
+
+<Layout title="Save Text - HumaneStack" description="Save a few words to the database.">
+  <div class="container mx-auto px-4 py-12">
+    <div class="max-w-2xl mx-auto">
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Save Text</h1>
+        <p class="text-gray-600">Enter a few words below and click Save to store them in the database.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
+        <form id="save-form" class="space-y-6">
+          <div>
+            <label for="saved-text" class="block text-sm font-medium text-gray-700 mb-2">Your text</label>
+            <textarea
+              id="saved-text"
+              name="content"
+              rows="4"
+              placeholder="Type a few words here..."
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-400"
+              maxlength="5000"
+            ></textarea>
+            <p class="mt-1 text-sm text-gray-500">Max 5000 characters.</p>
+          </div>
+          <button
+            type="submit"
+            id="save-btn"
+            class="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+          >
+            Save
+          </button>
+        </form>
+        <div id="message" class="mt-4 hidden p-4 rounded-xl text-sm font-medium"></div>
+      </div>
+    </div>
+  </div>
+
+  <script define:vars={{ apiBase }}>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('save-form');
+      const textarea = document.getElementById('saved-text');
+      const btn = document.getElementById('save-btn');
+      const messageEl = document.getElementById('message');
+
+      function showMessage(text, isError) {
+        messageEl.textContent = text;
+        messageEl.className = 'mt-4 p-4 rounded-xl text-sm font-medium ' +
+          (isError ? 'bg-red-100 text-red-700 border border-red-200' : 'bg-green-100 text-green-700 border border-green-200');
+        messageEl.classList.remove('hidden');
+      }
+
+      function hideMessage() {
+        messageEl.classList.add('hidden');
+      }
+
+      if (form) {
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          const content = (textarea && textarea.value) ? textarea.value.trim() : '';
+          if (!content) {
+            showMessage('Please enter some text.', true);
+            return;
+          }
+          if (btn) btn.disabled = true;
+          hideMessage();
+          try {
+            const response = await fetch(`${apiBase}/api/saved-text`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ content })
+            });
+            const data = await response.json();
+            if (response.ok && data.success) {
+              showMessage('Saved successfully. (ID: ' + (data.id || '—') + ')', false);
+              if (textarea) textarea.value = '';
+            } else {
+              showMessage(data.detail || data.message || 'Failed to save.', true);
+            }
+          } catch (err) {
+            showMessage('Connection error. Is the backend running?', true);
+          }
+          if (btn) btn.disabled = false;
+        });
+      }
+    });
+  </script>
+</Layout>
