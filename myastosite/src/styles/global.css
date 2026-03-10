@@ -8,10 +8,10 @@ body {
 }
 
 body {
-  @apply bg-slate-950 text-slate-50 antialiased;
+  @apply bg-slate-950 text-slate-100 antialiased;
   font-family: theme('fontFamily.sans');
 }
 
 a {
-  @apply text-sky-400 hover:text-sky-300 transition-colors;
+  @apply text-indigo-300 hover:text-indigo-200 transition-colors;
 }

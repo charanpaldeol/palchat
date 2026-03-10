@@ -4,6 +4,20 @@ interface Props {
 }
 
 const { title = 'Palchat' } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const baseNavLink =
+  'rounded-full px-3 py-1.5 text-xs sm:text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white';
+
+const neutralNavLink = `${baseNavLink} text-slate-700 hover:bg-slate-100 hover:text-slate-900`;
+const primaryNavLink =
+  baseNavLink + ' bg-slate-900 text-slate-50 shadow-sm hover:bg-slate-800';
+
+const isHome = currentPath === '/';
+const isAbout = currentPath.startsWith('/about') && !currentPath.startsWith('/about/tech-stack');
+const isTechStack = currentPath === '/tech-stack' || currentPath.startsWith('/about/tech-stack');
+const isComments = currentPath.startsWith('/comments');
+
 import '../styles/global.css';
 ---
 
@@ -14,34 +28,44 @@ import '../styles/global.css';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
   </head>
-  <body class="bg-slate-950 text-slate-50 antialiased">
+  <body class="bg-slate-950 text-slate-100 antialiased">
     <div class="flex min-h-screen flex-col">
-      <header class="border-b border-slate-200 bg-white/90 backdrop-blur">
+      <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur">
         <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <a href="/" class="flex items-center gap-2">
-            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-xs font-semibold text-slate-50 shadow-sm">
+            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-500 text-xs font-semibold text-slate-950 shadow-sm">
               P
             </div>
-            <span class="text-sm font-semibold tracking-tight text-slate-900 sm:text-base">Palchat</span>
+            <span class="text-sm font-semibold tracking-tight text-slate-50 sm:text-base">Palchat</span>
           </a>
-          <nav class="flex items-center gap-3 text-xs text-slate-600 sm:gap-5 sm:text-sm">
-            <a href="/" class="rounded-full px-3 py-1.5 text-slate-700 transition hover:bg-slate-100 hover:text-slate-900">
+          <nav class="flex items-center gap-3 text-xs text-slate-400 sm:gap-5 sm:text-sm">
+            <a
+              href="/"
+              class={isHome ? primaryNavLink : neutralNavLink}
+              aria-current={isHome ? 'page' : undefined}
+            >
               Home
             </a>
-            <a href="/about" class="rounded-full px-3 py-1.5 text-slate-700 transition hover:bg-slate-100 hover:text-slate-900">
+            <a
+              href="/about"
+              class={isAbout ? primaryNavLink : neutralNavLink}
+              aria-current={isAbout ? 'page' : undefined}
+            >
               About
             </a>
             <a
               href="/tech-stack"
-              class="rounded-full bg-slate-900 px-3 py-1.5 text-xs font-medium text-slate-50 shadow-sm transition hover:bg-slate-800 sm:text-sm"
+              class={isTechStack ? primaryNavLink : neutralNavLink}
+              aria-current={isTechStack ? 'page' : undefined}
             >
               Tech stack
             </a>
             <a
               href="/comments"
-              class="rounded-full px-3 py-1.5 text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+              class={isComments ? primaryNavLink : neutralNavLink}
+              aria-current={isComments ? 'page' : undefined}
             >
-              Tech demo
+              Comments demo
             </a>
           </nav>
         </div>
