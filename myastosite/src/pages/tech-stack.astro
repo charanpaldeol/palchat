@@ -1,0 +1,193 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Palchat tech stack">
+  <section class="mx-auto max-w-5xl px-4 pb-12 pt-12 sm:px-6 lg:px-8 lg:pb-16 lg:pt-16">
+    <header class="mb-10 space-y-3 text-center">
+      <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Tech stack</p>
+      <h1 class="text-balance text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl">
+        How Palchat is put together.
+      </h1>
+      <p class="mx-auto max-w-2xl text-sm text-slate-300 sm:text-base">
+        Rather than a long list of tools, this page shows the flow from a visitor landing on the site to data being
+        stored and deployed.
+      </p>
+    </header>
+
+    <section class="mb-12 space-y-4">
+      <h2 class="text-center text-xs font-semibold uppercase tracking-wide text-slate-400">
+        End‑to‑end flow
+      </h2>
+
+      <div class="relative mx-auto max-w-3xl space-y-6 rounded-2xl border border-slate-800 bg-slate-950/70 p-4 sm:p-6">
+        <ol class="space-y-4 sm:space-y-5">
+          <li class="flex gap-3">
+            <div class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-xs font-semibold text-slate-950 shadow-sm">
+              1
+            </div>
+            <div class="space-y-1">
+              <p class="text-xs font-semibold uppercase tracking-wide text-emerald-300">Visit</p>
+              <p class="text-sm font-semibold text-slate-50">User hits `palchat.org`</p>
+              <p class="text-xs text-slate-300 sm:text-[13px]">
+                Vercel serves pre-rendered Astro pages from a global edge network, so the first paint is fast even on slow
+                connections.
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-emerald-200">
+                  Astro (static rendering)
+                </span>
+                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-slate-200">
+                  Vercel Edge / CDN
+                </span>
+              </div>
+            </div>
+          </li>
+
+          <li class="flex gap-3">
+            <div class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-sky-500 text-xs font-semibold text-slate-950 shadow-sm">
+              2
+            </div>
+            <div class="space-y-1">
+              <p class="text-xs font-semibold uppercase tracking-wide text-sky-300">Interact</p>
+              <p class="text-sm font-semibold text-slate-50">UI becomes interactive where needed</p>
+              <p class="text-xs text-slate-300 sm:text-[13px]">
+                Most of the page stays static HTML, but small pieces (like comments or tools) hydrate as React components
+                for a smooth in-browser experience.
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-sky-200">
+                  React islands
+                </span>
+                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-indigo-200">
+                  Tailwind CSS
+                </span>
+              </div>
+            </div>
+          </li>
+
+          <li class="flex gap-3">
+            <div class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-amber-500 text-xs font-semibold text-slate-950 shadow-sm">
+              3
+            </div>
+            <div class="space-y-1">
+              <p class="text-xs font-semibold uppercase tracking-wide text-amber-300">Request</p>
+              <p class="text-sm font-semibold text-slate-50">Browser talks to a tiny API</p>
+              <p class="text-xs text-slate-300 sm:text-[13px]">
+                When a user submits something (like a comment or form), the front-end calls a single-purpose serverless
+                function.
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-amber-200">
+                  Vercel Serverless Functions
+                </span>
+                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-slate-200">
+                  Node.js runtime
+                </span>
+              </div>
+            </div>
+          </li>
+
+          <li class="flex gap-3">
+            <div class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-cyan-500 text-xs font-semibold text-slate-950 shadow-sm">
+              4
+            </div>
+            <div class="space-y-1">
+              <p class="text-xs font-semibold uppercase tracking-wide text-cyan-200">Store</p>
+              <p class="text-sm font-semibold text-slate-50">Data is written to Postgres</p>
+              <p class="text-xs text-slate-300 sm:text-[13px]">
+                The function uses a pooled Postgres client to read and write structured data in a single relational
+                database.
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-cyan-200">
+                  PostgreSQL
+                </span>
+                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-teal-200">
+                  `pg` pooled client
+                </span>
+                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-rose-200">
+                  Aurora / RDS‑compatible
+                </span>
+              </div>
+            </div>
+          </li>
+
+          <li class="flex gap-3">
+            <div class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-fuchsia-500 text-xs font-semibold text-slate-950 shadow-sm">
+              5
+            </div>
+            <div class="space-y-1">
+              <p class="text-xs font-semibold uppercase tracking-wide text-fuchsia-200">Notify & respond</p>
+              <p class="text-sm font-semibold text-slate-50">Optional emails and responses</p>
+              <p class="text-xs text-slate-300 sm:text-[13px]">
+                For contact flows, the same serverless layer can trigger transactional emails or internal notifications.
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-fuchsia-200">
+                  Nodemailer
+                </span>
+                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-slate-200">
+                  Environment variables via `dotenv`
+                </span>
+              </div>
+            </div>
+          </li>
+
+          <li class="flex gap-3">
+            <div class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-slate-500 text-xs font-semibold text-slate-50 shadow-sm">
+              6
+            </div>
+            <div class="space-y-1">
+              <p class="text-xs font-semibold uppercase tracking-wide text-slate-300">Deploy</p>
+              <p class="text-sm font-semibold text-slate-50">Code changes go live automatically</p>
+              <p class="text-xs text-slate-300 sm:text-[13px]">
+                Pushing to the main branch triggers a Vercel build: Astro pages are rebuilt, functions are redeployed, and
+                everything is served behind SSL.
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-slate-200">
+                  Git + CI on Vercel
+                </span>
+                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-slate-200">
+                  Automatic SSL & CDN
+                </span>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="space-y-4">
+      <h2 class="text-xs font-semibold uppercase tracking-wide text-slate-400">Stack by layer (summary)</h2>
+      <div class="grid gap-4 rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-sm text-slate-200 sm:grid-cols-3">
+        <div class="space-y-2">
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Frontend</p>
+          <ul class="space-y-1 text-xs text-slate-300 sm:text-[13px]">
+            <li><span class="font-medium text-slate-100">Astro</span> for fast, mostly static pages.</li>
+            <li><span class="font-medium text-slate-100">React islands</span> where interactivity is needed.</li>
+            <li><span class="font-medium text-slate-100">Tailwind CSS</span> for consistent design tokens.</li>
+          </ul>
+        </div>
+        <div class="space-y-2">
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Backend</p>
+          <ul class="space-y-1 text-xs text-slate-300 sm:text-[13px]">
+            <li><span class="font-medium text-slate-100">Vercel Functions</span> for small, focused APIs.</li>
+            <li><span class="font-medium text-slate-100">Node.js</span> runtime for server logic.</li>
+            <li><span class="font-medium text-slate-100">Nodemailer</span> for transactional email.</li>
+          </ul>
+        </div>
+        <div class="space-y-2">
+          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Data & infra</p>
+          <ul class="space-y-1 text-xs text-slate-300 sm:text-[13px]">
+            <li><span class="font-medium text-slate-100">PostgreSQL</span> as the main database.</li>
+            <li><span class="font-medium text-slate-100">`pg` pooled client</span> for safe connections.</li>
+            <li><span class="font-medium text-slate-100">Vercel</span> for hosting, SSL, and CDN.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </section>
+</Layout>
+
