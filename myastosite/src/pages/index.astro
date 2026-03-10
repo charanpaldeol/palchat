@@ -116,6 +116,24 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
+    {/* TRUSTED BY (LOGO STRIP STYLE) */}
+    <section
+      id="trusted"
+      class="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8"
+    >
+      <div class="rounded-2xl border border-slate-800 bg-slate-900/60 px-4 py-4 sm:px-6">
+        <p class="mb-3 text-center text-[11px] font-medium uppercase tracking-wide text-slate-400">
+          Used by people who care about how they build
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400 sm:text-sm">
+          <span class="rounded-full bg-slate-900/80 px-3 py-1">Indie hackers</span>
+          <span class="rounded-full bg-slate-900/80 px-3 py-1">Solo founders</span>
+          <span class="rounded-full bg-slate-900/80 px-3 py-1">Small teams</span>
+          <span class="rounded-full bg-slate-900/80 px-3 py-1">Thoughtful builders</span>
+        </div>
+      </div>
+    </section>
+
     {/* FEATURE GRID (WHY PALCHAT) */}
     <section
       id="features"
@@ -192,6 +210,101 @@ import Layout from '../layouts/Layout.astro';
           <p class="mt-2 text-xs text-slate-300 sm:text-sm">
             Cancel something, move one workflow in–house, or write down the logic you are outsourcing to a black box.
           </p>
+        </div>
+      </div>
+    </section>
+
+    {/* INTEGRATIONS-STYLE STRIP (AREAS OF LIFE) */}
+    <section
+      id="areas"
+      class="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16"
+    >
+      <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-2xl">
+            One mindset, many areas
+          </h2>
+          <p class="mt-1 max-w-xl text-sm text-slate-300 sm:text-base">
+            The same dependency trap shows up in more places than accounting or AI.
+          </p>
+        </div>
+        <p class="text-xs text-slate-400 sm:text-sm">
+          Scan the list and see where it already applies to you.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-3 rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-xs text-slate-200 sm:text-sm">
+        <span class="rounded-full bg-slate-800/80 px-3 py-1">Bookkeeping</span>
+        <span class="rounded-full bg-slate-800/80 px-3 py-1">Customer support</span>
+        <span class="rounded-full bg-slate-800/80 px-3 py-1">Content & marketing</span>
+        <span class="rounded-full bg-slate-800/80 px-3 py-1">Product analytics</span>
+        <span class="rounded-full bg-slate-800/80 px-3 py-1">Dev tooling</span>
+        <span class="rounded-full bg-slate-800/80 px-3 py-1">Personal life admin</span>
+      </div>
+    </section>
+
+    {/* POWER-UP STYLE SECTION (TINY TOOLS) */}
+    <section
+      id="tools"
+      class="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16"
+    >
+      <div class="mb-6 space-y-3">
+        <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-2xl">
+          Power up with tiny tools
+        </h2>
+        <p class="max-w-2xl text-sm text-slate-300 sm:text-base">
+          Palchat adds small, browser-based tools to help you see your own dependencies more clearly.
+        </p>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-3">
+        <article class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-xs text-slate-200 sm:text-sm">
+          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Tool: Subscription map</h3>
+          <p class="mt-2 text-slate-300">
+            List every tool you pay for, what it does, and what skill it replaces. See your stack in one place.
+          </p>
+        </article>
+        <article class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-xs text-slate-200 sm:text-sm">
+          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Tool: Dependency risk check</h3>
+          <p class="mt-2 text-slate-300">
+            Score which tools you could lose tomorrow and how painful that would be. Simple, honest risk view.
+          </p>
+        </article>
+        <article class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-xs text-slate-200 sm:text-sm">
+          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Tool: In-house plan</h3>
+          <p class="mt-2 text-slate-300">
+            Pick one key workflow and sketch how you would run it yourself, even if you never fully do it.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    {/* AUDIENCE GRID (WHO THIS IS FOR) */}
+    <section
+      id="audience"
+      class="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16"
+    >
+      <div class="mb-6 space-y-3">
+        <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-2xl">
+          The right fit for Palchat
+        </h2>
+        <p class="max-w-2xl text-sm text-slate-300 sm:text-base">
+          Palchat is not for everyone. It is for people who like to understand their own tools.
+        </p>
+      </div>
+
+      <div class="grid gap-3 text-xs text-slate-200 sm:grid-cols-3 sm:text-sm">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-3">
+          <h3 class="font-semibold text-slate-100">Solo founders</h3>
+          <p class="mt-1 text-slate-300">You want to stay close to the details of your own product.</p>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-3">
+          <h3 class="font-semibold text-slate-100">Indie hackers</h3>
+          <p class="mt-1 text-slate-300">You care about leverage, but not at the cost of understanding.</p>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-3">
+          <h3 class="font-semibold text-slate-100">Small teams</h3>
+          <p class="mt-1 text-slate-300">You cannot afford to lose the logic that runs your business.</p>
         </div>
       </div>
     </section>
