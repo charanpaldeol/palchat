@@ -10,455 +10,74 @@ import Layout from '../layouts/Layout.astro';
       <div class="absolute inset-x-0 top-40 h-64 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.18),_transparent_60%)]" />
     </div>
 
-    <header class="sticky top-0 z-20 border-b border-white/5 bg-slate-950/70 backdrop-blur">
-      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <a href="/" class="flex items-center gap-2">
-          <div class="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-tr from-sky-400 to-purple-500 shadow-lg shadow-sky-500/30">
-            <span class="text-lg font-semibold text-slate-950">P</span>
-          </div>
-          <div class="flex flex-col">
-            <span class="text-base font-semibold tracking-tight">Palchat</span>
-            <span class="text-xs text-slate-400">Ideas & tiny tools</span>
-          </div>
-        </a>
-
-        <nav class="hidden items-center gap-8 text-sm font-medium text-slate-200 md:flex">
-          <a href="#ideas" class="hover:text-sky-300">Ideas</a>
-          <a href="#idea-tool" class="hover:text-sky-300">Free tool</a>
-          <a href="#why" class="hover:text-sky-300">Why this</a>
-          <a href="/about" class="hover:text-sky-300">About</a>
-        </nav>
-      </div>
-    </header>
-
-    <section class="relative mx-auto flex max-w-6xl flex-col gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:flex-row lg:items-center lg:gap-16 lg:py-20 lg:px-8">
-      <div class="relative z-10 max-w-xl space-y-6">
-        <div class="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-slate-900/70 px-3 py-1 text-xs font-medium text-sky-200 shadow-sm shadow-sky-500/20 backdrop-blur">
-          <span class="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-          Simple ideas and tools for builders
-        </div>
-
-        <div class="space-y-4">
-          <h1 class="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-            Product ideas and tiny tools
-          </h1>
-          <p class="text-balance text-sm leading-relaxed text-slate-300 sm:text-base">
-            Palchat is not a chat app. It is a list of product ideas and small free tools that help you pick your next
-            project.
-          </p>
-        </div>
-
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-          <a
-            href="#ideas"
-            class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-400 to-purple-500 px-6 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-sky-500/40 hover:from-sky-300 hover:to-purple-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-          >
-            Browse ideas
-            <span aria-hidden="true">→</span>
-          </a>
-          <a
-            href="#idea-tool"
-            class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-700 bg-slate-900/60 px-5 py-2.5 text-sm font-medium text-slate-100 shadow-sm hover:border-sky-400 hover:text-sky-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-          >
-            Try the free tool
-          </a>
-        </div>
-
-        <dl class="grid max-w-md grid-cols-3 gap-4 text-xs text-slate-300 sm:text-sm">
-          <div>
-            <dt class="font-medium text-slate-100">Ideas</dt>
-            <dd>Clear and practical</dd>
-          </div>
-          <div>
-            <dt class="font-medium text-slate-100">Tools</dt>
-            <dd>Free and simple</dd>
-          </div>
-          <div>
-            <dt class="font-medium text-slate-100">Focus</dt>
-            <dd>Builders and indie hackers</dd>
-          </div>
-        </dl>
-      </div>
-
-      <div class="relative z-10 flex flex-1 items-center justify-center">
-        <div class="relative w-full max-w-md">
-          <div class="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-sky-500/40 via-cyan-400/20 to-purple-500/40 blur-xl" />
-
-          <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 p-4 shadow-2xl shadow-sky-900/40 backdrop-blur">
-            <div class="mb-3 flex items-center justify-between text-xs text-slate-400">
-              <span class="rounded-full border border-slate-700 px-2 py-0.5 text-[10px] uppercase tracking-wide">
-                Featured ideas
-              </span>
-              <span class="text-[10px]">Updated as inspiration strikes</span>
-            </div>
-
-            <div class="space-y-3 text-xs text-slate-100">
-              <div class="rounded-2xl bg-slate-800/80 p-3">
-                <div class="mb-1 flex items-center justify-between gap-2">
-                  <p class="font-semibold">Idea inbox for builders</p>
-                  <span class="rounded-full bg-sky-500/10 px-2 py-0.5 text-[10px] text-sky-300">
-                    Solo-friendly
-                  </span>
-                </div>
-                <p class="text-slate-300">
-                  A place to capture ideas, tag them, and surface what&apos;s realistic this month.
-                </p>
-              </div>
-
-              <div class="rounded-2xl bg-slate-800/80 p-3">
-                <div class="mb-1 flex items-center justify-between gap-2">
-                  <p class="font-semibold">Tiny SaaS health dashboard</p>
-                  <span class="rounded-full bg-purple-500/10 px-2 py-0.5 text-[10px] text-purple-300">
-                    B2B SaaS
-                  </span>
-                </div>
-                <p class="text-slate-300">
-                  Plug in your metrics and get a simple, opinionated view of your product&apos;s health.
-                </p>
-              </div>
-
-              <div class="mt-3 rounded-2xl border border-sky-500/40 bg-slate-900/80 p-3 text-[11px] text-slate-200">
-                <p class="font-medium text-sky-200">Idea Prioritization Tool</p>
-                <p class="mt-1 text-slate-300">
-                  Score ideas by impact, effort, and enjoyment. Let Palchat surface what to build next.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="ideas" class="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16">
-      <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-xl">Featured ideas</h2>
-          <p class="mt-2 max-w-2xl text-sm text-slate-300 sm:text-base">
-            A few sample ideas to give you a feel for the kind of projects Palchat highlights.
-          </p>
-        </div>
-        <p class="text-xs text-slate-400 sm:text-sm">
-          Treat these as starting points. Change them to match your style.
-        </p>
-      </div>
-
-      <div class="grid gap-4 md:grid-cols-3">
-        <article class="group rounded-2xl border border-slate-800 bg-slate-900/60 p-4 shadow-sm shadow-slate-950/70 backdrop-blur-md">
-          <div class="mb-3 inline-flex items-center gap-2 rounded-full bg-sky-500/10 px-3 py-1 text-[11px] text-sky-300">
-            <span class="h-1.5 w-1.5 rounded-full bg-sky-400" />
-            SaaS · Solo-friendly
-          </div>
-          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Idea backlog with reality check</h3>
-          <p class="mt-2 text-xs text-slate-300 sm:text-sm">
-            A simple place to store ideas, tag them by time and size, and review what you can build this month.
-          </p>
-          <dl class="mt-3 grid grid-cols-3 gap-2 text-[11px] text-slate-400">
-            <div>
-              <dt class="font-medium text-slate-200">Difficulty</dt>
-              <dd>Low–medium</dd>
-            </div>
-            <div>
-              <dt class="font-medium text-slate-200">Time to MVP</dt>
-              <dd>1–2 weekends</dd>
-            </div>
-            <div>
-              <dt class="font-medium text-slate-200">Monetization</dt>
-              <dd>Subscriptions</dd>
-            </div>
-          </dl>
-        </article>
-
-        <article class="group rounded-2xl border border-slate-800 bg-slate-900/60 p-4 shadow-sm shadow-slate-950/70 backdrop-blur-md">
-          <div class="mb-3 inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-[11px] text-emerald-300">
-            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            AI · Builder tools
-          </div>
-          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Launch copy helper</h3>
-          <p class="mt-2 text-xs text-slate-300 sm:text-sm">
-            A small tool to draft and compare basic landing page text for new ideas.
-          </p>
-          <dl class="mt-3 grid grid-cols-3 gap-2 text-[11px] text-slate-400">
-            <div>
-              <dt class="font-medium text-slate-200">Difficulty</dt>
-              <dd>Medium</dd>
-            </div>
-            <div>
-              <dt class="font-medium text-slate-200">Time to MVP</dt>
-              <dd>2–3 weekends</dd>
-            </div>
-            <div>
-              <dt class="font-medium text-slate-200">Monetization</dt>
-              <dd>Usage-based</dd>
-            </div>
-          </dl>
-        </article>
-
-        <article class="group rounded-2xl border border-slate-800 bg-slate-900/60 p-4 shadow-sm shadow-slate-950/70 backdrop-blur-md">
-          <div class="mb-3 inline-flex items-center gap-2 rounded-full bg-purple-500/10 px-3 py-1 text-[11px] text-purple-300">
-            <span class="h-1.5 w-1.5 rounded-full bg-purple-400" />
-            B2B · Analytics
-          </div>
-          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Tiny metrics dashboard</h3>
-          <p class="mt-2 text-xs text-slate-300 sm:text-sm">
-            A small dashboard that combines a few key numbers (MRR, churn, support load) into a simple health score.
-          </p>
-          <dl class="mt-3 grid grid-cols-3 gap-2 text-[11px] text-slate-400">
-            <div>
-              <dt class="font-medium text-slate-200">Difficulty</dt>
-              <dd>Medium</dd>
-            </div>
-            <div>
-              <dt class="font-medium text-slate-200">Time to MVP</dt>
-              <dd>3–4 weekends</dd>
-            </div>
-            <div>
-              <dt class="font-medium text-slate-200">Monetization</dt>
-              <dd>Flat monthly</dd>
-            </div>
-          </dl>
-        </article>
-      </div>
-    </section>
-
-    <section id="idea-tool" class="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8 lg:pb-20">
-      <div class="mb-6 space-y-3">
-        <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-xl">Free idea tool</h2>
-        <p class="max-w-2xl text-sm text-slate-300 sm:text-base">
-          Write down your ideas, rate them, and get a simple list of what to build first.
-        </p>
-      </div>
-
-      <div class="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-        <form id="idea-form" class="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/70 p-4 shadow-sm shadow-slate-950/70">
-          <div class="flex items-center justify-between gap-2">
-            <p class="text-xs font-medium text-slate-200 sm:text-sm">
-              Add a few ideas and rate them from 1 to 5.
-            </p>
-            <button
-              type="button"
-              id="add-idea"
-              class="inline-flex items-center rounded-full border border-slate-700 bg-slate-950/60 px-3 py-1.5 text-[11px] font-medium text-slate-100 hover:border-sky-400 hover:text-sky-200"
-            >
-              + Add idea
-            </button>
-          </div>
-
-          <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/60">
-            <table class="min-w-full text-left text-xs text-slate-200 sm:text-sm">
-              <thead class="bg-slate-900/80 text-[11px] uppercase tracking-wide text-slate-400">
-                <tr>
-                  <th class="px-3 py-2">Idea</th>
-                  <th class="px-3 py-2 text-center">Impact</th>
-                  <th class="px-3 py-2 text-center">Effort</th>
-                  <th class="px-3 py-2 text-center">Enjoyment</th>
-                </tr>
-              </thead>
-              <tbody data-ideas-body>
-                <tr class="border-t border-slate-800/80">
-                  <td class="px-3 py-2">
-                    <input
-                      name="name"
-                      placeholder="e.g. Idea backlog with reality check"
-                      class="w-full rounded-md border border-slate-700 bg-slate-900/80 px-2 py-1 text-xs text-slate-100 placeholder:text-slate-500 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400"
-                    />
-                  </td>
-                  <td class="px-3 py-2 text-center">
-                    <input
-                      name="impact"
-                      type="number"
-                      min="1"
-                      max="5"
-                      value="4"
-                      class="w-14 rounded-md border border-slate-700 bg-slate-900/80 px-2 py-1 text-xs text-center text-slate-100 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400"
-                    />
-                  </td>
-                  <td class="px-3 py-2 text-center">
-                    <input
-                      name="effort"
-                      type="number"
-                      min="1"
-                      max="5"
-                      value="2"
-                      class="w-14 rounded-md border border-slate-700 bg-slate-900/80 px-2 py-1 text-xs text-center text-slate-100 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400"
-                    />
-                  </td>
-                  <td class="px-3 py-2 text-center">
-                    <input
-                      name="enjoyment"
-                      type="number"
-                      min="1"
-                      max="5"
-                      value="5"
-                      class="w-14 rounded-md border border-slate-700 bg-slate-900/80 px-2 py-1 text-xs text-center text-slate-100 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400"
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <button
-            type="submit"
-            class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-400 to-purple-500 px-4 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-sky-500/40 hover:from-sky-300 hover:to-purple-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-          >
-            See idea order
-          </button>
-
-          <p class="text-[11px] text-slate-400">
-            Score = <span class="font-medium text-slate-200">(Impact + Enjoyment) ÷ Effort</span>. Higher is better. You
-            can change the numbers any time.
-          </p>
-        </form>
-
-        <aside class="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/70 p-4 shadow-sm shadow-slate-950/70">
-          <div>
-            <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Top ideas to build next</h3>
-            <p class="mt-1 text-xs text-slate-300 sm:text-sm">
-              After you click the button, your ideas are sorted from strongest to weakest.
-            </p>
-          </div>
-
-          <div id="idea-results" class="space-y-2 text-xs text-slate-200 sm:text-sm">
-            <p class="text-slate-400">
-              Add at least one idea and click <span class="font-medium text-slate-100">See idea order</span> to view the
-              list.
-            </p>
-          </div>
-
-          <p class="text-[11px] text-slate-400">
-            This is a helper, not a rule. Use it to think, not to decide for you.
-          </p>
-        </aside>
-      </div>
-
-      <script type="module">
-        const form = document.getElementById('idea-form');
-        const addButton = document.getElementById('add-idea');
-        const body = form?.querySelector('[data-ideas-body]');
-        const results = document.getElementById('idea-results');
-
-        function createRow() {
-          const tr = document.createElement('tr');
-          tr.className = 'border-t border-slate-800/80';
-          tr.innerHTML = `
-            <td class="px-3 py-2">
-              <input
-                name="name"
-                placeholder="New idea"
-                class="w-full rounded-md border border-slate-700 bg-slate-900/80 px-2 py-1 text-xs text-slate-100 placeholder:text-slate-500 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400"
-              />
-            </td>
-            <td class="px-3 py-2 text-center">
-              <input
-                name="impact"
-                type="number"
-                min="1"
-                max="5"
-                value="3"
-                class="w-14 rounded-md border border-slate-700 bg-slate-900/80 px-2 py-1 text-xs text-center text-slate-100 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400"
-              />
-            </td>
-            <td class="px-3 py-2 text-center">
-              <input
-                name="effort"
-                type="number"
-                min="1"
-                max="5"
-                value="3"
-                class="w-14 rounded-md border border-slate-700 bg-slate-900/80 px-2 py-1 text-xs text-center text-slate-100 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400"
-              />
-            </td>
-            <td class="px-3 py-2 text-center">
-              <input
-                name="enjoyment"
-                type="number"
-                min="1"
-                max="5"
-                value="3"
-                class="w-14 rounded-md border border-slate-700 bg-slate-900/80 px-2 py-1 text-xs text-center text-slate-100 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400"
-              />
-            </td>
-          `;
-          return tr;
-        }
-
-        addButton?.addEventListener('click', () => {
-          if (!body) return;
-          body.appendChild(createRow());
-        });
-
-        form?.addEventListener('submit', (event) => {
-          event.preventDefault();
-          if (!body || !results) return;
-
-          const rows = Array.from(body.querySelectorAll('tr'));
-          const ideas = rows
-            .map((row) => {
-              const nameInput = row.querySelector('input[name="name"]');
-              const impactInput = row.querySelector('input[name="impact"]');
-              const effortInput = row.querySelector('input[name="effort"]');
-              const enjoymentInput = row.querySelector('input[name="enjoyment"]');
-
-              const name = nameInput?.value.trim() ?? '';
-              if (!name) return null;
-
-              const impact = Number(impactInput?.value) || 0;
-              const effort = Number(effortInput?.value) || 1;
-              const enjoyment = Number(enjoymentInput?.value) || 0;
-              const score = (impact + enjoyment) / Math.max(effort, 1);
-
-              return { name, impact, effort, enjoyment, score };
-            })
-            .filter(Boolean)
-            .sort((a, b) => b.score - a.score);
-
-          if (!ideas.length) {
-            results.innerHTML =
-              '<p class="text-slate-400">Add at least one idea with a name to see results.</p>';
-            return;
-          }
-
-          const list = document.createElement('div');
-          list.className = 'space-y-2';
-
-          ideas.forEach((idea, index) => {
-            const item = document.createElement('div');
-            item.className =
-              'rounded-xl border border-slate-800 bg-slate-900/80 p-3 text-xs text-slate-200 sm:text-sm';
-
-            const badge =
-              index === 0
-                ? '<span class="ml-2 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-medium text-emerald-300">#1 recommended</span>'
-                : '';
-
-            item.innerHTML = `
-              <div class="flex items-center justify-between gap-2">
-                <p class="font-semibold">${idea.name}</p>
-                <p class="text-[11px] text-sky-300">Score: ${idea.score.toFixed(2)}${badge}</p>
-              </div>
-              <p class="mt-1 text-[11px] text-slate-400">
-                Impact ${idea.impact} · Effort ${idea.effort} · Enjoyment ${idea.enjoyment}
-              </p>
-            `;
-            list.appendChild(item);
-          });
-
-          results.innerHTML = '';
-          results.appendChild(list);
-        });
-      </script>
-    </section>
-
     <section
       id="why"
       class="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8"
     >
-      <div class="max-w-3xl space-y-3">
-        <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-xl">Why this site is simple</h2>
+      <div class="max-w-3xl space-y-4">
+        <h1 class="text-3xl font-semibold tracking-tight text-slate-100 sm:text-4xl">
+          A dependency trap dressed up as efficiency
+        </h1>
+
         <p class="text-sm text-slate-300 sm:text-base">
-          Palchat is for people who want clear ideas and small tools, not noise. The goal is to help you move from idea
-          to action with as little clutter as possible.
+          AI that does the work for you feels like a win. It is fast and cheap. But it can also slowly weaken how well
+          you understand and control your own business.
         </p>
+
+        <div class="space-y-3 rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-sm text-slate-200 sm:text-base">
+          <h2 class="text-base font-semibold text-slate-100 sm:text-lg">What you gain</h2>
+          <p class="text-slate-300">
+            You save money. You move faster. You can serve more people. The $1k vs $40k story is real and easy to see.
+          </p>
+        </div>
+
+        <div class="space-y-3 rounded-2xl border border-amber-500/40 bg-slate-900/70 p-4 text-sm text-slate-200 sm:text-base">
+          <h2 class="text-base font-semibold text-amber-200 sm:text-lg">What you slowly lose</h2>
+          <ul class="space-y-2">
+            <li>
+              <span class="font-semibold text-slate-100">You lose understanding.</span>
+              <span class="text-slate-300">
+                {' '}
+                A human explains things over time. With AI, the work happens in a black box. You get a result, but you
+                cannot really explain it.
+              </span>
+            </li>
+            <li>
+              <span class="font-semibold text-slate-100">You lose custody.</span>
+              <span class="text-slate-300">
+                {' '}
+                Your data and process now live inside a tool you rent. You do not own the workflow. You borrow it.
+              </span>
+            </li>
+            <li>
+              <span class="font-semibold text-slate-100">You lose resilience.</span>
+              <span class="text-slate-300">
+                {' '}
+                If a person leaves, another can step in. If a tool dies, raises prices, or gets bought, you may lose the
+                memory of how your own business works.
+              </span>
+            </li>
+            <li>
+              <span class="font-semibold text-slate-100">You lose the human buffer.</span>
+              <span class="text-slate-300">
+                {' '}
+                A person can say “this looks odd, want to talk?” An AI just processes what you type and moves on.
+              </span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="space-y-3 rounded-2xl border border-sky-500/40 bg-slate-900/70 p-4 text-sm text-slate-200 sm:text-base">
+          <h2 class="text-base font-semibold text-sky-200 sm:text-lg">The deeper problem</h2>
+          <p class="text-slate-300">
+            One cheap tool looks fine. Ten cheap tools across your work and life means you quietly hand off your own
+            skills to ten different companies. You do not see the cost until you cannot live without them.
+          </p>
+          <p class="text-slate-300">
+            The problem is not AI itself. The problem is the belief that cheaper and easier is always better. Dependency
+            has a price. It just does not show up on the invoice.
+          </p>
+        </div>
       </div>
     </section>
 
