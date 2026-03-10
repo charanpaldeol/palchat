@@ -2,8 +2,384 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Hello">
-  <main style="min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: system-ui, sans-serif;">
-    <h1>Hello</h1>
+<Layout title="Palchat – Your AI Study Pal">
+  <main class="relative min-h-screen overflow-hidden bg-slate-950 text-slate-50">
+    {/* Background gradients */}
+    <div class="pointer-events-none absolute inset-0 -z-10">
+      <div class="absolute -left-40 top-0 h-80 w-80 rounded-full bg-sky-500/20 blur-3xl sm:-left-32 sm:h-96 sm:w-96" />
+      <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-purple-500/20 blur-3xl sm:h-96 sm:w-96" />
+      <div class="absolute inset-x-0 top-40 h-64 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.18),_transparent_60%)]" />
+    </div>
+
+    {/* Navbar */}
+    <header class="sticky top-0 z-20 border-b border-white/5 bg-slate-950/70 backdrop-blur">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <a href="/" class="flex items-center gap-2">
+          <div class="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-tr from-sky-400 to-purple-500 shadow-lg shadow-sky-500/30">
+            <span class="text-lg font-semibold text-slate-950">P</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-base font-semibold tracking-tight">Palchat</span>
+            <span class="text-xs text-slate-400">Your AI study pal</span>
+          </div>
+        </a>
+
+        <nav class="hidden items-center gap-8 text-sm font-medium text-slate-200 md:flex">
+          <a href="#features" class="hover:text-sky-300">Features</a>
+          <a href="#how-it-works" class="hover:text-sky-300">How it works</a>
+          <a href="#community" class="hover:text-sky-300">Community</a>
+          <a href="#pricing" class="hover:text-sky-300">Pricing</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a
+            href="/login"
+            class="hidden rounded-full border border-slate-700 px-4 py-1.5 text-sm font-medium text-slate-100 shadow-sm hover:border-sky-400 hover:text-sky-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 md:inline-flex"
+          >
+            Log in
+          </a>
+          <a
+            href="/signup"
+            class="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-400 to-purple-500 px-4 py-2 text-sm font-semibold text-slate-950 shadow-lg shadow-sky-500/40 hover:from-sky-300 hover:to-purple-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          >
+            Get started
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    {/* Hero */}
+    <section class="relative mx-auto flex max-w-6xl flex-col gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:flex-row lg:items-center lg:gap-16 lg:py-20 lg:px-8">
+      <div class="relative z-10 max-w-xl space-y-6">
+        <div class="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-slate-900/70 px-3 py-1 text-xs font-medium text-sky-200 shadow-sm shadow-sky-500/20 backdrop-blur">
+          <span class="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+          Smart, friendly, always-on study partner
+        </div>
+
+        <div class="space-y-4">
+          <h1 class="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+            Chat your way to
+            <span class="bg-gradient-to-r from-sky-300 via-cyan-200 to-purple-300 bg-clip-text text-transparent">
+              {' '}
+              better learning.
+            </span>
+          </h1>
+          <p class="text-balance text-sm leading-relaxed text-slate-300 sm:text-base">
+            Palchat turns your questions, notes, and confusion into clear explanations and step‑by‑step guidance.
+            Designed for students, builders, and curious minds who learn best by talking things through.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <a
+            href="/signup"
+            class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-400 to-purple-500 px-6 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-sky-500/40 hover:from-sky-300 hover:to-purple-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          >
+            Start chatting free
+            <span aria-hidden="true">→</span>
+          </a>
+          <button
+            type="button"
+            class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-700 bg-slate-900/60 px-5 py-2.5 text-sm font-medium text-slate-100 shadow-sm hover:border-sky-400 hover:text-sky-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+          >
+            <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
+            Watch 90‑second demo
+          </button>
+        </div>
+
+        <dl class="grid max-w-md grid-cols-3 gap-4 text-xs text-slate-300 sm:text-sm">
+          <div>
+            <dt class="font-medium text-slate-100">Response time</dt>
+            <dd class="text-sky-300">Under 1 second</dd>
+          </div>
+          <div>
+            <dt class="font-medium text-slate-100">Students</dt>
+            <dd>10k+ learning with Palchat</dd>
+          </div>
+          <div>
+            <dt class="font-medium text-slate-100">Availability</dt>
+            <dd>24/7, wherever you are</dd>
+          </div>
+        </dl>
+      </div>
+
+      {/* Hero visual */}
+      <div class="relative z-10 flex flex-1 items-center justify-center">
+        <div class="relative w-full max-w-md">
+          <div class="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-sky-500/40 via-cyan-400/20 to-purple-500/40 blur-xl" />
+
+          <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 p-4 shadow-2xl shadow-sky-900/40 backdrop-blur">
+            <div class="mb-3 flex items-center justify-between text-xs text-slate-400">
+              <div class="flex items-center gap-1.5">
+                <span class="h-2 w-2 rounded-full bg-emerald-400" />
+                <span class="h-2 w-2 rounded-full bg-amber-400" />
+                <span class="h-2 w-2 rounded-full bg-rose-400" />
+              </div>
+              <span class="rounded-full border border-slate-700 px-2 py-0.5 text-[10px] uppercase tracking-wide">
+                Live session
+              </span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="flex items-start gap-3">
+                <div class="flex h-8 w-8 items-center justify-center rounded-full bg-sky-500/20 text-sm font-semibold text-sky-300">
+                  P
+                </div>
+                <div class="flex-1 rounded-2xl bg-slate-800/80 p-3 text-xs text-slate-100">
+                  <p>Hey, I&apos;m Palchat. What are you working on today?</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="mt-1 h-7 w-7 rounded-full bg-gradient-to-tr from-slate-500 to-slate-300" />
+                <div class="flex-1 space-y-2">
+                  <div class="max-w-xs rounded-2xl bg-sky-500/10 p-3 text-xs text-slate-100">
+                    <p>I&apos;m stuck on a calculus problem and a small React bug.</p>
+                  </div>
+                  <div class="inline-flex gap-1 text-[10px] text-slate-400">
+                    <span class="rounded-full border border-slate-700/80 px-2 py-0.5">Math</span>
+                    <span class="rounded-full border border-slate-700/80 px-2 py-0.5">Code</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="flex h-8 w-8 items-center justify-center rounded-full bg-sky-500/20 text-sm font-semibold text-sky-300">
+                  P
+                </div>
+                <div class="flex-1 space-y-2">
+                  <div class="rounded-2xl bg-slate-800/90 p-3 text-xs text-slate-100">
+                    <p class="mb-1">
+                      Let&apos;s tackle them one by one. First, send me a photo or description of the calculus problem.
+                    </p>
+                    <p>Then paste your React error message and I&apos;ll walk you through a fix.</p>
+                  </div>
+                  <div class="grid grid-cols-3 gap-2 text-[10px] text-slate-300">
+                    <div class="rounded-xl bg-slate-900/90 p-2">
+                      <p class="font-medium text-sky-300">Explains concepts</p>
+                      <p class="mt-1 text-slate-400">Step‑by‑step, at your pace.</p>
+                    </div>
+                    <div class="rounded-xl bg-slate-900/90 p-2">
+                      <p class="font-medium text-emerald-300">Checks your work</p>
+                      <p class="mt-1 text-slate-400">Spot mistakes early.</p>
+                    </div>
+                    <div class="rounded-xl bg-slate-900/90 p-2">
+                      <p class="font-medium text-purple-300">Stays in context</p>
+                      <p class="mt-1 text-slate-400">Remembers your goals.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4 flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900/80 px-3 py-1.5 text-xs text-slate-400">
+                <span class="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
+                <span>Typing suggestions…</span>
+                <div class="ml-auto flex gap-1.5">
+                  <span class="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400 [animation-delay:-0.2s]" />
+                  <span class="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400 [animation-delay:-0.1s]" />
+                  <span class="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-400" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Features */}
+    <section id="features" class="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16">
+      <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-xl">
+            Everything you need in one chat window
+          </h2>
+          <p class="mt-2 max-w-2xl text-sm text-slate-300 sm:text-base">
+            From quick questions to deep dives, Palchat blends reasoning, explanation, and memory so you can stay in
+            flow.
+          </p>
+        </div>
+        <p class="text-xs text-slate-400 sm:text-sm">
+          No installs. Works in your browser. Privacy‑first by design.
+        </p>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-3">
+        <article class="group rounded-2xl border border-slate-800 bg-slate-900/60 p-4 shadow-sm shadow-slate-950/70 backdrop-blur-md">
+          <div class="mb-3 inline-flex rounded-full bg-sky-500/10 p-2 text-sky-300">
+            <span class="text-lg">✨</span>
+          </div>
+          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Explain anything, simply</h3>
+          <p class="mt-2 text-xs text-slate-300 sm:text-sm">
+            Turn dense textbooks, confusing docs, or messy code into clear, conversational explanations that match your
+            level.
+          </p>
+        </article>
+
+        <article class="group rounded-2xl border border-slate-800 bg-slate-900/60 p-4 shadow-sm shadow-slate-950/70 backdrop-blur-md">
+          <div class="mb-3 inline-flex rounded-full bg-emerald-500/10 p-2 text-emerald-300">
+            <span class="text-lg">📚</span>
+          </div>
+          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Study with structure</h3>
+          <p class="mt-2 text-xs text-slate-300 sm:text-sm">
+            Generate practice questions, spaced‑repetition prompts, and quick summaries tailored to how you prefer to
+            learn.
+          </p>
+        </article>
+
+        <article class="group rounded-2xl border border-slate-800 bg-slate-900/60 p-4 shadow-sm shadow-slate-950/70 backdrop-blur-md">
+          <div class="mb-3 inline-flex rounded-full bg-purple-500/10 p-2 text-purple-300">
+            <span class="text-lg">⚡️</span>
+          </div>
+          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">From idea to project</h3>
+          <p class="mt-2 text-xs text-slate-300 sm:text-sm">
+            Brainstorm new projects, get unstuck on bugs, and ship faster with a partner that understands both code and
+            concepts.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    {/* How it works + Community */}
+    <section
+      id="how-it-works"
+      class="mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-12 sm:px-6 lg:flex-row lg:items-start lg:gap-16 lg:px-8 lg:pb-20"
+    >
+      <div class="flex-1 space-y-4">
+        <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-xl">How Palchat fits your day</h2>
+        <ol class="space-y-3 text-sm text-slate-300">
+          <li class="flex gap-3">
+            <span class="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-sky-500/20 text-xs font-semibold text-sky-300">
+              1
+            </span>
+            <div>
+              <p class="font-medium text-slate-100">Drop in whenever you&apos;re stuck.</p>
+              <p class="text-xs text-slate-300 sm:text-sm">
+                Ask a question, paste a screenshot, or share a snippet of code. Palchat instantly sees where you&apos;re
+                blocked.
+              </p>
+            </div>
+          </li>
+          <li class="flex gap-3">
+            <span class="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-sky-500/20 text-xs font-semibold text-sky-300">
+              2
+            </span>
+            <div>
+              <p class="font-medium text-slate-100">Get a clear, conversational plan.</p>
+              <p class="text-xs text-slate-300 sm:text-sm">
+                Palchat walks you through options, trade‑offs, and next steps—without dumping pages of unreadable text.
+              </p>
+            </div>
+          </li>
+          <li class="flex gap-3">
+            <span class="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-sky-500/20 text-xs font-semibold text-sky-300">
+              3
+            </span>
+            <div>
+              <p class="font-medium text-slate-100">Stay in the same conversation.</p>
+              <p class="text-xs text-slate-300 sm:text-sm">
+                Your chats keep their context, so Palchat remembers what you&apos;re building and how you like to work.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <div id="community" class="flex-1">
+        <div class="rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900/90 via-slate-900/60 to-sky-950/80 p-5 shadow-xl shadow-sky-900/40">
+          <p class="text-xs font-semibold uppercase tracking-wide text-sky-300">Community</p>
+          <h3 class="mt-2 text-sm font-semibold text-slate-100 sm:text-base">You&apos;re in good company</h3>
+          <p class="mt-2 text-xs text-slate-300 sm:text-sm">
+            Students, indie hackers, and teams already use Palchat to learn faster and build more ambitious things.
+          </p>
+
+          <div class="mt-4 grid gap-3 text-xs text-slate-200 sm:grid-cols-2">
+            <div class="rounded-2xl bg-slate-900/70 p-3">
+              <p class="text-[11px] uppercase tracking-wide text-slate-400">For students</p>
+              <p class="mt-1">
+                &ldquo;Feels like having a patient TA on call 24/7. I actually enjoy studying again.&rdquo;
+              </p>
+            </div>
+            <div class="rounded-2xl bg-slate-900/70 p-3">
+              <p class="text-[11px] uppercase tracking-wide text-slate-400">For builders</p>
+              <p class="mt-1">
+                &ldquo;It&apos;s my go‑to when I&apos;m prototyping or debugging. Cuts hours to minutes.&rdquo;
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-4 flex flex-wrap items-center gap-3 text-[11px] text-slate-300">
+            <span class="inline-flex items-center gap-1 rounded-full bg-slate-900/80 px-3 py-1">
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              99.9% uptime
+            </span>
+            <span class="inline-flex items-center gap-1 rounded-full bg-slate-900/80 px-3 py-1">
+              <span class="h-1.5 w-1.5 rounded-full bg-sky-400" />
+              Secure by default
+            </span>
+            <span class="inline-flex items-center gap-1 rounded-full bg-slate-900/80 px-3 py-1">
+              <span class="h-1.5 w-1.5 rounded-full bg-purple-400" />
+              Built for real work
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Pricing / CTA */}
+    <section
+      id="pricing"
+      class="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8 lg:pb-20"
+      aria-label="Pricing"
+    >
+      <div class="rounded-3xl border border-sky-500/30 bg-gradient-to-r from-sky-900/40 via-slate-950 to-purple-900/40 p-5 shadow-2xl shadow-sky-900/40 sm:p-7 lg:p-8">
+        <div class="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+          <div class="space-y-2">
+            <p class="text-xs font-semibold uppercase tracking-wide text-sky-300">Simple pricing</p>
+            <h2 class="text-lg font-semibold tracking-tight text-slate-50 sm:text-xl">
+              Start free, upgrade when you&apos;re ready
+            </h2>
+            <p class="max-w-xl text-xs text-slate-200 sm:text-sm">
+              Try Palchat with generous free limits. When you&apos;re using it every day, unlock higher caps and
+              advanced features in one click.
+            </p>
+          </div>
+
+          <div class="flex items-end gap-6">
+            <div class="text-left">
+              <div class="flex items-baseline gap-1 text-slate-50">
+                <span class="text-2xl font-semibold sm:text-3xl">$0</span>
+                <span class="text-xs text-slate-300 sm:text-sm">/ month</span>
+              </div>
+              <p class="mt-1 text-[11px] text-slate-300 sm:text-xs">No credit card required.</p>
+            </div>
+            <a
+              href="/signup"
+              class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-50 px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-slate-900/40 hover:bg-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+            >
+              Create your free account
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Footer */}
+    <footer class="border-t border-slate-800 bg-slate-950/90">
+      <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <div class="flex items-center gap-2">
+          <div class="flex h-7 w-7 items-center justify-center rounded-xl bg-gradient-to-tr from-sky-400 to-purple-500 text-xs font-semibold text-slate-950">
+            P
+          </div>
+          <span>© {new Date().getFullYear()} Palchat. All rights reserved.</span>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <a href="/terms" class="hover:text-sky-300">Terms</a>
+          <a href="/privacy" class="hover:text-sky-300">Privacy</a>
+          <a href="mailto:hello@palchat.org" class="hover:text-sky-300">Contact</a>
+        </div>
+      </div>
+    </footer>
   </main>
 </Layout>
