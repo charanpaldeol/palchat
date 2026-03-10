@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About Palchat">
+  <main class="min-h-screen bg-slate-950 text-slate-50">
+    <section class="mx-auto max-w-4xl px-4 pb-12 pt-12 sm:px-6 lg:px-8 lg:pb-16 lg:pt-16">
+      <header class="mb-8 space-y-3">
+        <p class="text-xs font-semibold uppercase tracking-wide text-sky-300">About</p>
+        <h1 class="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+          Palchat is a playground of product ideas and tiny tools.
+        </h1>
+        <p class="max-w-2xl text-sm text-slate-300 sm:text-base">
+          It is intentionally <span class="font-semibold text-slate-100">not</span> a chat tool. The goal is to collect
+          opinionated ideas and pair them with small, free utilities that help builders decide what to work on next.
+        </p>
+      </header>
+
+      <section class="mb-10 space-y-3">
+        <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-xl">What Palchat tries to do</h2>
+        <ul class="space-y-2 text-sm text-slate-300">
+          <li class="flex gap-2">
+            <span class="mt-1 h-1.5 w-1.5 rounded-full bg-sky-400" />
+            <span><span class="font-medium text-slate-100">Collect useful ideas</span> — focused on products that solo builders or small teams can realistically ship.</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            <span><span class="font-medium text-slate-100">Offer tiny SaaS-style tools</span> — simple utilities (like the Idea Prioritization Tool) that are free to use in the browser.</span>
+          </li>
+          <li class="flex gap-2">
+            <span class="mt-1 h-1.5 w-1.5 rounded-full bg-purple-400" />
+            <span><span class="font-medium text-slate-100">Stay low-friction</span> — no logins required for core exploration, no feeds, no infinite scrolling.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="mb-10 space-y-3">
+        <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-xl">Tech stack</h2>
+        <p class="text-sm text-slate-300 sm:text-base">
+          Palchat is built with a simple, scalable stack that makes it easy to add more ideas and tools over time.
+        </p>
+
+        <div class="mt-4 grid gap-4 rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-sm text-slate-200 sm:grid-cols-2">
+          <div>
+            <h3 class="text-sm font-semibold text-slate-100">Frontend & rendering</h3>
+            <ul class="mt-2 space-y-1 text-xs text-slate-300 sm:text-sm">
+              <li><span class="font-medium text-slate-100">Astro</span> for fast, modern pages.</li>
+              <li><span class="font-medium text-slate-100">React</span> (via <code class="rounded bg-slate-800/80 px-1 py-0.5 text-[11px]">@astrojs/react</code>) for interactive components when needed.</li>
+              <li><span class="font-medium text-slate-100">Tailwind CSS</span> for styling and consistent design tokens.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-semibold text-slate-100">Backend & data</h3>
+            <ul class="mt-2 space-y-1 text-xs text-slate-300 sm:text-sm">
+              <li><span class="font-medium text-slate-100">PostgreSQL</span> for storing structured data (ideas, feedback, and future tools).</li>
+              <li>Connection handled via a pooled client that supports both local <code class="rounded bg-slate-800/80 px-1 py-0.5 text-[11px]">DATABASE_URL</code> and managed Aurora on Vercel.</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-semibold text-slate-100">Deployment & infra</h3>
+            <ul class="mt-2 space-y-1 text-xs text-slate-300 sm:text-sm">
+              <li><span class="font-medium text-slate-100">Vercel</span> for hosting, SSL, and edge-friendly deployments.</li>
+              <li>Database via managed Postgres (local or cloud providers like Aurora / Neon / Supabase).</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-semibold text-slate-100">Future-friendly</h3>
+            <ul class="mt-2 space-y-1 text-xs text-slate-300 sm:text-sm">
+              <li>Tools are built as small, isolated pieces so they can grow into standalone micro-SaaS products if needed.</li>
+              <li>The stack is intentionally boring: stable, well-supported technologies with room to scale.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-xl">Get in touch</h2>
+        <p class="text-sm text-slate-300 sm:text-base">
+          If you have an idea that might fit here—or a tiny tool you wish existed—reach out and it might make its way
+          into Palchat.
+        </p>
+        <p class="text-sm text-slate-300">
+          You can email <a href="mailto:hello@palchat.org" class="underline decoration-sky-500/70 underline-offset-4 hover:text-sky-300">hello@palchat.org</a>.
+        </p>
+      </section>
+    </section>
+  </main>
+</Layout>
+
