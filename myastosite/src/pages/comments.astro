@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { query } from '@/lib/db';
-import '../styles/global.css';
 
 let comments: { id: number; comment: string | null }[] = [];
 let dbError: string | null = null;
@@ -14,57 +13,34 @@ try {
 ---
 
 <Layout title="Comments – Palchat">
-  <main class="main">
-    <h1 class="title">Astro + Aurora PostgreSQL</h1>
+  <section class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="space-y-4">
+      <h1 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">
+        Comments demo
+      </h1>
+      <p class="text-sm text-slate-300 sm:text-base">
+        A minimal example of Palchat reading from PostgreSQL. This page is intentionally simple: no forms, just a list
+        of comments from the database.
+      </p>
 
-    {dbError ? (
-      <p class="error">Database unavailable: {dbError}</p>
-    ) : (
-      <div class="container">
-        {comments.length === 0 ? (
-          <p class="empty">No comments yet.</p>
-        ) : (
-          comments.map((comment) => (
-            <div>
-              <p>{comment.comment ?? ''}</p>
-              <div class="metadata">{comment.id}</div>
-            </div>
-          ))
-        )}
-      </div>
-    )}
-  </main>
+      {dbError ? (
+        <p class="rounded-lg border border-red-500/40 bg-red-950/40 px-3 py-2 text-sm text-red-100">
+          Database unavailable: {dbError}
+        </p>
+      ) : (
+        <div class="mt-4 space-y-3">
+          {comments.length === 0 ? (
+            <p class="text-sm text-slate-400">No comments yet.</p>
+          ) : (
+            comments.map((comment) => (
+              <div class="rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-2 text-sm text-slate-100">
+                <p>{comment.comment ?? ''}</p>
+                <div class="mt-1 text-xs text-slate-500">ID {comment.id}</div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  </section>
 </Layout>
-
-<style>
-  .main {
-    max-width: 48rem;
-    margin: 0 auto;
-    padding: 2rem;
-    font-family: system-ui, sans-serif;
-  }
-  .title {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  .container > div {
-    padding: 1rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-  }
-  .metadata {
-    font-size: 0.875rem;
-    color: #6b7280;
-    margin-top: 0.5rem;
-  }
-  .error {
-    color: #b91c1c;
-    padding: 1rem;
-    background: #fef2f2;
-    border-radius: 0.5rem;
-  }
-  .empty {
-    color: #6b7280;
-  }
-</style>

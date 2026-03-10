@@ -3,403 +3,93 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Palchat – Bring ideas to life">
-  <main class="relative min-h-screen overflow-hidden bg-slate-950 text-slate-50">
-    <div class="pointer-events-none absolute inset-0 -z-10">
-      <div class="absolute -left-40 top-0 h-80 w-80 rounded-full bg-sky-500/20 blur-3xl sm:-left-32 sm:h-96 sm:w-96" />
-      <div class="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-purple-500/20 blur-3xl sm:h-96 sm:w-96" />
-      <div class="absolute inset-x-0 top-40 h-64 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.18),_transparent_60%)]" />
-    </div>
+  <section class="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="space-y-8">
+      <div class="space-y-4">
+        <p class="text-xs font-medium uppercase tracking-wide text-slate-400">A calm home for product ideas</p>
+        <h1 class="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
+          Bring product ideas to life
+          <span class="block text-base font-normal text-slate-300 sm:text-lg">
+            without drowning in tools, feeds, or settings.
+          </span>
+        </h1>
+        <p class="max-w-xl text-sm text-slate-300 sm:text-base">
+          Palchat is a small, quiet site for thinking about how you build: short essays, simple mental models, and tiny
+          tools you can use in the browser.
+        </p>
+      </div>
 
-    {/* NAVBAR */}
-    <header class="sticky top-0 z-20 border-b border-white/5 bg-slate-950/80 backdrop-blur">
-      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <a href="/" class="flex items-center gap-2">
-          <div class="flex h-9 w-9 items-center justify-center rounded-2xl bg-gradient-to-tr from-sky-400 to-purple-500 shadow-lg shadow-sky-500/30">
-            <span class="text-lg font-semibold text-slate-950">P</span>
-          </div>
-          <div class="flex flex-col">
-            <span class="text-base font-semibold tracking-tight">Palchat</span>
-            <span class="text-xs text-slate-400">Ideas & tiny tools</span>
-          </div>
+      <div class="flex flex-wrap gap-3">
+        <a
+          href="#essay"
+          class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-50 px-5 py-2.5 text-sm font-semibold text-slate-950 hover:bg-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-200 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+        >
+          Read the featured idea
+          <span aria-hidden="true">→</span>
         </a>
-
-        <nav class="hidden items-center gap-8 text-sm font-medium text-slate-200 md:flex">
-          <a href="#hero" class="hover:text-sky-300">Home</a>
-          <a href="#features" class="hover:text-sky-300">Why Palchat</a>
-          <a href="#workflow" class="hover:text-sky-300">How it works</a>
-          <a href="#essay" class="hover:text-sky-300">Ideas</a>
-          <a href="/about" class="hover:text-sky-300">About</a>
-        </nav>
-      </div>
-    </header>
-
-    {/* HERO */}
-    <section
-      id="hero"
-      class="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:flex-row lg:items-center lg:gap-16 lg:py-20 lg:px-8"
-    >
-      <div class="max-w-xl space-y-6">
-        <p class="inline-flex items-center gap-2 rounded-full border border-sky-500/40 bg-slate-900/80 px-3 py-1 text-xs font-medium text-sky-200 shadow-sm">
-          <span class="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-          New · A home for product ideas
-        </p>
-
-        <div class="space-y-4">
-          <h1 class="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-            Bring product ideas to life
-            <span class="block bg-gradient-to-r from-sky-300 via-cyan-200 to-purple-300 bg-clip-text text-transparent">
-              without drowning in tools.
-            </span>
-          </h1>
-          <p class="text-balance text-sm leading-relaxed text-slate-300 sm:text-base">
-            Palchat is a simple place to collect product ideas and read short essays about building with care. No chat,
-            no feed — just clear thinking and tiny tools.
-          </p>
-        </div>
-
-        <div class="flex flex-wrap gap-3">
-          <a
-            href="#essay"
-            class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-50 px-5 py-2.5 text-sm font-semibold text-slate-950 shadow-lg shadow-slate-900/40 hover:bg-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-          >
-            Read today&apos;s idea
-            <span aria-hidden="true">→</span>
-          </a>
-          <a
-            href="#features"
-            class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-5 py-2.5 text-sm font-medium text-slate-100 shadow-sm hover:border-sky-400 hover:text-sky-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-          >
-            See how Palchat helps
-          </a>
-        </div>
-
-        <dl class="grid max-w-md grid-cols-3 gap-4 text-xs text-slate-300 sm:text-sm">
-          <div>
-            <dt class="font-medium text-slate-100">Format</dt>
-            <dd>Short essays & ideas</dd>
-          </div>
-          <div>
-            <dt class="font-medium text-slate-100">Tools</dt>
-            <dd>Tiny and free</dd>
-          </div>
-          <div>
-            <dt class="font-medium text-slate-100">Noise</dt>
-            <dd>None</dd>
-          </div>
-        </dl>
+        <a
+          href="/about"
+          class="inline-flex items-center justify-center gap-2 rounded-full border border-slate-700 px-5 py-2.5 text-sm font-medium text-slate-100 hover:border-slate-500 hover:text-slate-50"
+        >
+          Learn what Palchat is
+        </a>
       </div>
 
-      <div class="flex flex-1 items-center justify-center">
-        <div class="relative w-full max-w-md">
-          <div class="absolute -inset-1 rounded-3xl bg-gradient-to-tr from-sky-500/40 via-cyan-400/20 to-purple-500/40 blur-xl" />
-          <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-900/80 p-4 shadow-2xl shadow-sky-900/40 backdrop-blur">
-            <p class="mb-2 text-[11px] font-semibold uppercase tracking-wide text-sky-300">
-              Today&apos;s featured idea
-            </p>
-            <div class="space-y-3 text-xs text-slate-100 sm:text-sm">
-              <h2 class="text-sm font-semibold text-slate-50 sm:text-base">
-                A dependency trap dressed up as efficiency
-              </h2>
-              <p class="text-slate-300">
-                Cheap subscriptions feel like wins on their own. Stack enough of them and you quietly hand off your own
-                competence to a row of tools you do not control.
-              </p>
-              <div class="rounded-2xl bg-slate-800/80 p-3 text-[11px] text-slate-200">
-                <p class="font-medium text-amber-200">Core question</p>
-                <p class="mt-1 text-slate-300">
-                  Where is the line between helpful automation and loss of understanding, custody, and resilience?
-                </p>
-              </div>
-            </div>
-          </div>
+      <div class="grid gap-4 text-sm text-slate-300 sm:grid-cols-3">
+        <div class="space-y-1">
+          <p class="text-xs font-medium text-slate-400">Format</p>
+          <p>Short essays & simple tools.</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-xs font-medium text-slate-400">Noise</p>
+          <p>No logins, no feeds, no notifications.</p>
+        </div>
+        <div class="space-y-1">
+          <p class="text-xs font-medium text-slate-400">Audience</p>
+          <p>Solo builders, indie hackers, and small teams.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    {/* TRUSTED BY (LOGO STRIP STYLE) */}
-    <section
-      id="trusted"
-      class="mx-auto max-w-6xl px-4 pb-10 sm:px-6 lg:px-8"
-    >
-      <div class="rounded-2xl border border-slate-800 bg-slate-900/60 px-4 py-4 sm:px-6">
-        <p class="mb-3 text-center text-[11px] font-medium uppercase tracking-wide text-slate-400">
-          Used by people who care about how they build
-        </p>
-        <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400 sm:text-sm">
-          <span class="rounded-full bg-slate-900/80 px-3 py-1">Indie hackers</span>
-          <span class="rounded-full bg-slate-900/80 px-3 py-1">Solo founders</span>
-          <span class="rounded-full bg-slate-900/80 px-3 py-1">Small teams</span>
-          <span class="rounded-full bg-slate-900/80 px-3 py-1">Thoughtful builders</span>
-        </div>
-      </div>
-    </section>
+  <section id="essay" class="mx-auto max-w-5xl px-4 pb-16 sm:px-6 lg:px-8">
+    <div class="max-w-3xl space-y-4">
+      <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Featured idea</p>
+      <h2 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">
+        A dependency trap dressed up as efficiency
+      </h2>
 
-    {/* FEATURE GRID (WHY PALCHAT) */}
-    <section
-      id="features"
-      class="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16"
-    >
-      <div class="mb-8 space-y-3 text-center">
-        <p class="text-xs font-semibold uppercase tracking-wide text-sky-300">Why Palchat</p>
-        <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-2xl">
-          A calm place to think about tools
-        </h2>
-        <p class="mx-auto max-w-2xl text-sm text-slate-300 sm:text-base">
-          Instead of selling you another app, Palchat gives you ideas and small, honest tools to see what those apps
-          really mean for your work.
-        </p>
-      </div>
+      <p class="text-sm text-slate-300 sm:text-base">
+        Using AI and SaaS tools instead of people feels smart. You save money, you move faster, and you can serve more
+        customers. The $1k vs $40k slide is easy to show in a deck.
+      </p>
+      <p class="text-sm text-slate-300 sm:text-base">
+        But there is a quieter cost that does not show up on any invoice: the slow loss of understanding, custody, and
+        resilience inside your own work.
+      </p>
 
-      <div class="grid gap-4 md:grid-cols-3">
-        <article class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 shadow-sm shadow-slate-950/70">
-          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Short, clear essays</h3>
-          <p class="mt-2 text-xs text-slate-300 sm:text-sm">
-            Read one idea at a time. No jargon, no long threads — just plain language you can finish in a few minutes.
-          </p>
-        </article>
-
-        <article class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 shadow-sm shadow-slate-950/70">
-          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Tiny tools, not platforms</h3>
-          <p class="mt-2 text-xs text-slate-300 sm:text-sm">
-            Use small, focused tools that run in the browser. Helpful enough to guide decisions, simple enough to ignore
-            when you are done.
-          </p>
-        </article>
-
-        <article class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 shadow-sm shadow-slate-950/70">
-          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">No logins required</h3>
-          <p class="mt-2 text-xs text-slate-300 sm:text-sm">
-            Open the site, read an idea, try a tool, close the tab. No account, no notifications, no pile of settings.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    {/* SIMPLE WORKFLOW SECTION */}
-    <section
-      id="workflow"
-      class="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16"
-    >
-      <div class="mb-6 space-y-3">
-        <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-2xl">
-          How people use Palchat
-        </h2>
-        <p class="max-w-2xl text-sm text-slate-300 sm:text-base">
-          A simple three–step loop: read, reflect, adjust how you build.
-        </p>
+      <div class="space-y-3 rounded-xl border border-slate-800 bg-slate-900/70 p-4 text-sm text-slate-200 sm:text-base">
+        <h3 class="text-base font-semibold text-slate-50 sm:text-lg">What you quietly trade away</h3>
+        <ul class="space-y-2 text-sm text-slate-300 sm:text-base">
+          <li>
+            <span class="font-semibold text-slate-100">Understanding</span> — work moves into a black box that you can
+            no longer explain.
+          </li>
+          <li>
+            <span class="font-semibold text-slate-100">Custody</span> — your data and logic live inside rented systems,
+            not in your hands.
+          </li>
+          <li>
+            <span class="font-semibold text-slate-100">Resilience</span> — when a tool changes or disappears, you may
+            lose the memory of how your business runs.
+          </li>
+        </ul>
       </div>
 
-      <div class="grid gap-4 md:grid-cols-3">
-        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-          <p class="text-xs font-semibold text-sky-300">01</p>
-          <h3 class="mt-1 text-sm font-semibold text-slate-100 sm:text-base">Read one idea</h3>
-          <p class="mt-2 text-xs text-slate-300 sm:text-sm">
-            Start with a single short piece, like the dependency trap essay, and sit with it for a minute.
-          </p>
-        </div>
-        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-          <p class="text-xs font-semibold text-sky-300">02</p>
-          <h3 class="mt-1 text-sm font-semibold text-slate-100 sm:text-base">Look at your own stack</h3>
-          <p class="mt-2 text-xs text-slate-300 sm:text-sm">
-            Think about your own tools, subscriptions, and habits. Where are you trading away understanding for speed?
-          </p>
-        </div>
-        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-          <p class="text-xs font-semibold text-sky-300">03</p>
-          <h3 class="mt-1 text-sm font-semibold text-slate-100 sm:text-base">Make one small change</h3>
-          <p class="mt-2 text-xs text-slate-300 sm:text-sm">
-            Cancel something, move one workflow in–house, or write down the logic you are outsourcing to a black box.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    {/* INTEGRATIONS-STYLE STRIP (AREAS OF LIFE) */}
-    <section
-      id="areas"
-      class="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16"
-    >
-      <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-2xl">
-            One mindset, many areas
-          </h2>
-          <p class="mt-1 max-w-xl text-sm text-slate-300 sm:text-base">
-            The same dependency trap shows up in more places than accounting or AI.
-          </p>
-        </div>
-        <p class="text-xs text-slate-400 sm:text-sm">
-          Scan the list and see where it already applies to you.
-        </p>
-      </div>
-
-      <div class="flex flex-wrap gap-3 rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-xs text-slate-200 sm:text-sm">
-        <span class="rounded-full bg-slate-800/80 px-3 py-1">Bookkeeping</span>
-        <span class="rounded-full bg-slate-800/80 px-3 py-1">Customer support</span>
-        <span class="rounded-full bg-slate-800/80 px-3 py-1">Content & marketing</span>
-        <span class="rounded-full bg-slate-800/80 px-3 py-1">Product analytics</span>
-        <span class="rounded-full bg-slate-800/80 px-3 py-1">Dev tooling</span>
-        <span class="rounded-full bg-slate-800/80 px-3 py-1">Personal life admin</span>
-      </div>
-    </section>
-
-    {/* POWER-UP STYLE SECTION (TINY TOOLS) */}
-    <section
-      id="tools"
-      class="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16"
-    >
-      <div class="mb-6 space-y-3">
-        <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-2xl">
-          Power up with tiny tools
-        </h2>
-        <p class="max-w-2xl text-sm text-slate-300 sm:text-base">
-          Palchat adds small, browser-based tools to help you see your own dependencies more clearly.
-        </p>
-      </div>
-
-      <div class="grid gap-4 md:grid-cols-3">
-        <article class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-xs text-slate-200 sm:text-sm">
-          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Tool: Subscription map</h3>
-          <p class="mt-2 text-slate-300">
-            List every tool you pay for, what it does, and what skill it replaces. See your stack in one place.
-          </p>
-        </article>
-        <article class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-xs text-slate-200 sm:text-sm">
-          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Tool: Dependency risk check</h3>
-          <p class="mt-2 text-slate-300">
-            Score which tools you could lose tomorrow and how painful that would be. Simple, honest risk view.
-          </p>
-        </article>
-        <article class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-xs text-slate-200 sm:text-sm">
-          <h3 class="text-sm font-semibold text-slate-100 sm:text-base">Tool: In-house plan</h3>
-          <p class="mt-2 text-slate-300">
-            Pick one key workflow and sketch how you would run it yourself, even if you never fully do it.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    {/* AUDIENCE GRID (WHO THIS IS FOR) */}
-    <section
-      id="audience"
-      class="mx-auto max-w-6xl px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16"
-    >
-      <div class="mb-6 space-y-3">
-        <h2 class="text-lg font-semibold tracking-tight text-slate-100 sm:text-2xl">
-          The right fit for Palchat
-        </h2>
-        <p class="max-w-2xl text-sm text-slate-300 sm:text-base">
-          Palchat is not for everyone. It is for people who like to understand their own tools.
-        </p>
-      </div>
-
-      <div class="grid gap-3 text-xs text-slate-200 sm:grid-cols-3 sm:text-sm">
-        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-3">
-          <h3 class="font-semibold text-slate-100">Solo founders</h3>
-          <p class="mt-1 text-slate-300">You want to stay close to the details of your own product.</p>
-        </div>
-        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-3">
-          <h3 class="font-semibold text-slate-100">Indie hackers</h3>
-          <p class="mt-1 text-slate-300">You care about leverage, but not at the cost of understanding.</p>
-        </div>
-        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-3">
-          <h3 class="font-semibold text-slate-100">Small teams</h3>
-          <p class="mt-1 text-slate-300">You cannot afford to lose the logic that runs your business.</p>
-        </div>
-      </div>
-    </section>
-
-    {/* ESSAY SECTION (MAIN IDEA) */}
-    <section
-      id="essay"
-      class="mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8"
-    >
-      <div class="max-w-3xl space-y-4">
-        <p class="text-xs font-semibold uppercase tracking-wide text-sky-300">Featured idea</p>
-        <h2 class="text-2xl font-semibold tracking-tight text-slate-100 sm:text-3xl">
-          A dependency trap dressed up as efficiency
-        </h2>
-
-        <p class="text-sm text-slate-300 sm:text-base">
-          Using AI and SaaS tools instead of people feels smart. You save money, you move faster, and you can serve more
-          customers. The $1k vs $40k slide is easy to show in a deck.
-        </p>
-        <p class="text-sm text-slate-300 sm:text-base">
-          But there is a quieter cost that does not show up on any invoice: the slow loss of understanding, custody, and
-          resilience inside your own work.
-        </p>
-
-        <div class="space-y-3 rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-sm text-slate-200 sm:text-base">
-          <h3 class="text-base font-semibold text-slate-100 sm:text-lg">What you actually gain</h3>
-          <p class="text-slate-300">
-            The gains are real but narrow: lower cost, more speed, more scale. You can take on more clients, handle
-            more data, and do it with fewer people. That part of the story is true.
-          </p>
-        </div>
-
-        <div class="space-y-3 rounded-2xl border border-amber-500/40 bg-slate-900/70 p-4 text-sm text-slate-200 sm:text-base">
-          <h3 class="text-base font-semibold text-amber-200 sm:text-lg">What you quietly lose</h3>
-          <ul class="space-y-2">
-            <li>
-              <span class="font-semibold text-slate-100">You lose understanding.</span>{' '}
-              <span class="text-slate-300">
-                With a human expert, you slowly picked up how the work was done, even if you never learned the field.
-                With AI, the work happens in a black box. It is probably correct, but you cannot explain it.
-              </span>
-            </li>
-            <li>
-              <span class="font-semibold text-slate-100">You lose custody.</span>{' '}
-              <span class="text-slate-300">
-                Your data and logic now live inside someone else&apos;s system. You do not own the workflow; you rent
-                access to it for as long as you keep paying.
-              </span>
-            </li>
-            <li>
-              <span class="font-semibold text-slate-100">You lose resilience.</span>{' '}
-              <span class="text-slate-300">
-                If a person leaves, you can hire and train a new one. When a tool shuts down, changes terms, or gets
-                bought, you can lose the memory of how you run your own business.
-              </span>
-            </li>
-            <li>
-              <span class="font-semibold text-slate-100">You lose the relationship as a buffer.</span>{' '}
-              <span class="text-slate-300">
-                A person might say “something looks off this quarter, want to talk about it?”. A tool just does what you
-                ask and stays silent about the rest.
-              </span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="space-y-3 rounded-2xl border border-sky-500/40 bg-slate-900/70 p-4 text-sm text-slate-200 sm:text-base">
-          <h3 class="text-base font-semibold text-sky-200 sm:text-lg">The deeper problem</h3>
-          <p class="text-slate-300">
-            One cheap subscription is fine. Ten of them, spread across every part of your work, means you have quietly
-            outsourced key pieces of your own competence to ten different companies you do not control.
-          </p>
-          <p class="text-slate-300">
-            The issue is not AI itself. It is the belief that cheaper and easier is always better. Dependency has a
-            cost. It just does not show up on the bill.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    {/* FOOTER */}
-    <footer class="border-t border-slate-800 bg-slate-950/90">
-      <div class="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-        <div class="flex items-center gap-2">
-          <div class="flex h-7 w-7 items-center justify-center rounded-xl bg-gradient-to-tr from-sky-400 to-purple-500 text-xs font-semibold text-slate-950">
-            P
-          </div>
-          <span>© {new Date().getFullYear()} Palchat. All rights reserved.</span>
-        </div>
-        <div class="flex flex-wrap gap-4">
-          <a href="/about" class="hover:text-sky-300">About</a>
-          <a href="/comments" class="hover:text-sky-300">Tech demo</a>
-          <a href="mailto:hello@palchat.org" class="hover:text-sky-300">Contact</a>
-        </div>
-      </div>
-    </footer>
-  </main>
+      <p class="text-sm text-slate-300 sm:text-base">
+        The point is not to avoid tools. It is to remember that every dependency has a cost, whether or not it shows up
+        on the invoice.
+      </p>
+    </div>
+  </section>
 </Layout>
