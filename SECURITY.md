@@ -9,7 +9,7 @@
 ## Measures in place
 
 1. **TLS for DB**: `src/lib/db.ts` and `scripts/run-migration.js` use `rejectUnauthorized: true` for non-local Postgres so connections are encrypted and server certificates are verified.
-2. **Open redirect**: `/api/add-comment` accepts only allowlisted redirect paths (`/add-comment`, `/comments`). User-controlled redirects to external URLs are rejected.
+2. **Open redirect**: `/api/add-comment` accepts only the allowlisted redirect path `/comments`. User-controlled redirects to external URLs are rejected.
 3. **CSRF**: POST to `/api/add-comment` requires a same-origin `Origin` or `Referer`; cross-site form posts are rejected with 403.
 4. **SQL**: Comments are inserted via parameterized queries only; no string concatenation into SQL.
 5. **Security headers** (Vercel): `X-Frame-Options: SAMEORIGIN`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` to restrict camera/microphone/geolocation.

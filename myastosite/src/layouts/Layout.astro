@@ -11,7 +11,6 @@ const isAbout = currentPath.startsWith('/about') && !currentPath.startsWith('/ab
 const isTechStack = currentPath === '/tech-stack' || currentPath.startsWith('/about/tech-stack');
 const isComments = currentPath.startsWith('/comments');
 const isMilletGuide = currentPath.startsWith('/millet-guide');
-const isAddComment = currentPath.startsWith('/add-comment');
 const isLogin = currentPath.startsWith('/login');
 const isSignup = currentPath.startsWith('/signup');
 const isMyAccount = currentPath.startsWith('/my-account');
@@ -75,13 +74,6 @@ import '../styles/global.css';
                   aria-current={isComments ? 'page' : undefined}
                 >
                   Comments demo
-                </a>
-                <a
-                  href="/add-comment"
-                  class={`nav-link ${isAddComment ? 'nav-link--active' : ''}`}
-                  aria-current={isAddComment ? 'page' : undefined}
-                >
-                  Add comment
                 </a>
                 <a
                   href="/millet-guide"

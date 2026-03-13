@@ -1,8 +1,8 @@
 import type { APIRoute } from 'astro';
 import { query } from '@/lib/db';
 
-/** Allowed redirect paths only (prevents open redirect). */
-const ALLOWED_REDIRECT_PATHS = ['/add-comment', '/comments'] as const;
+/** Allowed redirect paths only (prevents open redirect). Comments and add-comment merged into /comments. */
+const ALLOWED_REDIRECT_PATHS = ['/comments'] as const;
 
 function countWords(input: string): number {
   const trimmed = input.trim();
@@ -11,11 +11,11 @@ function countWords(input: string): number {
 }
 
 function getAllowedRedirect(redirectParam: string | null): string {
-  if (!redirectParam || typeof redirectParam !== 'string') return '/add-comment';
+  if (!redirectParam || typeof redirectParam !== 'string') return '/comments';
   const path = redirectParam.split('?')[0].trim();
   return ALLOWED_REDIRECT_PATHS.includes(path as (typeof ALLOWED_REDIRECT_PATHS)[number])
     ? path
-    : '/add-comment';
+    : '/comments';
 }
 
 export const POST: APIRoute = async ({ request }) => {
