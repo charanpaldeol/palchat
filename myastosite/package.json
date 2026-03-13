@@ -12,8 +12,6 @@
     "@astrojs/react": "^3.6.0",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vercel": "^8.2.0",
-    "@aws-sdk/rds-signer": "^3.985.0",
-    "@vercel/functions": "^3.4.1",
     "astro": "^5.9.3",
     "dotenv": "^16.5.0",
     "framer-motion": "^11.2.12",
