@@ -2,195 +2,490 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Palchat tech stack">
-  <section class="section">
+<Layout title="Palchat tech stack — March 2026">
+  <section
+    class="page-hero"
+    style="
+      background-color: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding-top: var(--sp-9);
+      padding-bottom: var(--sp-8);
+    "
+  >
+    <div class="app-container" style="text-align: center;">
+      <p class="section-eyebrow">Tech stack</p>
+      <h1 class="page-hero-title">
+        Palchat Tech Stack
+      </h1>
+      <p class="page-hero-subtitle" style="margin: var(--sp-3) auto 0;">
+        Building a fast, private, reliable chat platform for Palestinians — March 2026 edition.
+      </p>
+      <p
+        class="body-text"
+        style="
+          max-width: 640px;
+          margin: var(--sp-3) auto 0;
+        "
+      >
+        Minimal, performant choices that let us ship quickly without managing servers or heavy infrastructure.
+      </p>
+    </div>
+  </section>
+
+  <!-- Layer flow diagram -->
+  <section class="section" style="padding-top: var(--sp-7); padding-bottom: var(--sp-7);">
     <div class="app-container">
-      <header style="margin-bottom: var(--sp-7); text-align: center;">
-        <p class="section-eyebrow">Tech stack</p>
-        <h1 class="section-title" style="font-size: 1.5rem; margin-top: var(--sp-2);">
-          How Palchat is put together.
-        </h1>
-        <p class="body-text" style="max-width: 640px; margin: var(--sp-3) auto 0;">
-          Rather than a long list of tools, this page shows the flow from a visitor landing on the site to data being
-          stored and deployed.
+      <header style="text-align: center; margin-bottom: var(--sp-5);">
+        <h2 class="section-title">
+          From visitor to database, in one line
+        </h2>
+        <p
+          class="body-text"
+          style="
+            max-width: 640px;
+            margin: var(--sp-3) auto 0;
+          "
+        >
+          A simple, end‑to‑end path for every request — keeping latency low and moving parts understandable.
         </p>
       </header>
 
-      <section class="section-tight" style="padding-top: 0; padding-bottom: var(--sp-7);">
-        <h2 class="section-eyebrow" style="text-align: center;">
-          End‑to‑end flow
-        </h2>
+      <div
+        class="flex flex-col items-stretch gap-3 text-sm sm:flex-row sm:items-center sm:justify-center sm:gap-4"
+        aria-label="High-level Palchat architecture flow"
+      >
+        <div
+          class="inline-flex items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-2"
+        >
+          <span class="body-text-small" style="font-weight: 600; color: var(--color-text-primary);">
+            Visitor / Browser
+          </span>
+        </div>
 
-        <div class="card" style="margin-top: var(--sp-4); max-width: 768px; margin-left: auto; margin-right: auto;">
-          <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--sp-4);">
-          <li class="flex gap-3">
-            <div class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-xs font-semibold text-slate-950 shadow-sm">
-              1
+        <span class="hidden text-sm text-[var(--color-text-secondary)] sm:inline" aria-hidden="true">
+          →
+        </span>
+
+        <div
+          class="inline-flex items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-2"
+        >
+          <span class="body-text-small" style="font-weight: 600; color: var(--color-text-primary);">
+            Frontend (Astro + React islands)
+          </span>
+        </div>
+
+        <span class="hidden text-sm text-[var(--color-text-secondary)] sm:inline" aria-hidden="true">
+          →
+        </span>
+
+        <div
+          class="inline-flex items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-2"
+        >
+          <span class="body-text-small" style="font-weight: 600; color: var(--color-text-primary);">
+            Edge APIs (Vercel Functions)
+          </span>
+        </div>
+
+        <span class="hidden text-sm text-[var(--color-text-secondary)] sm:inline" aria-hidden="true">
+          →
+        </span>
+
+        <div
+          class="inline-flex items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-2"
+        >
+          <span class="body-text-small" style="font-weight: 600; color: var(--color-text-primary);">
+            Database (PostgreSQL)
+          </span>
+        </div>
+
+        <span class="hidden text-sm text-[var(--color-text-secondary)] sm:inline" aria-hidden="true">
+          →
+        </span>
+
+        <div
+          class="inline-flex items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-2"
+        >
+          <span class="body-text-small" style="font-weight: 600; color: var(--color-text-primary);">
+            Hosting & CDN (Vercel)
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stack by layer -->
+  <section class="section-tight" style="padding-top: 0; padding-bottom: var(--sp-8);">
+    <div class="app-container">
+      <header style="text-align: center; margin-bottom: var(--sp-6);">
+        <h2 class="section-title">
+          Stack by layer
+        </h2>
+        <p
+          class="body-text"
+          style="
+            max-width: 640px;
+            margin: var(--sp-3) auto 0;
+          "
+        >
+          Every part of Palchat is intentionally small, understandable, and biased toward fast first paint and low latency.
+        </p>
+      </header>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        <!-- Frontend card -->
+        <article
+          class="card group flex flex-col gap-4 border border-[var(--color-border)] transition-colors duration-150 hover:border-[var(--color-primary)]"
+        >
+          <header class="flex items-center gap-3">
+            <div
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)]"
+            >
+              <span
+                class="text-xs font-semibold"
+                style="font-family: 'JetBrains Mono', monospace; color: var(--color-text-primary);"
+              >
+                FE
+              </span>
             </div>
-            <div class="space-y-1">
-              <p class="text-xs font-semibold uppercase tracking-wide text-emerald-300">Visit</p>
-              <p class="text-sm font-semibold text-slate-50">User hits `palchat.org`</p>
-              <p class="text-xs text-slate-300 sm:text-[13px]">
-                Vercel serves pre-rendered Astro pages from a global edge network, so the first paint is fast even on slow
-                connections.
+            <div>
+              <p class="section-eyebrow">
+                Layer 1
               </p>
-              <div class="flex flex-wrap gap-1.5">
-                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-emerald-200">
-                  Astro (static rendering)
-                </span>
-                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-slate-200">
-                  Vercel Edge / CDN
+              <h3
+                class="section-title"
+                style="
+                  font-size: 1.25rem;
+                  margin-top: var(--sp-1);
+                "
+              >
+                Frontend
+              </h3>
+            </div>
+          </header>
+
+          <ul class="mt-2 space-y-4">
+            <li class="flex items-start gap-3">
+              <div
+                class="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)]"
+              >
+                <span
+                  class="text-[11px] font-semibold"
+                  style="font-family: 'JetBrains Mono', monospace; color: var(--color-text-primary);"
+                >
+                  Astro
                 </span>
               </div>
-            </div>
-          </li>
+              <div class="space-y-1">
+                <p class="body-text-small" style="color: var(--color-text-primary); font-weight: 500;">
+                  Astro
+                  <span style="font-weight: 400; color: var(--color-text-secondary);">
+                    — fast, mostly static pages with excellent performance.
+                  </span>
+                </p>
+                <p
+                  class="body-text-small"
+                  style="font-size: 0.75rem; color: var(--color-text-secondary);"
+                >
+                  <span style="font-weight: 500;">Why:</span> Ships almost zero JavaScript by default, so even on slow
+                  connections first paint stays comfortably under sub‑second budgets.
+                </p>
+              </div>
+            </li>
 
-          <li class="flex gap-3">
-            <div class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-sky-500 text-xs font-semibold text-slate-950 shadow-sm">
-              2
-            </div>
-            <div class="space-y-1">
-              <p class="text-xs font-semibold uppercase tracking-wide text-sky-300">Interact</p>
-              <p class="text-sm font-semibold text-slate-50">UI becomes interactive where needed</p>
-              <p class="text-xs text-slate-300 sm:text-[13px]">
-                Most of the page stays static HTML, but small pieces (like comments or tools) hydrate as React components
-                for a smooth in-browser experience.
-              </p>
-              <div class="flex flex-wrap gap-1.5">
-                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-sky-200">
+            <li class="flex items-start gap-3">
+              <div
+                class="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)]"
+              >
+                <span
+                  class="text-[11px] font-semibold"
+                  style="font-family: 'JetBrains Mono', monospace; color: var(--color-text-primary);"
+                >
+                  React
+                </span>
+              </div>
+              <div class="space-y-1">
+                <p class="body-text-small" style="color: var(--color-text-primary); font-weight: 500;">
                   React islands
+                  <span style="font-weight: 400; color: var(--color-text-secondary);">
+                    — only where real interactivity is required.
+                  </span>
+                </p>
+                <p
+                  class="body-text-small"
+                  style="font-size: 0.75rem; color: var(--color-text-secondary);"
+                >
+                  <span style="font-weight: 500;">Why:</span> Hydrates just the interactive pieces (like comments and tools),
+                  keeping the overall bundle tiny while still feeling modern.
+                </p>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-3">
+              <div
+                class="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)]"
+              >
+                <span
+                  class="text-[11px] font-semibold"
+                  style="font-family: 'JetBrains Mono', monospace; color: var(--color-text-primary);"
+                >
+                  TW
                 </span>
-                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-indigo-200">
+              </div>
+              <div class="space-y-1">
+                <p class="body-text-small" style="color: var(--color-text-primary); font-weight: 500;">
                   Tailwind CSS
+                  <span style="font-weight: 400; color: var(--color-text-secondary);">
+                    — utility‑first styling wired to design tokens.
+                  </span>
+                </p>
+                <p
+                  class="body-text-small"
+                  style="font-size: 0.75rem; color: var(--color-text-secondary);"
+                >
+                  <span style="font-weight: 500;">Why:</span> Rapid, consistent UI without fighting the cascade — every
+                  component stays aligned to the same spacing and color system.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </article>
+
+        <!-- Backend card -->
+        <article
+          class="card group flex flex-col gap-4 border border-[var(--color-border)] transition-colors duration-150 hover:border-[var(--color-primary)]"
+        >
+          <header class="flex items-center gap-3">
+            <div
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)]"
+            >
+              <span
+                class="text-xs font-semibold"
+                style="font-family: 'JetBrains Mono', monospace; color: var(--color-text-primary);"
+              >
+                BE
+              </span>
+            </div>
+            <div>
+              <p class="section-eyebrow">
+                Layer 2
+              </p>
+              <h3
+                class="section-title"
+                style="
+                  font-size: 1.25rem;
+                  margin-top: var(--sp-1);
+                "
+              >
+                Backend
+              </h3>
+            </div>
+          </header>
+
+          <ul class="mt-2 space-y-4">
+            <li class="flex items-start gap-3">
+              <div
+                class="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)]"
+              >
+                <span
+                  class="text-[11px] font-semibold"
+                  style="font-family: 'JetBrains Mono', monospace; color: var(--color-text-primary);"
+                >
+                  VF
                 </span>
               </div>
-            </div>
-          </li>
+              <div class="space-y-1">
+                <p class="body-text-small" style="color: var(--color-text-primary); font-weight: 500;">
+                  Vercel Functions
+                  <span style="font-weight: 400; color: var(--color-text-secondary);">
+                    — small, focused APIs at the edge.
+                  </span>
+                </p>
+                <p
+                  class="body-text-small"
+                  style="font-size: 0.75rem; color: var(--color-text-secondary);"
+                >
+                  <span style="font-weight: 500;">Why:</span> Single‑purpose serverless functions keep logic isolated, with
+                  cold starts typically under a couple hundred milliseconds.
+                </p>
+              </div>
+            </li>
 
-          <li class="flex gap-3">
-            <div class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-amber-500 text-xs font-semibold text-slate-950 shadow-sm">
-              3
-            </div>
-            <div class="space-y-1">
-              <p class="text-xs font-semibold uppercase tracking-wide text-amber-300">Request</p>
-              <p class="text-sm font-semibold text-slate-50">Browser talks to a tiny API</p>
-              <p class="text-xs text-slate-300 sm:text-[13px]">
-                When a user submits something (like a comment or form), the front-end calls a single-purpose serverless
-                function.
-              </p>
-              <div class="flex flex-wrap gap-1.5">
-                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-amber-200">
-                  Vercel Serverless Functions
+            <li class="flex items-start gap-3">
+              <div
+                class="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)]"
+              >
+                <span
+                  class="text-[11px] font-semibold"
+                  style="font-family: 'JetBrains Mono', monospace; color: var(--color-text-primary);"
+                >
+                  Node
                 </span>
-                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-slate-200">
+              </div>
+              <div class="space-y-1">
+                <p class="body-text-small" style="color: var(--color-text-primary); font-weight: 500;">
                   Node.js runtime
+                  <span style="font-weight: 400; color: var(--color-text-secondary);">
+                    — familiar server logic in JavaScript.
+                  </span>
+                </p>
+                <p
+                  class="body-text-small"
+                  style="font-size: 0.75rem; color: var(--color-text-secondary);"
+                >
+                  <span style="font-weight: 500;">Why:</span> Same language across frontend and backend reduces cognitive load
+                  and keeps deploys straightforward.
+                </p>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-3">
+              <div
+                class="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)]"
+              >
+                <span
+                  class="text-[11px] font-semibold"
+                  style="font-family: 'JetBrains Mono', monospace; color: var(--color-text-primary);"
+                >
+                  Mail
                 </span>
               </div>
-            </div>
-          </li>
-
-          <li class="flex gap-3">
-            <div class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-cyan-500 text-xs font-semibold text-slate-950 shadow-sm">
-              4
-            </div>
-            <div class="space-y-1">
-              <p class="text-xs font-semibold uppercase tracking-wide text-cyan-200">Store</p>
-              <p class="text-sm font-semibold text-slate-50">Data is written to Postgres</p>
-              <p class="text-xs text-slate-300 sm:text-[13px]">
-                The function uses a pooled Postgres client to read and write structured data in a single relational
-                database.
-              </p>
-              <div class="flex flex-wrap gap-1.5">
-                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-cyan-200">
-                  PostgreSQL
-                </span>
-                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-teal-200">
-                  `pg` pooled client
-                </span>
-                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-rose-200">
-                  Aurora / RDS‑compatible
-                </span>
-              </div>
-            </div>
-          </li>
-
-          <li class="flex gap-3">
-            <div class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-fuchsia-500 text-xs font-semibold text-slate-950 shadow-sm">
-              5
-            </div>
-            <div class="space-y-1">
-              <p class="text-xs font-semibold uppercase tracking-wide text-fuchsia-200">Notify & respond</p>
-              <p class="text-sm font-semibold text-slate-50">Optional emails and responses</p>
-              <p class="text-xs text-slate-300 sm:text-[13px]">
-                For contact flows, the same serverless layer can trigger transactional emails or internal notifications.
-              </p>
-              <div class="flex flex-wrap gap-1.5">
-                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-fuchsia-200">
+              <div class="space-y-1">
+                <p class="body-text-small" style="color: var(--color-text-primary); font-weight: 500;">
                   Nodemailer
-                </span>
-                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-slate-200">
-                  Environment variables via `dotenv`
-                </span>
+                  <span style="font-weight: 400; color: var(--color-text-secondary);">
+                    — transactional email from serverless functions.
+                  </span>
+                </p>
+                <p
+                  class="body-text-small"
+                  style="font-size: 0.75rem; color: var(--color-text-secondary);"
+                >
+                  <span style="font-weight: 500;">Why:</span> A small, battle‑tested library for contact flows and internal
+                  alerts without pulling in a full email service SDK.
+                </p>
               </div>
-            </div>
-          </li>
+            </li>
+          </ul>
+        </article>
 
-          <li class="flex gap-3">
-            <div class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-slate-500 text-xs font-semibold text-slate-50 shadow-sm">
-              6
+        <!-- Data & infrastructure card -->
+        <article
+          class="card group flex flex-col gap-4 border border-[var(--color-border)] transition-colors duration-150 hover:border-[var(--color-primary)]"
+        >
+          <header class="flex items-center gap-3">
+            <div
+              class="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)]"
+            >
+              <span
+                class="text-xs font-semibold"
+                style="font-family: 'JetBrains Mono', monospace; color: var(--color-text-primary);"
+              >
+                DB
+              </span>
             </div>
-            <div class="space-y-1">
-              <p class="text-xs font-semibold uppercase tracking-wide text-slate-300">Deploy</p>
-              <p class="text-sm font-semibold text-slate-50">Code changes go live automatically</p>
-              <p class="text-xs text-slate-300 sm:text-[13px]">
-                Pushing to the main branch triggers a Vercel build: Astro pages are rebuilt, functions are redeployed, and
-                everything is served behind SSL.
+            <div>
+              <p class="section-eyebrow">
+                Layer 3
               </p>
-              <div class="flex flex-wrap gap-1.5">
-                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-slate-200">
-                  Git + CI on Vercel
-                </span>
-                <span class="rounded-full bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-slate-200">
-                  Automatic SSL & CDN
+              <h3
+                class="section-title"
+                style="
+                  font-size: 1.25rem;
+                  margin-top: var(--sp-1);
+                "
+              >
+                Data &amp; infrastructure
+              </h3>
+            </div>
+          </header>
+
+          <ul class="mt-2 space-y-4">
+            <li class="flex items-start gap-3">
+              <div
+                class="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)]"
+              >
+                <span
+                  class="text-[11px] font-semibold"
+                  style="font-family: 'JetBrains Mono', monospace; color: var(--color-text-primary);"
+                >
+                  PG
                 </span>
               </div>
-            </div>
-          </li>
-        </ol>
-        </div>
-      </section>
+              <div class="space-y-1">
+                <p class="body-text-small" style="color: var(--color-text-primary); font-weight: 500;">
+                  PostgreSQL
+                  <span style="font-weight: 400; color: var(--color-text-secondary);">
+                    — main relational database for messages and metadata.
+                  </span>
+                </p>
+                <p
+                  class="body-text-small"
+                  style="font-size: 0.75rem; color: var(--color-text-secondary);"
+                >
+                  <span style="font-weight: 500;">Why:</span> Proven, durable storage that comfortably handles 100k+ messages
+                  per day with structured queries and proper indexing.
+                </p>
+              </div>
+            </li>
 
-      <section class="section-tight" style="padding-top: 0;">
-        <h2 class="section-eyebrow">
-          Stack by layer (summary)
-        </h2>
-        <div class="card" style="margin-top: var(--sp-3); display: grid; gap: var(--sp-4);">
-        <div class="space-y-2">
-            <p class="section-eyebrow">Frontend</p>
-            <ul class="body-text-small">
-              <li><span style="font-weight: 500;">Astro</span> for fast, mostly static pages.</li>
-              <li><span style="font-weight: 500;">React islands</span> where interactivity is needed.</li>
-              <li><span style="font-weight: 500;">Tailwind CSS</span> for consistent design tokens.</li>
-            </ul>
-          </div>
-          <div class="space-y-2">
-            <p class="section-eyebrow">Backend</p>
-            <ul class="body-text-small">
-              <li><span style="font-weight: 500;">Vercel Functions</span> for small, focused APIs.</li>
-              <li><span style="font-weight: 500;">Node.js</span> runtime for server logic.</li>
-              <li><span style="font-weight: 500;">Nodemailer</span> for transactional email.</li>
-            </ul>
-          </div>
-          <div class="space-y-2">
-            <p class="section-eyebrow">Data &amp; infra</p>
-            <ul class="body-text-small">
-              <li><span style="font-weight: 500;">PostgreSQL</span> as the main database.</li>
-              <li><span style="font-weight: 500;">`pg` pooled client</span> for safe connections.</li>
-              <li><span style="font-weight: 500;">Vercel</span> for hosting, SSL, and CDN.</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+            <li class="flex items-start gap-3">
+              <div
+                class="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)]"
+              >
+                <span
+                  class="text-[11px] font-semibold"
+                  style="font-family: 'JetBrains Mono', monospace; color: var(--color-text-primary);"
+                >
+                  pg
+                </span>
+              </div>
+              <div class="space-y-1">
+                <p class="body-text-small" style="color: var(--color-text-primary); font-weight: 500;">
+                  `pg` pooled client
+                  <span style="font-weight: 400; color: var(--color-text-secondary);">
+                    — safe database connections in serverless environments.
+                  </span>
+                </p>
+                <p
+                  class="body-text-small"
+                  style="font-size: 0.75rem; color: var(--color-text-secondary);"
+                >
+                  <span style="font-weight: 500;">Why:</span> Connection pooling avoids exhausting database limits while still
+                  giving each function a clean, typed interface to Postgres.
+                </p>
+              </div>
+            </li>
+
+            <li class="flex items-start gap-3">
+              <div
+                class="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-bg)]"
+              >
+                <span
+                  class="text-[11px] font-semibold"
+                  style="font-family: 'JetBrains Mono', monospace; color: var(--color-text-primary);"
+                >
+                  V
+                </span>
+              </div>
+              <div class="space-y-1">
+                <p class="body-text-small" style="color: var(--color-text-primary); font-weight: 500;">
+                  Vercel (hosting, SSL, CDN)
+                  <span style="font-weight: 400; color: var(--color-text-secondary);">
+                    — deploys, certificates, and edge caching out of the box.
+                  </span>
+                </p>
+                <p
+                  class="body-text-small"
+                  style="font-size: 0.75rem; color: var(--color-text-secondary);"
+                >
+                  <span style="font-weight: 500;">Why:</span> Pushing to main triggers a full build and deploy: Astro pages are
+                  rebuilt, functions refreshed, and everything served securely from a global edge network.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </article>
+      </div>
     </div>
   </section>
 </Layout>
