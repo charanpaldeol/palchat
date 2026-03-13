@@ -19,11 +19,14 @@ async function getPool(): Promise<InstanceType<typeof Pool>> {
     if (!databaseUrl) {
       throw new Error("Database not configured: set DATABASE_URL");
     }
+    const isLocal = databaseUrl.includes("localhost");
     const p = new Pool({
       connectionString: databaseUrl,
-      ssl: databaseUrl.startsWith("postgresql://") && !databaseUrl.includes("localhost")
-        ? { rejectUnauthorized: false }
-        : undefined,
+      // Use TLS with certificate verification for remote DBs (e.g. Neon). Never disable verification in production.
+      ssl:
+        databaseUrl.startsWith("postgresql://") && !isLocal
+          ? { rejectUnauthorized: true }
+          : undefined,
       max: 20,
     });
     pool = p;

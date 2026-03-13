@@ -18,9 +18,13 @@ async function run() {
   const sqlPath = process.argv[2] || path.join(__dirname, '../sql/001_comments.sql');
   const sql = fs.readFileSync(sqlPath, 'utf8');
 
+  const isLocal = process.env.DATABASE_URL?.includes('localhost');
   const client = new Client({
     connectionString: process.env.DATABASE_URL,
-    ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : undefined,
+    ssl:
+      process.env.DATABASE_URL && !isLocal
+        ? { rejectUnauthorized: true }
+        : undefined,
   });
 
   try {

@@ -31,7 +31,7 @@ async function testEmailConfig() {
       pass: process.env.EMAIL_PASS
     },
     tls: {
-      rejectUnauthorized: false
+      rejectUnauthorized: true
     }
   });
   
