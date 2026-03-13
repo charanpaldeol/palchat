@@ -10,7 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.palchat.org',
+  site: 'https://www.reclaim.org',
   output: 'server',
   integrations: [tailwind(), react()],
   adapter: vercel({}),

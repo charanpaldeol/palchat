@@ -1,6 +1,6 @@
-# Email Setup for PalChat Contact Form
+# Email Setup for Reclaim Contact Form
 
-This guide explains how to set up email forwarding for the PalChat contact form to send emails to `dial25.scaly@icloud.com`.
+This guide explains how to set up email forwarding for the Reclaim contact form to send emails to `dial25.scaly@icloud.com`.
 
 ## Prerequisites
 
@@ -31,7 +31,7 @@ EMAIL_PASS=your-app-password
 ### 3. Vercel Environment Variables Setup
 
 1. Go to your Vercel dashboard
-2. Select your PalChat project
+2. Select your Reclaim project
 3. Go to Settings → Environment Variables
 4. Add the following variables:
    - `EMAIL_USER`: Your Gmail address
@@ -76,7 +76,7 @@ const transporter = nodemailer.createTransporter({
 ## Email Format
 
 The forwarded emails include:
-- **Subject**: "PalChat Contact: [User's Subject]"
+- **Subject**: "Reclaim Contact: [User's Subject]"
 - **From**: Your configured email address
 - **To**: dial25.scaly@icloud.com
 - **Content**: Formatted HTML email with user's message and metadata

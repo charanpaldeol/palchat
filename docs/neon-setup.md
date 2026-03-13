@@ -1,4 +1,4 @@
-# Connect Palchat to Neon (Postgres)
+# Connect Reclaim to Neon (Postgres)
 
 Use Neon’s serverless Postgres with a single connection string. No IAM, no AWS — works with your existing `DATABASE_URL` setup.
 

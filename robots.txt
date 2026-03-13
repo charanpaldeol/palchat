@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://palchat.com/sitemap.xml
+Sitemap: https://www.reclaim.org/sitemap.xml
 
 # Crawl-delay for respectful crawling
 Crawl-delay: 1

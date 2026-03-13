@@ -13,7 +13,7 @@ You can keep your domain and code and only change where the database comes from,
 | **Neon** | Serverless Postgres, free tier, connection string in minutes. Works with Vercel. | Sign up at neon.tech → Create project → Copy `DATABASE_URL` → Add to Vercel env vars. Your existing `db.ts` already uses `DATABASE_URL`. |
 | **Vercel Marketplace (Neon/Supabase)** | Postgres from Vercel dashboard; env vars can be linked to the project. | In Vercel project: Storage / Integrations → Add Postgres (Neon or Supabase) → env vars auto-added. |
 
-**You keep:** Current repo, Vercel deployment, domain (palchat.org).  
+**You keep:** Current repo, Vercel deployment, domain (reclaim.org).  
 **You change:** Only where `DATABASE_URL` comes from (e.g. Neon or Marketplace).
 
 ---
@@ -47,7 +47,7 @@ You can keep your domain and code and only change where the database comes from,
 ## Recommendation
 
 - **Fastest and least change:** Use **Neon** (or Postgres via **Vercel Marketplace**). Keep app and domain on Vercel; add one env var `DATABASE_URL`. No move, no IAM.
-- **Want everything in one place:** Use **Railway** — one dashboard for app + Postgres, then point palchat.org to Railway.
+- **Want everything in one place:** Use **Railway** — one dashboard for app + Postgres, then point reclaim.org to Railway.
 
 ---
 

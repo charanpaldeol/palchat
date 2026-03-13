@@ -1,4 +1,4 @@
-# Font Consistency Guide - PalChat Website
+# Font Consistency Guide - Reclaim Website
 
 ## 🎯 **Typography Standards**
 
@@ -161,4 +161,4 @@ font-semibold text-lg px-8 py-4
 | Labels | `text-base` | `font-semibold` | `text-gray-700` | `leading-normal` |
 | Buttons | `text-lg` | `font-semibold` | `text-white` | `leading-normal` |
 
-This guide ensures consistent typography across all pages and components of the PalChat website. 
+This guide ensures consistent typography across all pages and components of the Reclaim website. 

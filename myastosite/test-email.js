@@ -46,9 +46,9 @@ async function testEmailConfig() {
     const testEmail = {
       from: process.env.EMAIL_USER,
       to: 'dial25.scaly@icloud.com',
-      subject: 'PalChat Test Email',
-      text: 'This is a test email from PalChat contact form.',
-      html: '<h1>Test Email</h1><p>This is a test email from PalChat contact form.</p>'
+      subject: 'Reclaim Test Email',
+      text: 'This is a test email from Reclaim contact form.',
+      html: '<h1>Test Email</h1><p>This is a test email from Reclaim contact form.</p>'
     };
     
     const result = await transporter.sendMail(testEmail);

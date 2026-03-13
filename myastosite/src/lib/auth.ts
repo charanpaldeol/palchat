@@ -56,7 +56,7 @@ export async function deleteSessionsForUser(userId: number): Promise<void> {
 
 /** Cookie options for session cookie. */
 export function sessionCookieOptions(host: string): { path: string; httpOnly: boolean; secure: boolean; sameSite: "lax" | "strict"; maxAge: number } {
-  const isProd = host.includes("palchat.org") || host.includes("vercel.app");
+  const isProd = host.includes("reclaim.org") || host.includes("palchat.org") || host.includes("vercel.app");
   return {
     path: "/",
     httpOnly: true,
