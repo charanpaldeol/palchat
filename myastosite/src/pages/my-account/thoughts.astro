@@ -1,29 +1,28 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import AccountLayout from "../components/pages/account/AccountLayout.astro";
+import Layout from "../../layouts/Layout.astro";
+import AccountLayout from "../../components/pages/account/AccountLayout.astro";
 
 if (!Astro.locals.user) {
-  return Astro.redirect("/login?redirect=/my-account");
+  return Astro.redirect("/login?redirect=/my-account/thoughts");
 }
-
-const user = Astro.locals.user;
 ---
 
-<Layout title="My account – Palchat">
+<Layout title="Private thoughts – Palchat">
   <AccountLayout>
     <div
       class="card"
       style="padding: var(--sp-6); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px;"
     >
       <h2 class="section-title" style="margin-bottom: var(--sp-2);">
-        Overview
+        Private thoughts
       </h2>
       <p class="body-text" style="color: var(--color-text-secondary);">
-        You’re logged in as <strong>{user.username}</strong>.
+        This is a future home for private reflections — a space distinct from the public “Your thoughts” page.
       </p>
       <p class="body-text-small" style="margin-top: var(--sp-3); color: var(--color-text-secondary);">
-        This is your account overview. Use the navigation on the left to explore other areas as they come online.
+        It’s currently an empty page, gated behind login, ready for experiments in co-owned, non-extractive thinking tools.
       </p>
     </div>
   </AccountLayout>
 </Layout>
+

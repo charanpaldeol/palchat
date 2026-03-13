@@ -1,0 +1,109 @@
+---
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { href: "/my-account", label: "Overview" },
+  { href: "/my-account/profile", label: "Profile" },
+  { href: "/my-account/settings", label: "Settings" },
+];
+---
+
+<section class="section">
+  <div class="app-container" style="max-width: 960px;">
+    <h1 class="page-hero-title" style="margin-bottom: var(--sp-2);">
+      My account
+    </h1>
+    <p class="page-hero-subtitle" style="margin-bottom: var(--sp-6);">
+      A calm, private space where you’ll soon be able to manage your Palchat presence.
+    </p>
+
+    <div
+      class="account-layout"
+      style="
+        display: flex;
+        gap: var(--sp-6);
+        align-items: flex-start;
+      "
+    >
+      <aside
+        class="account-sidebar"
+        style="
+          width: 240px;
+          background: var(--color-surface);
+          border: 1px solid var(--color-border);
+          border-radius: 12px;
+          padding: var(--sp-4);
+        "
+      >
+        <div
+          class="section-eyebrow"
+          style="margin-bottom: var(--sp-3); color: var(--color-text-secondary);"
+        >
+          Account
+        </div>
+        <nav
+          aria-label="Account navigation"
+          style="display: flex; flex-direction: column; gap: var(--sp-1);"
+        >
+          {links.map((link) => {
+            const isActive =
+              currentPath === link.href ||
+              (link.href !== "/my-account" && currentPath.startsWith(link.href));
+
+            return (
+              <a
+                href={link.href}
+                class={`account-nav-link ${isActive ? "account-nav-link--active" : ""}`}
+                style="
+                  display: block;
+                  padding: 8px 10px;
+                  border-radius: 8px;
+                  font-size: 0.9rem;
+                  font-weight: 500;
+                  color: var(--color-text-secondary);
+                  text-decoration: none;
+                  transition: background-color 150ms ease, color 150ms ease;
+                "
+              >
+                {link.label}
+              </a>
+            );
+          })}
+        </nav>
+      </aside>
+
+      <div
+        class="account-content"
+        style="
+          flex: 1;
+          min-width: 0;
+        "
+      >
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .account-nav-link:hover {
+    color: var(--color-text-primary);
+    background: var(--color-surface);
+  }
+
+  .account-nav-link--active {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 768px) {
+    .account-layout {
+      flex-direction: column;
+    }
+
+    .account-sidebar {
+      width: 100%;
+    }
+  }
+</style>
+

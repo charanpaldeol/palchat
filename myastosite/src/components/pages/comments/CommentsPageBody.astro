@@ -71,9 +71,11 @@ try {
         Database unavailable: {dbError}
       </div>
     ) : (
-      <div style="margin-top: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-3);">
+      <div style="margin-top: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-4);">
         {comments.length === 0 ? (
-          <p class="body-text-small">No comments yet.</p>
+          <p class="body-text-small">
+            No thoughts here yet. Be the first to sketch where Palchat should go next.
+          </p>
         ) : (
           comments.map((comment) => {
             const createdAt = comment.created_at ? new Date(comment.created_at) : null;
@@ -90,10 +92,44 @@ try {
 
             return (
               <div class="card">
-                <p class="body-text-small">{comment.comment ?? ''}</p>
-                <div class="body-text-small" style="margin-top: var(--sp-1); color: var(--color-text-disabled);">
-                  {formatted ? `Saved on ${formatted}` : `ID ${comment.id}`}
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: var(--sp-3);
+                    margin-bottom: var(--sp-2);
+                  "
+                >
+                  <div style="display: flex; align-items: center; gap: var(--sp-2);">
+                    <div
+                      style="
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: var(--color-primary-light);
+                        color: var(--color-primary);
+                        font-size: 0.75rem;
+                        font-weight: 600;
+                      "
+                      aria-hidden="true"
+                    >
+                      A
+                    </div>
+                    <div class="body-text-small" style="color: var(--color-text-primary); font-weight: 500;">
+                      Anonymous thinker
+                    </div>
+                  </div>
+                  <div class="body-text-small" style="color: var(--color-text-disabled); white-space: nowrap;">
+                    {formatted ? formatted : `ID ${comment.id}`}
+                  </div>
                 </div>
+                <p class="body-text-small" style="margin: 0;">
+                  {comment.comment ?? ''}
+                </p>
               </div>
             );
           })
