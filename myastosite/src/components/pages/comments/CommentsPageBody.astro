@@ -1,6 +1,10 @@
 ---
 import { query } from '@/lib/db';
 
+const searchParams = Astro.url.searchParams;
+const justSaved = searchParams.get('success') === '1';
+const hasError = searchParams.get('error') === '1';
+
 let comments: { id: number; comment: string | null }[] = [];
 let dbError: string | null = null;
 try {
@@ -14,15 +18,52 @@ try {
 <section class="section">
   <div class="app-container" style="max-width: 720px;">
     <h1 class="section-title">
-      Comments demo
+      Comments
     </h1>
     <p class="body-text" style="margin-top: var(--sp-3);">
-      A minimal example of Palchat reading from PostgreSQL. This page is intentionally simple: no forms, just a list
-      of comments from the database.
+      Type your comment below (up to 50 words) and save it to the database. Recent comments are listed underneath.
     </p>
 
-    {dbError ? (
+    {justSaved && (
+      <div class="alert alert-success" style="margin-top: var(--sp-3);">
+        Saved. Your comment has been stored in the database.
+      </div>
+    )}
+
+    {hasError && (
       <div class="alert alert-error" style="margin-top: var(--sp-3);">
+        Please enter between 1 and 50 words before saving.
+      </div>
+    )}
+
+    <form
+      method="post"
+      action="/api/add-comment?redirect=/comments"
+      style="margin-top: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-4);"
+    >
+      <div class="field">
+        <label for="comment" class="field-label">
+          Your comment
+        </label>
+        <textarea
+          id="comment"
+          name="comment"
+          class="input"
+          rows="3"
+          required
+        ></textarea>
+        <p class="field-helper">
+          Up to 50 words. Empty comments or longer inputs will show an error and will not be saved.
+        </p>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        Save comment
+      </button>
+    </form>
+
+    {dbError ? (
+      <div class="alert alert-error" style="margin-top: var(--sp-4);">
         Database unavailable: {dbError}
       </div>
     ) : (
