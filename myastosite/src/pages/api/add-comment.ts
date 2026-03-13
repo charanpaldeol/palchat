@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { query } from '@/lib/db';
+import { addThought } from '@/lib/repositories/thoughtsRepository';
 
 /** Allowed redirect paths only (prevents open redirect). Comments and add-comment merged into /comments. */
 const ALLOWED_REDIRECT_PATHS = ['/comments'] as const;
@@ -57,7 +57,7 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    await query('INSERT INTO thoughts (comment) VALUES ($1)', [comment]);
+    await addThought(comment);
 
     return new Response(null, {
       status: 303,

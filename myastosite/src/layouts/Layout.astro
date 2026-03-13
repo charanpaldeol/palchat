@@ -1,10 +1,22 @@
 ---
 interface Props {
   title?: string;
+  /** Meta description for SEO and social sharing. Defaults to site tagline when omitted. */
+  description?: string;
+  /** When true, adds robots noindex,nofollow (e.g. login, signup, my-account). */
+  noindex?: boolean;
 }
 
-const { title = 'Reclaim' } = Astro.props;
+const { title = 'Reclaim', description, noindex = false } = Astro.props;
 const currentPath = Astro.url.pathname;
+const siteOrigin = import.meta.env.SITE
+  ? new URL(import.meta.env.SITE).origin
+  : Astro.url.origin;
+const canonicalUrl = `${siteOrigin}${currentPath}`;
+const defaultDescription =
+  'Reclaim is a co-owned, ad-free space to think, write, and build tools that serve human will — not surveillance algorithms or engagement dashboards.';
+const metaDescription = description ?? defaultDescription;
+const ogImage = `${siteOrigin}/logo.svg`;
 
 const isHome = currentPath === '/';
 const isAbout = currentPath.startsWith('/about') && !currentPath.startsWith('/about/tech-stack');
@@ -31,6 +43,24 @@ import '../styles/global.css';
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title}</title>
+        <meta name="description" content={metaDescription} />
+        {noindex && (
+          <meta name="robots" content="noindex, nofollow" />
+        )}
+        <link rel="canonical" href={canonicalUrl} />
+        <!-- Open Graph -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:site_name" content="Reclaim" />
+        <meta property="og:locale" content="en" />
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content={ogImage} />
         <link rel="icon" type="image/svg+xml" href="/logo.svg" />
         <link
           rel="stylesheet"

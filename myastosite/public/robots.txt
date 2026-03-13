@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /signup
+Disallow: /my-account/
+Disallow: /api/
+
+Sitemap: https://www.reclaim.org/sitemap.xml

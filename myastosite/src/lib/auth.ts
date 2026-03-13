@@ -1,5 +1,12 @@
 import bcrypt from "bcrypt";
 import { query } from "./db";
+import { createUserRecord, deleteUserRecord, getUserByUsername } from "./repositories/userRepository";
+import {
+  createSessionRecord,
+  deleteSessionRecord,
+  deleteSessionsForUserRecord,
+  getSessionUserRecord,
+} from "./repositories/sessionRepository";
 
 const SALT_ROUNDS = 10;
 const SESSION_COOKIE = "sid";
@@ -21,37 +28,25 @@ export async function verifyPassword(password: string, hash: string): Promise<bo
 export async function createSession(userId: number): Promise<string> {
   const expiresAt = new Date();
   expiresAt.setDate(expiresAt.getDate() + SESSION_DAYS);
-  const result = await query(
-    "INSERT INTO sessions (user_id, expires_at) VALUES ($1, $2) RETURNING id",
-    [userId, expiresAt.toISOString()]
-  );
-  const row = result.rows[0];
-  if (!row?.id) throw new Error("Failed to create session");
-  return row.id;
+  return createSessionRecord(userId, expiresAt);
 }
 
 /** Get user from session id if valid and not expired. */
 export async function getSessionUser(sessionId: string | undefined): Promise<User | null> {
   if (!sessionId) return null;
-  const result = await query(
-    `SELECT u.id, u.username FROM users u
-     INNER JOIN sessions s ON s.user_id = u.id
-     WHERE s.id = $1 AND s.expires_at > NOW()`,
-    [sessionId]
-  );
-  const row = result.rows[0];
-  if (!row) return null;
-  return { id: row.id, username: row.username };
+  const sessionUser = await getSessionUserRecord(sessionId);
+  if (!sessionUser) return null;
+  return { id: sessionUser.userId, username: sessionUser.username };
 }
 
 /** Delete a session by id. */
 export async function deleteSession(sessionId: string): Promise<void> {
-  await query("DELETE FROM sessions WHERE id = $1", [sessionId]);
+  await deleteSessionRecord(sessionId);
 }
 
 /** Delete all sessions for a user (e.g. on password change). */
 export async function deleteSessionsForUser(userId: number): Promise<void> {
-  await query("DELETE FROM sessions WHERE user_id = $1", [userId]);
+  await deleteSessionsForUserRecord(userId);
 }
 
 /** Cookie options for session cookie. */
@@ -72,22 +67,16 @@ export function getSessionCookieName(): string {
 
 /** Find user by username. */
 export async function findUserByUsername(username: string): Promise<{ id: number; username: string; password_hash: string } | null> {
-  const result = await query("SELECT id, username, password_hash FROM users WHERE username = $1", [username]);
-  return result.rows[0] ?? null;
+  return getUserByUsername(username);
 }
 
 /** Create user; returns new user or throws (e.g. duplicate username). */
 export async function createUser(username: string, passwordHash: string): Promise<User> {
-  const result = await query(
-    "INSERT INTO users (username, password_hash) VALUES ($1, $2) RETURNING id, username",
-    [username, passwordHash]
-  );
-  const row = result.rows[0];
-  if (!row) throw new Error("Failed to create user");
-  return { id: row.id, username: row.username };
+  const user = await createUserRecord(username, passwordHash);
+  return { id: user.id, username: user.username };
 }
 
 /** Permanently delete a user and all their sessions (sessions CASCADE on user delete). */
 export async function deleteUser(userId: number): Promise<void> {
-  await query("DELETE FROM users WHERE id = $1", [userId]);
+  await deleteUserRecord(userId);
 }
