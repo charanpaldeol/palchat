@@ -1,0 +1,15 @@
+---
+description: Enforce SaaS UI design system rules (DESIGN_SYSTEM.md)
+alwaysApply: true
+---
+
+# SaaS Design System Rules
+
+Follow `DESIGN_SYSTEM.md` for all UI and frontend work in this project.
+
+- Use only the typography, color palette, spacing tokens, components, and layout rules defined in `DESIGN_SYSTEM.md`.
+- Do not introduce new fonts, colors, spacing values, or border-radius values beyond what the design system defines.
+- Use CSS variables (e.g. `var(--color-primary)`, `var(--sp-4)`) instead of hardcoded hex values or arbitrary pixel values.
+- Keep navbar, header, footer, buttons, cards, inputs, layout, and animations consistent with the spec.
+- If a requested change conflicts with the design system, warn the user and suggest a compliant alternative.
+

@@ -6,13 +6,6 @@ interface Props {
 const { title = 'Palchat' } = Astro.props;
 const currentPath = Astro.url.pathname;
 
-const baseNavLink =
-  'rounded-full px-3 py-1.5 text-xs sm:text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white';
-
-const neutralNavLink = `${baseNavLink} text-slate-600 hover:bg-slate-100 hover:text-slate-900`;
-const primaryNavLink =
-  baseNavLink + ' bg-indigo-600 text-white shadow-sm hover:bg-indigo-700';
-
 const isHome = currentPath === '/';
 const isAbout = currentPath.startsWith('/about') && !currentPath.startsWith('/about/tech-stack');
 const isTechStack = currentPath === '/tech-stack' || currentPath.startsWith('/about/tech-stack');
@@ -24,73 +17,111 @@ import '../styles/global.css';
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-  </head>
-  <body class="bg-slate-50 text-slate-900 antialiased">
-    <div class="flex min-h-screen flex-col">
-      <header class="border-b border-slate-200 bg-white/80 backdrop-blur">
-        <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          <a href="/" class="flex items-center gap-2">
-            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-500 text-xs font-semibold text-white shadow-sm">
-              P
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{title}</title>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono&display=swap"
+        />
+      </head>
+      <body>
+        <div class="app-root">
+          <header class="site-header" id="site-header">
+            <div class="app-container site-header-inner">
+              <a href="/" class="logo-lockup">
+                <div class="logo-badge">
+                  P
+                </div>
+                <span class="logo-text">Palchat</span>
+              </a>
+              <nav class="nav-links" aria-label="Main">
+                <a
+                  href="/"
+                  class={`nav-link ${isHome ? 'nav-link--active' : ''}`}
+                  aria-current={isHome ? 'page' : undefined}
+                >
+                  Home
+                </a>
+                <a
+                  href="/about"
+                  class={`nav-link ${isAbout ? 'nav-link--active' : ''}`}
+                  aria-current={isAbout ? 'page' : undefined}
+                >
+                  About
+                </a>
+                <a
+                  href="/tech-stack"
+                  class={`nav-link ${isTechStack ? 'nav-link--active' : ''}`}
+                  aria-current={isTechStack ? 'page' : undefined}
+                >
+                  Tech stack
+                </a>
+                <a
+                  href="/comments"
+                  class={`nav-link ${isComments ? 'nav-link--active' : ''}`}
+                  aria-current={isComments ? 'page' : undefined}
+                >
+                  Comments demo
+                </a>
+                <a
+                  href="/millet-guide"
+                  class={`nav-link ${isMilletGuide ? 'nav-link--active' : ''}`}
+                  aria-current={isMilletGuide ? 'page' : undefined}
+                >
+                  Millet guide
+                </a>
+              </nav>
             </div>
-            <span class="text-sm font-semibold tracking-tight text-slate-900 sm:text-base">Palchat</span>
-          </a>
-          <nav class="flex items-center gap-3 text-xs text-slate-500 sm:gap-5 sm:text-sm">
-            <a
-              href="/"
-              class={isHome ? primaryNavLink : neutralNavLink}
-              aria-current={isHome ? 'page' : undefined}
-            >
-              Home
-            </a>
-            <a
-              href="/about"
-              class={isAbout ? primaryNavLink : neutralNavLink}
-              aria-current={isAbout ? 'page' : undefined}
-            >
-              About
-            </a>
-            <a
-              href="/tech-stack"
-              class={isTechStack ? primaryNavLink : neutralNavLink}
-              aria-current={isTechStack ? 'page' : undefined}
-            >
-              Tech stack
-            </a>
-            <a
-              href="/comments"
-              class={isComments ? primaryNavLink : neutralNavLink}
-              aria-current={isComments ? 'page' : undefined}
-            >
-              Comments demo
-            </a>
-            <a
-              href="/millet-guide"
-              class={isMilletGuide ? primaryNavLink : neutralNavLink}
-              aria-current={isMilletGuide ? 'page' : undefined}
-            >
-              Millet guide
-            </a>
-          </nav>
-        </div>
-      </header>
+          </header>
 
-      <main class="flex-1">
-        <slot />
-      </main>
+          <main class="app-main">
+            <slot />
+          </main>
 
-      <footer class="border-t border-slate-200 bg-white/80">
-        <div class="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-          <span>© {new Date().getFullYear()} Palchat. All rights reserved.</span>
-          <div class="flex flex-wrap gap-4">
-            <a href="mailto:hello@palchat.org" class="hover:text-slate-900">Contact</a>
-          </div>
+          <footer class="site-footer">
+            <div class="app-container">
+              <div class="site-footer-grid">
+                <div class="footer-logo">
+                  <span class="logo-text">Palchat</span>
+                  <p class="body-text-small">
+                    A calm home for product ideas, essays, and tiny tools.
+                  </p>
+                </div>
+                <div class="footer-links">
+                  <span class="section-eyebrow">Product</span>
+                  <a href="/" class="footer-link">Home</a>
+                  <a href="/about" class="footer-link">About</a>
+                  <a href="/tech-stack" class="footer-link">Tech stack</a>
+                </div>
+                <div class="footer-links">
+                  <span class="section-eyebrow">Contact</span>
+                  <a href="/comments" class="footer-link">Comments demo</a>
+                  <a href="mailto:hello@palchat.org" class="footer-link">Email</a>
+                </div>
+              </div>
+              <div class="footer-meta">
+                <span>© {new Date().getFullYear()} Palchat. All rights reserved.</span>
+                <span>Built with Astro, React, and Postgres.</span>
+              </div>
+            </div>
+          </footer>
         </div>
-      </footer>
-    </div>
-  </body>
-</html>
+        <script>
+          if (typeof window !== 'undefined') {
+            const header = document.getElementById('site-header');
+            if (header) {
+              const onScroll = () => {
+                if (window.scrollY > 0) {
+                  header.classList.add('scrolled');
+                } else {
+                  header.classList.remove('scrolled');
+                }
+              };
+              window.addEventListener('scroll', onScroll, { passive: true });
+            }
+          }
+        </script>
+      </body>
+    </html>
