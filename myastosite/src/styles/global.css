@@ -121,12 +121,24 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--sp-4);
 }
 
 .logo-lockup {
   display: flex;
   align-items: center;
   gap: var(--sp-2);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 150ms ease;
+}
+
+.logo-lockup:hover {
+  opacity: 0.85;
+}
+
+.logo-lockup:hover .logo-text {
+  color: var(--color-primary);
 }
 
 .logo-badge {
@@ -140,43 +152,79 @@ a:hover {
   color: #ffffff;
   font-size: 0.75rem;
   font-weight: 600;
+  flex-shrink: 0;
 }
 
 .logo-text {
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-text-primary);
+  transition: color 150ms ease;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: var(--sp-3);
+  gap: var(--sp-1);
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--color-text-secondary);
 }
 
 .nav-link {
-  padding: var(--sp-1) var(--sp-2);
-  border-radius: 99px;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: 8px;
   text-decoration: none;
   color: inherit;
-  transition: color 150ms ease, background-color 150ms ease;
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+  border-bottom: 2px solid transparent;
 }
 
 .nav-link:hover {
   color: var(--color-text-primary);
+  background: var(--color-surface);
 }
 
 .nav-link--active {
   color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
 }
 
 .nav-cta {
   display: flex;
   align-items: center;
   gap: var(--sp-3);
+  padding-left: var(--sp-4);
+  border-left: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.nav-cta .btn {
+  white-space: nowrap;
+}
+
+.nav-logout-form {
+  display: inline;
+}
+
+.btn-nav {
+  padding: 10px 20px;
+}
+
+@media (max-width: 767px) {
+  .site-header-inner {
+    gap: var(--sp-2);
+  }
+  .nav-links {
+    gap: 0;
+  }
+  .nav-link {
+    padding: var(--sp-1) var(--sp-2);
+    font-size: 0.85rem;
+  }
+  .nav-cta {
+    padding-left: var(--sp-2);
+  }
 }
 
 /* Footer */
