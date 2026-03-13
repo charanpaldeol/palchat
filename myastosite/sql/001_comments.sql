@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS comments (
+CREATE TABLE IF NOT EXISTS thoughts (
   id SERIAL PRIMARY KEY,
-  comment TEXT
+  comment TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

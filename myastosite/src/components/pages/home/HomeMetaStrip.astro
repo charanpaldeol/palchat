@@ -1,36 +1,80 @@
 ---
+/** CTA strip + value props. Vision-aligned. */
 ---
 
-<section class="section-tight" style="padding-top: var(--sp-5); padding-bottom: 0;">
+<section class="home-meta">
   <div class="app-container">
-    <div class="flex flex-wrap gap-3">
+    <div class="home-meta__ctas">
       <a href="#essay" class="btn btn-primary">
         Read the digital destiny essay
         <span aria-hidden="true">→</span>
       </a>
       <a href="/about" class="btn btn-secondary">
-        Why Palchat rejects ad-driven feeds
+        Why we reject ad-driven feeds
       </a>
     </div>
-  </div>
-</section>
-
-<section class="section-tight" style="padding-top: 0;">
-  <div class="app-container">
-    <div class="grid gap-4 sm:grid-cols-3">
-      <div class="space-y-1">
-        <p class="body-text-small section-eyebrow" style="margin: 0;">Format</p>
-        <p class="body-text-small">Essays and tools for reclaiming your stack.</p>
+    <div class="home-meta__strip">
+      <div class="home-meta__item">
+        <span class="section-eyebrow home-meta__label">Format</span>
+        <p class="body-text-small home-meta__text">Essays and tools for reclaiming your stack.</p>
       </div>
-      <div class="space-y-1">
-        <p class="body-text-small section-eyebrow" style="margin: 0;">Noise</p>
-        <p class="body-text-small">No ads, no feeds, no dark patterns.</p>
+      <div class="home-meta__item">
+        <span class="section-eyebrow home-meta__label">Noise</span>
+        <p class="body-text-small home-meta__text">No ads, no feeds, no dark patterns.</p>
       </div>
-      <div class="space-y-1">
-        <p class="body-text-small section-eyebrow" style="margin: 0;">Audience</p>
-        <p class="body-text-small">People who refuse to be just data points.</p>
+      <div class="home-meta__item">
+        <span class="section-eyebrow home-meta__label">Audience</span>
+        <p class="body-text-small home-meta__text">People who refuse to be just data points.</p>
       </div>
     </div>
   </div>
 </section>
 
+<style>
+  .home-meta {
+    padding-top: var(--sp-5);
+    padding-bottom: var(--sp-8);
+  }
+
+  .home-meta__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+    margin-bottom: var(--sp-6);
+  }
+
+  .home-meta__ctas .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .home-meta__strip {
+    display: grid;
+    gap: var(--sp-5);
+    grid-template-columns: 1fr;
+    padding-top: var(--sp-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 640px) {
+    .home-meta__strip {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-6);
+    }
+  }
+
+  .home-meta__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+  }
+
+  .home-meta__label {
+    margin: 0;
+  }
+
+  .home-meta__text {
+    margin: 0;
+  }
+</style>

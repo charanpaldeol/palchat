@@ -1,59 +1,162 @@
 ---
+/** Vision section: against / instead / who for. Design-system cards + icons. */
 ---
 
-<section class="section" style="padding-top: var(--sp-7); padding-bottom: var(--sp-8);">
+<section id="vision" class="section home-vision" aria-labelledby="vision-heading">
   <div class="app-container">
-    <header style="text-align: left; max-width: 720px; margin-bottom: var(--sp-5);">
+    <header class="home-vision__header">
       <p class="section-eyebrow">Vision</p>
-      <h2 class="section-title" style="font-size: 1.5rem;">
+      <h2 id="vision-heading" class="home-vision__title">
         A calm, co-owned space in a captured internet
       </h2>
-      <p class="body-text" style="margin-top: var(--sp-3);">
-        Most platforms are optimized to harvest attention and data. Palchat is built for something else: people who
-        want to own their digital life, think clearly, and build tools that answer to them — not to an ad exchange.
+      <p class="body-text home-vision__lead">
+        Most platforms are optimized to harvest attention and data. Palchat is built for something else: people who want to own their digital life, think clearly, and build tools that answer to them — not to an ad exchange.
       </p>
     </header>
 
-    <div class="grid gap-6 md:grid-cols-3">
-      <article class="card">
-        <h3 class="section-title" style="font-size: 1.1rem;">
+    <div class="home-vision__grid">
+      <article class="card home-vision__card">
+        <div class="home-vision__icon home-vision__icon--against" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="m4.9 4.9 14.2 14.2" />
+          </svg>
+        </div>
+        <h3 class="section-title home-vision__card-title">
           What we stand against
         </h3>
-        <div class="card-body">
-          <ul class="body-text-small" style="margin: 0; padding-left: 1.1rem; list-style: disc;">
-            <li>Infinite feeds and engagement loops that treat people as metrics.</li>
-            <li>Surveillance advertising and &quot;personalization&quot; that quietly profiles you.</li>
-            <li>Black-box platforms where you can&apos;t see or change how things work.</li>
-          </ul>
-        </div>
+        <ul class="body-text-small home-vision__list">
+          <li>Infinite feeds and engagement loops that treat people as metrics.</li>
+          <li>Surveillance advertising and &quot;personalization&quot; that quietly profiles you.</li>
+          <li>Black-box platforms where you can&apos;t see or change how things work.</li>
+        </ul>
       </article>
 
-      <article class="card">
-        <h3 class="section-title" style="font-size: 1.1rem;">
+      <article class="card home-vision__card">
+        <div class="home-vision__icon home-vision__icon--for" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+          </svg>
+        </div>
+        <h3 class="section-title home-vision__card-title">
           What we build instead
         </h3>
-        <div class="card-body">
-          <ul class="body-text-small" style="margin: 0; padding-left: 1.1rem; list-style: disc;">
-            <li>Simple, legible tools you can understand and explain end to end.</li>
-            <li>Spaces for writing and conversation without feeds, likes, or ads.</li>
-            <li>Features that prioritize custody of your ideas over growth hacks.</li>
-          </ul>
-        </div>
+        <ul class="body-text-small home-vision__list">
+          <li>Simple, legible tools you can understand and explain end to end.</li>
+          <li>Spaces for writing and conversation without feeds, likes, or ads.</li>
+          <li>Features that prioritize custody of your ideas over growth hacks.</li>
+        </ul>
       </article>
 
-      <article class="card">
-        <h3 class="section-title" style="font-size: 1.1rem;">
+      <article class="card home-vision__card">
+        <div class="home-vision__icon home-vision__icon--who" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        </div>
+        <h3 class="section-title home-vision__card-title">
           Who Palchat is for
         </h3>
-        <div class="card-body">
-          <ul class="body-text-small" style="margin: 0; padding-left: 1.1rem; list-style: disc;">
-            <li>People who refuse to be reduced to data points.</li>
-            <li>Builders who want to co-own their stack and community.</li>
-            <li>Teams who care more about autonomy than &quot;time on site&quot; charts.</li>
-          </ul>
-        </div>
+        <ul class="body-text-small home-vision__list">
+          <li>People who refuse to be reduced to data points.</li>
+          <li>Builders who want to co-own their stack and community.</li>
+          <li>Teams who care more about autonomy than &quot;time on site&quot; charts.</li>
+        </ul>
       </article>
     </div>
   </div>
 </section>
 
+<style>
+  .home-vision {
+    padding-top: var(--sp-7);
+    padding-bottom: var(--sp-8);
+  }
+
+  .home-vision__header {
+    max-width: 720px;
+    margin-bottom: var(--sp-6);
+  }
+
+  .home-vision__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-text-primary);
+    margin-top: var(--sp-2);
+    margin-bottom: var(--sp-3);
+  }
+
+  .home-vision__lead {
+    margin: 0;
+  }
+
+  .home-vision__grid {
+    display: grid;
+    gap: var(--sp-5);
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .home-vision__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-5);
+    }
+  }
+
+  .home-vision__card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .home-vision__icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin-bottom: var(--sp-4);
+  }
+
+  .home-vision__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .home-vision__icon--against {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+  }
+
+  .home-vision__icon--for {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+
+  .home-vision__icon--who {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+  }
+
+  .home-vision__card-title {
+    font-size: 1.1rem;
+    margin-bottom: var(--sp-3);
+  }
+
+  .home-vision__list {
+    margin: 0;
+    padding-left: 1.1rem;
+    list-style: disc;
+  }
+
+  .home-vision__list li {
+    margin-bottom: var(--sp-2);
+  }
+
+  .home-vision__list li:last-child {
+    margin-bottom: 0;
+  }
+</style>

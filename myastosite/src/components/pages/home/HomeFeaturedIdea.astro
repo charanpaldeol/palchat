@@ -1,51 +1,168 @@
 ---
+/** Featured essay with pull-quote and clean typography. */
 ---
 
-<section id="essay" class="section">
+<section id="essay" class="section home-essay" aria-labelledby="essay-heading">
   <div class="app-container">
-    <div class="max-w-3xl">
-      <p class="section-eyebrow">Featured idea</p>
-      <h2 class="section-title" style="margin-top: var(--sp-2);">
-        Reclaiming your digital destiny from surveillance platforms
-      </h2>
+    <div class="home-essay__wrap">
+      <aside class="home-essay__deco" aria-hidden="true">
+        <svg class="home-essay__svg" viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M60 20v160M20 60h80M40 100h40M30 140h60" stroke="var(--color-border)" stroke-width="1" stroke-dasharray="4 4" opacity="0.6" />
+          <circle cx="60" cy="100" r="24" stroke="var(--color-primary)" stroke-width="1.5" fill="var(--color-primary-light)" opacity="0.4" />
+          <path d="M60 88v24M48 100h24" stroke="var(--color-primary)" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </aside>
+      <div class="home-essay__content">
+        <p class="section-eyebrow">Featured idea</p>
+        <h2 id="essay-heading" class="home-essay__title">
+          Reclaiming your digital destiny from surveillance platforms
+        </h2>
 
-      <p class="body-text" style="margin-top: var(--sp-3);">
-        The modern internet is dressed up as convenience: infinite feeds, smart recommendations, and dashboards that
-        promise growth. Underneath, most of it runs on a simple trade: your attention and autonomy in exchange for
-        someone else&apos;s ad revenue and control.
-      </p>
-      <p class="body-text">
-        When you live inside platforms that are optimized to keep you scrolling, you slowly lose custody of your ideas,
-        your time, and your sense of direction. You become a data point in someone else&apos;s spreadsheet instead of
-        the author of your own digital life.
-      </p>
+        <p class="body-text home-essay__p">
+          The modern internet is dressed up as convenience: infinite feeds, smart recommendations, and dashboards that
+          promise growth. Underneath, most of it runs on a simple trade: your attention and autonomy in exchange for
+          someone else&apos;s ad revenue and control.
+        </p>
+        <p class="body-text home-essay__p">
+          When you live inside platforms that are optimized to keep you scrolling, you slowly lose custody of your ideas,
+          your time, and your sense of direction. You become a data point in someone else&apos;s spreadsheet instead of
+          the author of your own digital life.
+        </p>
 
-      <div class="card" style="margin-top: var(--sp-3);">
-        <h3 class="section-title" style="font-size: 1rem; margin-bottom: var(--sp-2);">
-          What you quietly trade away
-        </h3>
-        <ul class="body-text">
-          <li style="margin-bottom: var(--sp-1);">
-            <span style="font-weight: 600;">Understanding</span> — algorithms decide what you see, and over time you
-            forget how to choose what matters for yourself.
-          </li>
-          <li style="margin-bottom: var(--sp-1);">
-            <span style="font-weight: 600;">Custody</span> — your writing, relationships, and history live in rented
-            feeds and black boxes, not in spaces you actually control.
-          </li>
-          <li>
-            <span style="font-weight: 600;">Resilience</span> — when a platform shifts its rules, you can lose reach,
-            access, or entire communities overnight.
-          </li>
-        </ul>
+        <blockquote class="home-essay__quote">
+          <span class="home-essay__quote-mark" aria-hidden="true">"</span>
+          <p class="home-essay__quote-text">
+            Palchat is a small counter-move: a calm, co-owned space where you can think and build without being harvested or optimized. The goal is not to avoid tools, but to choose tools that keep your will, your work, and your relationships in your own hands.
+          </p>
+        </blockquote>
+
+        <div class="card home-essay__card">
+          <h3 class="section-title home-essay__card-title">
+            What you quietly trade away
+          </h3>
+          <ul class="body-text home-essay__card-list">
+            <li>
+              <span class="home-essay__term">Understanding</span> — algorithms decide what you see, and over time you
+              forget how to choose what matters for yourself.
+            </li>
+            <li>
+              <span class="home-essay__term">Custody</span> — your writing, relationships, and history live in rented
+              feeds and black boxes, not in spaces you actually control.
+            </li>
+            <li>
+              <span class="home-essay__term">Resilience</span> — when a platform shifts its rules, you can lose reach,
+              access, or entire communities overnight.
+            </li>
+          </ul>
+        </div>
       </div>
-
-      <p class="body-text" style="margin-top: var(--sp-3);">
-        Palchat is a small counter-move: a calm, co-owned space where you can think and build without being harvested
-        or optimized. The goal is not to avoid tools, but to choose tools that keep your will, your work, and your
-        relationships in your own hands.
-      </p>
     </div>
   </div>
 </section>
 
+<style>
+  .home-essay {
+    background: var(--color-surface);
+    padding-top: var(--sp-8);
+    padding-bottom: var(--sp-8);
+  }
+
+  .home-essay__wrap {
+    display: grid;
+    gap: var(--sp-6);
+    grid-template-columns: 1fr;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .home-essay__wrap {
+      grid-template-columns: 80px 1fr;
+      gap: var(--sp-6);
+    }
+  }
+
+  .home-essay__deco {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .home-essay__deco {
+      display: block;
+      padding-top: var(--sp-5);
+    }
+  }
+
+  .home-essay__svg {
+    width: 60px;
+    height: auto;
+    max-height: 200px;
+  }
+
+  .home-essay__title {
+    margin-top: var(--sp-2);
+    margin-bottom: var(--sp-4);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-text-primary);
+  }
+
+  .home-essay__p {
+    margin: 0 0 var(--sp-4);
+  }
+
+  .home-essay__quote {
+    margin: var(--sp-6) 0;
+    padding: var(--sp-5) var(--sp-5) var(--sp-5) var(--sp-6);
+    border-left: 4px solid var(--color-primary);
+    background: var(--color-bg);
+    border-radius: 0 12px 12px 0;
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-primary);
+  }
+
+  .home-essay__quote-mark {
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--color-primary);
+    opacity: 0.5;
+    font-family: Georgia, serif;
+  }
+
+  .home-essay__quote-text {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+    font-weight: 500;
+  }
+
+  .home-essay__card {
+    margin-top: var(--sp-5);
+  }
+
+  .home-essay__card-title {
+    font-size: 1rem;
+    margin-bottom: var(--sp-3);
+  }
+
+  .home-essay__card-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  .home-essay__card-list li {
+    margin-bottom: var(--sp-2);
+  }
+
+  .home-essay__card-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  .home-essay__term {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+</style>

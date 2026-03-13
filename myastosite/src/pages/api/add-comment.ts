@@ -47,7 +47,7 @@ export const POST: APIRoute = async ({ request }) => {
     const comment = (typeof rawComment === 'string' ? rawComment : String(rawComment ?? '')).trim();
 
     const words = countWords(comment);
-    if (!comment || words === 0 || words > 50) {
+    if (!comment || words === 0 || words > 200) {
       // Invalid input – redirect back to the originating page with an error flag.
       return new Response(null, {
         status: 303,
@@ -57,7 +57,7 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    await query('INSERT INTO comments (comment) VALUES ($1)', [comment]);
+    await query('INSERT INTO thoughts (comment) VALUES ($1)', [comment]);
 
     return new Response(null, {
       status: 303,

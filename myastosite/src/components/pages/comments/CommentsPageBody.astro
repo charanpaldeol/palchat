@@ -5,10 +5,10 @@ const searchParams = Astro.url.searchParams;
 const justSaved = searchParams.get('success') === '1';
 const hasError = searchParams.get('error') === '1';
 
-let comments: { id: number; comment: string | null }[] = [];
+let comments: { id: number; comment: string | null; created_at: string | null }[] = [];
 let dbError: string | null = null;
 try {
-  const response = await query('SELECT * FROM comments');
+  const response = await query('SELECT * FROM thoughts ORDER BY created_at DESC, id DESC');
   comments = response.rows ?? [];
 } catch (e) {
   dbError = e instanceof Error ? e.message : 'Database unavailable';
@@ -18,10 +18,13 @@ try {
 <section class="section">
   <div class="app-container" style="max-width: 720px;">
     <h1 class="section-title">
-      Comments
+      Your thoughts
     </h1>
     <p class="body-text" style="margin-top: var(--sp-3);">
-      Type your comment below (up to 50 words) and save it to the database. Recent comments are listed underneath.
+      This space is for you to share your thoughts about Palchat and where it should go next. Anything you write here can be read by everyone using this page.
+    </p>
+    <p class="body-text" style="margin-top: var(--sp-3);">
+      Type your thoughts below (up to 200 words) and save them. Recent thoughts from you and other people are listed underneath.
     </p>
 
     {justSaved && (
@@ -32,7 +35,7 @@ try {
 
     {hasError && (
       <div class="alert alert-error" style="margin-top: var(--sp-3);">
-        Please enter between 1 and 50 words before saving.
+        Please enter between 1 and 200 words before saving.
       </div>
     )}
 
@@ -53,8 +56,9 @@ try {
           required
         ></textarea>
         <p class="field-helper">
-          Up to 50 words. Empty comments or longer inputs will show an error and will not be saved.
+          <span id="comment-word-count">0 / 200 words</span>. Empty comments or longer inputs will show an error and will not be saved.
         </p>
+        <p class="field-error" id="comment-word-error" style="display: none;"></p>
       </div>
 
       <button type="submit" class="btn btn-primary">
@@ -71,17 +75,84 @@ try {
         {comments.length === 0 ? (
           <p class="body-text-small">No comments yet.</p>
         ) : (
-          comments.map((comment) => (
-            <div class="card">
-              <p class="body-text-small">{comment.comment ?? ''}</p>
-              <div class="body-text-small" style="margin-top: var(--sp-1); color: var(--color-text-disabled);">
-                ID {comment.id}
+          comments.map((comment) => {
+            const createdAt = comment.created_at ? new Date(comment.created_at) : null;
+            const formatted =
+              createdAt && !Number.isNaN(createdAt.getTime())
+                ? createdAt.toLocaleString(undefined, {
+                    year: 'numeric',
+                    month: 'short',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })
+                : null;
+
+            return (
+              <div class="card">
+                <p class="body-text-small">{comment.comment ?? ''}</p>
+                <div class="body-text-small" style="margin-top: var(--sp-1); color: var(--color-text-disabled);">
+                  {formatted ? `Saved on ${formatted}` : `ID ${comment.id}`}
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
     )}
   </div>
 </section>
+
+<script>
+  const MAX_WORDS = 200;
+
+  function countWords(value) {
+    const trimmed = value.trim();
+    if (!trimmed) return 0;
+    return trimmed.split(/\s+/).filter(Boolean).length;
+  }
+
+  if (typeof window !== 'undefined') {
+    window.addEventListener('DOMContentLoaded', () => {
+      const textarea = document.getElementById('comment');
+      const form = textarea?.form;
+      const countEl = document.getElementById('comment-word-count');
+      const errorEl = document.getElementById('comment-word-error');
+
+      if (!textarea || !form || !countEl || !errorEl) return;
+
+      function updateState() {
+        const words = countWords(textarea.value);
+        countEl.textContent = `${words} / ${MAX_WORDS} words`;
+
+        const hasError = words === 0 || words > MAX_WORDS;
+        textarea.classList.toggle('input-error', hasError);
+
+        if (hasError) {
+          errorEl.style.display = 'block';
+          if (words === 0) {
+            errorEl.textContent = 'Please enter at least 1 word.';
+          } else {
+            errorEl.textContent = `Please keep comments to ${MAX_WORDS} words or fewer.`;
+          }
+        } else {
+          errorEl.style.display = 'none';
+          errorEl.textContent = '';
+        }
+      }
+
+      textarea.addEventListener('input', updateState);
+
+      form.addEventListener('submit', (event) => {
+        const words = countWords(textarea.value);
+        if (words === 0 || words > MAX_WORDS) {
+          event.preventDefault();
+          updateState();
+        }
+      });
+
+      updateState();
+    });
+  }
+</script>
 

@@ -1,4 +1,6 @@
 ---
+import HeroIllustration from './HeroIllustration.astro';
+
 interface Props {
   eyebrow?: string;
   title: string;
@@ -12,19 +14,100 @@ const {
 } = Astro.props;
 ---
 
-<section class="page-hero">
+<section class="page-hero home-hero">
   <div class="app-container">
-    <div>
-      {eyebrow && <p class="section-eyebrow">{eyebrow}</p>}
-      <h1 class="page-hero-title">
-        {title}
-      </h1>
-      {subtitle && (
-        <p class="page-hero-subtitle">
-          {subtitle}
-        </p>
-      )}
+    <div class="home-hero__grid">
+      <div class="home-hero__content">
+        {eyebrow && <p class="section-eyebrow home-hero__eyebrow">{eyebrow}</p>}
+        <h1 class="page-hero-title home-hero__title">
+          {title}
+        </h1>
+        {subtitle && (
+          <p class="page-hero-subtitle home-hero__subtitle">
+            {subtitle}
+          </p>
+        )}
+        <div class="home-hero__ctas">
+          <a href="/signup" class="btn btn-primary btn-cta">
+            Join Palchat
+          </a>
+          <a href="#vision" class="btn btn-secondary">
+            Our vision
+          </a>
+        </div>
+      </div>
+      <div class="home-hero__visual" aria-hidden="true">
+        <HeroIllustration />
+      </div>
     </div>
   </div>
 </section>
 
+<style>
+  .home-hero {
+    background: var(--color-bg);
+  }
+
+  .home-hero__grid {
+    display: grid;
+    gap: var(--sp-8);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .home-hero__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-8);
+      min-height: 380px;
+    }
+  }
+
+  .home-hero__content {
+    max-width: 560px;
+  }
+
+  .home-hero__eyebrow {
+    margin-bottom: var(--sp-2);
+  }
+
+  .home-hero__title {
+    margin-bottom: var(--sp-3);
+  }
+
+  .home-hero__subtitle {
+    margin-top: 0;
+    margin-bottom: var(--sp-6);
+  }
+
+  .home-hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-3);
+  }
+
+  .btn-cta {
+    padding: 14px 28px;
+    font-size: 1rem;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  }
+
+  .home-hero__visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-illustration {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+  }
+
+  @media (max-width: 767px) {
+    .home-hero__visual {
+      order: -1;
+      max-width: 240px;
+      margin: 0 auto;
+    }
+  }
+</style>
