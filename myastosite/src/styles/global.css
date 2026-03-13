@@ -769,3 +769,101 @@ a:hover {
 .meal-dot {
   background-color: var(--color-primary) !important;
 }
+
+/* Blog layouts */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-5);
+}
+
+@media (max-width: 1023px) {
+  .blog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .blog-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.blog-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  text-decoration: none;
+}
+
+.blog-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.blog-card-meta {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.blog-card-description {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+}
+
+.blog-article {
+  max-width: 720px;
+  margin: 0 auto;
+  padding-top: var(--sp-9);
+  padding-bottom: var(--sp-8);
+}
+
+.blog-article-header {
+  margin-bottom: var(--sp-6);
+}
+
+.blog-article-title {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-text-primary);
+  margin-top: var(--sp-2);
+}
+
+.blog-article-meta {
+  margin-top: var(--sp-2);
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.blog-article-body {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+}
+
+.blog-article-body h2,
+.blog-article-body h3,
+.blog-article-body h4 {
+  color: var(--color-text-primary);
+  margin-top: var(--sp-5);
+  margin-bottom: var(--sp-2);
+}
+
+.blog-article-body p {
+  margin-bottom: var(--sp-3);
+}
+
+.blog-article-body ul,
+.blog-article-body ol {
+  padding-left: var(--sp-5);
+  margin-bottom: var(--sp-3);
+}
+
+.blog-article-body code {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
+}
+
