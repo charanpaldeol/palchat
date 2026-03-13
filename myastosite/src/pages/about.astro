@@ -1,94 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import AboutIntroSection from '@/components/pages/about/AboutIntroSection.astro';
+import AboutWhatSection from '@/components/pages/about/AboutWhatSection.astro';
+import AboutStackTeaserSection from '@/components/pages/about/AboutStackTeaserSection.astro';
+import AboutContactSection from '@/components/pages/about/AboutContactSection.astro';
 ---
 
 <Layout title="About Palchat">
-  <section class="section">
-    <div class="app-container">
-      <header style="margin-bottom: var(--sp-6);">
-        <p class="section-eyebrow">About</p>
-        <h1 class="section-title" style="font-size: 1.5rem; margin-top: var(--sp-2);">
-          Palchat is a playground of product ideas and tiny tools.
-        </h1>
-        <p class="body-text" style="max-width: 640px; margin-top: var(--sp-3);">
-          It is intentionally <span style="font-weight: 600;">not</span> a chat tool. The goal is to collect opinionated
-          ideas and pair them with small, free utilities that help builders decide what to work on next.
-        </p>
-      </header>
-
-      <section class="section-tight" style="padding-top: 0; padding-bottom: var(--sp-6);">
-        <h2 class="section-title">
-          What Palchat tries to do
-        </h2>
-        <ul class="body-text" style="margin-top: var(--sp-3);">
-          <li style="display: flex; gap: var(--sp-2); margin-bottom: var(--sp-2);">
-            <span
-              style="margin-top: 6px; width: 6px; height: 6px; border-radius: 50%; background: var(--color-text-secondary); flex-shrink: 0;"
-            />
-            <span><span style="font-weight: 500;">Collect useful ideas</span> — focused on products that solo builders or small teams can realistically ship.</span>
-          </li>
-          <li style="display: flex; gap: var(--sp-2); margin-bottom: var(--sp-2);">
-            <span
-              style="margin-top: 6px; width: 6px; height: 6px; border-radius: 50%; background: var(--color-text-secondary); flex-shrink: 0;"
-            />
-            <span><span style="font-weight: 500;">Offer tiny SaaS-style tools</span> — simple utilities (like the Idea Prioritization Tool) that are free to use in the browser.</span>
-          </li>
-          <li style="display: flex; gap: var(--sp-2);">
-            <span
-              style="margin-top: 6px; width: 6px; height: 6px; border-radius: 50%; background: var(--color-text-secondary); flex-shrink: 0;"
-            />
-            <span><span style="font-weight: 500;">Stay low-friction</span> — no logins required for core exploration, no feeds, no infinite scrolling.</span>
-          </li>
-        </ul>
-      </section>
-
-      <section class="section-tight" style="padding-top: 0; padding-bottom: var(--sp-6);">
-        <h2 class="section-title">
-          Tech stack
-        </h2>
-        <p class="body-text" style="margin-top: var(--sp-3);">
-          Palchat is built with a simple, scalable stack that makes it easy to add more ideas and tools over time.
-        </p>
-
-        <div class="card" style="margin-top: var(--sp-4); display: grid; gap: var(--sp-4);">
-          <div>
-            <h3 class="section-title" style="font-size: 1rem; margin-bottom: var(--sp-2);">
-              At a glance
-            </h3>
-            <ul class="body-text-small">
-              <li>Astro for fast, modern pages.</li>
-              <li>React (via <code>@astrojs/react</code>) for interactive components when needed.</li>
-              <li>Tailwind CSS for utility classes layered on top of design tokens.</li>
-              <li>PostgreSQL with a pooled client and managed hosting.</li>
-              <li>Vercel for hosting, SSL, and deployments.</li>
-            </ul>
-          </div>
-
-          <div style="display: flex; flex-direction: column; gap: var(--sp-3); justify-content: space-between;">
-            <p class="body-text-small">
-              For a more visual breakdown of how these pieces fit together (by layer: UI, APIs, data, and infra), you can
-              see the dedicated tech stack page.
-            </p>
-            <a href="/tech-stack" class="btn btn-secondary" style="align-self: flex-start;">
-              View full tech stack
-              <span aria-hidden="true" style="font-size: 0.75rem; margin-left: 4px;">→</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section-tight" style="padding-top: 0;">
-        <h2 class="section-title">
-          Get in touch
-        </h2>
-        <p class="body-text" style="margin-top: var(--sp-3);">
-          If you have an idea that might fit here—or a tiny tool you wish existed—reach out and it might make its way
-          into Palchat.
-        </p>
-        <p class="body-text-small">
-          You can email <a href="mailto:hello@palchat.org" class="footer-link">hello@palchat.org</a>.
-        </p>
-      </section>
-    </div>
-  </section>
+  <AboutIntroSection />
+  <AboutWhatSection />
+  <AboutStackTeaserSection />
+  <AboutContactSection />
 </Layout>

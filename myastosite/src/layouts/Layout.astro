@@ -15,6 +15,12 @@ const isMilletGuide = currentPath.startsWith('/millet-guide');
 import '../styles/global.css';
 ---
 
+<!--
+  Global app layout shell.
+  AI agents: do not edit the navbar, footer, or design tokens here unless the user explicitly asks to change global chrome.
+  Page-specific content and layout should live in page components and config, rendered inside <slot />.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
       <head>

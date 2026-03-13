@@ -1,0 +1,30 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+}
+
+const {
+  eyebrow = 'A calm home for product ideas',
+  title,
+  subtitle = 'without drowning in tools, feeds, or settings.',
+} = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="app-container">
+    <div>
+      {eyebrow && <p class="section-eyebrow">{eyebrow}</p>}
+      <h1 class="page-hero-title">
+        {title}
+      </h1>
+      {subtitle && (
+        <p class="page-hero-subtitle">
+          {subtitle}
+        </p>
+      )}
+    </div>
+  </div>
+</section>
+

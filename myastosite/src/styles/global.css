@@ -1,3 +1,9 @@
+/* 
+  Global design system and layout tokens.
+  AI agents: only modify tokens or shared primitives here when explicitly asked to change the design system.
+  For page-level layout and content tweaks, prefer page components and existing utility classes instead.
+*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
