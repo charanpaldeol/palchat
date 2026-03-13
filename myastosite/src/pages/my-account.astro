@@ -24,6 +24,233 @@ const user = Astro.locals.user;
       <p class="body-text-small" style="margin-top: var(--sp-3); color: var(--color-text-secondary);">
         This is your account overview. Use the navigation on the left to explore other areas as they come online.
       </p>
+
+      <div style="margin-top: var(--sp-6); padding-top: var(--sp-5); border-top: 1px solid var(--color-border);">
+        <h3 class="section-title" style="font-size: 1.25rem; margin-bottom: var(--sp-2); color: var(--color-text-primary);">
+          Danger zone
+        </h3>
+        <p class="body-text-small" style="color: var(--color-text-secondary); margin-bottom: var(--sp-3);">
+          Permanently delete your account and all associated data (username, password, sessions). This cannot be undone.
+        </p>
+        <button
+          type="button"
+          id="delete-account-btn"
+          class="btn-delete-account"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="delete-account-dialog"
+        >
+          Delete account
+        </button>
+      </div>
+    </div>
+
+    <div
+      id="delete-account-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="delete-account-dialog-title"
+      aria-hidden="true"
+      class="delete-account-dialog"
+      hidden
+    >
+      <div class="delete-account-dialog-backdrop" id="delete-account-backdrop"></div>
+      <div class="delete-account-dialog-panel">
+        <h2 id="delete-account-dialog-title" class="delete-account-dialog-title">
+          Delete account?
+        </h2>
+        <p class="delete-account-dialog-warning">
+          This will permanently delete your account and all data linked to it: your username, password, and all session information. You will be logged out and will need to sign up again to use an account. <strong>This action cannot be undone.</strong>
+        </p>
+        <label class="delete-account-dialog-checkbox">
+          <input type="checkbox" id="delete-account-confirm" name="confirm" />
+          <span>I am sure</span>
+        </label>
+        <div class="delete-account-dialog-actions">
+          <button type="button" id="delete-account-cancel" class="btn-cancel">Cancel</button>
+          <button type="button" id="delete-account-submit" class="btn-delete-submit" disabled>
+            Delete account
+          </button>
+        </div>
+      </div>
     </div>
   </AccountLayout>
 </Layout>
+
+<script>
+  (function () {
+    const btn = document.getElementById("delete-account-btn");
+    const dialog = document.getElementById("delete-account-dialog");
+    const backdrop = document.getElementById("delete-account-backdrop");
+    const checkbox = document.getElementById("delete-account-confirm");
+    const cancelBtn = document.getElementById("delete-account-cancel");
+    const submitBtn = document.getElementById("delete-account-submit");
+
+    if (!btn || !dialog || !backdrop || !checkbox || !cancelBtn || !submitBtn) return;
+
+    function openDialog() {
+      dialog?.removeAttribute("hidden");
+      dialog?.setAttribute("aria-hidden", "false");
+      btn?.setAttribute("aria-expanded", "true");
+      checkbox.checked = false;
+      submitBtn.disabled = true;
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeDialog() {
+      dialog?.setAttribute("hidden", "");
+      dialog?.setAttribute("aria-hidden", "true");
+      btn?.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    }
+
+    btn.addEventListener("click", openDialog);
+
+    cancelBtn.addEventListener("click", closeDialog);
+    backdrop.addEventListener("click", closeDialog);
+
+    checkbox.addEventListener("change", () => {
+      submitBtn.disabled = !checkbox.checked;
+    });
+
+    submitBtn.addEventListener("click", async () => {
+      if (!checkbox.checked) return;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Deleting…";
+      try {
+        const res = await fetch("/api/auth/delete-account", { method: "POST", credentials: "same-origin" });
+        if (res.redirected) {
+          window.location.href = res.url;
+          return;
+        }
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          alert(data.error || "Something went wrong. Please try again.");
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Delete account";
+          return;
+        }
+        window.location.href = "/";
+      } catch {
+        alert("Something went wrong. Please try again.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Delete account";
+      }
+    });
+
+    dialog.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeDialog();
+    });
+  })();
+</script>
+
+<style>
+  .btn-delete-account {
+    background: var(--color-error);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 150ms, opacity 150ms;
+  }
+  .btn-delete-account:hover {
+    filter: brightness(0.92);
+  }
+
+  .delete-account-dialog {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--sp-4);
+  }
+  .delete-account-dialog[hidden] {
+    display: none;
+  }
+  .delete-account-dialog-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+  }
+  .delete-account-dialog-panel {
+    position: relative;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: var(--sp-6);
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  }
+  .delete-account-dialog-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--sp-3);
+  }
+  .delete-account-dialog-warning {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin: 0 0 var(--sp-4);
+  }
+  .delete-account-dialog-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    margin-bottom: var(--sp-5);
+  }
+  .delete-account-dialog-checkbox input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary);
+  }
+  .delete-account-dialog-actions {
+    display: flex;
+    gap: var(--sp-3);
+    justify-content: flex-end;
+  }
+  .btn-cancel {
+    background: transparent;
+    border: 1.5px solid var(--color-border);
+    color: var(--color-text-primary);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 150ms, border-color 150ms;
+  }
+  .btn-cancel:hover {
+    background: var(--color-surface);
+    border-color: var(--color-text-disabled);
+  }
+  .btn-delete-submit {
+    background: var(--color-error);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 150ms, opacity 150ms;
+  }
+  .btn-delete-submit:hover:not(:disabled) {
+    filter: brightness(0.92);
+  }
+  .btn-delete-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+</style>

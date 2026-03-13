@@ -13,7 +13,7 @@
 3. **CSRF**: POST to `/api/add-comment` requires a same-origin `Origin` or `Referer`; cross-site form posts are rejected with 403.
 4. **SQL**: Comments are inserted via parameterized queries only; no string concatenation into SQL.
 5. **Security headers** (Vercel): `X-Frame-Options: SAMEORIGIN`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` to restrict camera/microphone/geolocation.
-6. **Input limits**: Comment length enforced (non-empty, ≤ 50 words) before DB write.
+6. **Input limits**: Comment length enforced (non-empty, ≤ 200 words) before DB write.
 
 ## Recommendations
 

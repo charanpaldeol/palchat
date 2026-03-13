@@ -86,3 +86,8 @@ export async function createUser(username: string, passwordHash: string): Promis
   if (!row) throw new Error("Failed to create user");
   return { id: row.id, username: row.username };
 }
+
+/** Permanently delete a user and all their sessions (sessions CASCADE on user delete). */
+export async function deleteUser(userId: number): Promise<void> {
+  await query("DELETE FROM users WHERE id = $1", [userId]);
+}
