@@ -441,13 +441,19 @@ import Layout from '../layouts/Layout.astro';
   </div>
 
   <script>
-    function showTab(t) {
-      ['flours', 'fats', 'meals'].forEach(function (x) {
-        document.getElementById('tab-' + x).style.display =
-          x === t ? 'block' : 'none';
-        document.getElementById('btn-' + x).className =
-          'tab-btn' + (x === t ? ' active' : '');
-      });
+    if (typeof window !== 'undefined') {
+      window.showTab = function (t) {
+        ['flours', 'fats', 'meals'].forEach(function (x) {
+          var tab = document.getElementById('tab-' + x);
+          var btn = document.getElementById('btn-' + x);
+          if (tab) {
+            tab.style.display = x === t ? 'block' : 'none';
+          }
+          if (btn) {
+            btn.className = 'tab-btn' + (x === t ? ' active' : '');
+          }
+        });
+      };
     }
   </script>
 </Layout>
