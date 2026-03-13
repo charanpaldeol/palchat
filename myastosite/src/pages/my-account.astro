@@ -1,0 +1,37 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+if (!Astro.locals.user) {
+  return Astro.redirect("/login?redirect=/my-account");
+}
+
+const user = Astro.locals.user;
+---
+
+<Layout title="My account – Palchat">
+  <section class="section">
+    <div class="app-container" style="max-width: 720px;">
+      <h1 class="page-hero-title" style="margin-bottom: var(--sp-2);">
+        My account
+      </h1>
+      <p class="page-hero-subtitle" style="margin-bottom: var(--sp-6);">
+        You’re logged in as <strong>{user.username}</strong>.
+      </p>
+
+      <div
+        class="card"
+        style="padding: var(--sp-6); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px;"
+      >
+        <h2 class="section-title" style="margin-bottom: var(--sp-2);">
+          Account details
+        </h2>
+        <p class="body-text" style="color: var(--color-text-secondary);">
+          Your account ID: <strong>{user.username}</strong>
+        </p>
+        <p class="body-text-small" style="margin-top: var(--sp-3); color: var(--color-text-secondary);">
+          Use the “Log out” button in the navbar to sign out.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

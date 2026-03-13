@@ -12,6 +12,10 @@ const isTechStack = currentPath === '/tech-stack' || currentPath.startsWith('/ab
 const isComments = currentPath.startsWith('/comments');
 const isMilletGuide = currentPath.startsWith('/millet-guide');
 const isAddComment = currentPath.startsWith('/add-comment');
+const isLogin = currentPath.startsWith('/login');
+const isSignup = currentPath.startsWith('/signup');
+const isMyAccount = currentPath.startsWith('/my-account');
+const user = Astro.locals.user;
 
 import '../styles/global.css';
 ---
@@ -87,6 +91,28 @@ import '../styles/global.css';
                   Millet guide
                 </a>
               </nav>
+              <div class="nav-cta">
+                {user ? (
+                  <>
+                    <a
+                      href="/my-account"
+                      class={`nav-link ${isMyAccount ? 'nav-link--active' : ''}`}
+                      aria-current={isMyAccount ? 'page' : undefined}
+                    >
+                      My account
+                    </a>
+                    <form method="post" action="/api/auth/logout" style="display: inline;">
+                      <button type="submit" class="btn btn-secondary" style="padding: 10px 20px;">
+                        Log out
+                      </button>
+                    </form>
+                  </>
+                ) : (
+                  <a href="/login" class="btn btn-primary">
+                    Login
+                  </a>
+                )}
+              </div>
             </div>
           </header>
 

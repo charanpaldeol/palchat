@@ -1,0 +1,88 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+if (Astro.locals.user) {
+  return Astro.redirect("/my-account");
+}
+
+const searchParams = Astro.url.searchParams;
+const error = searchParams.get("error");
+const errorMessage =
+  error === "username"
+    ? "ID must be 2–64 characters and only letters, numbers, and underscores."
+    : error === "password"
+      ? "Password must be at least 6 characters."
+      : error === "exists"
+        ? "This ID is already taken. Choose another."
+        : error === "1"
+          ? "Something went wrong. Please try again."
+          : null;
+---
+
+<Layout title="Create account – Palchat">
+  <section class="section">
+    <div class="app-container" style="max-width: 420px;">
+      <h1 class="page-hero-title" style="margin-bottom: var(--sp-2);">
+        Create account
+      </h1>
+      <p class="page-hero-subtitle" style="margin-bottom: var(--sp-6);">
+        Choose an ID and password. You’ll be logged in after signing up.
+      </p>
+
+      {errorMessage && (
+        <div class="alert alert-error" style="margin-bottom: var(--sp-4);">
+          {errorMessage}
+        </div>
+      )}
+
+      <form
+        method="post"
+        action="/api/auth/register"
+        style="display: flex; flex-direction: column; gap: var(--sp-4);"
+      >
+        <div class="field">
+          <label for="signup-username" class="field-label">
+            ID
+          </label>
+          <input
+            id="signup-username"
+            type="text"
+            name="username"
+            class="input"
+            autocomplete="username"
+            required
+            minlength={2}
+            maxlength={64}
+          />
+          <p class="field-helper">
+            2–64 characters. Letters, numbers, and underscores only.
+          </p>
+        </div>
+        <div class="field">
+          <label for="signup-password" class="field-label">
+            Password
+          </label>
+          <input
+            id="signup-password"
+            type="password"
+            name="password"
+            class="input"
+            autocomplete="new-password"
+            required
+            minlength={6}
+          />
+          <p class="field-helper">
+            At least 6 characters.
+          </p>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Create account
+        </button>
+      </form>
+
+      <p class="body-text-small" style="margin-top: var(--sp-5); color: var(--color-text-secondary);">
+        Already have an account? <a href="/login">Log in</a>
+      </p>
+    </div>
+  </section>
+</Layout>

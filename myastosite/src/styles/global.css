@@ -173,6 +173,12 @@ a:hover {
   color: var(--color-primary);
 }
 
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
 /* Footer */
 .site-footer {
   background: var(--color-surface);

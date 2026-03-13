@@ -1,0 +1,77 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+if (Astro.locals.user) {
+  return Astro.redirect("/my-account");
+}
+
+const searchParams = Astro.url.searchParams;
+const error = searchParams.get("error");
+const errorMessage =
+  error === "missing"
+    ? "Please enter your ID and password."
+    : error === "invalid"
+      ? "Invalid ID or password. Please try again."
+      : error === "1"
+        ? "Something went wrong. Please try again."
+        : null;
+---
+
+<Layout title="Login – Palchat">
+  <section class="section">
+    <div class="app-container" style="max-width: 420px;">
+      <h1 class="page-hero-title" style="margin-bottom: var(--sp-2);">
+        Login
+      </h1>
+      <p class="page-hero-subtitle" style="margin-bottom: var(--sp-6);">
+        Enter your ID and password to access your account.
+      </p>
+
+      {errorMessage && (
+        <div class="alert alert-error" style="margin-bottom: var(--sp-4);">
+          {errorMessage}
+        </div>
+      )}
+
+      <form
+        method="post"
+        action="/api/auth/login"
+        style="display: flex; flex-direction: column; gap: var(--sp-4);"
+      >
+        <div class="field">
+          <label for="login-username" class="field-label">
+            ID
+          </label>
+          <input
+            id="login-username"
+            type="text"
+            name="username"
+            class="input"
+            autocomplete="username"
+            required
+          />
+        </div>
+        <div class="field">
+          <label for="login-password" class="field-label">
+            Password
+          </label>
+          <input
+            id="login-password"
+            type="password"
+            name="password"
+            class="input"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Log in
+        </button>
+      </form>
+
+      <p class="body-text-small" style="margin-top: var(--sp-5); color: var(--color-text-secondary);">
+        Don’t have an account? <a href="/signup">Create account</a>
+      </p>
+    </div>
+  </section>
+</Layout>
