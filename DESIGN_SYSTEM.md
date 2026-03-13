@@ -110,6 +110,7 @@ Left-aligned              Center or left        Right-aligned
 - Height: **64px** fixed — never change
 - Position: **sticky top-0**, always visible on scroll
 - Background: `--color-bg` with `border-bottom: 1px solid var(--color-border)`
+- Optional glass effect: `backdrop-filter: blur(8px)` on the navbar background is allowed for a modern look
 - Add subtle shadow on scroll: `box-shadow: 0 1px 3px rgba(0,0,0,0.06)`
 - Logo: left side, always a text logo or `<img>` — max height 32px
 - Nav links: font-size `0.9rem`, weight `500`, color `--color-text-secondary`
@@ -287,6 +288,12 @@ outline: 3px solid var(--color-error-bg);
 [Footer — full width]
 ```
 
+Use these shared layout helpers (implemented in `global.css`) across all pages:
+
+- `app-root`: full-height flex column wrapper, page background set to `--color-bg`
+- `app-main`: flex child that grows to fill space between navbar and footer
+- `app-container`: centers content, with horizontal padding `var(--sp-6)` on desktop and `var(--sp-4)` on mobile
+
 ### Content Grid
 - Desktop: 12-column grid, `gap: 24px`
 - Tablet (768px–1024px): 8-column grid
@@ -303,7 +310,25 @@ outline: 3px solid var(--color-error-bg);
 
 ---
 
-## 11. BREAKPOINTS
+## 11. HERO / PAGE SECTIONS
+
+Use these shared hero and section patterns (matched to `global.css`) for all marketing/landing pages:
+
+- `page-hero`: top padding `--sp-9`, bottom padding `--sp-8`
+- `page-hero-title`: uses H1 scale — `2.5rem`, `700`, `1.2`, `--color-text-primary`
+- `page-hero-subtitle`: body-large scale — `1.125rem`, `--color-text-secondary`, `max-width: 560px`
+- `section`: vertical padding `--sp-8`
+- `section-tight`: vertical padding `--sp-6`
+- `section-title`: H4 scale — `1.25rem`, `600`, `1.4`
+- `section-eyebrow`: label scale — `0.75rem`, `500`, uppercase, increased letter-spacing
+- `body-text`: body default — `1rem`, `--color-text-secondary`
+- `body-text-small`: body small — `0.875rem`, `--color-text-secondary`
+
+These utilities keep all page sections (hero, feature blocks, guides) visually consistent and should be reused instead of ad‑hoc styles.
+
+---
+
+## 12. BREAKPOINTS
 
 ```css
 --bp-sm:  640px   /* Mobile landscape */
@@ -315,7 +340,7 @@ outline: 3px solid var(--color-error-bg);
 
 ---
 
-## 12. BORDERS & RADIUS
+## 13. BORDERS & RADIUS
 
 | Element       | Radius |
 |---------------|--------|
@@ -331,7 +356,7 @@ All borders: `1px solid var(--color-border)` — never use 2px borders except on
 
 ---
 
-## 13. ICONS
+## 14. ICONS
 
 - Library: **Lucide Icons** (https://lucide.dev) — consistent stroke style
 - Default size: **20px** in body, **16px** in compact UI, **24px** in headers
@@ -341,7 +366,7 @@ All borders: `1px solid var(--color-border)` — never use 2px borders except on
 
 ---
 
-## 14. ANIMATIONS & TRANSITIONS
+## 15. ANIMATIONS & TRANSITIONS
 
 - All hover/focus transitions: `150ms ease`
 - Page element fade-in: `opacity 0 → 1`, `200ms ease`
@@ -353,7 +378,20 @@ All borders: `1px solid var(--color-border)` — never use 2px borders except on
 
 ---
 
-## 15. DO'S AND DON'TS SUMMARY
+## 16. DARK MODE (OPTIONAL)
+
+Dark mode is supported via a `.dark` class on the root element. When enabled:
+
+- Headings (`.component-title`) should switch to white text
+- Subtitles (`.component-subtitle`) should use a neutral light gray (e.g. `#d1d5db`) while still respecting the typography scale
+- Backgrounds must continue to rely on the same spacing and layout tokens; do not change component structure between light and dark mode
+- All color overrides must still respect semantic intent (e.g. success/error/info colors stay semantically correct)
+
+Do not introduce separate dark-mode-only colors; always derive dark-mode styles from the existing palette or safe neutral tints.
+
+---
+
+## 17. DO'S AND DON'TS SUMMARY
 
 | ✅ DO                                         | ❌ DON'T                                      |
 |----------------------------------------------|----------------------------------------------|

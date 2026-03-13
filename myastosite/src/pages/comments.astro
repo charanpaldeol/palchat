@@ -13,29 +13,31 @@ try {
 ---
 
 <Layout title="Comments – Palchat">
-  <section class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-    <div class="space-y-4">
-      <h1 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">
+  <section class="section">
+    <div class="app-container" style="max-width: 720px;">
+      <h1 class="section-title">
         Comments demo
       </h1>
-      <p class="text-sm text-slate-300 sm:text-base">
+      <p class="body-text" style="margin-top: var(--sp-3);">
         A minimal example of Palchat reading from PostgreSQL. This page is intentionally simple: no forms, just a list
         of comments from the database.
       </p>
 
       {dbError ? (
-        <p class="rounded-lg border border-red-500/40 bg-red-950/40 px-3 py-2 text-sm text-red-100">
+        <div class="alert alert-error" style="margin-top: var(--sp-3);">
           Database unavailable: {dbError}
-        </p>
+        </div>
       ) : (
-        <div class="mt-4 space-y-3">
+        <div style="margin-top: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-3);">
           {comments.length === 0 ? (
-            <p class="text-sm text-slate-400">No comments yet.</p>
+            <p class="body-text-small">No comments yet.</p>
           ) : (
             comments.map((comment) => (
-              <div class="rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-2 text-sm text-slate-100">
-                <p>{comment.comment ?? ''}</p>
-                <div class="mt-1 text-xs text-slate-500">ID {comment.id}</div>
+              <div class="card">
+                <p class="body-text-small">{comment.comment ?? ''}</p>
+                <div class="body-text-small" style="margin-top: var(--sp-1); color: var(--color-text-disabled);">
+                  ID {comment.id}
+                </div>
               </div>
             ))
           )}

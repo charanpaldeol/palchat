@@ -3,51 +3,51 @@ import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout title="Palchat tech stack">
-  <section class="mx-auto max-w-5xl px-4 pb-12 pt-12 sm:px-6 lg:px-8 lg:pb-16 lg:pt-16">
-    <header class="mb-8 space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">About · Tech stack</p>
-      <h1 class="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-        The stack behind Palchat.
-      </h1>
-      <p class="max-w-2xl text-sm text-slate-300 sm:text-base">
-        A simple, modern setup focused on fast pages, small interactive tools, and boring-but-reliable infra.
-      </p>
-    </header>
+  <section class="section">
+    <div class="app-container">
+      <header style="margin-bottom: var(--sp-6);">
+        <p class="section-eyebrow">About · Tech stack</p>
+        <h1 class="section-title" style="font-size: 1.5rem; margin-top: var(--sp-2);">
+          The stack behind Palchat.
+        </h1>
+        <p class="body-text" style="max-width: 640px; margin-top: var(--sp-3);">
+          A simple, modern setup focused on fast pages, small interactive tools, and boring-but-reliable infra.
+        </p>
+      </header>
 
-    <section class="mb-10 space-y-4">
-      <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-400">High-level view</h2>
-      <div class="grid gap-4 rounded-xl border border-slate-800 bg-slate-900/70 p-4 text-sm text-slate-200 sm:grid-cols-3">
+      <section class="section-tight" style="padding-top: 0; padding-bottom: var(--sp-6);">
+        <h2 class="section-eyebrow">High-level view</h2>
+        <div class="card" style="margin-top: var(--sp-3); display: grid; gap: var(--sp-4);">
         <div class="space-y-1">
-          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Frontend</p>
-          <p class="text-sm font-semibold text-slate-100">Astro + React + Tailwind</p>
-          <p class="text-xs text-slate-300">
-            Mostly static pages with small interactive React islands, styled with Tailwind.
-          </p>
+            <p class="section-eyebrow">Frontend</p>
+            <p class="body-text-small">
+              <span style="font-weight: 500;">Astro + React + Tailwind</span> — mostly static pages with small interactive React islands.
+            </p>
+          </div>
+          <div class="space-y-1">
+            <p class="section-eyebrow">Backend</p>
+            <p class="body-text-small">
+              <span style="font-weight: 500;">Serverless functions + Postgres</span> — lightweight APIs backed by a single relational database.
+            </p>
+          </div>
+          <div class="space-y-1">
+            <p class="section-eyebrow">Infra</p>
+            <p class="body-text-small">
+              <span style="font-weight: 500;">Vercel + managed Postgres</span> — zero-maintenance hosting with SSL, CI, and database integrations.
+            </p>
+          </div>
         </div>
-        <div class="space-y-1">
-          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Backend</p>
-          <p class="text-sm font-semibold text-slate-100">Serverless functions + Postgres</p>
-          <p class="text-xs text-slate-300">
-            Lightweight APIs for comments and tools backed by a single relational database.
-          </p>
-        </div>
-        <div class="space-y-1">
-          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Infra</p>
-          <p class="text-sm font-semibold text-slate-100">Vercel + managed Postgres</p>
-          <p class="text-xs text-slate-300">
-            Zero-maintenance hosting with SSL, CI, and database integrations.
-          </p>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="mb-10 space-y-4">
-      <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-400">Stack by layer</h2>
+      <section class="section-tight" style="padding-top: 0; padding-bottom: var(--sp-6);">
+        <h2 class="section-eyebrow">Stack by layer</h2>
 
-      <div class="space-y-6 rounded-xl border border-slate-800 bg-slate-950/60 p-4 sm:p-5">
-        <div class="space-y-2">
-          <h3 class="text-sm font-semibold text-slate-100">Presentation & UI</h3>
-          <div class="flex flex-wrap gap-2">
+        <div class="card" style="margin-top: var(--sp-3); display: flex; flex-direction: column; gap: var(--sp-5);">
+          <div class="space-y-2">
+            <h3 class="section-title" style="font-size: 1rem;">
+              Presentation &amp; UI
+            </h3>
+            <div class="flex flex-wrap gap-2">
             <span class="rounded-full border border-emerald-500/50 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
               Astro (site framework)
             </span>
@@ -61,11 +61,13 @@ import Layout from '../../layouts/Layout.astro';
           <p class="text-xs text-slate-400">
             Pages are mostly static for speed; React is only used where interactivity is needed (like the comments demo and future tools).
           </p>
-        </div>
+          </div>
 
-        <div class="space-y-2 border-t border-slate-800 pt-4">
-          <h3 class="text-sm font-semibold text-slate-100">APIs & logic</h3>
-          <div class="flex flex-wrap gap-2">
+          <div class="space-y-2" style="border-top: 1px solid var(--color-border); padding-top: var(--sp-4);">
+            <h3 class="section-title" style="font-size: 1rem;">
+              APIs &amp; logic
+            </h3>
+            <div class="flex flex-wrap gap-2">
             <span class="rounded-full border border-amber-500/50 bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-200">
               Vercel Serverless Functions
             </span>
@@ -79,11 +81,13 @@ import Layout from '../../layouts/Layout.astro';
           <p class="text-xs text-slate-400">
             Small, single-purpose functions are used for database-backed features and contact flows.
           </p>
-        </div>
+          </div>
 
-        <div class="space-y-2 border-t border-slate-800 pt-4">
-          <h3 class="text-sm font-semibold text-slate-100">Data & storage</h3>
-          <div class="flex flex-wrap gap-2">
+          <div class="space-y-2" style="border-top: 1px solid var(--color-border); padding-top: var(--sp-4);">
+            <h3 class="section-title" style="font-size: 1rem;">
+              Data &amp; storage
+            </h3>
+            <div class="flex flex-wrap gap-2">
             <span class="rounded-full border border-cyan-500/50 bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-200">
               PostgreSQL
             </span>
@@ -97,11 +101,13 @@ import Layout from '../../layouts/Layout.astro';
           <p class="text-xs text-slate-400">
             A single relational database stores comments, tools, and future idea-related data.
           </p>
-        </div>
+          </div>
 
-        <div class="space-y-2 border-t border-slate-800 pt-4">
-          <h3 class="text-sm font-semibold text-slate-100">Hosting & ops</h3>
-          <div class="flex flex-wrap gap-2">
+          <div class="space-y-2" style="border-top: 1px solid var(--color-border); padding-top: var(--sp-4);">
+            <h3 class="section-title" style="font-size: 1rem;">
+              Hosting &amp; ops
+            </h3>
+            <div class="flex flex-wrap gap-2">
             <span class="rounded-full border border-slate-500/50 bg-slate-500/10 px-3 py-1 text-xs font-medium text-slate-200">
               Vercel (hosting, SSL, CDN)
             </span>
@@ -115,32 +121,38 @@ import Layout from '../../layouts/Layout.astro';
           <p class="text-xs text-slate-400">
             The site is deployed from Git pushes; environment variables control local vs. cloud database connections.
           </p>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="space-y-4">
-      <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-400">Why this stack</h2>
-      <div class="space-y-3 rounded-xl border border-slate-800 bg-slate-950/60 p-4 text-sm text-slate-200">
-        <p>
-          The goal is to keep Palchat easy to maintain: static-first pages, a single database, and well-supported tools.
-        </p>
-        <ul class="space-y-2 text-xs text-slate-300 sm:text-sm">
-          <li class="flex gap-2">
-            <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            <span><span class="font-medium text-slate-100">Fast by default</span> — most content is static, so pages are quick to load globally.</span>
-          </li>
-          <li class="flex gap-2">
-            <span class="mt-1 h-1.5 w-1.5 rounded-full bg-sky-400" />
-            <span><span class="font-medium text-slate-100">Small moving parts</span> — only a handful of serverless functions and one database.</span>
-          </li>
-          <li class="flex gap-2">
-            <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400" />
-            <span><span class="font-medium text-slate-100">Room to grow</span> — new tools can be added as self-contained pages using the same stack.</span>
-          </li>
-        </ul>
-      </div>
-    </section>
+      <section class="section-tight" style="padding-top: 0;">
+        <h2 class="section-eyebrow">Why this stack</h2>
+        <div class="card" style="margin-top: var(--sp-3);">
+          <p class="body-text-small">
+            The goal is to keep Palchat easy to maintain: static-first pages, a single database, and well-supported tools.
+          </p>
+          <ul class="body-text-small" style="margin-top: var(--sp-3);">
+            <li style="display: flex; gap: var(--sp-2); margin-bottom: var(--sp-2);">
+              <span
+                style="margin-top: 6px; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); flex-shrink: 0;"
+              />
+              <span><span style="font-weight: 500;">Fast by default</span> — most content is static, so pages are quick to load globally.</span>
+            </li>
+            <li style="display: flex; gap: var(--sp-2); margin-bottom: var(--sp-2);">
+              <span
+                style="margin-top: 6px; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); flex-shrink: 0;"
+              />
+              <span><span style="font-weight: 500;">Small moving parts</span> — only a handful of serverless functions and one database.</span>
+            </li>
+            <li style="display: flex; gap: var(--sp-2);">
+              <span
+                style="margin-top: 6px; width: 6px; height: 6px; border-radius: 50%; background: var(--color-primary); flex-shrink: 0;"
+              />
+              <span><span style="font-weight: 500;">Room to grow</span> — new tools can be added as self-contained pages using the same stack.</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
   </section>
 </Layout>
-

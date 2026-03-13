@@ -3,25 +3,26 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Palchat tech stack">
-  <section class="mx-auto max-w-5xl px-4 pb-12 pt-12 sm:px-6 lg:px-8 lg:pb-16 lg:pt-16">
-    <header class="mb-10 space-y-3 text-center">
-      <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Tech stack</p>
-      <h1 class="text-balance text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl">
-        How Palchat is put together.
-      </h1>
-      <p class="mx-auto max-w-2xl text-sm text-slate-300 sm:text-base">
-        Rather than a long list of tools, this page shows the flow from a visitor landing on the site to data being
-        stored and deployed.
-      </p>
-    </header>
+  <section class="section">
+    <div class="app-container">
+      <header style="margin-bottom: var(--sp-7); text-align: center;">
+        <p class="section-eyebrow">Tech stack</p>
+        <h1 class="section-title" style="font-size: 1.5rem; margin-top: var(--sp-2);">
+          How Palchat is put together.
+        </h1>
+        <p class="body-text" style="max-width: 640px; margin: var(--sp-3) auto 0;">
+          Rather than a long list of tools, this page shows the flow from a visitor landing on the site to data being
+          stored and deployed.
+        </p>
+      </header>
 
-    <section class="mb-12 space-y-4">
-      <h2 class="text-center text-xs font-semibold uppercase tracking-wide text-slate-400">
-        End‑to‑end flow
-      </h2>
+      <section class="section-tight" style="padding-top: 0; padding-bottom: var(--sp-7);">
+        <h2 class="section-eyebrow" style="text-align: center;">
+          End‑to‑end flow
+        </h2>
 
-      <div class="relative mx-auto max-w-3xl space-y-6 rounded-2xl border border-slate-800 bg-slate-950/70 p-4 sm:p-6">
-        <ol class="space-y-4 sm:space-y-5">
+        <div class="card" style="margin-top: var(--sp-4); max-width: 768px; margin-left: auto; margin-right: auto;">
+          <ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--sp-4);">
           <li class="flex gap-3">
             <div class="mt-0.5 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500 text-xs font-semibold text-slate-950 shadow-sm">
               1
@@ -156,38 +157,40 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </li>
         </ol>
-      </div>
-    </section>
+        </div>
+      </section>
 
-    <section class="space-y-4">
-      <h2 class="text-xs font-semibold uppercase tracking-wide text-slate-400">Stack by layer (summary)</h2>
-      <div class="grid gap-4 rounded-2xl border border-slate-800 bg-slate-950/70 p-4 text-sm text-slate-200 sm:grid-cols-3">
+      <section class="section-tight" style="padding-top: 0;">
+        <h2 class="section-eyebrow">
+          Stack by layer (summary)
+        </h2>
+        <div class="card" style="margin-top: var(--sp-3); display: grid; gap: var(--sp-4);">
         <div class="space-y-2">
-          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Frontend</p>
-          <ul class="space-y-1 text-xs text-slate-300 sm:text-[13px]">
-            <li><span class="font-medium text-slate-100">Astro</span> for fast, mostly static pages.</li>
-            <li><span class="font-medium text-slate-100">React islands</span> where interactivity is needed.</li>
-            <li><span class="font-medium text-slate-100">Tailwind CSS</span> for consistent design tokens.</li>
-          </ul>
+            <p class="section-eyebrow">Frontend</p>
+            <ul class="body-text-small">
+              <li><span style="font-weight: 500;">Astro</span> for fast, mostly static pages.</li>
+              <li><span style="font-weight: 500;">React islands</span> where interactivity is needed.</li>
+              <li><span style="font-weight: 500;">Tailwind CSS</span> for consistent design tokens.</li>
+            </ul>
+          </div>
+          <div class="space-y-2">
+            <p class="section-eyebrow">Backend</p>
+            <ul class="body-text-small">
+              <li><span style="font-weight: 500;">Vercel Functions</span> for small, focused APIs.</li>
+              <li><span style="font-weight: 500;">Node.js</span> runtime for server logic.</li>
+              <li><span style="font-weight: 500;">Nodemailer</span> for transactional email.</li>
+            </ul>
+          </div>
+          <div class="space-y-2">
+            <p class="section-eyebrow">Data &amp; infra</p>
+            <ul class="body-text-small">
+              <li><span style="font-weight: 500;">PostgreSQL</span> as the main database.</li>
+              <li><span style="font-weight: 500;">`pg` pooled client</span> for safe connections.</li>
+              <li><span style="font-weight: 500;">Vercel</span> for hosting, SSL, and CDN.</li>
+            </ul>
+          </div>
         </div>
-        <div class="space-y-2">
-          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Backend</p>
-          <ul class="space-y-1 text-xs text-slate-300 sm:text-[13px]">
-            <li><span class="font-medium text-slate-100">Vercel Functions</span> for small, focused APIs.</li>
-            <li><span class="font-medium text-slate-100">Node.js</span> runtime for server logic.</li>
-            <li><span class="font-medium text-slate-100">Nodemailer</span> for transactional email.</li>
-          </ul>
-        </div>
-        <div class="space-y-2">
-          <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Data & infra</p>
-          <ul class="space-y-1 text-xs text-slate-300 sm:text-[13px]">
-            <li><span class="font-medium text-slate-100">PostgreSQL</span> as the main database.</li>
-            <li><span class="font-medium text-slate-100">`pg` pooled client</span> for safe connections.</li>
-            <li><span class="font-medium text-slate-100">Vercel</span> for hosting, SSL, and CDN.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </section>
 </Layout>
-
