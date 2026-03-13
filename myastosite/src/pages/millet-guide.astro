@@ -1,0 +1,453 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Millet, flour & fat guide">
+  <div class="min-h-screen bg-[#f5f4ef] px-4 py-6 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl">
+      <h1 class="mb-1 text-xl font-medium text-[#1a1a18]">
+        Millet, flour &amp; fat guide
+      </h1>
+      <p class="mb-5 text-xs text-[#888780] sm:text-sm">
+        Personalised to your lab markers — HbA1c 5.6%, HDL 0.97, urate 378
+      </p>
+
+      <div class="mb-5 flex flex-wrap gap-2">
+        <button
+          class="tab-btn active"
+          id="btn-flours"
+          type="button"
+          onclick="showTab('flours')"
+        >
+          Flours &amp; millets
+        </button>
+        <button
+          class="tab-btn"
+          id="btn-fats"
+          type="button"
+          onclick="showTab('fats')"
+        >
+          Fats &amp; oils
+        </button>
+        <button
+          class="tab-btn"
+          id="btn-meals"
+          type="button"
+          onclick="showTab('meals')"
+        >
+          Sample meals
+        </button>
+      </div>
+
+      <!-- Flours tab -->
+      <div id="tab-flours">
+        <p class="mb-4 text-xs text-[#888780] sm:text-[13px]">
+          Ranked by impact on your three key markers: HbA1c, HDL, and urate.
+        </p>
+
+        <div class="card green-left">
+          <div class="card-header">
+            <span class="card-title">Kuttu (buckwheat)</span>
+            <span class="rank-badge r1">Best choice</span>
+          </div>
+          <div class="card-sub">
+            Fagopyrum esculentum — a pseudocereal, not a true grain
+          </div>
+          <div class="gi-row">
+            <span class="gi-label">GI score</span>
+            <div class="gi-track">
+              <div class="gi-fill" style="width:40%;background:#1D9E75"></div>
+            </div>
+            <span class="gi-val">40–49</span>
+          </div>
+          <p class="body">
+            Kuttu is the standout choice for this person. It contains
+            <strong>rutin</strong> — a flavonoid that actively lowers LDL,
+            strengthens blood vessel walls, and has anti-inflammatory properties
+            directly relevant to the low HDL and metabolic syndrome picture. Its
+            GI is the lowest of all options here. The compound quercetin also
+            enhances insulin sensitivity at the liver. Rich in magnesium which
+            directly improves insulin response. Gluten-free and high in complete
+            protein — unusual for a grain alternative.
+          </p>
+          <div>
+            <span class="tag tg">Lowers LDL</span>
+            <span class="tag tg">Raises HDL indirectly</span>
+            <span class="tag tg">GI 40–49</span>
+            <span class="tag tg">Rutin for vessels</span>
+            <span class="tag tg">Magnesium rich</span>
+          </div>
+        </div>
+
+        <div class="card green-left">
+          <div class="card-header">
+            <span class="card-title">Ragi (finger millet)</span>
+            <span class="rank-badge r1">Best choice</span>
+          </div>
+          <div class="card-sub">
+            Eleusine coracana — GI varies by preparation
+          </div>
+          <div class="gi-row">
+            <span class="gi-label">GI score</span>
+            <div class="gi-track">
+              <div class="gi-fill" style="width:53%;background:#1D9E75"></div>
+            </div>
+            <span class="gi-val">54 (roti)</span>
+          </div>
+          <p class="body">
+            Ragi is exceptional for this person because of its
+            <strong>polyphenol content</strong> — these slow glucose absorption
+            by inhibiting starch-digesting enzymes, meaning the functional GI is
+            lower than the number suggests. It is the richest calcium source
+            among millets and has a uniquely low enzymatic activity due to its
+            starch structure. Clinical studies show ragi-based diets produce
+            significantly lower post-meal glucose peaks versus wheat. As a dosa
+            or porridge it outperforms as a roti.
+          </p>
+          <div>
+            <span class="tag tg">Polyphenol-rich</span>
+            <span class="tag tg">Low post-meal spike</span>
+            <span class="tag tg">Highest calcium</span>
+            <span class="tag tg">Insulin index lowering</span>
+          </div>
+        </div>
+
+        <div class="card blue-left">
+          <div class="card-header">
+            <span class="card-title">Bajra (pearl millet)</span>
+            <span class="rank-badge r2">Very good</span>
+          </div>
+          <div class="card-sub">
+            Pennisetum glaucum — staple of Rajasthan, Maharashtra
+          </div>
+          <div class="gi-row">
+            <span class="gi-label">GI score</span>
+            <div class="gi-track">
+              <div class="gi-fill" style="width:54%;background:#378ADD"></div>
+            </div>
+            <span class="gi-val">54</span>
+          </div>
+          <p class="body">
+            Bajra has the highest magnesium content of the millets — critical
+            because <strong>magnesium is the key mineral for insulin receptor
+            function</strong>. Low magnesium is strongly linked to insulin
+            resistance. Bajra is also rich in omega-3 fatty acids, which
+            directly supports HDL. Of all the Indian millets it has the best
+            omega-3 profile. Use in rotation rather than as sole flour.
+          </p>
+          <div>
+            <span class="tag tg">Highest magnesium</span>
+            <span class="tag tg">Omega-3 for HDL</span>
+            <span class="tag tg">Insulin receptor support</span>
+            <span class="tag ta">Slightly higher GI</span>
+          </div>
+        </div>
+
+        <div class="card blue-left">
+          <div class="card-header">
+            <span class="card-title">Jowar (sorghum)</span>
+            <span class="rank-badge r3">Good</span>
+          </div>
+          <div class="card-sub">
+            Sorghum bicolor — widely endorsed by Indian diabetologists
+          </div>
+          <div class="gi-row">
+            <span class="gi-label">GI score</span>
+            <div class="gi-track">
+              <div class="gi-fill" style="width:55%;background:#378ADD"></div>
+            </div>
+            <span class="gi-val">~55–62</span>
+          </div>
+          <p class="body">
+            Jowar is the most practical daily flour — mildest in taste and
+            easiest to use for traditional rotis. Its tannins and phenolic acids
+            slow starch digestion. Good iron content supports overall metabolic
+            function. Lowers cholesterol via plant sterols. An excellent
+            rotation option that is easy to find across India.
+          </p>
+          <div>
+            <span class="tag tg">Plant sterols</span>
+            <span class="tag tg">Mild taste</span>
+            <span class="tag tg">Good iron</span>
+            <span class="tag ta">Higher GI than ragi/kuttu</span>
+          </div>
+        </div>
+
+        <div class="card blue-left">
+          <div class="card-header">
+            <span class="card-title">Foxtail millet (kangani)</span>
+            <span class="rank-badge r3">Good</span>
+          </div>
+          <div class="card-sub">Setaria italica</div>
+          <div class="gi-row">
+            <span class="gi-label">GI score</span>
+            <div class="gi-track">
+              <div class="gi-fill" style="width:50%;background:#378ADD"></div>
+            </div>
+            <span class="gi-val">~50</span>
+          </div>
+          <p class="body">
+            Foxtail millet has one of the most balanced fibre and protein ratios
+            among millets, making it effective for blood sugar control and
+            satiety. Used as a rice substitute in South India. High in B
+            vitamins including niacin. Good addition to a flour rotation.
+          </p>
+          <div>
+            <span class="tag tg">Balanced fibre/protein</span>
+            <span class="tag tg">Good satiety</span>
+            <span class="tag tg">B vitamins</span>
+          </div>
+        </div>
+
+        <div class="card amber-left">
+          <div class="card-header">
+            <span class="card-title">Wheat atta (whole wheat)</span>
+            <span class="rank-badge r4">Use less</span>
+          </div>
+          <div class="card-sub">
+            Triticum aestivum — dominant Indian flour
+          </div>
+          <div class="gi-row">
+            <span class="gi-label">GI score</span>
+            <div class="gi-track">
+              <div class="gi-fill" style="width:70%;background:#EF9F27"></div>
+            </div>
+            <span class="gi-val">~70</span>
+          </div>
+          <p class="body">
+            Whole wheat atta is not harmful, but it is a step down from all the
+            millets for this profile. GI of ~70 is nearly double kuttu's. Lacks
+            the polyphenols and magnesium density of millets. The recommendation
+            is to progressively replace 50–70% of daily atta with millet flours.
+            A blend of 50% bajra + 30% ragi + 20% atta makes an excellent
+            everyday roti flour.
+          </p>
+          <div>
+            <span class="tag ta">GI ~70</span>
+            <span class="tag ta">Lower polyphenols</span>
+            <span class="tag ta">Replace progressively</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fats tab -->
+      <div id="tab-fats" style="display:none;">
+        <p class="mb-4 text-xs text-[#888780] sm:text-[13px]">
+          Assessed against the HDL 0.97, non-HDL cholesterol, and insulin
+          resistance picture.
+        </p>
+
+        <div class="fat-card" style="border-left:3px solid #1D9E75;border-radius:0 12px 12px 0;">
+          <div class="card-header" style="margin-bottom:6px;">
+            <span class="card-title">Extra virgin olive oil (EVOO)</span>
+            <span class="verdict v1">Primary fat — use daily</span>
+          </div>
+          <p class="body">
+            The most evidence-backed fat for this specific profile. Oleic acid
+            (74% of EVOO) reduces LDL while preserving or raising HDL.
+            Oleocanthal acts as a natural anti-inflammatory — directly relevant
+            to the metabolic syndrome cluster. A randomised trial showed ghee
+            raised non-HDL cholesterol and apo-B significantly more than olive
+            oil over 4 weeks. Use cold for dressings, drizzled over dal, and for
+            low-to-medium heat cooking. Do not use for high-heat deep frying.
+          </p>
+          <div>
+            <span class="tag tg">Raises HDL</span>
+            <span class="tag tg">Lowers LDL</span>
+            <span class="tag tg">Anti-inflammatory</span>
+            <span class="tag tg">Insulin neutral</span>
+            <span class="tag ta">Low-medium heat only</span>
+          </div>
+        </div>
+
+        <div class="fat-card" style="border-left:3px solid #378ADD;border-radius:0 12px 12px 0;">
+          <div class="card-header" style="margin-bottom:6px;">
+            <span class="card-title">Ghee (desi / cow)</span>
+            <span class="verdict v2">Secondary — use in moderation</span>
+          </div>
+          <p class="body">
+            Clinical evidence shows ghee raises apo-B and non-HDL cholesterol
+            more than olive oil — not ideal when HDL is already at 0.97.
+            However, ghee's smoke point of 485°F makes it far safer for Indian
+            high-heat cooking (tadka, frying) where olive oil degrades. Butyric
+            acid supports gut health. CLA in grass-fed ghee has modest
+            anti-inflammatory effects. Limit to 1–2 teaspoons per day. Think of
+            ghee as a flavour finisher — a small amount on hot dal or roti.
+          </p>
+          <div>
+            <span class="tag tg">High smoke point</span>
+            <span class="tag tg">Butyric acid (gut)</span>
+            <span class="tag ta">Raises non-HDL vs EVOO</span>
+            <span class="tag ta">Limit to 1–2 tsp/day</span>
+          </div>
+        </div>
+
+        <div class="fat-card" style="border-left:3px solid #378ADD;border-radius:0 12px 12px 0;">
+          <div class="card-header" style="margin-bottom:6px;">
+            <span class="card-title">Mustard oil</span>
+            <span class="verdict v2">Good — traditional Indian cooking</span>
+          </div>
+          <p class="body">
+            Mustard oil is underrated in the context of metabolic health. High
+            smoke point (~480°F), rich in omega-3 and omega-6 fatty acids, with
+            demonstrated cholesterol-lowering effects in Indian cohort studies. A
+            good high-heat alternative to ghee for regular cooking. Widely used
+            in North and East India.
+          </p>
+          <div>
+            <span class="tag tg">Omega-3 rich</span>
+            <span class="tag tg">High smoke point</span>
+            <span class="tag tg">HDL supportive</span>
+          </div>
+        </div>
+
+        <div class="fat-card" style="border-left:3px solid #EF9F27;border-radius:0 12px 12px 0;">
+          <div class="card-header" style="margin-bottom:6px;">
+            <span class="card-title">Coconut oil</span>
+            <span class="verdict v3">Use occasionally</span>
+          </div>
+          <p class="body">
+            Coconut oil raises HDL more than most oils due to its lauric acid
+            content. However, it also raises LDL and total cholesterol. MCT
+            content may aid insulin sensitivity in some people. Occasional use in
+            South Indian cooking is fine, but should not replace EVOO or mustard
+            oil as the primary fat.
+          </p>
+          <div>
+            <span class="tag tg">Raises HDL</span>
+            <span class="tag ta">Also raises LDL</span>
+            <span class="tag ta">Occasional use only</span>
+          </div>
+        </div>
+
+        <div class="fat-card" style="border-left:3px solid #E24B4A;border-radius:0 12px 12px 0;">
+          <div class="card-header" style="margin-bottom:6px;">
+            <span class="card-title"
+              >Refined vegetable / sunflower / soybean oil</span
+            >
+            <span class="verdict v4">Avoid as daily cooking oil</span>
+          </div>
+          <p class="body">
+            High in omega-6 linoleic acid which, when overconsumed relative to
+            omega-3, promotes systemic inflammation — the exact environment that
+            drives insulin resistance and keeps HDL suppressed. Heavily refined
+            with industrial processing that introduces oxidation products.
+            Replacing sunflower/soybean oil with EVOO for raw use and mustard
+            oil or ghee for cooking is one of the highest-impact dietary changes
+            possible.
+          </p>
+          <div>
+            <span class="tag tr">Pro-inflammatory</span>
+            <span class="tag tr">Suppresses HDL</span>
+            <span class="tag tr">Worsens insulin resistance</span>
+            <span class="tag tr">Replace immediately</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Meals tab -->
+      <div id="tab-meals" style="display:none;">
+        <p class="mb-4 text-xs text-[#888780] sm:text-[13px]">
+          Practical daily meal ideas using the recommended flours and fats
+          together.
+        </p>
+
+        <div class="sh">Breakfast</div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#1D9E75"></div>
+          <div class="text-[13px] leading-snug text-[#1a1a18] sm:text-sm">
+            <strong>Ragi dosa or ragi cheela</strong> — fermented batter lowers
+            GI further. Pair with coconut chutney (not sugar-sweetened). Drizzle
+            EVOO or finish with small ghee smear.
+          </div>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#1D9E75"></div>
+          <div class="text-[13px] leading-snug text-[#1a1a18] sm:text-sm">
+            <strong>Kuttu ka cheela (buckwheat pancake)</strong> — with grated
+            vegetables, a tablespoon of EVOO in the pan. High-protein, low-GI
+            morning meal.
+          </div>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#1D9E75"></div>
+          <div class="text-[13px] leading-snug text-[#1a1a18] sm:text-sm">
+            <strong>Bajra porridge (bajre ki raab)</strong> — traditional
+            Rajasthani preparation. Add a small amount of ghee for flavour. High
+            magnesium morning meal.
+          </div>
+        </div>
+
+        <div class="sh">Lunch / Dinner</div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#378ADD"></div>
+          <div class="text-[13px] leading-snug text-[#1a1a18] sm:text-sm">
+            <strong
+              >Millet flour blend roti (50% bajra + 30% ragi + 20% atta)</strong
+            >
+            — best daily chapati substitute. Cook on tawa, finish with ½ tsp
+            ghee. Pair with dal and sabzi. Never plain rice as the only grain.
+          </div>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#378ADD"></div>
+          <div class="text-[13px] leading-snug text-[#1a1a18] sm:text-sm">
+            <strong>Jowar bhakri with mustard-oil tempered dal</strong> —
+            mustard oil tadka with cumin, hing and turmeric adds omega-3 and
+            anti-inflammatory compounds to a naturally low-GI meal.
+          </div>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#378ADD"></div>
+          <div class="text-[13px] leading-snug text-[#1a1a18] sm:text-sm">
+            <strong>Foxtail millet khichdi</strong> — replace white rice
+            entirely with foxtail millet. Add turmeric, cumin, and EVOO drizzle
+            post-cooking. High fibre, complete protein with dal.
+          </div>
+        </div>
+
+        <div class="sh">Snacks</div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#639922"></div>
+          <div class="text-[13px] leading-snug text-[#1a1a18] sm:text-sm">
+            <strong>Makhana (fox nut) with EVOO and rock salt</strong> — very
+            low GI, high protein, excellent replacement for chips or biscuits.
+          </div>
+        </div>
+        <div class="meal-row">
+          <div class="meal-dot" style="background:#639922"></div>
+          <div class="text-[13px] leading-snug text-[#1a1a18] sm:text-sm">
+            <strong>Kuttu ka atta laddoo</strong> — made with jaggery (not
+            sugar) and a small amount of ghee. Occasional treat that stays
+            within the millet framework.
+          </div>
+        </div>
+
+        <div class="info-box mt-4">
+          <p class="label">The fat rotation rule</p>
+          <p>
+            EVOO for raw use and light cooking. Mustard oil for high-heat Indian
+            cooking. Ghee as a flavour finisher (1–2 tsp/day). Eliminate refined
+            sunflower/soybean oil from the kitchen entirely.
+          </p>
+        </div>
+      </div>
+
+      <footer class="mt-8 border-t border-[#e0dfd8] pt-4 text-center text-[11px] text-[#b4b2a9] sm:text-xs">
+        Generated from lab analysis — not a substitute for medical advice from
+        your physician.
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    function showTab(t) {
+      ['flours', 'fats', 'meals'].forEach(function (x) {
+        document.getElementById('tab-' + x).style.display =
+          x === t ? 'block' : 'none';
+        document.getElementById('btn-' + x).className =
+          'tab-btn' + (x === t ? ' active' : '');
+      });
+    }
+  </script>
+</Layout>

@@ -9,14 +9,15 @@ const currentPath = Astro.url.pathname;
 const baseNavLink =
   'rounded-full px-3 py-1.5 text-xs sm:text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-300 focus-visible:ring-offset-2 focus-visible:ring-offset-white';
 
-const neutralNavLink = `${baseNavLink} text-slate-700 hover:bg-slate-100 hover:text-slate-900`;
+const neutralNavLink = `${baseNavLink} text-slate-600 hover:bg-slate-100 hover:text-slate-900`;
 const primaryNavLink =
-  baseNavLink + ' bg-slate-900 text-slate-50 shadow-sm hover:bg-slate-800';
+  baseNavLink + ' bg-indigo-600 text-white shadow-sm hover:bg-indigo-700';
 
 const isHome = currentPath === '/';
 const isAbout = currentPath.startsWith('/about') && !currentPath.startsWith('/about/tech-stack');
 const isTechStack = currentPath === '/tech-stack' || currentPath.startsWith('/about/tech-stack');
 const isComments = currentPath.startsWith('/comments');
+const isMilletGuide = currentPath.startsWith('/millet-guide');
 
 import '../styles/global.css';
 ---
@@ -28,17 +29,17 @@ import '../styles/global.css';
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
   </head>
-  <body class="bg-slate-950 text-slate-100 antialiased">
+  <body class="bg-slate-50 text-slate-900 antialiased">
     <div class="flex min-h-screen flex-col">
-      <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur">
+      <header class="border-b border-slate-200 bg-white/80 backdrop-blur">
         <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <a href="/" class="flex items-center gap-2">
-            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-500 text-xs font-semibold text-slate-950 shadow-sm">
+            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-500 text-xs font-semibold text-white shadow-sm">
               P
             </div>
-            <span class="text-sm font-semibold tracking-tight text-slate-50 sm:text-base">Palchat</span>
+            <span class="text-sm font-semibold tracking-tight text-slate-900 sm:text-base">Palchat</span>
           </a>
-          <nav class="flex items-center gap-3 text-xs text-slate-400 sm:gap-5 sm:text-sm">
+          <nav class="flex items-center gap-3 text-xs text-slate-500 sm:gap-5 sm:text-sm">
             <a
               href="/"
               class={isHome ? primaryNavLink : neutralNavLink}
@@ -67,6 +68,13 @@ import '../styles/global.css';
             >
               Comments demo
             </a>
+            <a
+              href="/millet-guide"
+              class={isMilletGuide ? primaryNavLink : neutralNavLink}
+              aria-current={isMilletGuide ? 'page' : undefined}
+            >
+              Millet guide
+            </a>
           </nav>
         </div>
       </header>
@@ -75,11 +83,11 @@ import '../styles/global.css';
         <slot />
       </main>
 
-      <footer class="border-t border-slate-800">
-        <div class="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-6 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+      <footer class="border-t border-slate-200 bg-white/80">
+        <div class="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <span>© {new Date().getFullYear()} Palchat. All rights reserved.</span>
           <div class="flex flex-wrap gap-4">
-            <a href="mailto:hello@palchat.org" class="hover:text-slate-200">Contact</a>
+            <a href="mailto:hello@palchat.org" class="hover:text-slate-900">Contact</a>
           </div>
         </div>
       </footer>
