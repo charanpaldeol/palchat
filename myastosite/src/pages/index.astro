@@ -3,10 +3,16 @@ import Layout from '../layouts/Layout.astro';
 import HomeHero from '@/components/pages/home/HomeHero.astro';
 import HomeMetaStrip from '@/components/pages/home/HomeMetaStrip.astro';
 import HomeFeaturedIdea from '@/components/pages/home/HomeFeaturedIdea.astro';
+import HomeVision from '@/components/pages/home/HomeVision.astro';
 ---
 
-<Layout title="Palchat – Bring ideas to life">
-  <HomeHero title="Bring product ideas to life" />
+<Layout title="Palchat – Reclaim your digital destiny">
+  <HomeHero
+    eyebrow="A calm home for people who refuse to be just data points"
+    title="Reclaim your digital destiny"
+    subtitle="Palchat is a co-owned, ad-free space to think, write, and build tools that serve human will — not surveillance algorithms or engagement dashboards."
+  />
   <HomeMetaStrip />
   <HomeFeaturedIdea />
+  <HomeVision />
 </Layout>
