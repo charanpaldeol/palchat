@@ -1,191 +1,138 @@
 ---
 interface Props {
   title?: string;
-  /** Meta description for SEO and social sharing. Defaults to site tagline when omitted. */
-  description?: string;
   /** When true, adds robots noindex,nofollow (e.g. login, signup, my-account). */
   noindex?: boolean;
 }
 
-const { title = 'Reclaim', description, noindex = false } = Astro.props;
-const currentPath = Astro.url.pathname;
-const siteOrigin = import.meta.env.SITE
-  ? new URL(import.meta.env.SITE).origin
-  : Astro.url.origin;
-const canonicalUrl = `${siteOrigin}${currentPath}`;
-const defaultDescription =
-  'Reclaim is a co-owned, ad-free space to think, write, and build tools that serve human will — not surveillance algorithms or engagement dashboards.';
-const metaDescription = description ?? defaultDescription;
-const ogImage = `${siteOrigin}/logo.svg`;
-
-const isHome = currentPath === '/';
-const isAbout = currentPath.startsWith('/about') && !currentPath.startsWith('/about/tech-stack');
-const isTechStack = currentPath === '/tech-stack' || currentPath.startsWith('/about/tech-stack');
-const isComments = currentPath.startsWith('/comments');
-const isMilletGuide = currentPath.startsWith('/millet-guide');
-const isLogin = currentPath.startsWith('/login');
-const isSignup = currentPath.startsWith('/signup');
-const isMyAccount = currentPath.startsWith('/my-account');
+const { title = "Reclaim", noindex = false } = Astro.props as Props;
 const user = Astro.locals.user;
 
-import '../styles/global.css';
+import "../styles/global.css";
 ---
-
-<!--
-  Global app layout shell.
-  AI agents: do not edit the navbar, footer, or design tokens here unless the user explicitly asks to change global chrome.
-  Page-specific content and layout should live in page components and config, rendered inside <slot />.
--->
 
 <!DOCTYPE html>
 <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{title}</title>
-        <meta name="description" content={metaDescription} />
-        {noindex && (
-          <meta name="robots" content="noindex, nofollow" />
-        )}
-        <link rel="canonical" href={canonicalUrl} />
-        <!-- Open Graph -->
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:site_name" content="Reclaim" />
-        <meta property="og:locale" content="en" />
-        <!-- Twitter Card -->
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={metaDescription} />
-        <meta name="twitter:image" content={ogImage} />
-        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono&display=swap"
-        />
-      </head>
-      <body>
-        <div class="app-root">
-          <header class="site-header" id="site-header">
-            <div class="app-container site-header-inner">
-              <a href="/" class="logo-lockup">
-                <img src="/logo.svg" alt="" class="logo-img" width="32" height="32" />
-                <span class="logo-text">Reclaim</span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+  </head>
+  <body>
+    <div class="app-root">
+      <header class="site-header" id="site-header">
+        <div class="app-container site-header-inner">
+          <a href="/" class="logo-lockup">
+            <img
+              src="/logo.svg"
+              alt=""
+              class="logo-img"
+              width="32"
+              height="32"
+            />
+            <span class="logo-text">Reclaim</span>
+          </a>
+          <nav class="nav-links" aria-label="Main">
+            <a
+              href="/"
+              class="nav-link"
+            >
+              Home
+            </a>
+            <a
+              href="/about"
+              class="nav-link"
+            >
+              About
+            </a>
+            <a
+              href="/tech-stack"
+              class="nav-link"
+            >
+              Tech stack
+            </a>
+            <a
+              href="/comments"
+              class="nav-link"
+            >
+              Your thoughts
+            </a>
+            <a
+              href="/millet-guide"
+              class="nav-link"
+            >
+              Millet guide
+            </a>
+          </nav>
+          <div class="nav-cta">
+            {user ? (
+              <>
+                <a href="/my-account" class="nav-link">
+                  My account
+                </a>
+                <form
+                  method="post"
+                  action="/api/auth/logout"
+                  class="nav-logout-form"
+                >
+                  <button type="submit" class="btn btn-secondary btn-nav">
+                    Log out
+                  </button>
+                </form>
+              </>
+            ) : (
+              <a href="/login" class="btn btn-primary">
+                Login
               </a>
-              <nav class="nav-links" aria-label="Main">
-                <a
-                  href="/"
-                  class={`nav-link ${isHome ? 'nav-link--active' : ''}`}
-                  aria-current={isHome ? 'page' : undefined}
-                >
-                  Home
-                </a>
-                <a
-                  href="/about"
-                  class={`nav-link ${isAbout ? 'nav-link--active' : ''}`}
-                  aria-current={isAbout ? 'page' : undefined}
-                >
-                  About
-                </a>
-                <a
-                  href="/tech-stack"
-                  class={`nav-link ${isTechStack ? 'nav-link--active' : ''}`}
-                  aria-current={isTechStack ? 'page' : undefined}
-                >
-                  Tech stack
-                </a>
-                <a
-                  href="/comments"
-                  class={`nav-link ${isComments ? 'nav-link--active' : ''}`}
-                  aria-current={isComments ? 'page' : undefined}
-                >
-                  Your thoughts
-                </a>
-                <a
-                  href="/millet-guide"
-                  class={`nav-link ${isMilletGuide ? 'nav-link--active' : ''}`}
-                  aria-current={isMilletGuide ? 'page' : undefined}
-                >
-                  Millet guide
-                </a>
-              </nav>
-              <div class="nav-cta">
-                {user ? (
-                  <>
-                    <a
-                      href="/my-account"
-                      class={`nav-link ${isMyAccount ? 'nav-link--active' : ''}`}
-                      aria-current={isMyAccount ? 'page' : undefined}
-                    >
-                      My account
-                    </a>
-                    <form method="post" action="/api/auth/logout" class="nav-logout-form">
-                      <button type="submit" class="btn btn-secondary btn-nav">
-                        Log out
-                      </button>
-                    </form>
-                  </>
-                ) : (
-                  <a href="/login" class="btn btn-primary">
-                    Login
-                  </a>
-                )}
-              </div>
-            </div>
-          </header>
-
-          <main class="app-main">
-            <slot />
-          </main>
-
-          <footer class="site-footer">
-            <div class="app-container">
-              <div class="site-footer-grid">
-                <div class="footer-logo">
-                  <div class="footer-logo-lockup">
-                    <img src="/logo.svg" alt="" class="logo-img footer-logo-img" width="32" height="32" />
-                    <span class="logo-text">Reclaim</span>
-                  </div>
-                  <p class="body-text-small">
-                    A calm home for product ideas, essays, and tiny tools.
-                  </p>
-                </div>
-                <div class="footer-links">
-                  <span class="section-eyebrow">Product</span>
-                  <a href="/" class="footer-link">Home</a>
-                  <a href="/about" class="footer-link">About</a>
-                  <a href="/tech-stack" class="footer-link">Tech stack</a>
-                </div>
-                <div class="footer-links">
-                  <span class="section-eyebrow">Contact</span>
-                  <a href="/comments" class="footer-link">Your thoughts</a>
-                  <a href="mailto:hello@reclaim.org" class="footer-link">Email</a>
-                </div>
-              </div>
-              <div class="footer-meta">
-                <span>© {new Date().getFullYear()} Reclaim. All rights reserved.</span>
-                <span>Built with Astro, React, and Postgres.</span>
-              </div>
-            </div>
-          </footer>
+            )}
+          </div>
         </div>
-        <script>
-          if (typeof window !== 'undefined') {
-            const header = document.getElementById('site-header');
-            if (header) {
-              const onScroll = () => {
-                if (window.scrollY > 0) {
-                  header.classList.add('scrolled');
-                } else {
-                  header.classList.remove('scrolled');
-                }
-              };
-              window.addEventListener('scroll', onScroll, { passive: true });
-            }
-          }
-        </script>
-      </body>
-    </html>
+      </header>
+
+      <main class="app-main">
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <div class="app-container">
+          <div class="site-footer-grid">
+            <div class="footer-logo">
+              <div class="footer-logo-lockup">
+                <img
+                  src="/logo.svg"
+                  alt=""
+                  class="logo-img footer-logo-img"
+                  width="32"
+                  height="32"
+                />
+                <span class="logo-text">Reclaim</span>
+              </div>
+              <p class="body-text-small">
+                A calm home for product ideas, essays, and tiny tools.
+              </p>
+            </div>
+            <div class="footer-links">
+              <span class="section-eyebrow">Product</span>
+              <a href="/" class="footer-link">Home</a>
+              <a href="/about" class="footer-link">About</a>
+              <a href="/tech-stack" class="footer-link">Tech stack</a>
+            </div>
+            <div class="footer-links">
+              <span class="section-eyebrow">Contact</span>
+              <a href="/comments" class="footer-link">Your thoughts</a>
+              <a href="mailto:hello@reclaim.org" class="footer-link">Email</a>
+            </div>
+          </div>
+          <div class="footer-meta">
+            <span>
+              &copy; {new Date().getFullYear()} Reclaim. All rights reserved.
+            </span>
+            <span>Built with Astro, React, and Postgres.</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
+
