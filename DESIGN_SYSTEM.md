@@ -29,11 +29,21 @@ https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Jet
 | Caption      | 0.75rem | 500    | 1.4         |
 | Label/Tag    | 0.75rem | 600    | 1           |
 
+#### UI Control Scale
+Use these sizes for navigation, buttons, badges, helper text, and other compact UI elements:
+
+| Role              | Size    | Weight | Line Height |
+|-------------------|---------|--------|-------------|
+| UI Compact        | 0.9rem  | 500    | 1.4         |
+| UI Compact Strong | 0.9rem  | 600    | 1.4         |
+| UI Micro          | 0.8rem  | 400    | 1.4         |
+| UI Micro Strong   | 0.8rem  | 500    | 1.4         |
+
 ### Rules
 - ❌ NEVER change fonts between pages or components
-- ❌ NEVER use font-size outside the scale above
-- ❌ NEVER use bold on body text unless it's a label or UI element
-- ✅ Use font-weight 500 for medium emphasis (nav links, card titles)
+- ❌ NEVER use font-size outside the scales above for new text styles
+- ❌ NEVER use bold on paragraph body copy; reserve higher weights for headings and UI elements
+- ✅ Use font-weight 500 for medium emphasis (nav links, card titles, UI labels)
 
 ---
 
@@ -67,8 +77,8 @@ https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Jet
 ```
 
 ### Rules
-- ❌ NEVER introduce new colors not listed above
 - ❌ NEVER use color hex values directly in components — always use CSS variables
+- ❌ NEVER introduce new colors directly in components; if a new color is needed, define it once as a new `--color-*` token in the palette
 - ❌ NEVER use gradients on backgrounds (only allowed on the primary CTA button)
 - ✅ Use `--color-surface` for cards and sidebars, NOT pure white
 - ✅ Use `--color-border` for ALL dividers, card borders, input borders
@@ -92,8 +102,9 @@ All spacing must use this 8px base grid:
 | `--sp-9` | 96px   | Page top/bottom padding           |
 
 ### Rules
-- ❌ NEVER use arbitrary pixel values like 13px, 22px, 37px
-- ✅ All margin and padding must snap to the grid above
+- ❌ NEVER use arbitrary pixel values like 13px, 22px, 37px that are not part of this system or explicitly documented for a component
+- ✅ All layout margin and padding (sections, page containers, card spacing) must snap to the grid above using `--sp-*` tokens
+- ✅ Component-internal padding and gaps (e.g. inputs, buttons, label gaps) may use documented micro values (such as 6px, 10px, 14px) as specified in their sections
 - ✅ Default page horizontal padding: `--sp-6` (32px) on desktop, `--sp-4` (16px) on mobile
 
 ---
@@ -194,6 +205,10 @@ transition: background 150ms;
 /* Primary Hover */
 background: var(--color-primary-hover);
 
+/* Optional Primary Gradient (CTA-only) */
+/* Use sparingly for the main marketing CTA; avoid elsewhere. */
+background-image: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+
 /* Secondary / Outline */
 background: transparent;
 border: 1.5px solid var(--color-border);
@@ -222,6 +237,7 @@ color: white;
 - ❌ NEVER change border-radius (always 8px)
 - ❌ NEVER use box-shadow on buttons (flat design)
 - ❌ NEVER add icons inside buttons unless there's a 8px gap between icon and text
+- ❌ NEVER use gradients on buttons except the primary CTA gradient defined above
 - ✅ Always include `transition: 150ms` on all interactive elements
 - ✅ Disabled state: `opacity: 0.4`, `cursor: not-allowed`
 
@@ -352,7 +368,7 @@ These utilities keep all page sections (hero, feature blocks, guides) visually c
 | Avatars       | 50% (circle) |
 | Tooltips      | 6px    |
 
-All borders: `1px solid var(--color-border)` — never use 2px borders except on focused inputs.
+Resting borders on components use `1px solid var(--color-border)`. Thicker borders or outlines (2–3px) are reserved for focus and accessibility states and should use semantic colors (e.g. primary, error, or their tints).
 
 ---
 
@@ -382,12 +398,12 @@ All borders: `1px solid var(--color-border)` — never use 2px borders except on
 
 Dark mode is supported via a `.dark` class on the root element. When enabled:
 
-- Headings (`.component-title`) should switch to white text
-- Subtitles (`.component-subtitle`) should use a neutral light gray (e.g. `#d1d5db`) while still respecting the typography scale
+- Headings (`.component-title`) should switch to white text using the existing heading scales
+- Subtitles (`.component-subtitle`) should use the body-large scale with a secondary text token adapted for dark backgrounds (e.g. remapped `--color-text-secondary`)
 - Backgrounds must continue to rely on the same spacing and layout tokens; do not change component structure between light and dark mode
 - All color overrides must still respect semantic intent (e.g. success/error/info colors stay semantically correct)
 
-Do not introduce separate dark-mode-only colors; always derive dark-mode styles from the existing palette or safe neutral tints.
+Prefer overriding existing tokens (like `--color-bg`, `--color-surface`, `--color-text-primary`, `--color-text-secondary`) within the `.dark` scope rather than introducing parallel `*-dark` tokens. If a new neutral is required, add it once to the palette as a `--color-*` variable instead of hardcoding hex values.
 
 ---
 
