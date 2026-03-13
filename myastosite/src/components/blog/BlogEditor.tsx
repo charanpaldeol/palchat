@@ -1,13 +1,9 @@
-import React, { useState } from "react";
-import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
+import React, { useRef, useState } from "react";
+import type { Editor } from "@tiptap/core";
+import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 
 const BlogEditor: React.FC = () => {
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: "",
-  });
-
+  const editorRef = useRef<Editor | null>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -17,6 +13,7 @@ const BlogEditor: React.FC = () => {
     e.preventDefault();
     setError(null);
 
+    const editor = editorRef.current;
     if (!editor) return;
 
     const contentHtml = editor.getHTML();
@@ -26,7 +23,7 @@ const BlogEditor: React.FC = () => {
       contentHtml,
     };
 
-    if (!payload.title || !payload.description || !payload.contentHtml) {
+    if (!payload.title || !payload.description || !payload.contentHtml || contentHtml === "<p></p>") {
       setError("Please add a title, description, and some content.");
       return;
     }
@@ -108,56 +105,15 @@ const BlogEditor: React.FC = () => {
         <label className="field-label">
           Body
         </label>
-        <div className="blog-editor-shell">
-          <div className="blog-editor-toolbar" aria-label="Formatting toolbar">
-            <button
-              type="button"
-              className={
-                "blog-editor-toolbar-button" +
-                (editor?.isActive("bold") ? " blog-editor-toolbar-button--active" : "")
-              }
-              onClick={() => editor?.chain().focus().toggleBold().run()}
-            >
-              Bold
-            </button>
-            <button
-              type="button"
-              className={
-                "blog-editor-toolbar-button" +
-                (editor?.isActive("italic") ? " blog-editor-toolbar-button--active" : "")
-              }
-              onClick={() => editor?.chain().focus().toggleItalic().run()}
-            >
-              Italic
-            </button>
-            <button
-              type="button"
-              className={
-                "blog-editor-toolbar-button" +
-                (editor?.isActive("bulletList") ? " blog-editor-toolbar-button--active" : "")
-              }
-              onClick={() => editor?.chain().focus().toggleBulletList().run()}
-            >
-              Bullets
-            </button>
-            <button
-              type="button"
-              className={
-                "blog-editor-toolbar-button" +
-                (editor?.isActive("orderedList") ? " blog-editor-toolbar-button--active" : "")
-              }
-              onClick={() => editor?.chain().focus().toggleOrderedList().run()}
-            >
-              Numbers
-            </button>
-          </div>
-          <div className="blog-editor-surface">
-            <EditorContent editor={editor} />
-          </div>
+        <div className="blog-editor-shell blog-editor-shell--simple">
+          <SimpleEditor
+            initialContent={{ type: "doc", content: [] }}
+            editorRef={editorRef}
+            hideThemeToggle
+          />
         </div>
         <p className="field-helper">
-          Use the editor above to write your essay. Basic formatting, lists, and headings are
-          supported.
+          Use the toolbar for headings, lists, bold, italic, links, images, and more.
         </p>
       </div>
 
@@ -171,4 +127,3 @@ const BlogEditor: React.FC = () => {
 };
 
 export default BlogEditor;
-

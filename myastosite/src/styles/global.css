@@ -1,3 +1,6 @@
+@import './_variables.scss';
+@import './_keyframe-animations.scss';
+
 /* 
   Global design system and layout tokens.
   AI agents: only modify tokens or shared primitives here when explicitly asked to change the design system.
@@ -939,6 +942,18 @@ a:hover {
 .blog-editor-surface .ProseMirror ol {
   padding-left: var(--sp-5);
   margin-bottom: var(--sp-3);
+}
+
+/* Simple editor embedded in blog form: don’t use full viewport */
+.blog-editor-shell--simple .simple-editor-wrapper {
+  width: 100%;
+  min-height: 320px;
+  height: auto;
+  overflow: visible;
+}
+
+.blog-editor-shell--simple .simple-editor-content {
+  min-height: 280px;
 }
 
 
