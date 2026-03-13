@@ -1,37 +1,57 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { type CollectionEntry, getCollection, render } from 'astro:content';
+import { getCollection } from 'astro:content';
+import { getBlogPostBySlug } from '@/lib/repositories/blogRepository';
 
-export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: post,
-  }));
+const slugParam = Astro.params.slug;
+const slug = Array.isArray(slugParam) ? slugParam.join('/') : slugParam ?? '';
+
+if (!slug) {
+  return Astro.redirect('/blog');
 }
 
-type Props = CollectionEntry<'blog'>;
+const mdPosts = await getCollection('blog');
+const mdPost = mdPosts.find((p) => p.slug === slug) ?? null;
 
-const post = Astro.props as Props;
-const { Content } = await render(post);
+let title: string;
+let pubDate: Date;
+let updatedDate: Date | undefined;
+let Content: any = null;
+let dbPost: Awaited<ReturnType<typeof getBlogPostBySlug>> | null = null;
+
+if (mdPost) {
+  const rendered = await mdPost.render();
+  Content = rendered.Content;
+  title = mdPost.data.title;
+  pubDate = mdPost.data.pubDate;
+  updatedDate = mdPost.data.updatedDate;
+} else {
+  dbPost = await getBlogPostBySlug(slug);
+  if (!dbPost) {
+    return new Response(null, { status: 404 });
+  }
+  title = dbPost.title;
+  pubDate = dbPost.created_at;
+  updatedDate = dbPost.updated_at ?? undefined;
+}
 ---
 
-<Layout title={post.data.title}>
+<Layout title={title}>
   <div class="app-container">
     <article class="blog-article">
       <header class="blog-article-header">
         <p class="section-eyebrow">Essay</p>
-        <h1 class="blog-article-title">{post.data.title}</h1>
+        <h1 class="blog-article-title">{title}</h1>
         <p class="blog-article-meta">
-          {post.data.pubDate.toLocaleDateString('en-US', {
+          {pubDate.toLocaleDateString('en-US', {
             month: 'short',
             day: '2-digit',
             year: 'numeric',
           })}
-          {post.data.updatedDate && (
+          {updatedDate && (
             <>
               {' · Updated '}
-              {post.data.updatedDate.toLocaleDateString('en-US', {
+              {updatedDate.toLocaleDateString('en-US', {
                 month: 'short',
                 day: '2-digit',
                 year: 'numeric',
@@ -42,9 +62,8 @@ const { Content } = await render(post);
       </header>
 
       <div class="blog-article-body">
-        <Content />
+        {mdPost ? <Content /> : <div set:html={dbPost!.content_html} />}
       </div>
     </article>
   </div>
 </Layout>
-

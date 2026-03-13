@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+import BlogEditor from "../components/blog/BlogEditor";
+
+const user = Astro.locals.user;
+
+if (!user) {
+  const redirect = encodeURIComponent(Astro.url.pathname);
+  return Astro.redirect(`/login?redirect=${redirect}`);
+}
+---
+
+<Layout title="Write a new essay">
+  <div class="app-container">
+    <section class="page-hero">
+      <h1 class="page-hero-title">Write a new essay</h1>
+      <p class="page-hero-subtitle">
+        Share your thoughts on reclaiming our digital destiny. Essays are saved privately to your
+        account and published here.
+      </p>
+    </section>
+
+    <section class="section">
+      <div class="card">
+        <BlogEditor client:load />
+      </div>
+    </section>
+  </div>
+</Layout>
+
