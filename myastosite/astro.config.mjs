@@ -12,6 +12,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   site: 'https://www.reclaim.org',
   output: 'server',
+  // Allow form POSTs from same-origin when Origin/Referer don't match (e.g. Vercel proxy, preview URLs).
+  // Our API routes still enforce same-origin via Origin/Referer checks.
+  security: { checkOrigin: false },
   integrations: [tailwind(), react()],
   adapter: vercel({}),
   vite: {

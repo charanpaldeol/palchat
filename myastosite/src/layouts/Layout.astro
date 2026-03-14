@@ -33,68 +33,107 @@ import "../styles/global.css";
             />
             <span class="logo-text">Reclaim</span>
           </a>
-          <nav class="nav-links" aria-label="Main">
-            <a
-              href="/"
-              class="nav-link"
-            >
-              Home
-            </a>
-            <a
-              href="/about"
-              class="nav-link"
-            >
-              About
-            </a>
-            <a
-              href="/tech-stack"
-              class="nav-link"
-            >
-              Tech stack
-            </a>
-            <a
-              href="/blog"
-              class="nav-link"
-            >
-              Essays
-            </a>
-            <a
-              href="/comments"
-              class="nav-link"
-            >
-              Your thoughts
-            </a>
-            <a
-              href="/millet-guide"
-              class="nav-link"
-            >
-              Millet guide
-            </a>
+
+          <nav class="nav-links nav-links--desktop" aria-label="Main">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/about" class="nav-link">About</a>
+            <a href="/tech-stack" class="nav-link">Tech stack</a>
+            <a href="/blog" class="nav-link">Essays</a>
+            <a href="/comments" class="nav-link">Your thoughts</a>
+            <a href="/millet-guide" class="nav-link">Millet guide</a>
           </nav>
-          <div class="nav-cta">
+          <div class="nav-cta nav-cta--desktop">
             {user ? (
               <>
-                <a href="/my-account" class="nav-link">
-                  My account
-                </a>
-                <form
-                  method="post"
-                  action="/api/auth/logout"
-                  class="nav-logout-form"
-                >
-                  <button type="submit" class="btn btn-secondary btn-nav">
-                    Log out
-                  </button>
+                <a href="/my-account" class="nav-link">My account</a>
+                <form method="post" action="/api/auth/logout" class="nav-logout-form">
+                  <button type="submit" class="btn btn-secondary btn-nav">Log out</button>
                 </form>
               </>
             ) : (
-              <a href="/login" class="btn btn-primary">
-                Login
-              </a>
+              <a href="/login" class="btn btn-primary">Login</a>
+            )}
+          </div>
+
+          <button
+            type="button"
+            class="nav-menu-trigger"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="nav-drawer"
+            id="nav-menu-trigger"
+          >
+            <span class="nav-menu-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+            </span>
+          </button>
+        </div>
+      </header>
+
+      <div class="nav-drawer-overlay" id="nav-drawer-overlay" aria-hidden="true"></div>
+      <aside class="nav-drawer" id="nav-drawer" aria-label="Main navigation" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="nav-drawer-inner">
+          <button type="button" class="nav-drawer-close" aria-label="Close menu" id="nav-drawer-close">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+          <nav class="nav-drawer-links" aria-label="Main">
+            <a href="/" class="nav-drawer-link">Home</a>
+            <a href="/about" class="nav-drawer-link">About</a>
+            <a href="/tech-stack" class="nav-drawer-link">Tech stack</a>
+            <a href="/blog" class="nav-drawer-link">Essays</a>
+            <a href="/comments" class="nav-drawer-link">Your thoughts</a>
+            <a href="/millet-guide" class="nav-drawer-link">Millet guide</a>
+            {user ? (
+              <a href="/my-account" class="nav-drawer-link">My account</a>
+            ) : null}
+          </nav>
+          <div class="nav-drawer-cta">
+            {user ? (
+              <form method="post" action="/api/auth/logout" class="nav-logout-form">
+                <button type="submit" class="btn btn-secondary btn-nav btn-block">Log out</button>
+              </form>
+            ) : (
+              <a href="/login" class="btn btn-primary btn-block">Login</a>
             )}
           </div>
         </div>
-      </header>
+      </aside>
+
+      <script>
+        (function () {
+          const trigger = document.getElementById('nav-menu-trigger');
+          const overlay = document.getElementById('nav-drawer-overlay');
+          const drawer = document.getElementById('nav-drawer');
+          const closeBtn = document.getElementById('nav-drawer-close');
+          const body = document.body;
+
+          function openMenu() {
+            body.classList.add('nav-drawer-open');
+            if (trigger) trigger.setAttribute('aria-expanded', 'true');
+            if (overlay) overlay.setAttribute('aria-hidden', 'false');
+            if (drawer) drawer.setAttribute('aria-hidden', 'false');
+            closeBtn?.focus();
+          }
+
+          function closeMenu() {
+            body.classList.remove('nav-drawer-open');
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            if (overlay) overlay.setAttribute('aria-hidden', 'true');
+            if (drawer) drawer.setAttribute('aria-hidden', 'true');
+            trigger?.focus();
+          }
+
+          trigger?.addEventListener('click', openMenu);
+          overlay?.addEventListener('click', closeMenu);
+          closeBtn?.addEventListener('click', closeMenu);
+          document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && body.classList.contains('nav-drawer-open')) closeMenu();
+          });
+          drawer?.querySelectorAll('.nav-drawer-link').forEach(function (link) {
+            link.addEventListener('click', closeMenu);
+          });
+        })();
+      </script>
 
       <main class="app-main">
         <slot />
