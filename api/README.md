@@ -46,9 +46,19 @@ Standalone API for Reclaim. Deploy separately from the frontend so backend and f
 
 1. **Create a second Vercel project for the API**
 
-   - In Vercel dashboard: Add New Project → Import the same repo.
-   - Set **Root Directory** to `api`.
-   - Add env vars: `DATABASE_URL`, `ALLOWED_ORIGINS` (include your production frontend URL and any preview URLs).
+   **Option A – Script (recommended)**  
+   From the repo root, with a [Vercel token](https://vercel.com/account/tokens) set:
+
+   ```bash
+   VERCEL_TOKEN=your_token ./scripts/create-vercel-api-project.sh
+   ```
+
+   Optional: `VERCEL_TEAM_ID=...` for a team; `VERCEL_API_PROJECT_NAME=reclaim-api` to change the project name.
+
+   **Option B – Dashboard**  
+   In Vercel: Add New Project → Import the same repo → set **Root Directory** to `api`.
+
+   Then add env vars: `DATABASE_URL`, `ALLOWED_ORIGINS` (include your production frontend URL and any preview URLs).
 
 2. **Deploy the API**
 
