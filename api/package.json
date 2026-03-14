@@ -1,0 +1,21 @@
+{
+  "name": "reclaim-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit",
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^16.5.0",
+    "pg": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/pg": "^8.16.0",
+    "typescript": "^5.0.0",
+    "vercel": "^37.0.0"
+  }
+}

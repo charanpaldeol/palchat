@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { getBlogPostBySlug } from '@/lib/repositories/blogRepository';
+import { getApiUrl } from '@/lib/api';
 
 const slugParam = Astro.params.slug;
 const slug = Array.isArray(slugParam) ? slugParam.join('/') : slugParam ?? '';
@@ -17,7 +17,7 @@ let title: string;
 let pubDate: Date;
 let updatedDate: Date | undefined;
 let Content: any = null;
-let dbPost: Awaited<ReturnType<typeof getBlogPostBySlug>> | null = null;
+let dbPost: { title: string; content_html: string; created_at: string; updated_at: string | null } | null = null;
 
 if (mdPost) {
   const rendered = await mdPost.render();
@@ -26,13 +26,19 @@ if (mdPost) {
   pubDate = mdPost.data.pubDate;
   updatedDate = mdPost.data.updatedDate;
 } else {
-  dbPost = await getBlogPostBySlug(slug);
+  const apiUrl = getApiUrl();
+  if (apiUrl) {
+    const res = await fetch(`${apiUrl}/api/blog/${encodeURIComponent(slug)}`);
+    if (res.ok) {
+      dbPost = await res.json();
+      title = dbPost.title;
+      pubDate = new Date(dbPost.created_at);
+      updatedDate = dbPost.updated_at ? new Date(dbPost.updated_at) : undefined;
+    }
+  }
   if (!dbPost) {
     return new Response(null, { status: 404 });
   }
-  title = dbPost.title;
-  pubDate = dbPost.created_at;
-  updatedDate = dbPost.updated_at ?? undefined;
 }
 ---
 

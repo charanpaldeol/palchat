@@ -1,17 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { listBlogPosts } from '@/lib/repositories/blogRepository';
+import { getApiUrl } from '@/lib/api';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-let dbPosts: Awaited<ReturnType<typeof listBlogPosts>> = [];
-try {
-  dbPosts = await listBlogPosts();
-} catch (error) {
-  console.error('Failed to load community blog posts', error);
+let dbPosts: { slug: string; title: string; description: string; created_at: string }[] = [];
+const apiUrl = getApiUrl();
+if (apiUrl) {
+  try {
+    const res = await fetch(`${apiUrl}/api/blog`);
+    if (res.ok) dbPosts = await res.json();
+  } catch (error) {
+    console.error('Failed to load community blog posts', error);
+  }
 }
 
 const user = Astro.locals.user;
@@ -64,7 +68,7 @@ const user = Astro.locals.user;
               <a href={`/blog/${post.slug}/`} class="card card-clickable blog-card">
                 <h2 class="blog-card-title">{post.title}</h2>
                 <p class="blog-card-meta">
-                  {post.created_at.toLocaleDateString('en-US', {
+                  {new Date(post.created_at).toLocaleDateString('en-US', {
                     month: 'short',
                     day: '2-digit',
                     year: 'numeric',

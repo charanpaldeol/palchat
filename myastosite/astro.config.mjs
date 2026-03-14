@@ -19,5 +19,13 @@ export default defineConfig({
   adapter: vercel({}),
   vite: {
     resolve: { alias: { '@': path.join(__dirname, 'src') } },
+    server: {
+      proxy: {
+        '/api': {
+          target: process.env.API_URL || 'http://localhost:3000',
+          changeOrigin: true,
+        },
+      },
+    },
   },
 });

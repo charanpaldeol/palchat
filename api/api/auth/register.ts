@@ -1,4 +1,3 @@
-import type { APIRoute } from "astro";
 import {
   hashPassword,
   createUser,
@@ -6,34 +5,22 @@ import {
   createSession,
   sessionCookieOptions,
   getSessionCookieName,
-} from "@/lib/auth";
+} from "../../src/lib/auth.js";
+import { sessionCookieHeader, isAllowedOrigin } from "../../src/lib/helpers.js";
 
-/** Validate username: non-empty, reasonable length, alphanumeric + underscore. */
 function isValidUsername(username: string): boolean {
   const trimmed = username.trim();
   if (trimmed.length < 2 || trimmed.length > 64) return false;
   return /^[a-zA-Z0-9_]+$/.test(trimmed);
 }
 
-/** Validate password: min length. */
 function isValidPassword(password: string): boolean {
   return password.length >= 6;
 }
 
-export const POST: APIRoute = async ({ request, cookies }) => {
-  const origin = request.headers.get("origin");
-  const referer = request.headers.get("referer");
+export async function POST(request: Request): Promise<Response> {
   const url = new URL(request.url);
-  const siteOrigin = url.origin;
-  const allowed = (o: string | null) =>
-    o && (o === siteOrigin || o.replace(/\/$/, "") === siteOrigin.replace(/\/$/, ""));
-  let refererOrigin: string | null = null;
-  try {
-    if (referer) refererOrigin = new URL(referer).origin;
-  } catch {
-    /* */
-  }
-  if (!allowed(origin) && !allowed(refererOrigin)) {
+  if (!isAllowedOrigin(request, url)) {
     return new Response(JSON.stringify({ error: "Invalid origin" }), {
       status: 403,
       headers: { "Content-Type": "application/json" },
@@ -70,16 +57,16 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const user = await createUser(username, passwordHash);
     const sessionId = await createSession(user.id);
     const opts = sessionCookieOptions(url.host);
-    cookies.set(getSessionCookieName(), sessionId, opts);
+    const setCookie = sessionCookieHeader(getSessionCookieName(), sessionId, opts);
 
     return new Response(null, {
       status: 303,
-      headers: { Location: "/my-account" },
+      headers: { Location: "/my-account", "Set-Cookie": setCookie },
     });
-  } catch (err) {
+  } catch {
     return new Response(null, {
       status: 303,
       headers: { Location: "/signup?error=1" },
     });
   }
-};
+}

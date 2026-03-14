@@ -1,9 +1,9 @@
-import type { APIRoute } from "astro";
 import {
   getSessionCookieName,
   getSessionUser,
-} from "@/lib/auth";
-import { createBlogPost } from "@/lib/repositories/blogRepository";
+} from "../../src/lib/auth.js";
+import { createBlogPost } from "../../src/lib/repositories/blogRepository.js";
+import { parseCookies, isAllowedOrigin } from "../../src/lib/helpers.js";
 
 function slugify(input: string): string {
   return input
@@ -15,12 +15,13 @@ function slugify(input: string): string {
     .replace(/^-|-$/g, "");
 }
 
-export const POST: APIRoute = async ({ request, cookies }) => {
+export async function POST(request: Request): Promise<Response> {
   const url = new URL(request.url);
-
-  // Require logged-in user.
-  const sessionId = cookies.get(getSessionCookieName())?.value;
+  const cookieHeader = request.headers.get("cookie") ?? "";
+  const cookies = parseCookies(cookieHeader);
+  const sessionId = cookies[getSessionCookieName()];
   const user = await getSessionUser(sessionId);
+
   if (!user) {
     return new Response(JSON.stringify({ error: "Unauthorized" }), {
       status: 401,
@@ -28,21 +29,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     });
   }
 
-  // CSRF: require same-origin (Origin or Referer must match this site)
-  const origin = request.headers.get("origin");
-  const referer = request.headers.get("referer");
-  const siteOrigin = url.origin;
-  const allowedOrigin = (o: string | null) =>
-    o &&
-    (o === siteOrigin ||
-      o.replace(/\/$/, "") === siteOrigin.replace(/\/$/, ""));
-  let refererOrigin: string | null = null;
-  try {
-    if (referer) refererOrigin = new URL(referer).origin;
-  } catch {
-    /* invalid referer */
-  }
-  if (!allowedOrigin(origin) && !allowedOrigin(refererOrigin)) {
+  if (!isAllowedOrigin(request, url)) {
     return new Response(JSON.stringify({ error: "Invalid origin" }), {
       status: 403,
       headers: { "Content-Type": "application/json" },
@@ -58,9 +45,9 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       });
     }
 
-    const rawTitle = (body as any).title ?? "";
-    const rawDescription = (body as any).description ?? "";
-    const rawContentHtml = (body as any).contentHtml ?? "";
+    const rawTitle = (body as Record<string, unknown>).title ?? "";
+    const rawDescription = (body as Record<string, unknown>).description ?? "";
+    const rawContentHtml = (body as Record<string, unknown>).contentHtml ?? "";
 
     const title = String(rawTitle).trim();
     const description = String(rawDescription).trim();
@@ -69,40 +56,28 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     if (!title || !description || !contentHtml) {
       return new Response(
         JSON.stringify({ error: "Title, description, and content are required." }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        },
+        { status: 400, headers: { "Content-Type": "application/json" } },
       );
     }
 
     if (title.length > 200) {
       return new Response(
         JSON.stringify({ error: "Title is too long (max 200 characters)." }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        },
+        { status: 400, headers: { "Content-Type": "application/json" } },
       );
     }
 
     if (description.length > 400) {
       return new Response(
         JSON.stringify({ error: "Description is too long (max 400 characters)." }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        },
+        { status: 400, headers: { "Content-Type": "application/json" } },
       );
     }
 
     if (contentHtml.length > 20000) {
       return new Response(
         JSON.stringify({ error: "Content is too long (max ~20k characters)." }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        },
+        { status: 400, headers: { "Content-Type": "application/json" } },
       );
     }
 
@@ -119,23 +94,13 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     });
 
     return new Response(
-      JSON.stringify({
-        id: post.id,
-        slug: post.slug,
-      }),
-      {
-        status: 201,
-        headers: { "Content-Type": "application/json" },
-      },
+      JSON.stringify({ id: post.id, slug: post.slug }),
+      { status: 201, headers: { "Content-Type": "application/json" } },
     );
-  } catch (error) {
+  } catch {
     return new Response(
       JSON.stringify({ error: "Failed to create post. Please try again." }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      },
+      { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
-};
-
+}

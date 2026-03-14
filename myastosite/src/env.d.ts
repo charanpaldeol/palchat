@@ -5,3 +5,11 @@ declare namespace App {
     user?: { id: number; username: string };
   }
 }
+
+interface ImportMetaEnv {
+  readonly API_URL?: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
