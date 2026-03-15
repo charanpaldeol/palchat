@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ContactForm from "../components/ContactForm";
+---
+
+<Layout title="Contact – Reclaim">
+  <section class="section">
+    <div class="app-container" style="max-width: 480px;">
+      <h1 class="page-hero-title" style="margin-bottom: var(--sp-2);">
+        Contact
+      </h1>
+      <p class="page-hero-subtitle" style="margin-bottom: var(--sp-6);">
+        Share your name, email, and message. We’ll get back to you—no spam, just a direct line to co-create your space.
+      </p>
+
+      <ContactForm client:load />
+    </div>
+  </section>
+</Layout>
