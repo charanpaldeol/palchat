@@ -1,5 +1,6 @@
 ---
 import { getApiUrl } from '@/lib/api';
+import { query } from '@/lib/db';
 
 const searchParams = Astro.url.searchParams;
 const justSaved = searchParams.get('success') === '1';
@@ -8,6 +9,7 @@ const hasError = searchParams.get('error') === '1';
 let comments: { id: number; comment: string | null; created_at: string | null }[] = [];
 let dbError: string | null = null;
 const apiUrl = getApiUrl();
+
 if (apiUrl) {
   try {
     const res = await fetch(`${apiUrl}/api/thoughts`);
@@ -16,7 +18,12 @@ if (apiUrl) {
     dbError = e instanceof Error ? e.message : 'API unavailable';
   }
 } else {
-  dbError = 'API not configured';
+  try {
+    const response = await query('SELECT id, comment, created_at FROM thoughts ORDER BY created_at DESC, id DESC');
+    comments = (response.rows ?? []) as typeof comments;
+  } catch (e) {
+    dbError = e instanceof Error ? e.message : 'Database unavailable';
+  }
 }
 ---
 

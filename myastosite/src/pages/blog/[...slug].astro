@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { getApiUrl } from '@/lib/api';
+import { getBlogPostBySlug } from '@/lib/repositories/blogRepository';
 
 const slugParam = Astro.params.slug;
 const slug = Array.isArray(slugParam) ? slugParam.join('/') : slugParam ?? '';
@@ -17,7 +18,7 @@ let title: string;
 let pubDate: Date;
 let updatedDate: Date | undefined;
 let Content: any = null;
-let dbPost: { title: string; content_html: string; created_at: string; updated_at: string | null } | null = null;
+let dbPost: Awaited<ReturnType<typeof getBlogPostBySlug>> = null;
 
 if (mdPost) {
   const rendered = await mdPost.render();
@@ -30,10 +31,22 @@ if (mdPost) {
   if (apiUrl) {
     const res = await fetch(`${apiUrl}/api/blog/${encodeURIComponent(slug)}`);
     if (res.ok) {
-      dbPost = await res.json();
+      const raw = await res.json();
+      dbPost = {
+        ...raw,
+        created_at: new Date(raw.created_at),
+        updated_at: raw.updated_at ? new Date(raw.updated_at) : null,
+      };
       title = dbPost.title;
-      pubDate = new Date(dbPost.created_at);
-      updatedDate = dbPost.updated_at ? new Date(dbPost.updated_at) : undefined;
+      pubDate = dbPost.created_at;
+      updatedDate = dbPost.updated_at ?? undefined;
+    }
+  } else {
+    dbPost = await getBlogPostBySlug(slug);
+    if (dbPost) {
+      title = dbPost.title;
+      pubDate = dbPost.created_at;
+      updatedDate = dbPost.updated_at ?? undefined;
     }
   }
   if (!dbPost) {
