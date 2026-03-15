@@ -1,6 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
 import { getApiUrl } from '@/lib/api';
 import { getBlogPostBySlug } from '@/lib/repositories/blogRepository';
 
@@ -11,48 +10,29 @@ if (!slug) {
   return Astro.redirect('/blog');
 }
 
-const mdPosts = await getCollection('blog');
-const mdPost = mdPosts.find((p) => p.slug === slug) ?? null;
-
-let title: string;
-let pubDate: Date;
-let updatedDate: Date | undefined;
-let Content: any = null;
 let dbPost: Awaited<ReturnType<typeof getBlogPostBySlug>> = null;
-
-if (mdPost) {
-  const rendered = await mdPost.render();
-  Content = rendered.Content;
-  title = mdPost.data.title;
-  pubDate = mdPost.data.pubDate;
-  updatedDate = mdPost.data.updatedDate;
+const apiUrl = getApiUrl();
+if (apiUrl) {
+  const res = await fetch(`${apiUrl}/api/blog/${encodeURIComponent(slug)}`);
+  if (res.ok) {
+    const raw = await res.json();
+    dbPost = {
+      ...raw,
+      created_at: new Date(raw.created_at),
+      updated_at: raw.updated_at ? new Date(raw.updated_at) : null,
+    };
+  }
 } else {
-  const apiUrl = getApiUrl();
-  if (apiUrl) {
-    const res = await fetch(`${apiUrl}/api/blog/${encodeURIComponent(slug)}`);
-    if (res.ok) {
-      const raw = await res.json();
-      dbPost = {
-        ...raw,
-        created_at: new Date(raw.created_at),
-        updated_at: raw.updated_at ? new Date(raw.updated_at) : null,
-      };
-      title = dbPost.title;
-      pubDate = dbPost.created_at;
-      updatedDate = dbPost.updated_at ?? undefined;
-    }
-  } else {
-    dbPost = await getBlogPostBySlug(slug);
-    if (dbPost) {
-      title = dbPost.title;
-      pubDate = dbPost.created_at;
-      updatedDate = dbPost.updated_at ?? undefined;
-    }
-  }
-  if (!dbPost) {
-    return new Response(null, { status: 404 });
-  }
+  dbPost = await getBlogPostBySlug(slug);
 }
+
+if (!dbPost) {
+  return new Response(null, { status: 404 });
+}
+
+const title = dbPost.title;
+const pubDate = dbPost.created_at;
+const updatedDate = dbPost.updated_at ?? undefined;
 ---
 
 <Layout title={title}>
@@ -81,7 +61,7 @@ if (mdPost) {
       </header>
 
       <div class="blog-article-body">
-        {mdPost ? <Content /> : <div set:html={dbPost!.content_html} />}
+        <div set:html={dbPost.content_html} />
       </div>
     </article>
   </div>
