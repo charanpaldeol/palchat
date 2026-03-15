@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import LoginForm from "../components/LoginForm";
 
 if (Astro.locals.user) {
   return Astro.redirect("/my-account");
@@ -7,6 +8,7 @@ if (Astro.locals.user) {
 
 const searchParams = Astro.url.searchParams;
 const error = searchParams.get("error");
+const redirect = searchParams.get("redirect") ?? "";
 const errorMessage =
   error === "missing"
     ? "Please enter your ID and password."
@@ -27,47 +29,7 @@ const errorMessage =
         Enter your ID and password to access your account.
       </p>
 
-      {errorMessage && (
-        <div class="alert alert-error" style="margin-bottom: var(--sp-4);">
-          {errorMessage}
-        </div>
-      )}
-
-      <form
-        method="post"
-        action="/api/auth/login"
-        style="display: flex; flex-direction: column; gap: var(--sp-4);"
-      >
-        <div class="field">
-          <label for="login-username" class="field-label">
-            ID
-          </label>
-          <input
-            id="login-username"
-            type="text"
-            name="username"
-            class="input"
-            autocomplete="username"
-            required
-          />
-        </div>
-        <div class="field">
-          <label for="login-password" class="field-label">
-            Password
-          </label>
-          <input
-            id="login-password"
-            type="password"
-            name="password"
-            class="input"
-            autocomplete="current-password"
-            required
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">
-          Log in
-        </button>
-      </form>
+      <LoginForm client:load serverError={errorMessage} redirect={redirect} />
 
       <p class="body-text-small" style="margin-top: var(--sp-5); color: var(--color-text-secondary);">
         Don’t have an account? <a href="/signup">Create account</a>

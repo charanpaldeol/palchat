@@ -16,10 +16,13 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     });
   }
 
+  const url = new URL(request.url);
+
   try {
     const form = await request.formData();
     const username = (form.get("username") ?? "").toString().trim();
     const password = (form.get("password") ?? "").toString();
+    const redirectTo = (form.get("redirect") ?? url.searchParams.get("redirect") ?? "/my-account").toString().trim();
 
     if (!username || !password) {
       return new Response(null, {
@@ -48,7 +51,6 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const opts = sessionCookieOptions(url.host);
     cookies.set(getSessionCookieName(), sessionId, opts);
 
-    const redirectTo = url.searchParams.get("redirect") || "/my-account";
     const safeRedirect = redirectTo.startsWith("/") && !redirectTo.startsWith("//") ? redirectTo : "/my-account";
 
     return new Response(null, {

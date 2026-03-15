@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import SignupForm from "../components/SignupForm";
 
 if (Astro.locals.user) {
   return Astro.redirect("/my-account");
@@ -29,56 +30,7 @@ const errorMessage =
         Choose an ID and password. You’ll be logged in after signing up.
       </p>
 
-      {errorMessage && (
-        <div class="alert alert-error" style="margin-bottom: var(--sp-4);">
-          {errorMessage}
-        </div>
-      )}
-
-      <form
-        method="post"
-        action="/api/auth/register"
-        style="display: flex; flex-direction: column; gap: var(--sp-4);"
-      >
-        <div class="field">
-          <label for="signup-username" class="field-label">
-            ID
-          </label>
-          <input
-            id="signup-username"
-            type="text"
-            name="username"
-            class="input"
-            autocomplete="username"
-            required
-            minlength={2}
-            maxlength={64}
-          />
-          <p class="field-helper">
-            2–64 characters. Letters, numbers, and underscores only.
-          </p>
-        </div>
-        <div class="field">
-          <label for="signup-password" class="field-label">
-            Password
-          </label>
-          <input
-            id="signup-password"
-            type="password"
-            name="password"
-            class="input"
-            autocomplete="new-password"
-            required
-            minlength={6}
-          />
-          <p class="field-helper">
-            At least 6 characters.
-          </p>
-        </div>
-        <button type="submit" class="btn btn-primary">
-          Create account
-        </button>
-      </form>
+      <SignupForm client:load serverError={errorMessage} />
 
       <p class="body-text-small" style="margin-top: var(--sp-5); color: var(--color-text-secondary);">
         Already have an account? <a href="/login">Log in</a>

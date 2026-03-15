@@ -27,6 +27,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     });
   }
 
+  const url = new URL(request.url);
+
   try {
     const form = await request.formData();
     const username = (form.get("username") ?? "").toString().trim();
