@@ -1,21 +1,17 @@
-# Database migrations
+# Migrations moved to repo root
 
-Run all migrations (with `DATABASE_URL` set in `myastosite/.env`):
+Database migrations now live in the **repo root [sql/](../../sql/)** directory.
+
+**Run all migrations:**
 
 ```bash
 cd myastosite && node scripts/run-migration.js
 ```
 
-Or run a single file:
+**Run a single migration:**
 
 ```bash
-cd myastosite && node scripts/run-migration.js sql/005_contact_submissions.sql
+cd myastosite && node scripts/run-migration.js 005_contact_submissions.sql
 ```
 
-| File | Tables |
-|------|--------|
-| `001_comments.sql` | `thoughts` (legacy name: comments) |
-| `002_users_and_sessions.sql` | `users`, `sessions` |
-| `003_rename_comments_to_thoughts.sql` | renames comments → thoughts |
-| `004_blog_posts.sql` | `blog_posts` |
-| `005_contact_submissions.sql` | `contact_submissions` (contact form) |
+See [sql/README.md](../../sql/README.md) and [docs/neon-setup.md](../../docs/neon-setup.md) for details.

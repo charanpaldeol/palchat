@@ -45,13 +45,13 @@ Run all migrations (creates `thoughts`, `users`, `sessions`, `blog_posts`, `cont
 cd myastosite && node scripts/run-migration.js
 ```
 
-This runs every `.sql` file in `myastosite/sql/` in order (001 through 005). To run a single migration:
+Migrations live in the repo root **sql/** directory and run in order (001–005). To run a single migration:
 
 ```bash
-cd myastosite && node scripts/run-migration.js sql/005_contact_submissions.sql
+cd myastosite && node scripts/run-migration.js 005_contact_submissions.sql
 ```
 
-Alternatively, in the Neon Console **SQL Editor** you can run the contents of any file under `myastosite/sql/` (e.g. `005_contact_submissions.sql` for the contact form table).
+Alternatively, in the Neon Console **SQL Editor** you can run the contents of any file under **sql/** (e.g. `sql/005_contact_submissions.sql` for the contact form table).
 
 ---
 
@@ -87,7 +87,7 @@ Optional: use the [Neon + Vercel integration](https://neon.tech/docs/guides/verc
 |------|------------|
 | 1 | Copy **pooled** connection string from Neon Console. |
 | 2 | Set `DATABASE_URL` in `myastosite/.env` for local dev. |
-| 3 | Run `node scripts/run-migration.js` from `myastosite/` to create all tables (or run individual `sql/*.sql` files). |
+| 3 | Run `cd myastosite && node scripts/run-migration.js` to create all tables (migrations are in repo root **sql/**). |
 | 4 | Run `npm run dev` and check `/api/db-health` and `/comments`. |
 | 5 | Add `DATABASE_URL` in Vercel env vars and redeploy. |
 

@@ -1,9 +1,10 @@
 /**
  * Run SQL migration file(s) against Postgres.
+ * Migrations live in repo root sql/ (see sql/README.md).
  * Usage:
- *   node scripts/run-migration.js              — run all migrations in sql/ (001 through 005)
- *   node scripts/run-migration.js sql/005_contact_submissions.sql  — run one file
- * Requires: DATABASE_URL in .env
+ *   node scripts/run-migration.js                    — run all migrations in sql/ (001–005)
+ *   node scripts/run-migration.js 005_contact_submissions.sql  — run one file (name or path from repo root)
+ * Requires: DATABASE_URL in myastosite/.env
  */
 import pg from 'pg';
 import fs from 'fs';
@@ -14,14 +15,15 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const sqlDir = path.join(__dirname, '../sql');
+const sqlDir = path.join(__dirname, '../../sql');
 const { Client } = pg;
 
 function getMigrationPaths() {
   const arg = process.argv[2];
   if (arg) {
-    const resolved = path.isAbsolute(arg) ? arg : path.join(__dirname, '..', arg);
-    return [resolved];
+    if (path.isAbsolute(arg)) return [arg];
+    if (arg.includes(path.sep)) return [path.join(__dirname, '..', arg)];
+    return [path.join(sqlDir, arg)];
   }
   const names = fs.readdirSync(sqlDir).filter((n) => n.endsWith('.sql')).sort();
   return names.map((n) => path.join(sqlDir, n));

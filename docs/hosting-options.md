@@ -57,6 +57,6 @@ You can keep your domain and code and only change where the database comes from,
 2. In the Neon dashboard, open **Connection details** and copy the **connection string** (e.g. `postgresql://user:pass@ep-xxx.region.aws.neon.tech/neondb?sslmode=require`).
 3. In **Vercel** → your project → **Settings** → **Environment variables** → add `DATABASE_URL` with that string (Production and optionally Preview).
 4. Redeploy. Your existing `db.ts` will use it.
-5. Run your schema (e.g. `docs/init-comments.sql`) once in Neon’s SQL editor or via `psql`.
+5. Run your schema: use the migrations in repo root **sql/** (see [docs/neon-setup.md](neon-setup.md)) — e.g. `cd myastosite && node scripts/run-migration.js` — or run `docs/init-comments.sql` in Neon’s SQL editor for a minimal legacy comments table only.
 
 No AWS, no IAM, no provider move — only the source of `DATABASE_URL` changes.

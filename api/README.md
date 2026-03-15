@@ -78,6 +78,12 @@ Standalone API for Reclaim. Deploy separately from the frontend so backend and f
 
 After this, frontend and API deploy independently: change only frontend → deploy frontend; change only API → deploy API.
 
+## Where routes live
+
+- **Contact form:** Implemented only in the **frontend** (`myastosite/src/pages/api/contact.ts`). Not in this API. All other endpoints below live in this API.
+- **Production:** When the frontend is deployed with rewrites, `/api/*` is served by this API project; the frontend’s duplicate API route files (auth, add-comment, blog, db-health) are not used. The contact route is an exception: it stays in the frontend so the site can send email or store submissions without going through this API.
+- **Local dev:** With `API_URL` set, the Astro dev server proxies `/api/*` to this API; again, contact is handled by the frontend.
+
 ## Endpoints
 
 - `GET /api/db-health` – DB health check
