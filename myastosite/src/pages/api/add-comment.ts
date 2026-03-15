@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { addThought } from '@/lib/repositories/thoughtsRepository';
+import { isAllowedOrigin } from '@/lib/origin';
 
 const ALLOWED_REDIRECT_PATHS = ['/comments'] as const;
 
@@ -21,18 +22,7 @@ export const POST: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
   const redirectBase = getAllowedRedirect(url.searchParams.get('redirect'));
 
-  const origin = request.headers.get('origin');
-  const referer = request.headers.get('referer');
-  const siteOrigin = url.origin;
-  const allowedOrigin = (o: string | null) =>
-    o && (o === siteOrigin || o.replace(/\/$/, '') === siteOrigin.replace(/\/$/, ''));
-  let refererOrigin: string | null = null;
-  try {
-    if (referer) refererOrigin = new URL(referer).origin;
-  } catch {
-    /* invalid referer */
-  }
-  if (!allowedOrigin(origin) && !allowedOrigin(refererOrigin)) {
+  if (!isAllowedOrigin(request)) {
     return new Response(JSON.stringify({ error: 'Invalid origin' }), {
       status: 403,
       headers: { 'Content-Type': 'application/json' },

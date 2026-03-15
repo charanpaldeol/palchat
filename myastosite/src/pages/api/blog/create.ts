@@ -4,6 +4,7 @@ import {
   getSessionUser,
 } from "@/lib/auth";
 import { createBlogPost } from "@/lib/repositories/blogRepository";
+import { isAllowedOrigin } from "@/lib/origin";
 
 function slugify(input: string): string {
   return input
@@ -16,8 +17,6 @@ function slugify(input: string): string {
 }
 
 export const POST: APIRoute = async ({ request, cookies }) => {
-  const url = new URL(request.url);
-
   const sessionId = cookies.get(getSessionCookieName())?.value;
   const user = await getSessionUser(sessionId);
   if (!user) {
@@ -27,20 +26,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     });
   }
 
-  const origin = request.headers.get("origin");
-  const referer = request.headers.get("referer");
-  const siteOrigin = url.origin;
-  const allowedOrigin = (o: string | null) =>
-    o &&
-    (o === siteOrigin ||
-      o.replace(/\/$/, "") === siteOrigin.replace(/\/$/, ""));
-  let refererOrigin: string | null = null;
-  try {
-    if (referer) refererOrigin = new URL(referer).origin;
-  } catch {
-    /* invalid referer */
-  }
-  if (!allowedOrigin(origin) && !allowedOrigin(refererOrigin)) {
+  if (!isAllowedOrigin(request)) {
     return new Response(JSON.stringify({ error: "Invalid origin" }), {
       status: 403,
       headers: { "Content-Type": "application/json" },

@@ -6,21 +6,10 @@ import {
   sessionCookieOptions,
   getSessionCookieName,
 } from "@/lib/auth";
+import { isAllowedOrigin } from "@/lib/origin";
 
 export const POST: APIRoute = async ({ request, cookies }) => {
-  const origin = request.headers.get("origin");
-  const referer = request.headers.get("referer");
-  const url = new URL(request.url);
-  const siteOrigin = url.origin;
-  const allowed = (o: string | null) =>
-    o && (o === siteOrigin || o.replace(/\/$/, "") === siteOrigin.replace(/\/$/, ""));
-  let refererOrigin: string | null = null;
-  try {
-    if (referer) refererOrigin = new URL(referer).origin;
-  } catch {
-    /* */
-  }
-  if (!allowed(origin) && !allowed(refererOrigin)) {
+  if (!isAllowedOrigin(request)) {
     return new Response(JSON.stringify({ error: "Invalid origin" }), {
       status: 403,
       headers: { "Content-Type": "application/json" },
