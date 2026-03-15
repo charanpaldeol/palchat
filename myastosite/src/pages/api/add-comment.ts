@@ -18,15 +18,30 @@ function getAllowedRedirect(redirectParam: string | null): string {
     : '/comments';
 }
 
+/** When true, return 200 + JSON with redirect URL instead of 303 (so fetch can read it). */
+function wantsJsonResponse(request: Request): boolean {
+  const accept = request.headers.get('Accept') ?? '';
+  return accept.includes('application/json');
+}
+
 export const POST: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
   const redirectBase = getAllowedRedirect(url.searchParams.get('redirect'));
+  const json = wantsJsonResponse(request);
 
-  if (!isAllowedOrigin(request)) {
-    return new Response(JSON.stringify({ error: 'Invalid origin' }), {
-      status: 403,
+  const jsonResponse = (redirect: string, status: number) =>
+    new Response(JSON.stringify({ redirect }), {
+      status,
       headers: { 'Content-Type': 'application/json' },
     });
+
+  if (!isAllowedOrigin(request)) {
+    return json
+      ? jsonResponse(`${redirectBase}?error=1`, 403)
+      : new Response(JSON.stringify({ error: 'Invalid origin' }), {
+          status: 403,
+          headers: { 'Content-Type': 'application/json' },
+        });
   }
 
   try {
@@ -36,22 +51,28 @@ export const POST: APIRoute = async ({ request }) => {
 
     const words = countWords(comment);
     if (!comment || words === 0 || words > 200) {
-      return new Response(null, {
-        status: 303,
-        headers: { Location: `${redirectBase}?error=1` },
-      });
+      return json
+        ? jsonResponse(`${redirectBase}?error=1`, 200)
+        : new Response(null, {
+            status: 303,
+            headers: { Location: `${redirectBase}?error=1` },
+          });
     }
 
     await addThought(comment);
 
-    return new Response(null, {
-      status: 303,
-      headers: { Location: `${redirectBase}?success=1` },
-    });
+    return json
+      ? jsonResponse(`${redirectBase}?success=1`, 200)
+      : new Response(null, {
+          status: 303,
+          headers: { Location: `${redirectBase}?success=1` },
+        });
   } catch (error) {
-    return new Response(null, {
-      status: 303,
-      headers: { Location: `${redirectBase}?error=1` },
-    });
+    return json
+      ? jsonResponse(`${redirectBase}?error=1`, 200)
+      : new Response(null, {
+          status: 303,
+          headers: { Location: `${redirectBase}?error=1` },
+        });
   }
 };

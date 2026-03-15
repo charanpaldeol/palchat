@@ -57,11 +57,11 @@ export default function CommentForm({ justSaved = false, hasError = false }: Pro
       const res = await fetch("/api/add-comment?redirect=/comments", {
         method: "POST",
         body: formData,
-        redirect: "manual",
+        headers: { Accept: "application/json" },
       });
-      const location = res.headers.get("Location");
-      if (location) {
-        window.location.href = location;
+      const data = await res.json().catch(() => ({}));
+      if (typeof data?.redirect === "string") {
+        window.location.href = data.redirect;
         return;
       }
       window.location.href = "/comments?error=1";
