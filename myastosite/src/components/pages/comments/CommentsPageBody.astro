@@ -1,6 +1,7 @@
 ---
 import { getApiUrl } from '@/lib/api';
 import { query } from '@/lib/db';
+import CommentForm from './CommentForm';
 
 const searchParams = Astro.url.searchParams;
 const justSaved = searchParams.get('success') === '1';
@@ -39,44 +40,7 @@ if (apiUrl) {
       Type your thoughts below (up to 200 words) and save them. Recent thoughts from you and other people are listed underneath.
     </p>
 
-    {justSaved && (
-      <div class="alert alert-success" style="margin-top: var(--sp-3);">
-        Saved. Your comment has been stored in the database.
-      </div>
-    )}
-
-    {hasError && (
-      <div class="alert alert-error" style="margin-top: var(--sp-3);">
-        Please enter between 1 and 200 words before saving.
-      </div>
-    )}
-
-    <form
-      method="post"
-      action="/api/add-comment?redirect=/comments"
-      style="margin-top: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-4);"
-    >
-      <div class="field">
-        <label for="comment" class="field-label">
-          Your comment
-        </label>
-        <textarea
-          id="comment"
-          name="comment"
-          class="input"
-          rows="3"
-          required
-        ></textarea>
-        <p class="field-helper">
-          <span id="comment-word-count">0 / 200 words</span>. Empty comments or longer inputs will show an error and will not be saved.
-        </p>
-        <p class="field-error" id="comment-word-error" style="display: none;"></p>
-      </div>
-
-      <button type="submit" class="btn btn-primary">
-        Save comment
-      </button>
-    </form>
+    <CommentForm client:load justSaved={justSaved} hasError={hasError} />
 
     {dbError ? (
       <div class="alert alert-error" style="margin-top: var(--sp-4);">
@@ -150,57 +114,3 @@ if (apiUrl) {
     )}
   </div>
 </section>
-
-<script>
-  const MAX_WORDS = 200;
-
-  function countWords(value) {
-    const trimmed = value.trim();
-    if (!trimmed) return 0;
-    return trimmed.split(/\s+/).filter(Boolean).length;
-  }
-
-  if (typeof window !== 'undefined') {
-    window.addEventListener('DOMContentLoaded', () => {
-      const textarea = document.getElementById('comment');
-      const form = textarea?.form;
-      const countEl = document.getElementById('comment-word-count');
-      const errorEl = document.getElementById('comment-word-error');
-
-      if (!textarea || !form || !countEl || !errorEl) return;
-
-      function updateState() {
-        const words = countWords(textarea.value);
-        countEl.textContent = `${words} / ${MAX_WORDS} words`;
-
-        const hasError = words === 0 || words > MAX_WORDS;
-        textarea.classList.toggle('input-error', hasError);
-
-        if (hasError) {
-          errorEl.style.display = 'block';
-          if (words === 0) {
-            errorEl.textContent = 'Please enter at least 1 word.';
-          } else {
-            errorEl.textContent = `Please keep comments to ${MAX_WORDS} words or fewer.`;
-          }
-        } else {
-          errorEl.style.display = 'none';
-          errorEl.textContent = '';
-        }
-      }
-
-      textarea.addEventListener('input', updateState);
-
-      form.addEventListener('submit', (event) => {
-        const words = countWords(textarea.value);
-        if (words === 0 || words > MAX_WORDS) {
-          event.preventDefault();
-          updateState();
-        }
-      });
-
-      updateState();
-    });
-  }
-</script>
-
