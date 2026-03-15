@@ -14,13 +14,13 @@ export type CommentFormData = {
 };
 
 type Props = {
-  /** Shown after a server redirect with success=1 */
-  justSaved?: boolean;
+  /** Shown after a server redirect with success=1 (comment posted) */
+  justPosted?: boolean;
   /** Shown after a server redirect with error=1 */
   hasError?: boolean;
 };
 
-export default function CommentForm({ justSaved = false, hasError = false }: Props) {
+export default function CommentForm({ justPosted = false, hasError = false }: Props) {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "submitting">("idle");
   const wordCountId = useId();
   const errorId = useId();
@@ -77,15 +77,15 @@ export default function CommentForm({ justSaved = false, hasError = false }: Pro
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--sp-4)" }}>
-      {justSaved && (
+      {justPosted && (
         <div className="alert alert-success" style={{ marginTop: "var(--sp-3)" }} role="status">
-          Saved. Your comment has been stored in the database.
+          Comment posted.
         </div>
       )}
 
       {hasError && (
         <div className="alert alert-error" style={{ marginTop: "var(--sp-3)" }} role="alert">
-          Please enter between 1 and 200 words before saving.
+          Please enter between 1 and 200 words before posting.
         </div>
       )}
 
@@ -118,7 +118,7 @@ export default function CommentForm({ justSaved = false, hasError = false }: Pro
             <span aria-live="polite">
               {words} / {MAX_WORDS} words
             </span>
-            . Empty comments or longer inputs will show an error and will not be saved.
+            . Empty or too-long posts will show an error and won’t be published.
           </p>
           {showError && (
             <p id={errorId} className="field-error" role="alert">
@@ -133,7 +133,7 @@ export default function CommentForm({ justSaved = false, hasError = false }: Pro
           className="btn btn-primary"
           disabled={submitStatus === "submitting" || isEmpty || isOverLimit}
         >
-          {submitStatus === "submitting" ? "Saving…" : "Save comment"}
+          {submitStatus === "submitting" ? "Posting…" : "Post"}
         </button>
       </form>
     </div>

@@ -8,12 +8,27 @@ import {
 } from "@/lib/auth";
 import { isAllowedOrigin } from "@/lib/origin";
 
+function wantsJsonResponse(request: Request): boolean {
+  const accept = request.headers.get("Accept") ?? "";
+  return accept.includes("application/json");
+}
+
+const jsonRedirect = (redirect: string, status: number) =>
+  new Response(JSON.stringify({ redirect }), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
+
 export const POST: APIRoute = async ({ request, cookies }) => {
+  const json = wantsJsonResponse(request);
+
   if (!isAllowedOrigin(request)) {
-    return new Response(JSON.stringify({ error: "Invalid origin" }), {
-      status: 403,
-      headers: { "Content-Type": "application/json" },
-    });
+    return json
+      ? jsonRedirect("/login?error=1", 403)
+      : new Response(JSON.stringify({ error: "Invalid origin" }), {
+          status: 403,
+          headers: { "Content-Type": "application/json" },
+        });
   }
 
   const url = new URL(request.url);
@@ -25,26 +40,32 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     const redirectTo = (form.get("redirect") ?? url.searchParams.get("redirect") ?? "/my-account").toString().trim();
 
     if (!username || !password) {
-      return new Response(null, {
-        status: 303,
-        headers: { Location: "/login?error=missing" },
-      });
+      return json
+        ? jsonRedirect("/login?error=missing", 200)
+        : new Response(null, {
+            status: 303,
+            headers: { Location: "/login?error=missing" },
+          });
     }
 
     const user = await findUserByUsername(username);
     if (!user) {
-      return new Response(null, {
-        status: 303,
-        headers: { Location: "/login?error=invalid" },
-      });
+      return json
+        ? jsonRedirect("/login?error=invalid", 200)
+        : new Response(null, {
+            status: 303,
+            headers: { Location: "/login?error=invalid" },
+          });
     }
 
     const ok = await verifyPassword(password, user.password_hash);
     if (!ok) {
-      return new Response(null, {
-        status: 303,
-        headers: { Location: "/login?error=invalid" },
-      });
+      return json
+        ? jsonRedirect("/login?error=invalid", 200)
+        : new Response(null, {
+            status: 303,
+            headers: { Location: "/login?error=invalid" },
+          });
     }
 
     const sessionId = await createSession(user.id);
@@ -53,14 +74,18 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     const safeRedirect = redirectTo.startsWith("/") && !redirectTo.startsWith("//") ? redirectTo : "/my-account";
 
-    return new Response(null, {
-      status: 303,
-      headers: { Location: safeRedirect },
-    });
+    return json
+      ? jsonRedirect(safeRedirect, 200)
+      : new Response(null, {
+          status: 303,
+          headers: { Location: safeRedirect },
+        });
   } catch (err) {
-    return new Response(null, {
-      status: 303,
-      headers: { Location: "/login?error=1" },
-    });
+    return json
+      ? jsonRedirect("/login?error=1", 200)
+      : new Response(null, {
+          status: 303,
+          headers: { Location: "/login?error=1" },
+        });
   }
 };

@@ -4,7 +4,7 @@ import { query } from '@/lib/db';
 import CommentForm from './CommentForm';
 
 const searchParams = Astro.url.searchParams;
-const justSaved = searchParams.get('success') === '1';
+const justPosted = searchParams.get('success') === '1';
 const hasError = searchParams.get('error') === '1';
 
 let comments: { id: number; comment: string | null; created_at: string | null }[] = [];
@@ -37,10 +37,10 @@ if (apiUrl) {
       This space is for you to share your thoughts about Reclaim and where it should go next. Anything you write here can be read by everyone using this page.
     </p>
     <p class="body-text" style="margin-top: var(--sp-3);">
-      Type your thoughts below (up to 200 words) and save them. Recent thoughts from you and other people are listed underneath.
+      Post your thoughts below (up to 200 words). Recent posts from you and others appear underneath.
     </p>
 
-    <CommentForm client:load justSaved={justSaved} hasError={hasError} />
+    <CommentForm client:load justPosted={justPosted} hasError={hasError} />
 
     {dbError ? (
       <div class="alert alert-error" style="margin-top: var(--sp-4);">

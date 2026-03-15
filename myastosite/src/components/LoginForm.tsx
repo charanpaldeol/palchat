@@ -35,23 +35,18 @@ export default function LoginForm({ serverError, redirect }: Props) {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         body: formData,
-        redirect: "manual",
+        headers: { Accept: "application/json" },
       });
-
-      if (res.type === "opaqueredirect" || res.status === 303 || res.status === 302) {
-        const location = res.headers.get("Location");
-        if (location) {
-          window.location.href = location;
-          return;
-        }
+      const data = await res.json().catch(() => ({}));
+      if (typeof data?.redirect === "string") {
+        window.location.href = data.redirect;
+        return;
       }
-
       if (!res.ok) {
         setSubmitError("Something went wrong. Please try again.");
         setSubmitStatus("error");
         return;
       }
-
       setSubmitError("Unexpected response. Please try again.");
       setSubmitStatus("error");
     } catch {
