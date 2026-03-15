@@ -37,27 +37,21 @@ Do **not** commit `.env`; it’s in `.gitignore`.
 
 ---
 
-## 3. Create the `comments` table in Neon (one-time)
+## 3. Create tables in Neon (one-time)
 
-In the Neon Console:
-
-1. Open **SQL Editor**.
-2. Run:
-
-```sql
-CREATE TABLE IF NOT EXISTS comments (
-  id   SERIAL PRIMARY KEY,
-  comment TEXT
-);
-```
-
-Or run the project’s migration script (with `DATABASE_URL` in `myastosite/.env`):
+Run all migrations (creates `thoughts`, `users`, `sessions`, `blog_posts`, `contact_submissions`, etc.) with `DATABASE_URL` set in `myastosite/.env`:
 
 ```bash
 cd myastosite && node scripts/run-migration.js
 ```
 
-(This runs `sql/001_comments.sql` by default. Or pass a path: `node scripts/run-migration.js ../docs/init-comments.sql`.)
+This runs every `.sql` file in `myastosite/sql/` in order (001 through 005). To run a single migration:
+
+```bash
+cd myastosite && node scripts/run-migration.js sql/005_contact_submissions.sql
+```
+
+Alternatively, in the Neon Console **SQL Editor** you can run the contents of any file under `myastosite/sql/` (e.g. `005_contact_submissions.sql` for the contact form table).
 
 ---
 
@@ -93,7 +87,7 @@ Optional: use the [Neon + Vercel integration](https://neon.tech/docs/guides/verc
 |------|------------|
 | 1 | Copy **pooled** connection string from Neon Console. |
 | 2 | Set `DATABASE_URL` in `myastosite/.env` for local dev. |
-| 3 | Run `docs/init-comments.sql` in Neon SQL Editor (or via migration script). |
+| 3 | Run `node scripts/run-migration.js` from `myastosite/` to create all tables (or run individual `sql/*.sql` files). |
 | 4 | Run `npm run dev` and check `/api/db-health` and `/comments`. |
 | 5 | Add `DATABASE_URL` in Vercel env vars and redeploy. |
 

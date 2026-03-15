@@ -6,7 +6,7 @@ interface Props {
 }
 
 const { title = "Reclaim", noindex = false } = Astro.props as Props;
-const user = Astro.locals.user;
+const user = Astro.locals?.user;
 
 import "../styles/global.css";
 ---
